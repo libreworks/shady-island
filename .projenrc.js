@@ -17,7 +17,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   lambdaAutoDiscover: false,
   docgen: true,
   codeCov: true,
-  publishDryRun: true,
 
   defaultReleaseBranch: "main",
   stability: "experimental",
