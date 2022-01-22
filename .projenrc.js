@@ -19,6 +19,14 @@ const project = new awscdk.AwsCdkConstructLibrary({
   codeCov: true,
 
   defaultReleaseBranch: "main",
+  githubOptions: {
+    pullRequestLintOptions: {
+      semanticTitleOptions: {
+        types: ["feat", "fix", "chore", "docs"],
+      },
+    },
+  },
+
   stability: "experimental",
   cdkVersion: "2.1.0",
   majorVersion: 0,
