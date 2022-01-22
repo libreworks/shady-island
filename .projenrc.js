@@ -25,6 +25,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   majorVersion: 0,
   prerelease: "alpha",
 
+  projenTokenSecret: "GITHUB_TOKEN",
   autoApproveOptions: {},
   depsUpgradeOptions: {
     workflowOptions: {
