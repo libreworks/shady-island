@@ -90,7 +90,7 @@ export class CidrContext extends Construct implements ICidrContext {
     // Create the VPC CIDR block.
     const cidrBlock = new CfnVPCCidrBlock(this, "Ipv6CidrBlock", {
       vpcId: vpc.vpcId,
-      amazonProvidedIpv6CidrBlock: options.addressPool !== undefined,
+      amazonProvidedIpv6CidrBlock: options.addressPool === undefined,
       ipv6Pool: options.addressPool,
       ipv6CidrBlock: options.cidrBlock,
     });
