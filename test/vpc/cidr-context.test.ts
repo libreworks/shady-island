@@ -4,27 +4,65 @@ import { Vpc } from "aws-cdk-lib/aws-ec2";
 import { CidrContext } from "../../src/vpc";
 
 describe("CidrContext", () => {
-  test("synthesizes the way we expect", () => {
+  test("synthesizes the EOIG as expected", () => {
     const app = new cdk.App();
+    const stack = new cdk.Stack(app, "Stack");
+    const vpc = new Vpc(stack, "Vpc", {});
 
-    const myStack = new cdk.Stack(app, "TopicsStack");
-
-    const vpc = new Vpc(myStack, "Vpc", {});
-    /* const cidrContext =*/ new CidrContext(myStack, "CidrContext", {
+    new CidrContext(stack, "CidrContext", {
       vpc: vpc,
     });
 
-    const template = Template.fromStack(myStack);
-
-    // Assert it creates the function with the correct properties...
-    // template.hasResourceProperties("AWS::Lambda::Function", {
-    //   Handler: "handler",
-    //   Runtime: "nodejs14.x",
-    // });
-
-    // Creates the subscription...
-    template.resourceCountIs("AWS::EC2::VPC", 1);
+    const template = Template.fromStack(stack);
     template.resourceCountIs("AWS::EC2::EgressOnlyInternetGateway", 1);
+    template.hasResourceProperties("AWS::EC2::EgressOnlyInternetGateway", {
+      VpcId: { Ref: "Vpc8378EB38" },
+    });
+  });
+  test("synthesizes the VPCCidrBlock with defaults", () => {
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, "Stack");
+    const vpc = new Vpc(stack, "Vpc", {});
+
+    new CidrContext(stack, "CidrContext", {
+      vpc: vpc,
+    });
+
+    const template = Template.fromStack(stack);
+
     template.resourceCountIs("AWS::EC2::VPCCidrBlock", 1);
+    template.hasResourceProperties("AWS::EC2::VPCCidrBlock", {
+      VpcId: { Ref: "Vpc8378EB38" },
+      AmazonProvidedIpv6CidrBlock: true,
+    });
+  });
+  test("synthesizes the VPCCidrBlock with other values", () => {
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, "Stack");
+    const vpc = new Vpc(stack, "Vpc", {});
+
+    new CidrContext(stack, "CidrContext", {
+      vpc: vpc,
+      addressPool: "foo",
+      cidrBlock: "bar",
+    });
+
+    const template = Template.fromStack(stack);
+
+    template.resourceCountIs("AWS::EC2::VPCCidrBlock", 1);
+    template.hasResourceProperties("AWS::EC2::VPCCidrBlock", {
+      VpcId: { Ref: "Vpc8378EB38" },
+      AmazonProvidedIpv6CidrBlock: false,
+      Ipv6Pool: "foo",
+      Ipv6CidrBlock: "bar",
+    });
+  });
+  test("throws an error if the cidr count is too low", () => {
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, "Stack");
+    const vpc = new Vpc(stack, "Vpc", {});
+    expect(() => {
+      new CidrContext(stack, "CidrContext", { vpc: vpc, cidrCount: 1 });
+    }).toThrow("You must create at least 4 CIDR blocks in this VPC");
   });
 });
