@@ -28,12 +28,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   stability: "experimental",
-  cdkVersion: "2.1.0",
+  cdkVersion: "2.12.0",
   majorVersion: 0,
   prerelease: "alpha",
 
   projenTokenSecret: "GITHUB_TOKEN",
-  autoApproveOptions: {},
+  autoApproveOptions: {
+    // Anyone with write access to this repository can have auto-approval.
+    allowedUsernames: [],
+  },
   depsUpgradeOptions: {
     workflowOptions: {
       labels: ["auto-approve"],
