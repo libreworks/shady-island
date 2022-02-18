@@ -32,7 +32,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   majorVersion: 0,
   prerelease: "alpha",
 
-  projenTokenSecret: "GITHUB_TOKEN",
+  projenTokenSecret: "PROJEN_GITHUB_TOKEN",
   autoApproveOptions: {
     // Anyone with write access to this repository can have auto-approval.
     allowedUsernames: [],
