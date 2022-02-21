@@ -1,4 +1,4 @@
-const { awscdk, ProjectType } = require("projen");
+const { awscdk, javascript, ProjectType } = require("projen");
 
 const project = new awscdk.AwsCdkConstructLibrary({
   name: "shady-island",
@@ -40,6 +40,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   depsUpgradeOptions: {
     workflowOptions: {
       labels: ["auto-approve"],
+      schedule: javascript.UpgradeDependenciesSchedule.WEEKLY,
     },
   },
 
