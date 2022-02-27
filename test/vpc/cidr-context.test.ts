@@ -1,9 +1,27 @@
 import * as cdk from "aws-cdk-lib";
 import { /* Capture, Match, */ Template } from "aws-cdk-lib/assertions";
-import { Vpc } from "aws-cdk-lib/aws-ec2";
+import { Vpc, SubnetType } from "aws-cdk-lib/aws-ec2";
 import { CidrContext } from "../../src/vpc";
 
 describe("CidrContext", () => {
+  test("does not create an EOIG if no private subnets", () => {
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, "Stack");
+    const vpc = new Vpc(stack, "Vpc", {
+      subnetConfiguration: [
+        { name: "Public", subnetType: SubnetType.PUBLIC },
+        { name: "Isolated", subnetType: SubnetType.PRIVATE_ISOLATED },
+      ],
+    });
+
+    new CidrContext(stack, "CidrContext", {
+      vpc: vpc,
+    });
+
+    expect(vpc.privateSubnets).toHaveLength(0);
+    const template = Template.fromStack(stack);
+    template.resourceCountIs("AWS::EC2::EgressOnlyInternetGateway", 0);
+  });
   test("synthesizes the EOIG as expected", () => {
     const app = new cdk.App();
     const stack = new cdk.Stack(app, "Stack");
