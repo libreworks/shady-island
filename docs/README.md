@@ -2,11 +2,15 @@
 
 This library is a set of utilities and some [constructs](https://github.com/aws/constructs) for use with the [AWS CDK](https://github.com/aws/aws-cdk).
 
-## Namespaces
+## Documentation
+
+For your reading pleasure.
+
+### Developer Guide
 
 - [VPC](vpc.md)
 
-## API
+### API
 
 - [TypeScript API Reference](api/API.md)
 

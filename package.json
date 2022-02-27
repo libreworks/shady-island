@@ -71,7 +71,7 @@
   ],
   "main": "lib/index.js",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/libreworks/shady-island",
+  "homepage": "https://libreworks.github.io/shady-island/",
   "version": "0.0.0",
   "bugs": {
     "url": "https://github.com/libreworks/shady-island/issues"

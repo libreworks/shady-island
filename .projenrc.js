@@ -9,7 +9,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorOrganization: true,
 
   repositoryUrl: "git@github.com:libreworks/shady-island.git",
-  homepage: "https://github.com/libreworks/shady-island",
+  homepage: "https://libreworks.github.io/shady-island/",
   bugsUrl: "https://github.com/libreworks/shady-island/issues",
 
   prettier: true,
