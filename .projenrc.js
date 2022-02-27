@@ -15,8 +15,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   prettier: true,
   compat: true,
   lambdaAutoDiscover: false,
-  docgen: true,
   codeCov: true,
+
+  docgen: true,
+  docgenFilePath: "docs/api/API.md",
 
   defaultReleaseBranch: "main",
   githubOptions: {

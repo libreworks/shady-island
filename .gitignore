@@ -52,5 +52,5 @@ junit.xml
 !/.eslintrc.json
 .jsii
 tsconfig.json
-!/API.md
+!/docs/api/API.md
 !/.github/workflows/upgrade-main.yml
