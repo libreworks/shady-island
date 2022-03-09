@@ -8,6 +8,8 @@
   "scripts": {
     "build": "npx projen build",
     "bump": "npx projen bump",
+    "bundle": "npx projen bundle",
+    "bundle:vpc/assign-on-launch.handler": "npx projen bundle:vpc/assign-on-launch.handler",
     "clobber": "npx projen clobber",
     "compat": "npx projen compat",
     "compile": "npx projen compile",
@@ -43,6 +45,7 @@
     "@typescript-eslint/parser": "^5",
     "aws-cdk-lib": "2.12.0",
     "constructs": "10.0.5",
+    "esbuild": "^0.14.25",
     "eslint": "^8",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-node": "^0.3.6",
@@ -71,7 +74,7 @@
   ],
   "main": "lib/index.js",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/libreworks/shady-island",
+  "homepage": "https://libreworks.github.io/shady-island/",
   "version": "0.0.0",
   "bugs": {
     "url": "https://github.com/libreworks/shady-island/issues"

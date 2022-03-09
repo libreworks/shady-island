@@ -9,7 +9,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorOrganization: true,
 
   repositoryUrl: "git@github.com:libreworks/shady-island.git",
-  homepage: "https://github.com/libreworks/shady-island",
+  homepage: "https://libreworks.github.io/shady-island/",
   bugsUrl: "https://github.com/libreworks/shady-island/issues",
 
   prettier: true,
@@ -48,6 +48,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // deps: [],                /* Runtime dependencies of this module. */
   // devDeps: [],             /* Build dependencies for this module. */
+});
+
+project.bundler.addBundle("src/vpc/assign-on-launch.handler.js", {
+  target: "node14",
+  platform: "node",
+  externals: ["aws-sdk"], // modules not to include in bundles
+  watchTask: false, // should we create a "bundle:watch" task for each bundle
 });
 
 project.synth();
