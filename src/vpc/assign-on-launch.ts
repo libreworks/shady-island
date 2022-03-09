@@ -6,7 +6,10 @@ import { Function, Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { Provider } from "aws-cdk-lib/custom-resources";
 import { Construct } from "constructs";
 
-const HANDLER_PATH = path.join(__dirname, "assign-on-launch-lambda");
+const HANDLER_PATH = path.join(
+  __dirname,
+  "../../assets/vpc/assign-on-launch.handler"
+);
 
 /**
  * Properties for creating a new {@link AssignOnLaunch}.

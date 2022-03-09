@@ -50,4 +50,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // devDeps: [],             /* Build dependencies for this module. */
 });
 
+project.bundler.addBundle("src/vpc/assign-on-launch.handler.js", {
+  target: "node14",
+  platform: "node",
+  externals: ["aws-sdk"], // modules not to include in bundles
+  watchTask: false, // should we create a "bundle:watch" task for each bundle
+});
+
 project.synth();
