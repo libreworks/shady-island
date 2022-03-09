@@ -2,16 +2,16 @@ const AWS = require("aws-sdk");
 const ec2 = new AWS.EC2();
 
 exports.handler = async (event, context) => {
-  if (event.requestType !== "Create") {
+  if (event.RequestType !== "Create") {
     return;
   }
   const subnetIds = JSON.parse(process.env.SUBNET_IDS);
-  const responses = Promise.all(
+  const responses = await Promise.all(
     subnetIds.map((s) =>
       ec2
         .modifySubnetAttribute({
-          subnetId: s,
-          assignIpv6AddressOnCreation: true,
+          SubnetId: s,
+          AssignIpv6AddressOnCreation: { Value: true },
         })
         .promise()
     )

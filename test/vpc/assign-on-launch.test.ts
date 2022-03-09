@@ -68,5 +68,10 @@ describe("AssignOnLaunch", () => {
       Runtime: "nodejs14.x",
       Timeout: 300,
     });
+    template.hasResourceProperties("AWS::CloudFormation::CustomResource", {
+      ServiceToken: {
+        "Fn::GetAtt": ["AssignOnLaunchProviderframeworkonEventE909CC4A", "Arn"],
+      },
+    });
   });
 });

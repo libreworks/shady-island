@@ -1,6 +1,10 @@
 import * as path from "path";
-import { Stack, Duration } from "aws-cdk-lib";
-import { IVpc, SubnetSelection, SelectedSubnets } from "aws-cdk-lib/aws-ec2";
+import { Stack, Duration, CustomResource } from "aws-cdk-lib";
+import type {
+  IVpc,
+  SubnetSelection,
+  SelectedSubnets,
+} from "aws-cdk-lib/aws-ec2";
 import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Function, Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { Provider } from "aws-cdk-lib/custom-resources";
@@ -81,6 +85,10 @@ export class AssignOnLaunch extends Construct implements IAssignOnLaunch {
       ],
     });
 
-    new Provider(this, "Provider", { onEventHandler });
+    const provider = new Provider(this, "Provider", { onEventHandler });
+
+    new CustomResource(this, "Resource", {
+      serviceToken: provider.serviceToken,
+    });
   }
 }
