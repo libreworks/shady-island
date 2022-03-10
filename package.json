@@ -3,7 +3,7 @@
   "description": "Utilities and constructs for the AWS CDK",
   "repository": {
     "type": "git",
-    "url": "git@github.com:libreworks/shady-island.git"
+    "url": "https://github.com:libreworks/shady-island.git"
   },
   "scripts": {
     "build": "npx projen build",
