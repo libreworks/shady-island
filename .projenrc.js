@@ -46,6 +46,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
+  publishToPypi: {
+    distName: "shady-island",
+    module: "shady_island",
+  },
+
   // deps: [],                /* Runtime dependencies of this module. */
   // devDeps: [],             /* Build dependencies for this module. */
 });
