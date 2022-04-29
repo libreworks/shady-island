@@ -157,6 +157,82 @@ The IPv6-enabled VPC.
 ---
 
 
+### EncryptedLogGroup <a name="shady-island.EncryptedLogGroup" id="shadyislandencryptedloggroup"></a>
+
+- *Implements:* [`shady-island.IEncryptedLogGroup`](#shady-island.IEncryptedLogGroup)
+
+A log group encrypted by a KMS customer managed key.
+
+#### Initializers <a name="shady-island.EncryptedLogGroup.Initializer" id="shadyislandencryptedloggroupinitializer"></a>
+
+```typescript
+import { EncryptedLogGroup } from 'shady-island'
+
+new EncryptedLogGroup(scope: Construct, id: string, props: EncryptedLogGroupProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`scope`](#shadyislandencryptedloggroupparameterscope)<span title="Required">*</span> | [`constructs.Construct`](#constructs.Construct) | *No description.* |
+| [`id`](#shadyislandencryptedloggroupparameterid)<span title="Required">*</span> | `string` | *No description.* |
+| [`props`](#shadyislandencryptedloggroupparameterprops)<span title="Required">*</span> | [`shady-island.EncryptedLogGroupProps`](#shady-island.EncryptedLogGroupProps) | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="shady-island.EncryptedLogGroup.parameter.scope" id="shadyislandencryptedloggroupparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
+
+##### `id`<sup>Required</sup> <a name="shady-island.EncryptedLogGroup.parameter.id" id="shadyislandencryptedloggroupparameterid"></a>
+
+- *Type:* `string`
+
+---
+
+##### `props`<sup>Required</sup> <a name="shady-island.EncryptedLogGroup.parameter.props" id="shadyislandencryptedloggroupparameterprops"></a>
+
+- *Type:* [`shady-island.EncryptedLogGroupProps`](#shady-island.EncryptedLogGroupProps)
+
+---
+
+
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`key`](#shadyislandencryptedloggrouppropertykey)<span title="Required">*</span> | [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey) | The KMS encryption key. |
+| [`logGroup`](#shadyislandencryptedloggrouppropertyloggroup)<span title="Required">*</span> | [`aws-cdk-lib.aws_logs.ILogGroup`](#aws-cdk-lib.aws_logs.ILogGroup) | The log group. |
+
+---
+
+##### `key`<sup>Required</sup> <a name="shady-island.EncryptedLogGroup.property.key" id="shadyislandencryptedloggrouppropertykey"></a>
+
+```typescript
+public readonly key: IKey;
+```
+
+- *Type:* [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey)
+
+The KMS encryption key.
+
+---
+
+##### `logGroup`<sup>Required</sup> <a name="shady-island.EncryptedLogGroup.property.logGroup" id="shadyislandencryptedloggrouppropertyloggroup"></a>
+
+```typescript
+public readonly logGroup: ILogGroup;
+```
+
+- *Type:* [`aws-cdk-lib.aws_logs.ILogGroup`](#aws-cdk-lib.aws_logs.ILogGroup)
+
+The log group.
+
+---
+
+
 ## Structs <a name="Structs" id="structs"></a>
 
 ### AssignOnLaunchProps <a name="shady-island.AssignOnLaunchProps" id="shadyislandassignonlaunchprops"></a>
@@ -294,6 +370,234 @@ Split the CIDRs into this many groups (by default one for each subnet).
 
 ---
 
+### EncryptedLogGroupProps <a name="shady-island.EncryptedLogGroupProps" id="shadyislandencryptedloggroupprops"></a>
+
+Constructor properties for EncryptedLogGroup.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { EncryptedLogGroupProps } from 'shady-island'
+
+const encryptedLogGroupProps: EncryptedLogGroupProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`logGroupName`](#shadyislandencryptedloggrouppropspropertyloggroupname)<span title="Required">*</span> | `string` | Name of the log group. |
+| [`encryptionKey`](#shadyislandencryptedloggrouppropspropertyencryptionkey) | [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey) | The KMS Key to encrypt the log group with. |
+| [`removalPolicy`](#shadyislandencryptedloggrouppropspropertyremovalpolicy) | [`aws-cdk-lib.RemovalPolicy`](#aws-cdk-lib.RemovalPolicy) | Whether the key and group should be retained when they are removed from the Stack. |
+| [`retention`](#shadyislandencryptedloggrouppropspropertyretention) | [`aws-cdk-lib.aws_logs.RetentionDays`](#aws-cdk-lib.aws_logs.RetentionDays) | How long, in days, the log contents will be retained. |
+
+---
+
+##### `logGroupName`<sup>Required</sup> <a name="shady-island.EncryptedLogGroupProps.property.logGroupName" id="shadyislandencryptedloggrouppropspropertyloggroupname"></a>
+
+```typescript
+public readonly logGroupName: string;
+```
+
+- *Type:* `string`
+
+Name of the log group.
+
+We need a log group name ahead of time because otherwise the key policy would create a cyclical dependency.
+
+---
+
+##### `encryptionKey`<sup>Optional</sup> <a name="shady-island.EncryptedLogGroupProps.property.encryptionKey" id="shadyislandencryptedloggrouppropspropertyencryptionkey"></a>
+
+```typescript
+public readonly encryptionKey: IKey;
+```
+
+- *Type:* [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey)
+- *Default:* A new KMS key will be created
+
+The KMS Key to encrypt the log group with.
+
+---
+
+##### `removalPolicy`<sup>Optional</sup> <a name="shady-island.EncryptedLogGroupProps.property.removalPolicy" id="shadyislandencryptedloggrouppropspropertyremovalpolicy"></a>
+
+```typescript
+public readonly removalPolicy: RemovalPolicy;
+```
+
+- *Type:* [`aws-cdk-lib.RemovalPolicy`](#aws-cdk-lib.RemovalPolicy)
+- *Default:* RemovalPolicy.RETAIN
+
+Whether the key and group should be retained when they are removed from the Stack.
+
+---
+
+##### `retention`<sup>Optional</sup> <a name="shady-island.EncryptedLogGroupProps.property.retention" id="shadyislandencryptedloggrouppropspropertyretention"></a>
+
+```typescript
+public readonly retention: RetentionDays;
+```
+
+- *Type:* [`aws-cdk-lib.aws_logs.RetentionDays`](#aws-cdk-lib.aws_logs.RetentionDays)
+- *Default:* RetentionDays.TWO_YEARS
+
+How long, in days, the log contents will be retained.
+
+---
+
+## Classes <a name="Classes" id="classes"></a>
+
+### Tier <a name="shady-island.Tier" id="shadyislandtier"></a>
+
+A deployment environment with a specific purpose and audience.
+
+You can create any Tier you like, but we include those explained by DTAP.
+
+> https://en.wikipedia.org/wiki/Development,_testing,_acceptance_and_production
+
+#### Initializers <a name="shady-island.Tier.Initializer" id="shadyislandtierinitializer"></a>
+
+```typescript
+import { Tier } from 'shady-island'
+
+new Tier(id: string, label: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`id`](#shadyislandtierparameterid)<span title="Required">*</span> | `string` | The machine-readable identifier for this tier (e.g. prod). |
+| [`label`](#shadyislandtierparameterlabel)<span title="Required">*</span> | `string` | The human-readable label for this tier (e.g. Production). |
+
+---
+
+##### `id`<sup>Required</sup> <a name="shady-island.Tier.parameter.id" id="shadyislandtierparameterid"></a>
+
+- *Type:* `string`
+
+The machine-readable identifier for this tier (e.g. prod).
+
+---
+
+##### `label`<sup>Required</sup> <a name="shady-island.Tier.parameter.label" id="shadyislandtierparameterlabel"></a>
+
+- *Type:* `string`
+
+The human-readable label for this tier (e.g. Production).
+
+---
+
+#### Methods <a name="Methods" id="methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`applyTags`](#shadyislandtierapplytags) | Adds the label of this tier as a tag to the provided construct. |
+| [`matches`](#shadyislandtiermatches) | Compares this tier to the provided value and tests for equality. |
+
+---
+
+##### `applyTags` <a name="shady-island.Tier.applyTags" id="shadyislandtierapplytags"></a>
+
+```typescript
+public applyTags(construct: IConstruct)
+```
+
+###### `construct`<sup>Required</sup> <a name="shady-island.Tier.parameter.construct" id="shadyislandtierparameterconstruct"></a>
+
+- *Type:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+---
+
+##### `matches` <a name="shady-island.Tier.matches" id="shadyislandtiermatches"></a>
+
+```typescript
+public matches(other: Tier)
+```
+
+###### `other`<sup>Required</sup> <a name="shady-island.Tier.parameter.other" id="shadyislandtierparameterother"></a>
+
+- *Type:* [`shady-island.Tier`](#shady-island.Tier)
+
+The value to compare.
+
+---
+
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`id`](#shadyislandtierpropertyid)<span title="Required">*</span> | `string` | The machine-readable identifier for this tier (e.g. prod). |
+| [`label`](#shadyislandtierpropertylabel)<span title="Required">*</span> | `string` | The human-readable label for this tier (e.g. Production). |
+
+---
+
+##### `id`<sup>Required</sup> <a name="shady-island.Tier.property.id" id="shadyislandtierpropertyid"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* `string`
+
+The machine-readable identifier for this tier (e.g. prod).
+
+---
+
+##### `label`<sup>Required</sup> <a name="shady-island.Tier.property.label" id="shadyislandtierpropertylabel"></a>
+
+```typescript
+public readonly label: string;
+```
+
+- *Type:* `string`
+
+The human-readable label for this tier (e.g. Production).
+
+---
+
+#### Constants <a name="Constants" id="constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`ACCEPTANCE`](#shadyislandtierpropertyacceptance)<span title="Required">*</span> | [`shady-island.Tier`](#shady-island.Tier) | A tier that represents an acceptance environment. |
+| [`DEVELOPMENT`](#shadyislandtierpropertydevelopment)<span title="Required">*</span> | [`shady-island.Tier`](#shady-island.Tier) | A tier that represents a development environment. |
+| [`PRODUCTION`](#shadyislandtierpropertyproduction)<span title="Required">*</span> | [`shady-island.Tier`](#shady-island.Tier) | A tier that represents a production environment. |
+| [`TESTING`](#shadyislandtierpropertytesting)<span title="Required">*</span> | [`shady-island.Tier`](#shady-island.Tier) | A tier that represents a testing environment. |
+
+---
+
+##### `ACCEPTANCE` <a name="shady-island.Tier.property.ACCEPTANCE" id="shadyislandtierpropertyacceptance"></a>
+
+- *Type:* [`shady-island.Tier`](#shady-island.Tier)
+
+A tier that represents an acceptance environment.
+
+---
+
+##### `DEVELOPMENT` <a name="shady-island.Tier.property.DEVELOPMENT" id="shadyislandtierpropertydevelopment"></a>
+
+- *Type:* [`shady-island.Tier`](#shady-island.Tier)
+
+A tier that represents a development environment.
+
+---
+
+##### `PRODUCTION` <a name="shady-island.Tier.property.PRODUCTION" id="shadyislandtierpropertyproduction"></a>
+
+- *Type:* [`shady-island.Tier`](#shady-island.Tier)
+
+A tier that represents a production environment.
+
+---
+
+##### `TESTING` <a name="shady-island.Tier.property.TESTING" id="shadyislandtierpropertytesting"></a>
+
+- *Type:* [`shady-island.Tier`](#shady-island.Tier)
+
+A tier that represents a testing environment.
+
+---
 
 ## Protocols <a name="Protocols" id="protocols"></a>
 
@@ -361,6 +665,46 @@ public readonly vpc: IVpc;
 - *Type:* [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc)
 
 The IPv6-enabled VPC.
+
+---
+
+### IEncryptedLogGroup <a name="shady-island.IEncryptedLogGroup" id="shadyislandiencryptedloggroup"></a>
+
+- *Implemented By:* [`shady-island.EncryptedLogGroup`](#shady-island.EncryptedLogGroup), [`shady-island.IEncryptedLogGroup`](#shady-island.IEncryptedLogGroup)
+
+A log group encrypted by a KMS customer managed key.
+
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`key`](#shadyislandiencryptedloggrouppropertykey)<span title="Required">*</span> | [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey) | The KMS encryption key. |
+| [`logGroup`](#shadyislandiencryptedloggrouppropertyloggroup)<span title="Required">*</span> | [`aws-cdk-lib.aws_logs.ILogGroup`](#aws-cdk-lib.aws_logs.ILogGroup) | The log group. |
+
+---
+
+##### `key`<sup>Required</sup> <a name="shady-island.IEncryptedLogGroup.property.key" id="shadyislandiencryptedloggrouppropertykey"></a>
+
+```typescript
+public readonly key: IKey;
+```
+
+- *Type:* [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey)
+
+The KMS encryption key.
+
+---
+
+##### `logGroup`<sup>Required</sup> <a name="shady-island.IEncryptedLogGroup.property.logGroup" id="shadyislandiencryptedloggrouppropertyloggroup"></a>
+
+```typescript
+public readonly logGroup: ILogGroup;
+```
+
+- *Type:* [`aws-cdk-lib.aws_logs.ILogGroup`](#aws-cdk-lib.aws_logs.ILogGroup)
+
+The log group.
 
 ---
 
