@@ -8,6 +8,7 @@ For your reading pleasure.
 
 ### Developer Guide
 
+- [CloudWatch](cloudwatch.md)
 - [VPC](vpc.md)
 
 ### API
