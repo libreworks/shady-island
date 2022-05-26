@@ -233,6 +233,194 @@ The log group.
 ---
 
 
+### Workload <a name="shady-island.Workload" id="shadyislandworkload"></a>
+
+A collection of Stacks in an Environment representing a deployment Tier.
+
+Derive a subclass of `Workload` and create your stacks within.  The difference between this object and a `Stage` is that a `Stage` is meant to be deployed with CDK Pipelines. This class can be used with `cdk deploy`. This class also provides context loading capabilities.
+
+#### Initializers <a name="shady-island.Workload.Initializer" id="shadyislandworkloadinitializer"></a>
+
+```typescript
+import { Workload } from 'shady-island'
+
+new Workload(scope: Construct, id: string, props: WorkloadProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`scope`](#shadyislandworkloadparameterscope)<span title="Required">*</span> | [`constructs.Construct`](#constructs.Construct) | The construct scope. |
+| [`id`](#shadyislandworkloadparameterid)<span title="Required">*</span> | `string` | The construct ID. |
+| [`props`](#shadyislandworkloadparameterprops)<span title="Required">*</span> | [`shady-island.WorkloadProps`](#shady-island.WorkloadProps) | The constructor options. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="shady-island.Workload.parameter.scope" id="shadyislandworkloadparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The construct scope.
+
+---
+
+##### `id`<sup>Required</sup> <a name="shady-island.Workload.parameter.id" id="shadyislandworkloadparameterid"></a>
+
+- *Type:* `string`
+
+The construct ID.
+
+---
+
+##### `props`<sup>Required</sup> <a name="shady-island.Workload.parameter.props" id="shadyislandworkloadparameterprops"></a>
+
+- *Type:* [`shady-island.WorkloadProps`](#shady-island.WorkloadProps)
+
+The constructor options.
+
+---
+
+#### Methods <a name="Methods" id="methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`createStack`](#shadyislandworkloadcreatestack) | Adds a stack to the Workload. |
+
+---
+
+##### `createStack` <a name="shady-island.Workload.createStack" id="shadyislandworkloadcreatestack"></a>
+
+```typescript
+public createStack(id: string, props?: StackProps)
+```
+
+###### `id`<sup>Required</sup> <a name="shady-island.Workload.parameter.id" id="shadyislandworkloadparameterid"></a>
+
+- *Type:* `string`
+
+The Stack construct id (e.g. "Network").
+
+---
+
+###### `props`<sup>Optional</sup> <a name="shady-island.Workload.parameter.props" id="shadyislandworkloadparameterprops"></a>
+
+- *Type:* [`aws-cdk-lib.StackProps`](#aws-cdk-lib.StackProps)
+
+The new Stack properties.
+
+---
+
+#### Static Functions <a name="Static Functions" id="static-functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`isWorkload`](#shadyislandworkloadisworkload) | Test whether the given construct is a Workload. |
+| [`of`](#shadyislandworkloadof) | Return the Workload the construct is contained within, fails if there is no workload up the tree. |
+
+---
+
+##### `isWorkload` <a name="shady-island.Workload.isWorkload" id="shadyislandworkloadisworkload"></a>
+
+```typescript
+import { Workload } from 'shady-island'
+
+Workload.isWorkload(x: any)
+```
+
+###### `x`<sup>Required</sup> <a name="shady-island.Workload.parameter.x" id="shadyislandworkloadparameterx"></a>
+
+- *Type:* `any`
+
+The value to test.
+
+---
+
+##### `of` <a name="shady-island.Workload.of" id="shadyislandworkloadof"></a>
+
+```typescript
+import { Workload } from 'shady-island'
+
+Workload.of(construct: IConstruct)
+```
+
+###### `construct`<sup>Required</sup> <a name="shady-island.Workload.parameter.construct" id="shadyislandworkloadparameterconstruct"></a>
+
+- *Type:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+The construct whose parent nodes will be searched.
+
+---
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`stackNamePrefix`](#shadyislandworkloadpropertystacknameprefix)<span title="Required">*</span> | `string` | The prefix used in the default `stackName` provided to child Stacks. |
+| [`stacks`](#shadyislandworkloadpropertystacks)<span title="Required">*</span> | [`aws-cdk-lib.Stack`](#aws-cdk-lib.Stack)[] | *No description.* |
+| [`tier`](#shadyislandworkloadpropertytier)<span title="Required">*</span> | [`shady-island.Tier`](#shady-island.Tier) | The deployment tier. |
+| [`account`](#shadyislandworkloadpropertyaccount) | `string` | The default account for all resources defined within this workload. |
+| [`region`](#shadyislandworkloadpropertyregion) | `string` | The default region for all resources defined within this workload. |
+
+---
+
+##### `stackNamePrefix`<sup>Required</sup> <a name="shady-island.Workload.property.stackNamePrefix" id="shadyislandworkloadpropertystacknameprefix"></a>
+
+```typescript
+public readonly stackNamePrefix: string;
+```
+
+- *Type:* `string`
+
+The prefix used in the default `stackName` provided to child Stacks.
+
+---
+
+##### `stacks`<sup>Required</sup> <a name="shady-island.Workload.property.stacks" id="shadyislandworkloadpropertystacks"></a>
+
+```typescript
+public readonly stacks: Stack[];
+```
+
+- *Type:* [`aws-cdk-lib.Stack`](#aws-cdk-lib.Stack)[]
+
+---
+
+##### `tier`<sup>Required</sup> <a name="shady-island.Workload.property.tier" id="shadyislandworkloadpropertytier"></a>
+
+```typescript
+public readonly tier: Tier;
+```
+
+- *Type:* [`shady-island.Tier`](#shady-island.Tier)
+
+The deployment tier.
+
+---
+
+##### `account`<sup>Optional</sup> <a name="shady-island.Workload.property.account" id="shadyislandworkloadpropertyaccount"></a>
+
+```typescript
+public readonly account: string;
+```
+
+- *Type:* `string`
+
+The default account for all resources defined within this workload.
+
+---
+
+##### `region`<sup>Optional</sup> <a name="shady-island.Workload.property.region" id="shadyislandworkloadpropertyregion"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* `string`
+
+The default region for all resources defined within this workload.
+
+---
+
+
 ## Structs <a name="Structs" id="structs"></a>
 
 ### AssignOnLaunchProps <a name="shady-island.AssignOnLaunchProps" id="shadyislandassignonlaunchprops"></a>
@@ -443,6 +631,82 @@ public readonly retention: RetentionDays;
 - *Default:* RetentionDays.TWO_YEARS
 
 How long, in days, the log contents will be retained.
+
+---
+
+### WorkloadProps <a name="shady-island.WorkloadProps" id="shadyislandworkloadprops"></a>
+
+Constructor properties for a Workload.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { WorkloadProps } from 'shady-island'
+
+const workloadProps: WorkloadProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`tier`](#shadyislandworkloadpropspropertytier)<span title="Required">*</span> | [`shady-island.Tier`](#shady-island.Tier) | The deployment tier. |
+| [`contextFile`](#shadyislandworkloadpropspropertycontextfile) | `string` | The filesystem path to a JSON file that contains context values to load. |
+| [`env`](#shadyislandworkloadpropspropertyenv) | [`aws-cdk-lib.Environment`](#aws-cdk-lib.Environment) | The AWS environment (account/region) where this stack will be deployed. |
+| [`stackNamePrefix`](#shadyislandworkloadpropspropertystacknameprefix) | `string` | The prefix used in the default `stackName` provided to a child `Stack`. |
+
+---
+
+##### `tier`<sup>Required</sup> <a name="shady-island.WorkloadProps.property.tier" id="shadyislandworkloadpropspropertytier"></a>
+
+```typescript
+public readonly tier: Tier;
+```
+
+- *Type:* [`shady-island.Tier`](#shady-island.Tier)
+
+The deployment tier.
+
+---
+
+##### `contextFile`<sup>Optional</sup> <a name="shady-island.WorkloadProps.property.contextFile" id="shadyislandworkloadpropspropertycontextfile"></a>
+
+```typescript
+public readonly contextFile: string;
+```
+
+- *Type:* `string`
+
+The filesystem path to a JSON file that contains context values to load.
+
+Using this property allows you to load different context values within each instantiated `Workload`, directly from a file you can check into source control.
+
+---
+
+##### `env`<sup>Optional</sup> <a name="shady-island.WorkloadProps.property.env" id="shadyislandworkloadpropspropertyenv"></a>
+
+```typescript
+public readonly env: Environment;
+```
+
+- *Type:* [`aws-cdk-lib.Environment`](#aws-cdk-lib.Environment)
+
+The AWS environment (account/region) where this stack will be deployed.
+
+---
+
+##### `stackNamePrefix`<sup>Optional</sup> <a name="shady-island.WorkloadProps.property.stackNamePrefix" id="shadyislandworkloadpropspropertystacknameprefix"></a>
+
+```typescript
+public readonly stackNamePrefix: string;
+```
+
+- *Type:* `string`
+- *Default:* The id passed to the `Workload` constructor, but in lowercase
+
+The prefix used in the default `stackName` provided to a child `Stack`.
+
+By default, the `stackName` property provided to the `Stack` will begin with this Workload's `stackNamePrefix` and its `tier` separated by hyphens.  Consider providing a constant `stackNamePrefix` value to the superclass constructor in your derived class.
 
 ---
 
