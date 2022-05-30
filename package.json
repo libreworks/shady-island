@@ -45,7 +45,7 @@
     "@typescript-eslint/parser": "^5",
     "aws-cdk-lib": "2.12.0",
     "constructs": "10.0.5",
-    "esbuild": "^0.14.39",
+    "esbuild": "^0.14.42",
     "eslint": "^8",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-node": "^0.3.6",
@@ -61,10 +61,10 @@
     "json-schema": "^0.4.0",
     "npm-check-updates": "^12",
     "prettier": "^2.6.2",
-    "projen": "^0.56.28",
+    "projen": "^0.56.38",
     "standard-version": "^9",
     "ts-jest": "^27",
-    "typescript": "^4.6.4"
+    "typescript": "^4.7.2"
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.12.0",
