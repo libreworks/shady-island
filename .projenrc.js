@@ -29,10 +29,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
-  stability: "experimental",
-  cdkVersion: "2.12.0",
+  cdkVersion: "2.18.0",
   majorVersion: 0,
-  prerelease: "alpha",
 
   projenTokenSecret: "PROJEN_GITHUB_TOKEN",
   autoApproveOptions: {
@@ -50,6 +48,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     distName: "shady-island",
     module: "shady_island",
   },
+
+  catalog: { announce: true },
 
   // deps: [],                /* Runtime dependencies of this module. */
   // devDeps: [],             /* Build dependencies for this module. */

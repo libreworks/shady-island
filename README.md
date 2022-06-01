@@ -12,7 +12,14 @@ Utilities and constructs for the AWS CDK.
 
 - Create IPv6 CIDRs and routes for subnets in a VPC with the `CidrContext` construct.
 - Set the `AssignIpv6AddressOnCreation` property of subnets in a VPC with the `AssignOnLaunch` construct.
+- Properly encrypt a CloudWatch Log group with a KMS key and provision IAM permissions with the `EncryptedLogGroup` construct.
+- Represent a deployment tier with the `Tier` class.
+- Create a subclass of the `Workload` construct to contain your `Stack`s, and optionally load context values from a JSON file you specify.
 
 ## Documentation
 
 - [TypeScript API Reference](https://libreworks.github.io/shady-island/api/API.html)
+
+## The Name
+
+It's a pun. In English, the pronunciation of the acronym _CDK_ sounds a bit like the phrase _seedy cay_. A seedy cay might also be called a _shady island_.
