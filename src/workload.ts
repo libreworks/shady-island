@@ -18,25 +18,28 @@ export interface WorkloadProps {
    */
   readonly tier: Tier;
   /**
-   * The prefix used in the default `stackName` provided to a child `Stack`.
+   * The machine identifier for this workload.
    *
-   * By default, the `stackName` property provided to the `Stack` will begin
-   * with this Workload's `stackNamePrefix` and its `tier` separated by hyphens.
+   * This value will be used to create the `publicDomainName` property.
    *
-   * Consider providing a constant `stackNamePrefix` value to the superclass
+   * By default, the `stackName` property used to create `Stack` constructs in
+   * the `createStack` method will begin with this Workload's `workloadName` and
+   * its `tier` separated by hyphens.
+   *
+   * Consider providing a constant `workloadName` value to the superclass
    * constructor in your derived class.
    *
    * @example
    *
    * class MyWorkload extends Workload {
    *   constructor(scope: Construct, id: string, props: WorkloadProps) {
-   *     super(scope, id, { ...props, stackNamePrefix: 'my-workload' });
+   *     super(scope, id, { ...props, workloadName: 'my-workload' });
    *   }
    * }
    *
    * @default - The id passed to the `Workload` constructor, but in lowercase
    */
-  readonly stackNamePrefix?: string;
+  readonly workloadName?: string;
   /**
    * The filesystem path to a JSON file that contains context values to load.
    *
@@ -45,6 +48,10 @@ export interface WorkloadProps {
    * control.
    */
   readonly contextFile?: string;
+  /**
+   * The base domain name used to create the FQDN for public resources.
+   */
+  readonly baseDomainName?: string;
 }
 
 /**
@@ -99,11 +106,41 @@ export class Workload extends Construct {
   /**
    * The prefix used in the default `stackName` provided to child Stacks.
    */
-  public readonly stackNamePrefix: string;
+  public readonly workloadName: string;
   /**
    * The deployment tier.
    */
   public readonly tier: Tier;
+  /**
+   * The domain name to use for resources that expose public endpoints.
+   *
+   * You can use `Workload.of(this).publicDomainName` as the `zoneName` of a
+   * Route 53 hosted zone.
+   *
+   * Any construct that creates public DNS resources (e.g. those of API Gateway,
+   * Application Load Balancing, CloudFront) can use this property to format
+   * a FQDN for itself by adding a subdomain.
+   *
+   * @example
+   *
+   * const app = new App();
+   * const workload = new Workload(app, "Foobar", {
+   *   tier: Tier.PRODUCTION,
+   *   baseDomainName: 'example.com'
+   * });
+   * assert.strictEqual(workload.publicDomainName, 'prod.foobar.example.com');
+   * const stack = workload.createStack("DNS");
+   * const hostedZone = new HostedZone(stack, "HostedZone", {
+   *   zoneName: `${workload.publicDomainName}`
+   * });
+   * const api = new RestApi(stack, "API", {
+   *   restApiName: "foobar",
+   *   domainName: { domainName: `api.${workload.publicDomainName}` },
+   * });
+   *
+   * @default - If `baseDomainName` was empty, this will be `undefined`
+   */
+  public readonly publicDomainName?: string;
 
   private readonly _stacks: Map<string, Stack>;
 
@@ -119,15 +156,24 @@ export class Workload extends Construct {
 
     Object.defineProperty(this, WORKLOAD_SYMBOL, { value: true });
 
-    const { env, tier, stackNamePrefix, contextFile } = props;
+    const {
+      env: { region, account } = {},
+      tier,
+      workloadName,
+      contextFile,
+      baseDomainName,
+    } = props;
 
-    this.stackNamePrefix = stackNamePrefix ?? `${id}`.toLowerCase();
+    this.workloadName = workloadName ?? `${id}`.toLowerCase();
     this.tier = tier;
+    this.publicDomainName = baseDomainName
+      ? `${tier.id}.${this.workloadName}.${baseDomainName}`.toLowerCase()
+      : undefined;
     this._stacks = new Map();
 
-    const stage = Stage.of(this);
-    this.region = env?.region ?? stage?.region;
-    this.account = env?.account ?? stage?.account;
+    const { region: stageRegion, account: stageAccount } = Stage.of(this)!;
+    this.region = region || stageRegion;
+    this.account = account || stageAccount;
 
     if (contextFile) {
       this.loadContext(contextFile);
@@ -155,7 +201,7 @@ export class Workload extends Construct {
       throw new Error(`Context file contains invalid JSON syntax: ${filename}`);
     }
 
-    for (const [k, v] of Object.entries(defaults ?? {})) {
+    for (const [k, v] of Object.entries(defaults)) {
       this.node.setContext(k, v);
     }
   }
@@ -172,7 +218,7 @@ export class Workload extends Construct {
    *
    * This method will return a `Stack` with this Workload as its scope. By
    * default, the `stackName` property provided to the `Stack` will be this
-   * Workload's `stackNamePrefix`, its `tier`, and the value of the `id`
+   * Workload's `workloadName`, its `tier`, and the value of the `id`
    * parameter separated by hyphens, all in lowercase.
    *
    * @example
@@ -193,8 +239,7 @@ export class Workload extends Construct {
   public createStack(id: string, props?: StackProps): Stack {
     const { stackName, ...options } = props ?? {};
     const newStackName =
-      stackName ??
-      `${this.stackNamePrefix}-${this.tier.id}-${id}`.toLowerCase();
+      stackName ?? `${this.workloadName}-${this.tier.id}-${id}`.toLowerCase();
     const stack = new Stack(this, id, {
       stackName: newStackName,
       env:

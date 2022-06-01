@@ -354,23 +354,12 @@ The construct whose parent nodes will be searched.
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| [`stackNamePrefix`](#shadyislandworkloadpropertystacknameprefix)<span title="Required">*</span> | `string` | The prefix used in the default `stackName` provided to child Stacks. |
 | [`stacks`](#shadyislandworkloadpropertystacks)<span title="Required">*</span> | [`aws-cdk-lib.Stack`](#aws-cdk-lib.Stack)[] | *No description.* |
 | [`tier`](#shadyislandworkloadpropertytier)<span title="Required">*</span> | [`shady-island.Tier`](#shady-island.Tier) | The deployment tier. |
+| [`workloadName`](#shadyislandworkloadpropertyworkloadname)<span title="Required">*</span> | `string` | The prefix used in the default `stackName` provided to child Stacks. |
 | [`account`](#shadyislandworkloadpropertyaccount) | `string` | The default account for all resources defined within this workload. |
+| [`publicDomainName`](#shadyislandworkloadpropertypublicdomainname) | `string` | The domain name to use for resources that expose public endpoints. |
 | [`region`](#shadyislandworkloadpropertyregion) | `string` | The default region for all resources defined within this workload. |
-
----
-
-##### `stackNamePrefix`<sup>Required</sup> <a name="shady-island.Workload.property.stackNamePrefix" id="shadyislandworkloadpropertystacknameprefix"></a>
-
-```typescript
-public readonly stackNamePrefix: string;
-```
-
-- *Type:* `string`
-
-The prefix used in the default `stackName` provided to child Stacks.
 
 ---
 
@@ -396,6 +385,18 @@ The deployment tier.
 
 ---
 
+##### `workloadName`<sup>Required</sup> <a name="shady-island.Workload.property.workloadName" id="shadyislandworkloadpropertyworkloadname"></a>
+
+```typescript
+public readonly workloadName: string;
+```
+
+- *Type:* `string`
+
+The prefix used in the default `stackName` provided to child Stacks.
+
+---
+
 ##### `account`<sup>Optional</sup> <a name="shady-island.Workload.property.account" id="shadyislandworkloadpropertyaccount"></a>
 
 ```typescript
@@ -405,6 +406,21 @@ public readonly account: string;
 - *Type:* `string`
 
 The default account for all resources defined within this workload.
+
+---
+
+##### `publicDomainName`<sup>Optional</sup> <a name="shady-island.Workload.property.publicDomainName" id="shadyislandworkloadpropertypublicdomainname"></a>
+
+```typescript
+public readonly publicDomainName: string;
+```
+
+- *Type:* `string`
+- *Default:* If `baseDomainName` was empty, this will be `undefined`
+
+The domain name to use for resources that expose public endpoints.
+
+You can use `Workload.of(this).publicDomainName` as the `zoneName` of a Route 53 hosted zone.  Any construct that creates public DNS resources (e.g. those of API Gateway, Application Load Balancing, CloudFront) can use this property to format a FQDN for itself by adding a subdomain.
 
 ---
 
@@ -651,9 +667,10 @@ const workloadProps: WorkloadProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | [`tier`](#shadyislandworkloadpropspropertytier)<span title="Required">*</span> | [`shady-island.Tier`](#shady-island.Tier) | The deployment tier. |
+| [`baseDomainName`](#shadyislandworkloadpropspropertybasedomainname) | `string` | The base domain name used to create the FQDN for public resources. |
 | [`contextFile`](#shadyislandworkloadpropspropertycontextfile) | `string` | The filesystem path to a JSON file that contains context values to load. |
 | [`env`](#shadyislandworkloadpropspropertyenv) | [`aws-cdk-lib.Environment`](#aws-cdk-lib.Environment) | The AWS environment (account/region) where this stack will be deployed. |
-| [`stackNamePrefix`](#shadyislandworkloadpropspropertystacknameprefix) | `string` | The prefix used in the default `stackName` provided to a child `Stack`. |
+| [`workloadName`](#shadyislandworkloadpropspropertyworkloadname) | `string` | The machine identifier for this workload. |
 
 ---
 
@@ -666,6 +683,18 @@ public readonly tier: Tier;
 - *Type:* [`shady-island.Tier`](#shady-island.Tier)
 
 The deployment tier.
+
+---
+
+##### `baseDomainName`<sup>Optional</sup> <a name="shady-island.WorkloadProps.property.baseDomainName" id="shadyislandworkloadpropspropertybasedomainname"></a>
+
+```typescript
+public readonly baseDomainName: string;
+```
+
+- *Type:* `string`
+
+The base domain name used to create the FQDN for public resources.
 
 ---
 
@@ -695,18 +724,18 @@ The AWS environment (account/region) where this stack will be deployed.
 
 ---
 
-##### `stackNamePrefix`<sup>Optional</sup> <a name="shady-island.WorkloadProps.property.stackNamePrefix" id="shadyislandworkloadpropspropertystacknameprefix"></a>
+##### `workloadName`<sup>Optional</sup> <a name="shady-island.WorkloadProps.property.workloadName" id="shadyislandworkloadpropspropertyworkloadname"></a>
 
 ```typescript
-public readonly stackNamePrefix: string;
+public readonly workloadName: string;
 ```
 
 - *Type:* `string`
 - *Default:* The id passed to the `Workload` constructor, but in lowercase
 
-The prefix used in the default `stackName` provided to a child `Stack`.
+The machine identifier for this workload.
 
-By default, the `stackName` property provided to the `Stack` will begin with this Workload's `stackNamePrefix` and its `tier` separated by hyphens.  Consider providing a constant `stackNamePrefix` value to the superclass constructor in your derived class.
+This value will be used to create the `publicDomainName` property.  By default, the `stackName` property used to create `Stack` constructs in the `createStack` method will begin with this Workload's `workloadName` and its `tier` separated by hyphens.  Consider providing a constant `workloadName` value to the superclass constructor in your derived class.
 
 ---
 
