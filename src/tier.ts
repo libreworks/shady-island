@@ -27,6 +27,44 @@ export class Tier {
   public static readonly DEVELOPMENT: Tier = new Tier("dev", "Development");
 
   /**
+   * Return the deployment tier that corresponds to the provided value.
+   *
+   * Production: "live", "prod", or "production".
+   * Acceptance: "uat", "stage", "staging", or "acceptance".
+   * Testing: "qc", "qa", "test", or "testing".
+   * Development: anything else.
+   *
+   * @param value - The value to parse, case-insensitive
+   * @returns The matching deployment tier, or else `DEVELOPMENT`.
+   */
+  public static parse(value: string) {
+    let tier;
+    switch (value.trim().toLowerCase()) {
+      case "production":
+      case "prod":
+      case "live":
+        tier = Tier.PRODUCTION;
+        break;
+      case "uat":
+      case "stage":
+      case "staging":
+      case "accept":
+      case "acceptance":
+        tier = Tier.ACCEPTANCE;
+        break;
+      case "qc":
+      case "qa":
+      case "test":
+      case "testing":
+        tier = Tier.TESTING;
+        break;
+      default:
+        tier = Tier.DEVELOPMENT;
+    }
+    return tier;
+  }
+
+  /**
    * The machine-readable identifier for this tier (e.g. prod)
    */
   public readonly id: string;

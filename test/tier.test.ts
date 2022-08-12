@@ -24,4 +24,24 @@ describe("Tier", () => {
       Tags: [{ Key: "DeploymentTier", Value: tier.label }],
     });
   });
+  test.each([
+    ["QA", Tier.TESTING],
+    ["Qc ", Tier.TESTING],
+    ["test", Tier.TESTING],
+    ["teStIng", Tier.TESTING],
+    ["uAT", Tier.ACCEPTANCE],
+    ["  accePTAnce", Tier.ACCEPTANCE],
+    ["ACCEPT", Tier.ACCEPTANCE],
+    ["stage", Tier.ACCEPTANCE],
+    ["   STAGING     ", Tier.ACCEPTANCE],
+    ["prod", Tier.PRODUCTION],
+    ["prodUCTION                  ", Tier.PRODUCTION],
+    ["lIvE", Tier.PRODUCTION],
+    ["dev", Tier.DEVELOPMENT],
+    ["develop", Tier.DEVELOPMENT],
+    ["development", Tier.DEVELOPMENT],
+    ["    absolutely anything you want    ", Tier.DEVELOPMENT],
+  ])("given %p, returns %p", (first: string, expected: Tier) => {
+    expect(Tier.parse(first)).toEqual(expected);
+  });
 });

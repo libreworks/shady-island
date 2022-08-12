@@ -815,6 +815,29 @@ The value to compare.
 
 ---
 
+#### Static Functions <a name="Static Functions" id="static-functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`parse`](#shadyislandtierparse) | Return the deployment tier that corresponds to the provided value. |
+
+---
+
+##### `parse` <a name="shady-island.Tier.parse" id="shadyislandtierparse"></a>
+
+```typescript
+import { Tier } from 'shady-island'
+
+Tier.parse(value: string)
+```
+
+###### `value`<sup>Required</sup> <a name="shady-island.Tier.parameter.value" id="shadyislandtierparametervalue"></a>
+
+- *Type:* `string`
+
+The value to parse, case-insensitive.
+
+---
 
 #### Properties <a name="Properties" id="properties"></a>
 
