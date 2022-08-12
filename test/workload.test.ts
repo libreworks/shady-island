@@ -1,6 +1,7 @@
 import * as path from "path";
 import { App, Stack, Stage } from "aws-cdk-lib";
-// import { Template } from "aws-cdk-lib/assertions";
+import { Template } from "aws-cdk-lib/assertions";
+import { Vpc } from "aws-cdk-lib/aws-ec2";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Tier } from "../src/tier";
 import { Workload } from "../src/workload";
@@ -197,5 +198,26 @@ describe("Workload", () => {
     expect(stack.node.id).toBe("Foobar");
     expect(stack.stackName).toBe(stackProps.stackName);
     expect(workload.stacks.values()).toContain(stack);
+  });
+  test("synthesizes the tags as expected", () => {
+    const app = new App();
+    const env = { account: "123456789012", region: "us-east-2" };
+    const tier = Tier.ACCEPTANCE;
+    const workloadName = "foo-bar";
+    const workload = new Workload(app, "MyStuffUat", {
+      tier,
+      workloadName,
+      env,
+    });
+    const stack = workload.createStack("Foobar");
+    new Vpc(stack, "Vpc", {});
+    const template = Template.fromStack(stack);
+    console.log(JSON.stringify(template.toJSON(), undefined, 2));
+    template.hasResourceProperties("AWS::EC2::VPC", {
+      Tags: [
+        { Key: "DeploymentTier", Value: "Acceptance" },
+        { Key: "Name", Value: "MyStuffUat/Foobar/Vpc" },
+      ],
+    });
   });
 });

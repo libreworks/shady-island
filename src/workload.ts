@@ -233,6 +233,8 @@ export class Workload extends Construct {
    * You can override the `env` and `stackName` properties in the `props`
    * argument if desired.
    *
+   * The stack will have a `DeploymentTier` tag added, set to the tier label.
+   *
    * @param id - The Stack construct id (e.g. "Network")
    * @param props - The new Stack properties
    */
@@ -248,6 +250,7 @@ export class Workload extends Construct {
           : undefined,
       ...options,
     });
+    this.tier.applyTags(stack);
     this._stacks.set(newStackName, stack);
     return stack;
   }
