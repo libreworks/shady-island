@@ -237,7 +237,7 @@ The log group.
 
 A collection of Stacks in an Environment representing a deployment Tier.
 
-Derive a subclass of `Workload` and create your stacks within.  The difference between this object and a `Stage` is that a `Stage` is meant to be deployed with CDK Pipelines. This class can be used with `cdk deploy`. This class also provides context loading capabilities.
+Consider deriving a subclass of `Workload` and creating your `Stack` objects within its constructor.  The difference between this class and a `Stage` is that a `Stage` is meant to be deployed with CDK Pipelines. This class can be used with `cdk deploy`. This class also provides context loading capabilities.  It is an anti-pattern to provide a `Workload` instance as the parent scope to the `aws-cdk-lib.Stack` constructor. You should either use the `createStack()` method, create your own sub-class of `Stack` and provide a `Workload` instance as the parent scope, or use the `import()` method to essentially _import_ a `Stack` and its constructs into a `Workload` without changing its scope.
 
 #### Initializers <a name="shady-island.Workload.Initializer" id="shadyislandworkloadinitializer"></a>
 
@@ -284,6 +284,7 @@ The constructor options.
 | **Name** | **Description** |
 | --- | --- |
 | [`createStack`](#shadyislandworkloadcreatestack) | Adds a stack to the Workload. |
+| [`import`](#shadyislandworkloadimport) | Forces a return value for `Workload.of` for one or more `Stack` objects. |
 
 ---
 
@@ -306,6 +307,20 @@ The Stack construct id (e.g. "Network").
 - *Type:* [`aws-cdk-lib.StackProps`](#aws-cdk-lib.StackProps)
 
 The new Stack properties.
+
+---
+
+##### `import` <a name="shady-island.Workload.import" id="shadyislandworkloadimport"></a>
+
+```typescript
+public import(stacks: Stack)
+```
+
+###### `stacks`<sup>Required</sup> <a name="shady-island.Workload.parameter.stacks" id="shadyislandworkloadparameterstacks"></a>
+
+- *Type:* [`aws-cdk-lib.Stack`](#aws-cdk-lib.Stack)
+
+The `Stack` instances to import to this `Workload`.
 
 ---
 
