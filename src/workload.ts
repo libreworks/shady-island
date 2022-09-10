@@ -54,14 +54,24 @@ export interface WorkloadProps {
   readonly baseDomainName?: string;
 }
 
+const IMPORTED_STACKS = new Map<Stack, Workload>();
+
 /**
  * A collection of Stacks in an Environment representing a deployment Tier.
  *
- * Derive a subclass of `Workload` and create your stacks within.
+ * Consider deriving a subclass of `Workload` and creating your `Stack` objects
+ * within its constructor.
  *
- * The difference between this object and a `Stage` is that a `Stage` is meant
- * to be deployed with CDK Pipelines. This class can be used with `cdk deploy`.
+ * The difference between this class and a `Stage` is that a `Stage` is meant to
+ * be deployed with CDK Pipelines. This class can be used with `cdk deploy`.
  * This class also provides context loading capabilities.
+ *
+ * It is an anti-pattern to provide a `Workload` instance as the parent scope to
+ * the `aws-cdk-lib.Stack` constructor. You should either use the
+ * `createStack()` method, create your own sub-class of `Stack` and provide a
+ * `Workload` instance as the parent scope, or use the `import()` method to
+ * essentially _import_ a `Stack` and its constructs into a `Workload` without
+ * changing its scope.
  */
 export class Workload extends Construct {
   /**
@@ -73,6 +83,10 @@ export class Workload extends Construct {
    * @throws Error - if none of the construct's parents are a workload
    */
   public static of(construct: IConstruct): Workload {
+    const constructStack = Stack.of(construct);
+    if (IMPORTED_STACKS.has(constructStack)) {
+      return IMPORTED_STACKS.get(constructStack)!;
+    }
     const workload = construct.node.scopes
       .reverse()
       .slice(1)
@@ -214,6 +228,66 @@ export class Workload extends Construct {
   }
 
   /**
+   * Register the provided `Stack` as being part of this `Workload`.
+   *
+   * @param stack - The stack to register.
+   * @returns The provided Stack
+   */
+  protected registerStack(stack: Stack): Stack {
+    this.tier.applyTags(stack);
+    this._stacks.set(stack.stackName, stack);
+    return stack;
+  }
+
+  /**
+   * Forces a return value for `Workload.of` for one or more `Stack` objects.
+   *
+   * Normally, a construct must be within the scope of the `Workload` instance,
+   * such as a construct that is a descendant of a `Stack` returned from
+   * `createStack()`.
+   *
+   * That means that any `Stack` instances you created in your CDK application
+   * _before_ installing the `shady-island` library would not be able to be part
+   * of a `Workload` unless you changed the `scope` argument of the `Stack`
+   * constructor from the `App` or `Stage` to the desired `Workload` instance.
+   * However, that's bad news for a `Stack` that has already been deployed to
+   * CloudFormation because the resource identifier of persistent child
+   * constructs (e.g. RDS databases, S3 buckets) would change.
+   *
+   * A successful call to this method will register the provided `Stack` objects
+   * and all their construct descendants as members of that `Workload` instance.
+   * Calling `Workload.of()` with any of the provided `Stack` objects or their
+   * descendant constructs will return that `Workload` instance.
+   *
+   * If any of the `Stack` objects provided to this method already belong to a
+   * different `Workload` object, or whose parent scope is not identical to the
+   * parent scope of this `Workload` (i.e. the `Stage` or the `App`), an error
+   * will be thrown.
+   *
+   * @param stacks - The `Stack` instances to import to this `Workload`
+   * @throws {Error} if any of the stacks are already part of another workload
+   * @throws {Error} if any of the stacks have a different parent scope
+   */
+  public import(...stacks: Stack[]) {
+    for (const stack of stacks) {
+      if (stack.node.scope === this) {
+        continue;
+      }
+      if (Workload.isWorkload(stack.node.scope) && stack.node.scope !== this) {
+        throw new Error(
+          "The Stack is already contained within a different Workload"
+        );
+      }
+      if (stack.node.scope !== this.node.scope) {
+        throw new Error(
+          "The Stack must be contained within the same scope as this Workload"
+        );
+      }
+      IMPORTED_STACKS.set(this.registerStack(stack), this);
+    }
+  }
+
+  /**
    * Adds a stack to the Workload.
    *
    * This method will return a `Stack` with this Workload as its scope. By
@@ -250,8 +324,6 @@ export class Workload extends Construct {
           : undefined,
       ...options,
     });
-    this.tier.applyTags(stack);
-    this._stacks.set(newStackName, stack);
-    return stack;
+    return this.registerStack(stack);
   }
 }
