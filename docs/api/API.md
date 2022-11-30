@@ -957,6 +957,51 @@ How long, in days, the log contents will be retained.
 
 ---
 
+### PrioritizedLines <a name="shady-island.PrioritizedLines" id="shadyislandprioritizedlines"></a>
+
+A container for lines of a User Data script, sortable by `priority`.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { PrioritizedLines } from 'shady-island'
+
+const prioritizedLines: PrioritizedLines = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`lines`](#shadyislandprioritizedlinespropertylines)<span title="Required">*</span> | `string`[] | The command lines. |
+| [`priority`](#shadyislandprioritizedlinespropertypriority)<span title="Required">*</span> | `number` | The priority for this set of commands. |
+
+---
+
+##### `lines`<sup>Required</sup> <a name="shady-island.PrioritizedLines.property.lines" id="shadyislandprioritizedlinespropertylines"></a>
+
+```typescript
+public readonly lines: string[];
+```
+
+- *Type:* `string`[]
+
+The command lines.
+
+---
+
+##### `priority`<sup>Required</sup> <a name="shady-island.PrioritizedLines.property.priority" id="shadyislandprioritizedlinespropertypriority"></a>
+
+```typescript
+public readonly priority: number;
+```
+
+- *Type:* `number`
+
+The priority for this set of commands.
+
+---
+
 ### WorkloadProps <a name="shady-island.WorkloadProps" id="shadyislandworkloadprops"></a>
 
 Constructor properties for a Workload.
@@ -1221,6 +1266,112 @@ A tier that represents a production environment.
 A tier that represents a testing environment.
 
 ---
+
+### UserDataBuilder <a name="shady-island.UserDataBuilder" id="shadyislanduserdatabuilder"></a>
+
+A utility class to assist with composing instance User Data.
+
+This class allows multiple observers in code to add lines to the same end result UserData without clobbering each other. Just like `conf.d` directories with priority number prefixes, you can declare the proper execution order of your UserData commands without having to add them in that order.
+
+#### Initializers <a name="shady-island.UserDataBuilder.Initializer" id="shadyislanduserdatabuilderinitializer"></a>
+
+```typescript
+import { UserDataBuilder } from 'shady-island'
+
+new UserDataBuilder()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+#### Methods <a name="Methods" id="methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`addCommands`](#shadyislanduserdatabuilderaddcommands) | Add one or more commands to the user data with a priority of `0`. |
+| [`buildUserData`](#shadyislanduserdatabuilderbuilduserdata) | Produces the User Data script with all lines sorted in priority order. |
+| [`insertCommands`](#shadyislanduserdatabuilderinsertcommands) | Add one or more commands to the user data at a specific priority. |
+
+---
+
+##### `addCommands` <a name="shady-island.UserDataBuilder.addCommands" id="shadyislanduserdatabuilderaddcommands"></a>
+
+```typescript
+public addCommands(commands: string)
+```
+
+###### `commands`<sup>Required</sup> <a name="shady-island.UserDataBuilder.parameter.commands" id="shadyislanduserdatabuilderparametercommands"></a>
+
+- *Type:* `string`
+
+The lines to add.
+
+---
+
+##### `buildUserData` <a name="shady-island.UserDataBuilder.buildUserData" id="shadyislanduserdatabuilderbuilduserdata"></a>
+
+```typescript
+public buildUserData()
+```
+
+##### `insertCommands` <a name="shady-island.UserDataBuilder.insertCommands" id="shadyislanduserdatabuilderinsertcommands"></a>
+
+```typescript
+public insertCommands(priority: number, commands: string)
+```
+
+###### `priority`<sup>Required</sup> <a name="shady-island.UserDataBuilder.parameter.priority" id="shadyislanduserdatabuilderparameterpriority"></a>
+
+- *Type:* `number`
+
+The priority of these lines (lower executes earlier).
+
+---
+
+###### `commands`<sup>Required</sup> <a name="shady-island.UserDataBuilder.parameter.commands" id="shadyislanduserdatabuilderparametercommands"></a>
+
+- *Type:* `string`
+
+The lines to add.
+
+---
+
+#### Static Functions <a name="Static Functions" id="static-functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`forLinux`](#shadyislanduserdatabuilderforlinux) | Returns a user data builder for GNU/Linux operating systems. |
+| [`forWindows`](#shadyislanduserdatabuilderforwindows) | Returns a user data builder for Windows operating systems. |
+
+---
+
+##### `forLinux` <a name="shady-island.UserDataBuilder.forLinux" id="shadyislanduserdatabuilderforlinux"></a>
+
+```typescript
+import { UserDataBuilder } from 'shady-island'
+
+UserDataBuilder.forLinux(options?: LinuxUserDataOptions)
+```
+
+###### `options`<sup>Optional</sup> <a name="shady-island.UserDataBuilder.parameter.options" id="shadyislanduserdatabuilderparameteroptions"></a>
+
+- *Type:* [`aws-cdk-lib.aws_ec2.LinuxUserDataOptions`](#aws-cdk-lib.aws_ec2.LinuxUserDataOptions)
+
+The Linux UserData constructor options.
+
+---
+
+##### `forWindows` <a name="shady-island.UserDataBuilder.forWindows" id="shadyislanduserdatabuilderforwindows"></a>
+
+```typescript
+import { UserDataBuilder } from 'shady-island'
+
+UserDataBuilder.forWindows()
+```
+
+
 
 ## Protocols <a name="Protocols" id="protocols"></a>
 

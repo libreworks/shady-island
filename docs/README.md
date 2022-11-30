@@ -10,6 +10,7 @@ For your reading pleasure.
 
 - [Core](core.md) – The main classes and constructs of this library
 - [CloudWatch](cloudwatch.md) – Constructs dealing with CloudWatch Metrics and Logs
+- [EC2][ec2.md] – Constructs dealing with EC2-related concepts
 - [EFS](efs.md) – Constructs dealing with EFS
 - [VPC](vpc.md) – Constructs dealing with VPC-related concepts
 
