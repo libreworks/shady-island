@@ -29,7 +29,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
-  cdkVersion: "2.18.0",
+  cdkVersion: "2.24.0",
   majorVersion: 0,
 
   projenTokenSecret: "PROJEN_GITHUB_TOKEN",
@@ -56,7 +56,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 });
 
 project.bundler.addBundle("src/vpc/assign-on-launch.handler.js", {
-  target: "node14",
+  target: "node16",
   platform: "node",
   externals: ["aws-sdk"], // modules not to include in bundles
   watchTask: false, // should we create a "bundle:watch" task for each bundle

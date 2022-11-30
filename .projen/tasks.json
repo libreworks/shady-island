@@ -55,7 +55,7 @@
       "description": "Create a JavaScript bundle from src/vpc/assign-on-launch.handler.js",
       "steps": [
         {
-          "exec": "esbuild --bundle src/vpc/assign-on-launch.handler.js --target=\"node14\" --platform=\"node\" --outfile=\"assets/vpc/assign-on-launch.handler/index.js\" --external:aws-sdk"
+          "exec": "esbuild --bundle src/vpc/assign-on-launch.handler.js --target=\"node16\" --platform=\"node\" --outfile=\"assets/vpc/assign-on-launch.handler/index.js\" --external:aws-sdk"
         }
       ]
     },

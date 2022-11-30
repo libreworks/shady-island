@@ -69,7 +69,7 @@ export class AssignOnLaunch extends Construct implements IAssignOnLaunch {
     const { region, account, partition } = Stack.of(this);
 
     const onEventHandler = new Function(this, "Function", {
-      runtime: Runtime.NODEJS_14_X,
+      runtime: Runtime.NODEJS_16_X,
       handler: "index.handler",
       environment: { SUBNET_IDS: `${JSON.stringify(subnetIds)}` },
       code: Code.fromAsset(HANDLER_PATH),
