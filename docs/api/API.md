@@ -157,6 +157,88 @@ The IPv6-enabled VPC.
 ---
 
 
+### EncryptedFileSystem <a name="shady-island.EncryptedFileSystem" id="shadyislandencryptedfilesystem"></a>
+
+- *Implements:* [`shady-island.IEncryptedFileSystem`](#shady-island.IEncryptedFileSystem)
+
+An EncryptedFileSystem.
+
+#### Initializers <a name="shady-island.EncryptedFileSystem.Initializer" id="shadyislandencryptedfilesysteminitializer"></a>
+
+```typescript
+import { EncryptedFileSystem } from 'shady-island'
+
+new EncryptedFileSystem(scope: IConstruct, id: string, props: EncryptedFileSystemProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`scope`](#shadyislandencryptedfilesystemparameterscope)<span title="Required">*</span> | [`constructs.IConstruct`](#constructs.IConstruct) | The Construct that contains this one. |
+| [`id`](#shadyislandencryptedfilesystemparameterid)<span title="Required">*</span> | `string` | The identifier of this construct. |
+| [`props`](#shadyislandencryptedfilesystemparameterprops)<span title="Required">*</span> | [`shady-island.EncryptedFileSystemProps`](#shady-island.EncryptedFileSystemProps) | The configuration properties for this construct. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="shady-island.EncryptedFileSystem.parameter.scope" id="shadyislandencryptedfilesystemparameterscope"></a>
+
+- *Type:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+The Construct that contains this one.
+
+---
+
+##### `id`<sup>Required</sup> <a name="shady-island.EncryptedFileSystem.parameter.id" id="shadyislandencryptedfilesystemparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+##### `props`<sup>Required</sup> <a name="shady-island.EncryptedFileSystem.parameter.props" id="shadyislandencryptedfilesystemparameterprops"></a>
+
+- *Type:* [`shady-island.EncryptedFileSystemProps`](#shady-island.EncryptedFileSystemProps)
+
+The configuration properties for this construct.
+
+---
+
+
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`fileSystem`](#shadyislandencryptedfilesystempropertyfilesystem)<span title="Required">*</span> | [`aws-cdk-lib.aws_efs.IFileSystem`](#aws-cdk-lib.aws_efs.IFileSystem) | The EFS file system. |
+| [`key`](#shadyislandencryptedfilesystempropertykey)<span title="Required">*</span> | [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey) | The KMS encryption key. |
+
+---
+
+##### `fileSystem`<sup>Required</sup> <a name="shady-island.EncryptedFileSystem.property.fileSystem" id="shadyislandencryptedfilesystempropertyfilesystem"></a>
+
+```typescript
+public readonly fileSystem: IFileSystem;
+```
+
+- *Type:* [`aws-cdk-lib.aws_efs.IFileSystem`](#aws-cdk-lib.aws_efs.IFileSystem)
+
+The EFS file system.
+
+---
+
+##### `key`<sup>Required</sup> <a name="shady-island.EncryptedFileSystem.property.key" id="shadyislandencryptedfilesystempropertykey"></a>
+
+```typescript
+public readonly key: IKey;
+```
+
+- *Type:* [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey)
+
+The KMS encryption key.
+
+---
+
+
 ### EncryptedLogGroup <a name="shady-island.EncryptedLogGroup" id="shadyislandencryptedloggroup"></a>
 
 - *Implements:* [`shady-island.IEncryptedLogGroup`](#shady-island.IEncryptedLogGroup)
@@ -589,6 +671,216 @@ Split the CIDRs into this many groups (by default one for each subnet).
 
 ---
 
+### EncryptedFileSystemProps <a name="shady-island.EncryptedFileSystemProps" id="shadyislandencryptedfilesystemprops"></a>
+
+Constructor parameters for EncryptedFileSystem.
+
+The `encrypted` argument is ignored.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { EncryptedFileSystemProps } from 'shady-island'
+
+const encryptedFileSystemProps: EncryptedFileSystemProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`vpc`](#shadyislandencryptedfilesystempropspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | VPC to launch the file system in. |
+| [`enableAutomaticBackups`](#shadyislandencryptedfilesystempropspropertyenableautomaticbackups) | `boolean` | Whether to enable automatic backups for the file system. |
+| [`encrypted`](#shadyislandencryptedfilesystempropspropertyencrypted) | `boolean` | Defines if the data at rest in the file system is encrypted or not. |
+| [`fileSystemName`](#shadyislandencryptedfilesystempropspropertyfilesystemname) | `string` | The file system's name. |
+| [`kmsKey`](#shadyislandencryptedfilesystempropspropertykmskey) | [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey) | The KMS key used for encryption. |
+| [`lifecyclePolicy`](#shadyislandencryptedfilesystempropspropertylifecyclepolicy) | [`aws-cdk-lib.aws_efs.LifecyclePolicy`](#aws-cdk-lib.aws_efs.LifecyclePolicy) | A policy used by EFS lifecycle management to transition files to the Infrequent Access (IA) storage class. |
+| [`outOfInfrequentAccessPolicy`](#shadyislandencryptedfilesystempropspropertyoutofinfrequentaccesspolicy) | [`aws-cdk-lib.aws_efs.OutOfInfrequentAccessPolicy`](#aws-cdk-lib.aws_efs.OutOfInfrequentAccessPolicy) | A policy used by EFS lifecycle management to transition files from Infrequent Access (IA) storage class to primary storage class. |
+| [`performanceMode`](#shadyislandencryptedfilesystempropspropertyperformancemode) | [`aws-cdk-lib.aws_efs.PerformanceMode`](#aws-cdk-lib.aws_efs.PerformanceMode) | The performance mode that the file system will operate under. |
+| [`provisionedThroughputPerSecond`](#shadyislandencryptedfilesystempropspropertyprovisionedthroughputpersecond) | [`aws-cdk-lib.Size`](#aws-cdk-lib.Size) | Provisioned throughput for the file system. |
+| [`removalPolicy`](#shadyislandencryptedfilesystempropspropertyremovalpolicy) | [`aws-cdk-lib.RemovalPolicy`](#aws-cdk-lib.RemovalPolicy) | The removal policy to apply to the file system. |
+| [`securityGroup`](#shadyislandencryptedfilesystempropspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | Security Group to assign to this file system. |
+| [`throughputMode`](#shadyislandencryptedfilesystempropspropertythroughputmode) | [`aws-cdk-lib.aws_efs.ThroughputMode`](#aws-cdk-lib.aws_efs.ThroughputMode) | Enum to mention the throughput mode of the file system. |
+| [`vpcSubnets`](#shadyislandencryptedfilesystempropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | Which subnets to place the mount target in the VPC. |
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="shady-island.EncryptedFileSystemProps.property.vpc" id="shadyislandencryptedfilesystempropspropertyvpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc)
+
+VPC to launch the file system in.
+
+---
+
+##### `enableAutomaticBackups`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.enableAutomaticBackups" id="shadyislandencryptedfilesystempropspropertyenableautomaticbackups"></a>
+
+```typescript
+public readonly enableAutomaticBackups: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Whether to enable automatic backups for the file system.
+
+---
+
+##### `encrypted`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.encrypted" id="shadyislandencryptedfilesystempropspropertyencrypted"></a>
+
+```typescript
+public readonly encrypted: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* If your application has the '
+
+Defines if the data at rest in the file system is encrypted or not.
+
+> [https://docs.aws.amazon.com/cdk/latest/guide/featureflags.html](https://docs.aws.amazon.com/cdk/latest/guide/featureflags.html)
+
+---
+
+##### `fileSystemName`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.fileSystemName" id="shadyislandencryptedfilesystempropspropertyfilesystemname"></a>
+
+```typescript
+public readonly fileSystemName: string;
+```
+
+- *Type:* `string`
+- *Default:* CDK generated name
+
+The file system's name.
+
+---
+
+##### `kmsKey`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.kmsKey" id="shadyislandencryptedfilesystempropspropertykmskey"></a>
+
+```typescript
+public readonly kmsKey: IKey;
+```
+
+- *Type:* [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey)
+- *Default:* if 'encrypted' is true, the default key for EFS (/aws/elasticfilesystem) is used
+
+The KMS key used for encryption.
+
+This is required to encrypt the data at rest if @encrypted is set to true.
+
+---
+
+##### `lifecyclePolicy`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.lifecyclePolicy" id="shadyislandencryptedfilesystempropspropertylifecyclepolicy"></a>
+
+```typescript
+public readonly lifecyclePolicy: LifecyclePolicy;
+```
+
+- *Type:* [`aws-cdk-lib.aws_efs.LifecyclePolicy`](#aws-cdk-lib.aws_efs.LifecyclePolicy)
+- *Default:* None. EFS will not transition files to the IA storage class.
+
+A policy used by EFS lifecycle management to transition files to the Infrequent Access (IA) storage class.
+
+---
+
+##### `outOfInfrequentAccessPolicy`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.outOfInfrequentAccessPolicy" id="shadyislandencryptedfilesystempropspropertyoutofinfrequentaccesspolicy"></a>
+
+```typescript
+public readonly outOfInfrequentAccessPolicy: OutOfInfrequentAccessPolicy;
+```
+
+- *Type:* [`aws-cdk-lib.aws_efs.OutOfInfrequentAccessPolicy`](#aws-cdk-lib.aws_efs.OutOfInfrequentAccessPolicy)
+- *Default:* None. EFS will not transition files from IA storage to primary storage.
+
+A policy used by EFS lifecycle management to transition files from Infrequent Access (IA) storage class to primary storage class.
+
+---
+
+##### `performanceMode`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.performanceMode" id="shadyislandencryptedfilesystempropspropertyperformancemode"></a>
+
+```typescript
+public readonly performanceMode: PerformanceMode;
+```
+
+- *Type:* [`aws-cdk-lib.aws_efs.PerformanceMode`](#aws-cdk-lib.aws_efs.PerformanceMode)
+- *Default:* PerformanceMode.GENERAL_PURPOSE
+
+The performance mode that the file system will operate under.
+
+An Amazon EFS file system's performance mode can't be changed after the file system has been created. Updating this property will replace the file system.
+
+---
+
+##### `provisionedThroughputPerSecond`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.provisionedThroughputPerSecond" id="shadyislandencryptedfilesystempropspropertyprovisionedthroughputpersecond"></a>
+
+```typescript
+public readonly provisionedThroughputPerSecond: Size;
+```
+
+- *Type:* [`aws-cdk-lib.Size`](#aws-cdk-lib.Size)
+- *Default:* none, errors out
+
+Provisioned throughput for the file system.
+
+This is a required property if the throughput mode is set to PROVISIONED. Must be at least 1MiB/s.
+
+---
+
+##### `removalPolicy`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.removalPolicy" id="shadyislandencryptedfilesystempropspropertyremovalpolicy"></a>
+
+```typescript
+public readonly removalPolicy: RemovalPolicy;
+```
+
+- *Type:* [`aws-cdk-lib.RemovalPolicy`](#aws-cdk-lib.RemovalPolicy)
+- *Default:* RemovalPolicy.RETAIN
+
+The removal policy to apply to the file system.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.securityGroup" id="shadyislandencryptedfilesystempropspropertysecuritygroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)
+- *Default:* creates new security group which allows all outbound traffic
+
+Security Group to assign to this file system.
+
+---
+
+##### `throughputMode`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.throughputMode" id="shadyislandencryptedfilesystempropspropertythroughputmode"></a>
+
+```typescript
+public readonly throughputMode: ThroughputMode;
+```
+
+- *Type:* [`aws-cdk-lib.aws_efs.ThroughputMode`](#aws-cdk-lib.aws_efs.ThroughputMode)
+- *Default:* ThroughputMode.BURSTING
+
+Enum to mention the throughput mode of the file system.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.vpcSubnets" id="shadyislandencryptedfilesystempropspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* the Vpc default strategy if not specified
+
+Which subnets to place the mount target in the VPC.
+
+---
+
 ### EncryptedLogGroupProps <a name="shady-island.EncryptedLogGroupProps" id="shadyislandencryptedloggroupprops"></a>
 
 Constructor properties for EncryptedLogGroup.
@@ -996,6 +1288,61 @@ public readonly vpc: IVpc;
 - *Type:* [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc)
 
 The IPv6-enabled VPC.
+
+---
+
+### IEncryptedFileSystem <a name="shady-island.IEncryptedFileSystem" id="shadyislandiencryptedfilesystem"></a>
+
+- *Extends:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+- *Implemented By:* [`shady-island.EncryptedFileSystem`](#shady-island.EncryptedFileSystem), [`shady-island.IEncryptedFileSystem`](#shady-island.IEncryptedFileSystem)
+
+Interface for EncryptedFileSystem.
+
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`node`](#shadyislandiencryptedfilesystempropertynode)<span title="Required">*</span> | [`constructs.Node`](#constructs.Node) | The tree node. |
+| [`fileSystem`](#shadyislandiencryptedfilesystempropertyfilesystem)<span title="Required">*</span> | [`aws-cdk-lib.aws_efs.IFileSystem`](#aws-cdk-lib.aws_efs.IFileSystem) | The EFS file system. |
+| [`key`](#shadyislandiencryptedfilesystempropertykey)<span title="Required">*</span> | [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey) | The KMS encryption key. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="shady-island.IEncryptedFileSystem.property.node" id="shadyislandiencryptedfilesystempropertynode"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* [`constructs.Node`](#constructs.Node)
+
+The tree node.
+
+---
+
+##### `fileSystem`<sup>Required</sup> <a name="shady-island.IEncryptedFileSystem.property.fileSystem" id="shadyislandiencryptedfilesystempropertyfilesystem"></a>
+
+```typescript
+public readonly fileSystem: IFileSystem;
+```
+
+- *Type:* [`aws-cdk-lib.aws_efs.IFileSystem`](#aws-cdk-lib.aws_efs.IFileSystem)
+
+The EFS file system.
+
+---
+
+##### `key`<sup>Required</sup> <a name="shady-island.IEncryptedFileSystem.property.key" id="shadyislandiencryptedfilesystempropertykey"></a>
+
+```typescript
+public readonly key: IKey;
+```
+
+- *Type:* [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey)
+
+The KMS encryption key.
 
 ---
 
