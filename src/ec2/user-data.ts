@@ -3,16 +3,17 @@ import { UserData, LinuxUserDataOptions } from "aws-cdk-lib/aws-ec2";
 /**
  * A container for lines of a User Data script, sortable by `priority`.
  */
-declare type PrioritizedLines = {
+export interface PrioritizedLines {
   /**
    * The command lines.
    */
   readonly lines: string[];
+
   /**
    * The priority for this set of commands.
    */
   readonly priority: number;
-};
+}
 
 /**
  * A utility class to assist with composing instance User Data.
@@ -29,7 +30,7 @@ export abstract class UserDataBuilder {
    * @param options - The Linux UserData constructor options
    * @returns the new builder object
    */
-  public static forLinux(options?: LinuxUserDataOptions): LinuxUserDataBuilder {
+  public static forLinux(options?: LinuxUserDataOptions): UserDataBuilder {
     return new LinuxUserDataBuilder(options);
   }
 
@@ -38,7 +39,7 @@ export abstract class UserDataBuilder {
    *
    * @returns the new builder object
    */
-  public static forWindows(): WindowsUserDataBuilder {
+  public static forWindows(): UserDataBuilder {
     return new WindowsUserDataBuilder();
   }
 
@@ -71,7 +72,7 @@ export abstract class UserDataBuilder {
    *
    * @returns The assembled User Data
    */
-  public abstract build(): UserData;
+  public abstract buildUserData(): UserData;
 }
 
 /**
@@ -82,7 +83,7 @@ class LinuxUserDataBuilder extends UserDataBuilder {
     super();
   }
 
-  build(): UserData {
+  buildUserData(): UserData {
     const lines = [...this.lines];
     lines.sort((a, b) => a.priority - b.priority);
     const userData = UserData.forLinux(this.options);
@@ -95,7 +96,7 @@ class LinuxUserDataBuilder extends UserDataBuilder {
  * A User Data builder that targets Windows operating systems.
  */
 class WindowsUserDataBuilder extends UserDataBuilder {
-  build(): UserData {
+  buildUserData(): UserData {
     const lines = [...this.lines];
     lines.sort((a, b) => a.priority - b.priority);
     const userData = UserData.forWindows();

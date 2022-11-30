@@ -7,7 +7,7 @@ describe("UserDataBuilder", () => {
       obj.insertCommands(-100, "date", "uptime");
       obj.insertCommands(200, "free -m");
       obj.insertCommands(200, "df -h");
-      const userData = obj.build();
+      const userData = obj.buildUserData();
       expect(userData.render()).toBe(
         [
           "#!/bin/bash",
@@ -26,7 +26,7 @@ describe("UserDataBuilder", () => {
       obj.insertCommands(-100, "date", "uptime");
       obj.insertCommands(200, "free -m");
       obj.insertCommands(200, "df -h");
-      const userData = obj.build();
+      const userData = obj.buildUserData();
       expect(userData.render()).toBe(
         [
           "#!/bin/bash",
@@ -46,7 +46,7 @@ describe("UserDataBuilder", () => {
       obj.addCommands("Write-Host hello", "Write-Host world");
       obj.insertCommands(-123456, "cd");
       obj.insertCommands(399, "Get-ChildItems -Path .");
-      const userData = obj.build();
+      const userData = obj.buildUserData();
       expect(userData.render()).toBe(
         "<powershell>" +
           [
