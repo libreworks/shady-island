@@ -11,8 +11,8 @@ import {
   SubnetSelection,
 } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
-import { assertType, findInstanceOf } from "../util";
 import { AssignOnLaunch } from "./assign-on-launch";
+import { assertType, findInstanceOf } from "../util";
 
 /**
  * Properties for creating a new {@link CidrContext}.
