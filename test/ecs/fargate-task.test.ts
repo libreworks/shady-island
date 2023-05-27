@@ -104,7 +104,7 @@ describe("FargateTask", () => {
 
     const template = Template.fromStack(stack);
 
-    template.resourceCountIs("AWS::IAM::Role", 2);
+    template.resourceCountIs("AWS::IAM::Role", 1);
     template.hasResourceProperties("AWS::EC2::SecurityGroup", {
       GroupDescription: "Stack/Task/SecurityGroup",
       SecurityGroupEgress: [

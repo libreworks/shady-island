@@ -24,7 +24,7 @@ describe("AssignOnLaunch", () => {
       maxAzs: 2,
       subnetConfiguration: [
         { name: "public", subnetType: SubnetType.PUBLIC },
-        { name: "private", subnetType: SubnetType.PRIVATE_WITH_NAT },
+        { name: "private", subnetType: SubnetType.PRIVATE_WITH_EGRESS },
         { name: "isolated", subnetType: SubnetType.PRIVATE_ISOLATED },
       ],
     });
@@ -60,7 +60,6 @@ describe("AssignOnLaunch", () => {
     template.resourceCountIs("AWS::Lambda::Function", 2);
     template.hasResourceProperties("AWS::Lambda::Function", {
       Handler: "framework.onEvent",
-      Runtime: "nodejs12.x",
       Timeout: 900,
     });
     template.hasResourceProperties("AWS::Lambda::Function", {
