@@ -315,6 +315,129 @@ The log group.
 ---
 
 
+### FargateTask <a name="shady-island.FargateTask" id="shadyislandfargatetask"></a>
+
+- *Implements:* [`shady-island.IFargateTask`](#shady-island.IFargateTask)
+
+An FargateTask.
+
+If `vpcSubnets` is blank but `assignPublicIp` is set, the task will launch in Public subnets, otherwise the first available one of Private, Isolated, Public, in that order.
+
+#### Initializers <a name="shady-island.FargateTask.Initializer" id="shadyislandfargatetaskinitializer"></a>
+
+```typescript
+import { FargateTask } from 'shady-island'
+
+new FargateTask(scope: Construct, id: string, props: FargateTaskProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`scope`](#shadyislandfargatetaskparameterscope)<span title="Required">*</span> | [`constructs.Construct`](#constructs.Construct) | *No description.* |
+| [`id`](#shadyislandfargatetaskparameterid)<span title="Required">*</span> | `string` | *No description.* |
+| [`props`](#shadyislandfargatetaskparameterprops)<span title="Required">*</span> | [`shady-island.FargateTaskProps`](#shady-island.FargateTaskProps) | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="shady-island.FargateTask.parameter.scope" id="shadyislandfargatetaskparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
+
+##### `id`<sup>Required</sup> <a name="shady-island.FargateTask.parameter.id" id="shadyislandfargatetaskparameterid"></a>
+
+- *Type:* `string`
+
+---
+
+##### `props`<sup>Required</sup> <a name="shady-island.FargateTask.parameter.props" id="shadyislandfargatetaskparameterprops"></a>
+
+- *Type:* [`shady-island.FargateTaskProps`](#shady-island.FargateTaskProps)
+
+---
+
+#### Methods <a name="Methods" id="methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`grantRun`](#shadyislandfargatetaskgrantrun) | *No description.* |
+
+---
+
+##### `grantRun` <a name="shady-island.FargateTask.grantRun" id="shadyislandfargatetaskgrantrun"></a>
+
+```typescript
+public grantRun(grantee: IGrantable)
+```
+
+###### `grantee`<sup>Required</sup> <a name="shady-island.FargateTask.parameter.grantee" id="shadyislandfargatetaskparametergrantee"></a>
+
+- *Type:* [`aws-cdk-lib.aws_iam.IGrantable`](#aws-cdk-lib.aws_iam.IGrantable)
+
+---
+
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`awsVpcNetworkConfig`](#shadyislandfargatetaskpropertyawsvpcnetworkconfig)<span title="Required">*</span> | [`shady-island.FargateAwsVpcConfiguration`](#shady-island.FargateAwsVpcConfiguration) | Get the networkConfiguration.awsvpcConfiguration property to run this task. |
+| [`cluster`](#shadyislandfargatetaskpropertycluster)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster) | The name of the cluster that hosts the service. |
+| [`connections`](#shadyislandfargatetaskpropertyconnections)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.Connections`](#aws-cdk-lib.aws_ec2.Connections) | The network connections associated with this resource. |
+| [`taskDefinition`](#shadyislandfargatetaskpropertytaskdefinition)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition) | The task definition that can be launched. |
+
+---
+
+##### `awsVpcNetworkConfig`<sup>Required</sup> <a name="shady-island.FargateTask.property.awsVpcNetworkConfig" id="shadyislandfargatetaskpropertyawsvpcnetworkconfig"></a>
+
+```typescript
+public readonly awsVpcNetworkConfig: FargateAwsVpcConfiguration;
+```
+
+- *Type:* [`shady-island.FargateAwsVpcConfiguration`](#shady-island.FargateAwsVpcConfiguration)
+
+Get the networkConfiguration.awsvpcConfiguration property to run this task.
+
+---
+
+##### `cluster`<sup>Required</sup> <a name="shady-island.FargateTask.property.cluster" id="shadyislandfargatetaskpropertycluster"></a>
+
+```typescript
+public readonly cluster: ICluster;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster)
+
+The name of the cluster that hosts the service.
+
+---
+
+##### `connections`<sup>Required</sup> <a name="shady-island.FargateTask.property.connections" id="shadyislandfargatetaskpropertyconnections"></a>
+
+```typescript
+public readonly connections: Connections;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.Connections`](#aws-cdk-lib.aws_ec2.Connections)
+
+The network connections associated with this resource.
+
+---
+
+##### `taskDefinition`<sup>Required</sup> <a name="shady-island.FargateTask.property.taskDefinition" id="shadyislandfargatetaskpropertytaskdefinition"></a>
+
+```typescript
+public readonly taskDefinition: FargateTaskDefinition;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition)
+
+The task definition that can be launched.
+
+---
+
+
 ### Workload <a name="shady-island.Workload" id="shadyislandworkload"></a>
 
 A collection of Stacks in an Environment representing a deployment Tier.
@@ -957,6 +1080,165 @@ How long, in days, the log contents will be retained.
 
 ---
 
+### FargateAwsVpcConfiguration <a name="shady-island.FargateAwsVpcConfiguration" id="shadyislandfargateawsvpcconfiguration"></a>
+
+The `networkConfiguration.awsvpcConfiguration` values for `ecs.RunTask`.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { FargateAwsVpcConfiguration } from 'shady-island'
+
+const fargateAwsVpcConfiguration: FargateAwsVpcConfiguration = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`subnets`](#shadyislandfargateawsvpcconfigurationpropertysubnets)<span title="Required">*</span> | `string`[] | The IDs of the subnets associated with the task or service. |
+| [`assignPublicIp`](#shadyislandfargateawsvpcconfigurationpropertyassignpublicip) | `string` | Whether the task's elastic network interface receives a public IP address. |
+| [`securityGroups`](#shadyislandfargateawsvpcconfigurationpropertysecuritygroups) | `string`[] | The IDs of the security groups associated with the task or service. |
+
+---
+
+##### `subnets`<sup>Required</sup> <a name="shady-island.FargateAwsVpcConfiguration.property.subnets" id="shadyislandfargateawsvpcconfigurationpropertysubnets"></a>
+
+```typescript
+public readonly subnets: string[];
+```
+
+- *Type:* `string`[]
+
+The IDs of the subnets associated with the task or service.
+
+There's a limit of 16 subnets that can be specified per `AwsVpcConfiguration` .  > All specified subnets must be from the same VPC.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-subnets](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-subnets)
+
+---
+
+##### `assignPublicIp`<sup>Optional</sup> <a name="shady-island.FargateAwsVpcConfiguration.property.assignPublicIp" id="shadyislandfargateawsvpcconfigurationpropertyassignpublicip"></a>
+
+```typescript
+public readonly assignPublicIp: string;
+```
+
+- *Type:* `string`
+
+Whether the task's elastic network interface receives a public IP address.
+
+The default value is `DISABLED` .
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-assignpublicip](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-assignpublicip)
+
+---
+
+##### `securityGroups`<sup>Optional</sup> <a name="shady-island.FargateAwsVpcConfiguration.property.securityGroups" id="shadyislandfargateawsvpcconfigurationpropertysecuritygroups"></a>
+
+```typescript
+public readonly securityGroups: string[];
+```
+
+- *Type:* `string`[]
+
+The IDs of the security groups associated with the task or service.
+
+If you don't specify a security group, the default security group for the VPC is used. There's a limit of 5 security groups that can be specified per `AwsVpcConfiguration` .  > All specified security groups must be from the same VPC.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-securitygroups](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-securitygroups)
+
+---
+
+### FargateTaskProps <a name="shady-island.FargateTaskProps" id="shadyislandfargatetaskprops"></a>
+
+Constructor parameters for FargateTask.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { FargateTaskProps } from 'shady-island'
+
+const fargateTaskProps: FargateTaskProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`cluster`](#shadyislandfargatetaskpropspropertycluster)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster) | The name of the cluster that hosts the service. |
+| [`taskDefinition`](#shadyislandfargatetaskpropspropertytaskdefinition)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition) | The task definition that can be launched. |
+| [`assignPublicIp`](#shadyislandfargatetaskpropspropertyassignpublicip) | `boolean` | Specifies whether the task's elastic network interface receives a public IP address. |
+| [`securityGroups`](#shadyislandfargatetaskpropspropertysecuritygroups) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)[] | Existing security groups to use for your task. |
+| [`vpcSubnets`](#shadyislandfargatetaskpropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The subnets to associate with the task. |
+
+---
+
+##### `cluster`<sup>Required</sup> <a name="shady-island.FargateTaskProps.property.cluster" id="shadyislandfargatetaskpropspropertycluster"></a>
+
+```typescript
+public readonly cluster: ICluster;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster)
+
+The name of the cluster that hosts the service.
+
+---
+
+##### `taskDefinition`<sup>Required</sup> <a name="shady-island.FargateTaskProps.property.taskDefinition" id="shadyislandfargatetaskpropspropertytaskdefinition"></a>
+
+```typescript
+public readonly taskDefinition: FargateTaskDefinition;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition)
+
+The task definition that can be launched.
+
+---
+
+##### `assignPublicIp`<sup>Optional</sup> <a name="shady-island.FargateTaskProps.property.assignPublicIp" id="shadyislandfargatetaskpropspropertyassignpublicip"></a>
+
+```typescript
+public readonly assignPublicIp: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Specifies whether the task's elastic network interface receives a public IP address.
+
+If true, the task will receive a public IP address.
+
+---
+
+##### `securityGroups`<sup>Optional</sup> <a name="shady-island.FargateTaskProps.property.securityGroups" id="shadyislandfargatetaskpropspropertysecuritygroups"></a>
+
+```typescript
+public readonly securityGroups: ISecurityGroup[];
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)[]
+- *Default:* a new security group will be created.
+
+Existing security groups to use for your task.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.FargateTaskProps.property.vpcSubnets" id="shadyislandfargatetaskpropspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* Public subnets if `assignPublicIp` is set, otherwise the first available one of Private, Isolated, Public, in that order.
+
+The subnets to associate with the task.
+
+---
+
 ### PrioritizedLines <a name="shady-island.PrioritizedLines" id="shadyislandprioritizedlines"></a>
 
 A container for lines of a User Data script, sortable by `priority`.
@@ -1534,6 +1816,87 @@ public readonly logGroup: ILogGroup;
 - *Type:* [`aws-cdk-lib.aws_logs.ILogGroup`](#aws-cdk-lib.aws_logs.ILogGroup)
 
 The log group.
+
+---
+
+### IFargateTask <a name="shady-island.IFargateTask" id="shadyislandifargatetask"></a>
+
+- *Extends:* [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable), [`constructs.IConstruct`](#constructs.IConstruct)
+
+- *Implemented By:* [`shady-island.FargateTask`](#shady-island.FargateTask), [`shady-island.IFargateTask`](#shady-island.IFargateTask)
+
+Interface for FargateTask.
+
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`connections`](#shadyislandifargatetaskpropertyconnections)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.Connections`](#aws-cdk-lib.aws_ec2.Connections) | The network connections associated with this resource. |
+| [`node`](#shadyislandifargatetaskpropertynode)<span title="Required">*</span> | [`constructs.Node`](#constructs.Node) | The tree node. |
+| [`awsVpcNetworkConfig`](#shadyislandifargatetaskpropertyawsvpcnetworkconfig)<span title="Required">*</span> | [`shady-island.FargateAwsVpcConfiguration`](#shady-island.FargateAwsVpcConfiguration) | Get the networkConfiguration.awsvpcConfiguration property to run this task. |
+| [`cluster`](#shadyislandifargatetaskpropertycluster)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster) | The name of the cluster that hosts the service. |
+| [`taskDefinition`](#shadyislandifargatetaskpropertytaskdefinition)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition) | The task definition that can be launched. |
+
+---
+
+##### `connections`<sup>Required</sup> <a name="shady-island.IFargateTask.property.connections" id="shadyislandifargatetaskpropertyconnections"></a>
+
+```typescript
+public readonly connections: Connections;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.Connections`](#aws-cdk-lib.aws_ec2.Connections)
+
+The network connections associated with this resource.
+
+---
+
+##### `node`<sup>Required</sup> <a name="shady-island.IFargateTask.property.node" id="shadyislandifargatetaskpropertynode"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* [`constructs.Node`](#constructs.Node)
+
+The tree node.
+
+---
+
+##### `awsVpcNetworkConfig`<sup>Required</sup> <a name="shady-island.IFargateTask.property.awsVpcNetworkConfig" id="shadyislandifargatetaskpropertyawsvpcnetworkconfig"></a>
+
+```typescript
+public readonly awsVpcNetworkConfig: FargateAwsVpcConfiguration;
+```
+
+- *Type:* [`shady-island.FargateAwsVpcConfiguration`](#shady-island.FargateAwsVpcConfiguration)
+
+Get the networkConfiguration.awsvpcConfiguration property to run this task.
+
+---
+
+##### `cluster`<sup>Required</sup> <a name="shady-island.IFargateTask.property.cluster" id="shadyislandifargatetaskpropertycluster"></a>
+
+```typescript
+public readonly cluster: ICluster;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster)
+
+The name of the cluster that hosts the service.
+
+---
+
+##### `taskDefinition`<sup>Required</sup> <a name="shady-island.IFargateTask.property.taskDefinition" id="shadyislandifargatetaskpropertytaskdefinition"></a>
+
+```typescript
+public readonly taskDefinition: FargateTaskDefinition;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition)
+
+The task definition that can be launched.
 
 ---
 

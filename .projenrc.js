@@ -29,7 +29,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
-  cdkVersion: "2.24.0",
+  cdkVersion: "2.57.0",
   majorVersion: 0,
 
   projenTokenSecret: "PROJEN_GITHUB_TOKEN",
