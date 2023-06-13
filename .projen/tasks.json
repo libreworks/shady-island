@@ -47,6 +47,30 @@
       "steps": [
         {
           "spawn": "bundle:vpc/assign-on-launch.handler"
+        },
+        {
+          "spawn": "bundle:rds/triggers/mysql"
+        },
+        {
+          "spawn": "bundle:rds/triggers/pgsql"
+        }
+      ]
+    },
+    "bundle:rds/triggers/mysql": {
+      "name": "bundle:rds/triggers/mysql",
+      "description": "Create a JavaScript bundle from ./src/rds/triggers/mysql.handler",
+      "steps": [
+        {
+          "exec": "esbuild --bundle ./src/rds/triggers/mysql.handler --target=\"node18\" --platform=\"node\" --outfile=\"assets/rds/triggers/mysql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager"
+        }
+      ]
+    },
+    "bundle:rds/triggers/pgsql": {
+      "name": "bundle:rds/triggers/pgsql",
+      "description": "Create a JavaScript bundle from ./src/rds/triggers/pgsql.handler",
+      "steps": [
+        {
+          "exec": "esbuild --bundle ./src/rds/triggers/pgsql.handler --target=\"node18\" --platform=\"node\" --outfile=\"assets/rds/triggers/pgsql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager"
         }
       ]
     },

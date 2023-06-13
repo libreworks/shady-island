@@ -52,14 +52,38 @@ const project = new awscdk.AwsCdkConstructLibrary({
   catalog: { announce: true },
 
   // deps: [],                /* Runtime dependencies of this module. */
-  // devDeps: [],             /* Build dependencies for this module. */
+  devDeps: [
+    "@types/aws-lambda",
+    "@types/pg",
+    "@aws-sdk/client-secrets-manager",
+  ],
+  bundledDeps: [
+    "pg",
+    "mysql2",
+    "@middy/core@^4.0.0",
+    "@middy/error-logger@^4.0.0",
+    "@middy/secrets-manager@^4.0.0",
+  ],
 });
 
+// All of the AWS Lambda handlers.
 project.bundler.addBundle("src/vpc/assign-on-launch.handler.js", {
   target: "node16",
   platform: "node",
-  externals: ["aws-sdk"], // modules not to include in bundles
-  watchTask: false, // should we create a "bundle:watch" task for each bundle
+  externals: ["aws-sdk"],
+  watchTask: false,
 });
+const handlers = [
+  "./src/rds/triggers/mysql.handler",
+  "./src/rds/triggers/pgsql.handler",
+];
+for (const handler of handlers) {
+  project.bundler.addBundle(handler, {
+    target: "node18",
+    platform: "node",
+    externals: ["pg-native", "@aws-sdk/client-secrets-manager"],
+    watchTask: false,
+  });
+}
 
 project.synth();
