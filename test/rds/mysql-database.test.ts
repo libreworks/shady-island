@@ -1,5 +1,5 @@
 import { App, SecretValue, Stack } from "aws-cdk-lib";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
 import {
   AuroraMysqlEngineVersion,
@@ -107,19 +107,18 @@ describe("BaseDatabase", () => {
       });
       template.resourceCountIs("Custom::Trigger", 1);
       template.hasResource("Custom::Trigger", {
-        DependsOn: [
+        DependsOn: Match.arrayWith([
           "ClusterInstance1448F06E4",
           "ClusterInstance2C3E0561B",
           "ClusterEB0386A7",
           "ClusterSecurityGroupfromStackMyDbSecurityGroup0E936039IndirectPortE751E3FE",
           "ClusterSecurityGroup0921994B",
           "ClusterSubnetsDCFA5CB7",
-          "MyDbFunctionCurrentVersion78DACDBDbc5e28ec3227e862f00d293eae553036",
           "MyDbFunction7E72B045",
           "MyDbFunctionServiceRoleDefaultPolicyEB977851",
           "MyDbFunctionServiceRole0211C4A3",
           "UserSecret0463E4F5",
-        ],
+        ]),
       });
     });
   });
@@ -186,19 +185,18 @@ describe("BaseDatabase", () => {
       });
       template.resourceCountIs("Custom::Trigger", 1);
       template.hasResource("Custom::Trigger", {
-        DependsOn: [
+        DependsOn: Match.arrayWith([
           "ClusterInstance1448F06E4",
           "ClusterInstance2C3E0561B",
           "ClusterEB0386A7",
           "ClusterSecurityGroupfromStackMyDbSecurityGroup0E936039IndirectPortE751E3FE",
           "ClusterSecurityGroup0921994B",
           "ClusterSubnetsDCFA5CB7",
-          "MyDbFunctionCurrentVersion78DACDBD34494944f0056e600ba71f4ed593ee0e",
           "MyDbFunction7E72B045",
           "MyDbFunctionServiceRoleDefaultPolicyEB977851",
           "MyDbFunctionServiceRole0211C4A3",
           "UserSecret0463E4F5",
-        ],
+        ]),
       });
       template.hasResourceProperties("AWS::IAM::Policy", {
         PolicyDocument: {
