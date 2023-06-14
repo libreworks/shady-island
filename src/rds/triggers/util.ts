@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   SecretsManagerClient,
   GetSecretValueCommand,
@@ -24,7 +25,7 @@ export async function fetchSecret<T = Record<string, any>>(
   const output = await client.send(
     new GetSecretValueCommand({ SecretId: arn })
   );
-  return JSON.parse(output.SecretString);
+  return output.SecretString ? JSON.parse(output.SecretString) : {};
 }
 
 export async function fetchAllSecrets<T = Record<string, any>>(
@@ -34,5 +35,5 @@ export async function fetchAllSecrets<T = Record<string, any>>(
   if (arns.length === 0) {
     return [];
   }
-  return await Promise.all(arns.map((a) => fetchSecret<T>(a, client)));
+  return Promise.all(arns.map((a) => fetchSecret<T>(a, client)));
 }

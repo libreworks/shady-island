@@ -126,21 +126,6 @@
       "type": "build"
     },
     {
-      "name": "@middy/core",
-      "version": "^4.0.0",
-      "type": "bundled"
-    },
-    {
-      "name": "@middy/error-logger",
-      "version": "^4.0.0",
-      "type": "bundled"
-    },
-    {
-      "name": "@middy/secrets-manager",
-      "version": "^4.0.0",
-      "type": "bundled"
-    },
-    {
       "name": "mysql2",
       "type": "bundled"
     },

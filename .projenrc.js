@@ -57,13 +57,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     "@types/pg",
     "@aws-sdk/client-secrets-manager",
   ],
-  bundledDeps: [
-    "pg",
-    "mysql2",
-    "@middy/core@^4.0.0",
-    "@middy/error-logger@^4.0.0",
-    "@middy/secrets-manager@^4.0.0",
-  ],
+  bundledDeps: ["pg", "mysql2"],
 });
 
 // All of the AWS Lambda handlers.

@@ -1465,28 +1465,6 @@
   dependencies:
     ajv "^8.12.0"
 
-"@middy/core@^4.0.0":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@middy/core/-/core-4.5.1.tgz#808c491332fd0bea8ac033c7493893f4ee945fae"
-  integrity sha512-1UQHwZioXclzuF1AJuTnpback/orNmGEJDuflUYpX+CTUqixC8hRWnARN8M0acchwjLyFXcNKaCtyfWkI0oKqQ==
-
-"@middy/error-logger@^4.0.0":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@middy/error-logger/-/error-logger-4.5.1.tgz#6596409720cfa327b4e72544d41f182a6df0a381"
-  integrity sha512-GxMl01b7sQZUrTJEbnGmnSsXMffofswj3NiIGk6bG2VgOPW4iMi4rbVaN+B6VZTx/9PTqi0Jk8JEkhi1lmtz6g==
-
-"@middy/secrets-manager@^4.0.0":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@middy/secrets-manager/-/secrets-manager-4.5.1.tgz#c2200973db1a5c6e3bcd59a4976c1f6dc6350898"
-  integrity sha512-FqGM65IsoQFK2U+NANoo5rqLpsCe9Ozb9hRFjSNjp3r7sLnFLKp+nmgk8jqcUe7GwCrLXvozqHkHXlVdViesZQ==
-  dependencies:
-    "@middy/util" "4.5.1"
-
-"@middy/util@4.5.1":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@middy/util/-/util-4.5.1.tgz#160df5333aa7315f5778e7c1e6f08df8d6e6d841"
-  integrity sha512-iOlh1umWeXOxySuQgmxr0LDHHLO8pMf7jcc2oFGMuUJJ67t6exaDE9dJsS2svhnutzuqTa0meFZreuw7LR4BYA==
-
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"

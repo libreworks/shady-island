@@ -74,16 +74,10 @@
     "constructs": "^10.0.5"
   },
   "dependencies": {
-    "@middy/core": "^4.0.0",
-    "@middy/error-logger": "^4.0.0",
-    "@middy/secrets-manager": "^4.0.0",
     "mysql2": "^3.3.5",
     "pg": "^8.11.0"
   },
   "bundledDependencies": [
-    "@middy/core",
-    "@middy/error-logger",
-    "@middy/secrets-manager",
     "mysql2",
     "pg"
   ],

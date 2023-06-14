@@ -1,7 +1,8 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { SecretsManagerClient } from "@aws-sdk/client-secrets-manager";
 import { Client } from "pg";
-import { fetchSecret } from "./util";
 import type { DatabaseCredentials } from "./types";
+import { fetchSecret } from "./util";
 
 const adminSecretArn = process.env.ADMIN_SECRET_ARN!;
 const databaseName = process.env.DATABASE_NAME!;

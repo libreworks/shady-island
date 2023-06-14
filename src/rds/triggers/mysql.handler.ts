@@ -1,10 +1,11 @@
-import { Connection, createConnection } from "mysql2/promise";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { SecretsManagerClient } from "@aws-sdk/client-secrets-manager";
-import { fetchSecret, fetchAllSecrets, parseJsonArrayFromEnv } from "./util";
+import { Connection, createConnection } from "mysql2/promise";
 import type { UsernamePassword, DatabaseCredentials } from "./types";
+import { fetchSecret, fetchAllSecrets, parseJsonArrayFromEnv } from "./util";
 
 const adminSecretArn = process.env.ADMIN_SECRET_ARN!;
-const databaseName = process.env.DATABASE_NAME!;
+const databaseName = process.env.DB_NAME!;
 const characterSet = process.env.DB_CHARACTER_SET! || "utf8mb4";
 const collation = process.env.DB_COLLATION;
 

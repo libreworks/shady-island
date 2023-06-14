@@ -86,6 +86,107 @@ The chosen subnets for address assignment on ENI launch.
 ---
 
 
+### BaseDatabase <a name="shady-island.BaseDatabase" id="shadyislandbasedatabase"></a>
+
+- *Implements:* [`shady-island.IDatabase`](#shady-island.IDatabase)
+
+A database.
+
+#### Initializers <a name="shady-island.BaseDatabase.Initializer" id="shadyislandbasedatabaseinitializer"></a>
+
+```typescript
+import { BaseDatabase } from 'shady-island'
+
+new BaseDatabase(scope: IConstruct, id: string, props: BaseDatabaseProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`scope`](#shadyislandbasedatabaseparameterscope)<span title="Required">*</span> | [`constructs.IConstruct`](#constructs.IConstruct) | The Construct that contains this one. |
+| [`id`](#shadyislandbasedatabaseparameterid)<span title="Required">*</span> | `string` | The identifier of this construct. |
+| [`props`](#shadyislandbasedatabaseparameterprops)<span title="Required">*</span> | [`shady-island.BaseDatabaseProps`](#shady-island.BaseDatabaseProps) | The configuration properties for this construct. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="shady-island.BaseDatabase.parameter.scope" id="shadyislandbasedatabaseparameterscope"></a>
+
+- *Type:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+The Construct that contains this one.
+
+---
+
+##### `id`<sup>Required</sup> <a name="shady-island.BaseDatabase.parameter.id" id="shadyislandbasedatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+##### `props`<sup>Required</sup> <a name="shady-island.BaseDatabase.parameter.props" id="shadyislandbasedatabaseparameterprops"></a>
+
+- *Type:* [`shady-island.BaseDatabaseProps`](#shady-island.BaseDatabaseProps)
+
+The configuration properties for this construct.
+
+---
+
+#### Methods <a name="Methods" id="methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`addUserAsOwner`](#shadyislandbasedatabaseadduserasowner) | Declares a new database user to be assigned ownership permissions. |
+| [`addUserAsReader`](#shadyislandbasedatabaseadduserasreader) | Declares a new database user to be assigned read-only permissions. |
+
+---
+
+##### `addUserAsOwner` <a name="shady-island.BaseDatabase.addUserAsOwner" id="shadyislandbasedatabaseadduserasowner"></a>
+
+```typescript
+public addUserAsOwner(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.BaseDatabase.parameter.secret" id="shadyislandbasedatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+---
+
+##### `addUserAsReader` <a name="shady-island.BaseDatabase.addUserAsReader" id="shadyislandbasedatabaseadduserasreader"></a>
+
+```typescript
+public addUserAsReader(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.BaseDatabase.parameter.secret" id="shadyislandbasedatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+---
+
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`databaseName`](#shadyislandbasedatabasepropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog. |
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="shady-island.BaseDatabase.property.databaseName" id="shadyislandbasedatabasepropertydatabasename"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* `string`
+
+The name of the database/catalog.
+
+---
+
+
 ### CidrContext <a name="shady-island.CidrContext" id="shadyislandcidrcontext"></a>
 
 - *Implements:* [`shady-island.ICidrContext`](#shady-island.ICidrContext)
@@ -438,6 +539,338 @@ The task definition that can be launched.
 ---
 
 
+### MysqlDatabase <a name="shady-island.MysqlDatabase" id="shadyislandmysqldatabase"></a>
+
+A MySQL database.
+
+#### Initializers <a name="shady-island.MysqlDatabase.Initializer" id="shadyislandmysqldatabaseinitializer"></a>
+
+```typescript
+import { MysqlDatabase } from 'shady-island'
+
+new MysqlDatabase(scope: IConstruct, id: string, props: MysqlDatabaseProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`scope`](#shadyislandmysqldatabaseparameterscope)<span title="Required">*</span> | [`constructs.IConstruct`](#constructs.IConstruct) | The Construct that contains this one. |
+| [`id`](#shadyislandmysqldatabaseparameterid)<span title="Required">*</span> | `string` | The identifier of this construct. |
+| [`props`](#shadyislandmysqldatabaseparameterprops)<span title="Required">*</span> | [`shady-island.MysqlDatabaseProps`](#shady-island.MysqlDatabaseProps) | The configuration properties for this construct. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.scope" id="shadyislandmysqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+The Construct that contains this one.
+
+---
+
+##### `id`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.id" id="shadyislandmysqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+##### `props`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.props" id="shadyislandmysqldatabaseparameterprops"></a>
+
+- *Type:* [`shady-island.MysqlDatabaseProps`](#shady-island.MysqlDatabaseProps)
+
+The configuration properties for this construct.
+
+---
+
+#### Methods <a name="Methods" id="methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`addUserAsOwner`](#shadyislandmysqldatabaseadduserasowner) | Declares a new database user to be assigned ownership permissions. |
+| [`addUserAsReader`](#shadyislandmysqldatabaseadduserasreader) | Declares a new database user to be assigned read-only permissions. |
+
+---
+
+##### `addUserAsOwner` <a name="shady-island.MysqlDatabase.addUserAsOwner" id="shadyislandmysqldatabaseadduserasowner"></a>
+
+```typescript
+public addUserAsOwner(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.secret" id="shadyislandmysqldatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+---
+
+##### `addUserAsReader` <a name="shady-island.MysqlDatabase.addUserAsReader" id="shadyislandmysqldatabaseadduserasreader"></a>
+
+```typescript
+public addUserAsReader(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.secret" id="shadyislandmysqldatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+---
+
+#### Static Functions <a name="Static Functions" id="static-functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`forCluster`](#shadyislandmysqldatabaseforcluster) | Create a new MysqlDatabase inside a DatabaseCluster. |
+| [`forClusterFromSnapshot`](#shadyislandmysqldatabaseforclusterfromsnapshot) | Create a new MysqlDatabase inside a DatabaseClusterFromSnapshot. |
+| [`forInstance`](#shadyislandmysqldatabaseforinstance) | Create a new MysqlDatabase inside a DatabaseInstance. |
+| [`forInstanceFromSnapshot`](#shadyislandmysqldatabaseforinstancefromsnapshot) | Create a new MysqlDatabase inside a DatabaseInstanceFromSnapshot. |
+| [`forServerlessCluster`](#shadyislandmysqldatabaseforserverlesscluster) | Create a new MysqlDatabase inside a DatabaseCluster. |
+| [`forServerlessClusterFromSnapshot`](#shadyislandmysqldatabaseforserverlessclusterfromsnapshot) | Create a new MysqlDatabase inside a DatabaseClusterFromSnapshot. |
+
+---
+
+##### `forCluster` <a name="shady-island.MysqlDatabase.forCluster" id="shadyislandmysqldatabaseforcluster"></a>
+
+```typescript
+import { MysqlDatabase } from 'shady-island'
+
+MysqlDatabase.forCluster(scope: Construct, id: string, cluster: DatabaseCluster, options: MysqlDatabaseForClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.scope" id="shadyislandmysqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.id" id="shadyislandmysqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `cluster`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.cluster" id="shadyislandmysqldatabaseparametercluster"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.DatabaseCluster`](#aws-cdk-lib.aws_rds.DatabaseCluster)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.options" id="shadyislandmysqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.MysqlDatabaseForClusterOptions`](#shady-island.MysqlDatabaseForClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+##### `forClusterFromSnapshot` <a name="shady-island.MysqlDatabase.forClusterFromSnapshot" id="shadyislandmysqldatabaseforclusterfromsnapshot"></a>
+
+```typescript
+import { MysqlDatabase } from 'shady-island'
+
+MysqlDatabase.forClusterFromSnapshot(scope: Construct, id: string, cluster: DatabaseClusterFromSnapshot, options: MysqlDatabaseForClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.scope" id="shadyislandmysqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.id" id="shadyislandmysqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `cluster`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.cluster" id="shadyislandmysqldatabaseparametercluster"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.DatabaseClusterFromSnapshot`](#aws-cdk-lib.aws_rds.DatabaseClusterFromSnapshot)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.options" id="shadyislandmysqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.MysqlDatabaseForClusterOptions`](#shady-island.MysqlDatabaseForClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+##### `forInstance` <a name="shady-island.MysqlDatabase.forInstance" id="shadyislandmysqldatabaseforinstance"></a>
+
+```typescript
+import { MysqlDatabase } from 'shady-island'
+
+MysqlDatabase.forInstance(scope: Construct, id: string, instance: DatabaseInstance, options: MysqlDatabaseForClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.scope" id="shadyislandmysqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.id" id="shadyislandmysqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `instance`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.instance" id="shadyislandmysqldatabaseparameterinstance"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.DatabaseInstance`](#aws-cdk-lib.aws_rds.DatabaseInstance)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.options" id="shadyislandmysqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.MysqlDatabaseForClusterOptions`](#shady-island.MysqlDatabaseForClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+##### `forInstanceFromSnapshot` <a name="shady-island.MysqlDatabase.forInstanceFromSnapshot" id="shadyislandmysqldatabaseforinstancefromsnapshot"></a>
+
+```typescript
+import { MysqlDatabase } from 'shady-island'
+
+MysqlDatabase.forInstanceFromSnapshot(scope: Construct, id: string, instance: DatabaseInstanceFromSnapshot, options: MysqlDatabaseForClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.scope" id="shadyislandmysqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.id" id="shadyislandmysqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `instance`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.instance" id="shadyislandmysqldatabaseparameterinstance"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.DatabaseInstanceFromSnapshot`](#aws-cdk-lib.aws_rds.DatabaseInstanceFromSnapshot)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.options" id="shadyislandmysqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.MysqlDatabaseForClusterOptions`](#shady-island.MysqlDatabaseForClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+##### `forServerlessCluster` <a name="shady-island.MysqlDatabase.forServerlessCluster" id="shadyislandmysqldatabaseforserverlesscluster"></a>
+
+```typescript
+import { MysqlDatabase } from 'shady-island'
+
+MysqlDatabase.forServerlessCluster(scope: Construct, id: string, cluster: ServerlessCluster, options: MysqlDatabaseForServerlessClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.scope" id="shadyislandmysqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.id" id="shadyislandmysqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `cluster`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.cluster" id="shadyislandmysqldatabaseparametercluster"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.ServerlessCluster`](#aws-cdk-lib.aws_rds.ServerlessCluster)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.options" id="shadyislandmysqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.MysqlDatabaseForServerlessClusterOptions`](#shady-island.MysqlDatabaseForServerlessClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+##### `forServerlessClusterFromSnapshot` <a name="shady-island.MysqlDatabase.forServerlessClusterFromSnapshot" id="shadyislandmysqldatabaseforserverlessclusterfromsnapshot"></a>
+
+```typescript
+import { MysqlDatabase } from 'shady-island'
+
+MysqlDatabase.forServerlessClusterFromSnapshot(scope: Construct, id: string, cluster: ServerlessClusterFromSnapshot, options: MysqlDatabaseForServerlessClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.scope" id="shadyislandmysqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.id" id="shadyislandmysqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `cluster`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.cluster" id="shadyislandmysqldatabaseparametercluster"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.ServerlessClusterFromSnapshot`](#aws-cdk-lib.aws_rds.ServerlessClusterFromSnapshot)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.options" id="shadyislandmysqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.MysqlDatabaseForServerlessClusterOptions`](#shady-island.MysqlDatabaseForServerlessClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+
+
 ### Workload <a name="shady-island.Workload" id="shadyislandworkload"></a>
 
 A collection of Stacks in an Environment representing a deployment Tier.
@@ -701,6 +1134,178 @@ public readonly vpcSubnets: SubnetSelection;
 - *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
 
 Which subnets to assign IPv6 addresses upon ENI creation.
+
+---
+
+### BaseDatabaseOptions <a name="shady-island.BaseDatabaseOptions" id="shadyislandbasedatabaseoptions"></a>
+
+These options cannot be determined from existing Database constructs.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { BaseDatabaseOptions } from 'shady-island'
+
+const baseDatabaseOptions: BaseDatabaseOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`databaseName`](#shadyislandbasedatabaseoptionspropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog to create. |
+| [`securityGroup`](#shadyislandbasedatabaseoptionspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | The security group for the Lambda function. |
+| [`vpcSubnets`](#shadyislandbasedatabaseoptionspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="shady-island.BaseDatabaseOptions.property.databaseName" id="shadyislandbasedatabaseoptionspropertydatabasename"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* `string`
+
+The name of the database/catalog to create.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="shady-island.BaseDatabaseOptions.property.securityGroup" id="shadyislandbasedatabaseoptionspropertysecuritygroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)
+- *Default:* a new security group is created
+
+The security group for the Lambda function.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.BaseDatabaseOptions.property.vpcSubnets" id="shadyislandbasedatabaseoptionspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* the Vpc default strategy if not specified.
+
+The type of subnets in the VPC where the Lambda function will run.
+
+---
+
+### BaseDatabaseProps <a name="shady-island.BaseDatabaseProps" id="shadyislandbasedatabaseprops"></a>
+
+The properties for a database.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { BaseDatabaseProps } from 'shady-island'
+
+const baseDatabaseProps: BaseDatabaseProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`databaseName`](#shadyislandbasedatabasepropspropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog to create. |
+| [`securityGroup`](#shadyislandbasedatabasepropspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | The security group for the Lambda function. |
+| [`vpcSubnets`](#shadyislandbasedatabasepropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
+| [`adminSecret`](#shadyislandbasedatabasepropspropertyadminsecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
+| [`resource`](#shadyislandbasedatabasepropspropertyresource)<span title="Required">*</span> | [`constructs.Construct`](#constructs.Construct) | The database cluster (used for CloudFormation dependencies). |
+| [`target`](#shadyislandbasedatabasepropspropertytarget)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable) | The target service or database. |
+| [`vpc`](#shadyislandbasedatabasepropspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="shady-island.BaseDatabaseProps.property.databaseName" id="shadyislandbasedatabasepropspropertydatabasename"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* `string`
+
+The name of the database/catalog to create.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="shady-island.BaseDatabaseProps.property.securityGroup" id="shadyislandbasedatabasepropspropertysecuritygroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)
+- *Default:* a new security group is created
+
+The security group for the Lambda function.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.BaseDatabaseProps.property.vpcSubnets" id="shadyislandbasedatabasepropspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* the Vpc default strategy if not specified.
+
+The type of subnets in the VPC where the Lambda function will run.
+
+---
+
+##### `adminSecret`<sup>Required</sup> <a name="shady-island.BaseDatabaseProps.property.adminSecret" id="shadyislandbasedatabasepropspropertyadminsecret"></a>
+
+```typescript
+public readonly adminSecret: ISecret;
+```
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+A Secrets Manager secret that contains administrative credentials.
+
+---
+
+##### `resource`<sup>Required</sup> <a name="shady-island.BaseDatabaseProps.property.resource" id="shadyislandbasedatabasepropspropertyresource"></a>
+
+```typescript
+public readonly resource: Construct;
+```
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The database cluster (used for CloudFormation dependencies).
+
+---
+
+##### `target`<sup>Required</sup> <a name="shady-island.BaseDatabaseProps.property.target" id="shadyislandbasedatabasepropspropertytarget"></a>
+
+```typescript
+public readonly target: IConnectable;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable)
+
+The target service or database.
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="shady-island.BaseDatabaseProps.property.vpc" id="shadyislandbasedatabasepropspropertyvpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc)
+
+The VPC where the Lambda function will run.
 
 ---
 
@@ -1239,6 +1844,408 @@ The subnets to associate with the task.
 
 ---
 
+### MysqlDatabaseForClusterOptions <a name="shady-island.MysqlDatabaseForClusterOptions" id="shadyislandmysqldatabaseforclusteroptions"></a>
+
+Properties to specify when using MysqlDatabase.forCluster().
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { MysqlDatabaseForClusterOptions } from 'shady-island'
+
+const mysqlDatabaseForClusterOptions: MysqlDatabaseForClusterOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`characterSet`](#shadyislandmysqldatabaseforclusteroptionspropertycharacterset) | `string` | The database default character set to use. |
+| [`collation`](#shadyislandmysqldatabaseforclusteroptionspropertycollation) | `string` | The database default collation to use. |
+| [`databaseName`](#shadyislandmysqldatabaseforclusteroptionspropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog to create. |
+| [`securityGroup`](#shadyislandmysqldatabaseforclusteroptionspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | The security group for the Lambda function. |
+| [`vpcSubnets`](#shadyislandmysqldatabaseforclusteroptionspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
+| [`adminSecret`](#shadyislandmysqldatabaseforclusteroptionspropertyadminsecret) | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
+
+---
+
+##### `characterSet`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForClusterOptions.property.characterSet" id="shadyislandmysqldatabaseforclusteroptionspropertycharacterset"></a>
+
+```typescript
+public readonly characterSet: string;
+```
+
+- *Type:* `string`
+- *Default:* "utf8mb4"
+
+The database default character set to use.
+
+---
+
+##### `collation`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForClusterOptions.property.collation" id="shadyislandmysqldatabaseforclusteroptionspropertycollation"></a>
+
+```typescript
+public readonly collation: string;
+```
+
+- *Type:* `string`
+- *Default:* rely on MySQL to choose the default collation.
+
+The database default collation to use.
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="shady-island.MysqlDatabaseForClusterOptions.property.databaseName" id="shadyislandmysqldatabaseforclusteroptionspropertydatabasename"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* `string`
+
+The name of the database/catalog to create.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForClusterOptions.property.securityGroup" id="shadyislandmysqldatabaseforclusteroptionspropertysecuritygroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)
+- *Default:* a new security group is created
+
+The security group for the Lambda function.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForClusterOptions.property.vpcSubnets" id="shadyislandmysqldatabaseforclusteroptionspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* the Vpc default strategy if not specified.
+
+The type of subnets in the VPC where the Lambda function will run.
+
+---
+
+##### `adminSecret`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForClusterOptions.property.adminSecret" id="shadyislandmysqldatabaseforclusteroptionspropertyadminsecret"></a>
+
+```typescript
+public readonly adminSecret: ISecret;
+```
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+A Secrets Manager secret that contains administrative credentials.
+
+---
+
+### MysqlDatabaseForServerlessClusterOptions <a name="shady-island.MysqlDatabaseForServerlessClusterOptions" id="shadyislandmysqldatabaseforserverlessclusteroptions"></a>
+
+Properties to specify when using MysqlDatabase.forServerlessCluster().
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { MysqlDatabaseForServerlessClusterOptions } from 'shady-island'
+
+const mysqlDatabaseForServerlessClusterOptions: MysqlDatabaseForServerlessClusterOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`characterSet`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertycharacterset) | `string` | The database default character set to use. |
+| [`collation`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertycollation) | `string` | The database default collation to use. |
+| [`databaseName`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog to create. |
+| [`securityGroup`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | The security group for the Lambda function. |
+| [`vpcSubnets`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
+| [`adminSecret`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertyadminsecret) | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
+| [`vpc`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
+
+---
+
+##### `characterSet`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForServerlessClusterOptions.property.characterSet" id="shadyislandmysqldatabaseforserverlessclusteroptionspropertycharacterset"></a>
+
+```typescript
+public readonly characterSet: string;
+```
+
+- *Type:* `string`
+- *Default:* "utf8mb4"
+
+The database default character set to use.
+
+---
+
+##### `collation`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForServerlessClusterOptions.property.collation" id="shadyislandmysqldatabaseforserverlessclusteroptionspropertycollation"></a>
+
+```typescript
+public readonly collation: string;
+```
+
+- *Type:* `string`
+- *Default:* rely on MySQL to choose the default collation.
+
+The database default collation to use.
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="shady-island.MysqlDatabaseForServerlessClusterOptions.property.databaseName" id="shadyislandmysqldatabaseforserverlessclusteroptionspropertydatabasename"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* `string`
+
+The name of the database/catalog to create.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForServerlessClusterOptions.property.securityGroup" id="shadyislandmysqldatabaseforserverlessclusteroptionspropertysecuritygroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)
+- *Default:* a new security group is created
+
+The security group for the Lambda function.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForServerlessClusterOptions.property.vpcSubnets" id="shadyislandmysqldatabaseforserverlessclusteroptionspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* the Vpc default strategy if not specified.
+
+The type of subnets in the VPC where the Lambda function will run.
+
+---
+
+##### `adminSecret`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForServerlessClusterOptions.property.adminSecret" id="shadyislandmysqldatabaseforserverlessclusteroptionspropertyadminsecret"></a>
+
+```typescript
+public readonly adminSecret: ISecret;
+```
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+A Secrets Manager secret that contains administrative credentials.
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="shady-island.MysqlDatabaseForServerlessClusterOptions.property.vpc" id="shadyislandmysqldatabaseforserverlessclusteroptionspropertyvpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc)
+
+The VPC where the Lambda function will run.
+
+---
+
+### MysqlDatabaseOptions <a name="shady-island.MysqlDatabaseOptions" id="shadyislandmysqldatabaseoptions"></a>
+
+MySQL-specific options.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { MysqlDatabaseOptions } from 'shady-island'
+
+const mysqlDatabaseOptions: MysqlDatabaseOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`characterSet`](#shadyislandmysqldatabaseoptionspropertycharacterset) | `string` | The database default character set to use. |
+| [`collation`](#shadyislandmysqldatabaseoptionspropertycollation) | `string` | The database default collation to use. |
+
+---
+
+##### `characterSet`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseOptions.property.characterSet" id="shadyislandmysqldatabaseoptionspropertycharacterset"></a>
+
+```typescript
+public readonly characterSet: string;
+```
+
+- *Type:* `string`
+- *Default:* "utf8mb4"
+
+The database default character set to use.
+
+---
+
+##### `collation`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseOptions.property.collation" id="shadyislandmysqldatabaseoptionspropertycollation"></a>
+
+```typescript
+public readonly collation: string;
+```
+
+- *Type:* `string`
+- *Default:* rely on MySQL to choose the default collation.
+
+The database default collation to use.
+
+---
+
+### MysqlDatabaseProps <a name="shady-island.MysqlDatabaseProps" id="shadyislandmysqldatabaseprops"></a>
+
+Constructor properties for MysqlDatabase.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { MysqlDatabaseProps } from 'shady-island'
+
+const mysqlDatabaseProps: MysqlDatabaseProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`databaseName`](#shadyislandmysqldatabasepropspropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog to create. |
+| [`securityGroup`](#shadyislandmysqldatabasepropspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | The security group for the Lambda function. |
+| [`vpcSubnets`](#shadyislandmysqldatabasepropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
+| [`adminSecret`](#shadyislandmysqldatabasepropspropertyadminsecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
+| [`resource`](#shadyislandmysqldatabasepropspropertyresource)<span title="Required">*</span> | [`constructs.Construct`](#constructs.Construct) | The database cluster (used for CloudFormation dependencies). |
+| [`target`](#shadyislandmysqldatabasepropspropertytarget)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable) | The target service or database. |
+| [`vpc`](#shadyislandmysqldatabasepropspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
+| [`characterSet`](#shadyislandmysqldatabasepropspropertycharacterset) | `string` | The database default character set to use. |
+| [`collation`](#shadyislandmysqldatabasepropspropertycollation) | `string` | The database default collation to use. |
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="shady-island.MysqlDatabaseProps.property.databaseName" id="shadyislandmysqldatabasepropspropertydatabasename"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* `string`
+
+The name of the database/catalog to create.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseProps.property.securityGroup" id="shadyislandmysqldatabasepropspropertysecuritygroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)
+- *Default:* a new security group is created
+
+The security group for the Lambda function.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseProps.property.vpcSubnets" id="shadyislandmysqldatabasepropspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* the Vpc default strategy if not specified.
+
+The type of subnets in the VPC where the Lambda function will run.
+
+---
+
+##### `adminSecret`<sup>Required</sup> <a name="shady-island.MysqlDatabaseProps.property.adminSecret" id="shadyislandmysqldatabasepropspropertyadminsecret"></a>
+
+```typescript
+public readonly adminSecret: ISecret;
+```
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+A Secrets Manager secret that contains administrative credentials.
+
+---
+
+##### `resource`<sup>Required</sup> <a name="shady-island.MysqlDatabaseProps.property.resource" id="shadyislandmysqldatabasepropspropertyresource"></a>
+
+```typescript
+public readonly resource: Construct;
+```
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The database cluster (used for CloudFormation dependencies).
+
+---
+
+##### `target`<sup>Required</sup> <a name="shady-island.MysqlDatabaseProps.property.target" id="shadyislandmysqldatabasepropspropertytarget"></a>
+
+```typescript
+public readonly target: IConnectable;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable)
+
+The target service or database.
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="shady-island.MysqlDatabaseProps.property.vpc" id="shadyislandmysqldatabasepropspropertyvpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc)
+
+The VPC where the Lambda function will run.
+
+---
+
+##### `characterSet`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseProps.property.characterSet" id="shadyislandmysqldatabasepropspropertycharacterset"></a>
+
+```typescript
+public readonly characterSet: string;
+```
+
+- *Type:* `string`
+- *Default:* "utf8mb4"
+
+The database default character set to use.
+
+---
+
+##### `collation`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseProps.property.collation" id="shadyislandmysqldatabasepropspropertycollation"></a>
+
+```typescript
+public readonly collation: string;
+```
+
+- *Type:* `string`
+- *Default:* rely on MySQL to choose the default collation.
+
+The database default collation to use.
+
+---
+
 ### PrioritizedLines <a name="shady-island.PrioritizedLines" id="shadyislandprioritizedlines"></a>
 
 A container for lines of a User Data script, sortable by `priority`.
@@ -1721,6 +2728,84 @@ public readonly vpc: IVpc;
 - *Type:* [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc)
 
 The IPv6-enabled VPC.
+
+---
+
+### IDatabase <a name="shady-island.IDatabase" id="shadyislandidatabase"></a>
+
+- *Extends:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+- *Implemented By:* [`shady-island.BaseDatabase`](#shady-island.BaseDatabase), [`shady-island.MysqlDatabase`](#shady-island.MysqlDatabase), [`shady-island.IDatabase`](#shady-island.IDatabase)
+
+The definition used to create a database.
+
+#### Methods <a name="Methods" id="methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`addUserAsOwner`](#shadyislandidatabaseadduserasowner) | Declares a new database user to be assigned ownership permissions. |
+| [`addUserAsReader`](#shadyislandidatabaseadduserasreader) | Declares a new database user to be assigned read-only permissions. |
+
+---
+
+##### `addUserAsOwner` <a name="shady-island.IDatabase.addUserAsOwner" id="shadyislandidatabaseadduserasowner"></a>
+
+```typescript
+public addUserAsOwner(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.IDatabase.parameter.secret" id="shadyislandidatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+The Secrets Manager secret containing credentials.
+
+---
+
+##### `addUserAsReader` <a name="shady-island.IDatabase.addUserAsReader" id="shadyislandidatabaseadduserasreader"></a>
+
+```typescript
+public addUserAsReader(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.IDatabase.parameter.secret" id="shadyislandidatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+The Secrets Manager secret containing credentials.
+
+---
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`node`](#shadyislandidatabasepropertynode)<span title="Required">*</span> | [`constructs.Node`](#constructs.Node) | The tree node. |
+| [`databaseName`](#shadyislandidatabasepropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="shady-island.IDatabase.property.node" id="shadyislandidatabasepropertynode"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* [`constructs.Node`](#constructs.Node)
+
+The tree node.
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="shady-island.IDatabase.property.databaseName" id="shadyislandidatabasepropertydatabasename"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* `string`
+
+The name of the database/catalog.
 
 ---
 
