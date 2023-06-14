@@ -9,6 +9,8 @@
     "build": "npx projen build",
     "bump": "npx projen bump",
     "bundle": "npx projen bundle",
+    "bundle:rds/triggers/mysql": "npx projen bundle:rds/triggers/mysql",
+    "bundle:rds/triggers/pgsql": "npx projen bundle:rds/triggers/pgsql",
     "bundle:vpc/assign-on-launch.handler": "npx projen bundle:vpc/assign-on-launch.handler",
     "clobber": "npx projen clobber",
     "compat": "npx projen compat",
@@ -38,8 +40,11 @@
     "organization": true
   },
   "devDependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.352.0",
+    "@types/aws-lambda": "^8.10.117",
     "@types/jest": "^27",
     "@types/node": "^16",
+    "@types/pg": "^8.10.2",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
     "aws-cdk-lib": "2.57.0",
@@ -68,6 +73,14 @@
     "aws-cdk-lib": "^2.57.0",
     "constructs": "^10.0.5"
   },
+  "dependencies": {
+    "mysql2": "^3.3.5",
+    "pg": "^8.11.0"
+  },
+  "bundledDependencies": [
+    "mysql2",
+    "pg"
+  ],
   "resolutions": {
     "@types/babel__traverse": "7.18.2",
     "@types/prettier": "2.6.0"

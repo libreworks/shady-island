@@ -1,6 +1,14 @@
 {
   "dependencies": [
     {
+      "name": "@aws-sdk/client-secrets-manager",
+      "type": "build"
+    },
+    {
+      "name": "@types/aws-lambda",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "version": "^27",
       "type": "build"
@@ -8,6 +16,10 @@
     {
       "name": "@types/node",
       "version": "^16",
+      "type": "build"
+    },
+    {
+      "name": "@types/pg",
       "type": "build"
     },
     {
@@ -112,6 +124,14 @@
     {
       "name": "typescript",
       "type": "build"
+    },
+    {
+      "name": "mysql2",
+      "type": "bundled"
+    },
+    {
+      "name": "pg",
+      "type": "bundled"
     },
     {
       "name": "@types/babel__traverse",
