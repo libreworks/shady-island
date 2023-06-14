@@ -171,6 +171,7 @@ public addUserAsReader(secret: ISecret)
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | [`databaseName`](#shadyislandbasedatabasepropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog. |
+| [`endpoint`](#shadyislandbasedatabasepropertyendpoint)<span title="Required">*</span> | [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint) | The cluster or instance endpoint. |
 
 ---
 
@@ -183,6 +184,18 @@ public readonly databaseName: string;
 - *Type:* `string`
 
 The name of the database/catalog.
+
+---
+
+##### `endpoint`<sup>Required</sup> <a name="shady-island.BaseDatabase.property.endpoint" id="shadyislandbasedatabasepropertyendpoint"></a>
+
+```typescript
+public readonly endpoint: Endpoint;
+```
+
+- *Type:* [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint)
+
+The cluster or instance endpoint.
 
 ---
 
@@ -1217,6 +1230,7 @@ const baseDatabaseProps: BaseDatabaseProps = { ... }
 | [`securityGroup`](#shadyislandbasedatabasepropspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | The security group for the Lambda function. |
 | [`vpcSubnets`](#shadyislandbasedatabasepropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
 | [`adminSecret`](#shadyislandbasedatabasepropspropertyadminsecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
+| [`endpoint`](#shadyislandbasedatabasepropspropertyendpoint)<span title="Required">*</span> | [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint) | The cluster or instance endpoint. |
 | [`resource`](#shadyislandbasedatabasepropspropertyresource)<span title="Required">*</span> | [`constructs.Construct`](#constructs.Construct) | The database cluster (used for CloudFormation dependencies). |
 | [`target`](#shadyislandbasedatabasepropspropertytarget)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable) | The target service or database. |
 | [`vpc`](#shadyislandbasedatabasepropspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
@@ -1270,6 +1284,18 @@ public readonly adminSecret: ISecret;
 - *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
 
 A Secrets Manager secret that contains administrative credentials.
+
+---
+
+##### `endpoint`<sup>Required</sup> <a name="shady-island.BaseDatabaseProps.property.endpoint" id="shadyislandbasedatabasepropspropertyendpoint"></a>
+
+```typescript
+public readonly endpoint: Endpoint;
+```
+
+- *Type:* [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint)
+
+The cluster or instance endpoint.
 
 ---
 
@@ -2126,6 +2152,7 @@ const mysqlDatabaseProps: MysqlDatabaseProps = { ... }
 | [`securityGroup`](#shadyislandmysqldatabasepropspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | The security group for the Lambda function. |
 | [`vpcSubnets`](#shadyislandmysqldatabasepropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
 | [`adminSecret`](#shadyislandmysqldatabasepropspropertyadminsecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
+| [`endpoint`](#shadyislandmysqldatabasepropspropertyendpoint)<span title="Required">*</span> | [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint) | The cluster or instance endpoint. |
 | [`resource`](#shadyislandmysqldatabasepropspropertyresource)<span title="Required">*</span> | [`constructs.Construct`](#constructs.Construct) | The database cluster (used for CloudFormation dependencies). |
 | [`target`](#shadyislandmysqldatabasepropspropertytarget)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable) | The target service or database. |
 | [`vpc`](#shadyislandmysqldatabasepropspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
@@ -2181,6 +2208,18 @@ public readonly adminSecret: ISecret;
 - *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
 
 A Secrets Manager secret that contains administrative credentials.
+
+---
+
+##### `endpoint`<sup>Required</sup> <a name="shady-island.MysqlDatabaseProps.property.endpoint" id="shadyislandmysqldatabasepropspropertyendpoint"></a>
+
+```typescript
+public readonly endpoint: Endpoint;
+```
+
+- *Type:* [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint)
+
+The cluster or instance endpoint.
 
 ---
 
@@ -2782,6 +2821,7 @@ The Secrets Manager secret containing credentials.
 | --- | --- | --- |
 | [`node`](#shadyislandidatabasepropertynode)<span title="Required">*</span> | [`constructs.Node`](#constructs.Node) | The tree node. |
 | [`databaseName`](#shadyislandidatabasepropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog. |
+| [`endpoint`](#shadyislandidatabasepropertyendpoint)<span title="Required">*</span> | [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint) | The cluster or instance endpoint. |
 
 ---
 
@@ -2806,6 +2846,18 @@ public readonly databaseName: string;
 - *Type:* `string`
 
 The name of the database/catalog.
+
+---
+
+##### `endpoint`<sup>Required</sup> <a name="shady-island.IDatabase.property.endpoint" id="shadyislandidatabasepropertyendpoint"></a>
+
+```typescript
+public readonly endpoint: Endpoint;
+```
+
+- *Type:* [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint)
+
+The cluster or instance endpoint.
 
 ---
 

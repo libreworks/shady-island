@@ -77,7 +77,6 @@ describe("BaseDatabase", () => {
       const userSecret = new Secret(stack, "UserSecret", {});
       obj.addUserAsOwner(userSecret);
       const template = Template.fromStack(stack);
-      console.log(JSON.stringify(template.toJSON(), undefined, 2));
       template.hasResourceProperties("AWS::Lambda::Function", {
         Description: "Creates a schema and possibly some secondary users",
         Environment: {
@@ -158,7 +157,6 @@ describe("BaseDatabase", () => {
       const userSecret = new Secret(stack, "UserSecret", {});
       obj.addUserAsReader(userSecret);
       const template = Template.fromStack(stack);
-      console.log(JSON.stringify(template.toJSON(), undefined, 2));
       template.hasResourceProperties("AWS::Lambda::Function", {
         Description: "Creates a schema and possibly some secondary users",
         Environment: {
