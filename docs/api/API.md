@@ -172,6 +172,7 @@ public addUserAsReader(secret: ISecret)
 | --- | --- | --- |
 | [`databaseName`](#shadyislandbasedatabasepropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog. |
 | [`endpoint`](#shadyislandbasedatabasepropertyendpoint)<span title="Required">*</span> | [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint) | The cluster or instance endpoint. |
+| [`trigger`](#shadyislandbasedatabasepropertytrigger)<span title="Required">*</span> | [`aws-cdk-lib.triggers.ITrigger`](#aws-cdk-lib.triggers.ITrigger) | The CDK Trigger that kicks off the process. |
 
 ---
 
@@ -196,6 +197,20 @@ public readonly endpoint: Endpoint;
 - *Type:* [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint)
 
 The cluster or instance endpoint.
+
+---
+
+##### `trigger`<sup>Required</sup> <a name="shady-island.BaseDatabase.property.trigger" id="shadyislandbasedatabasepropertytrigger"></a>
+
+```typescript
+public readonly trigger: ITrigger;
+```
+
+- *Type:* [`aws-cdk-lib.triggers.ITrigger`](#aws-cdk-lib.triggers.ITrigger)
+
+The CDK Trigger that kicks off the process.
+
+You can further customize when the trigger fires using `executeAfter`.
 
 ---
 
@@ -882,6 +897,27 @@ The configuration properties for this construct.
 
 ---
 
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`trigger`](#shadyislandmysqldatabasepropertytrigger)<span title="Required">*</span> | [`aws-cdk-lib.triggers.ITrigger`](#aws-cdk-lib.triggers.ITrigger) | The CDK Trigger that kicks off the process. |
+
+---
+
+##### `trigger`<sup>Required</sup> <a name="shady-island.MysqlDatabase.property.trigger" id="shadyislandmysqldatabasepropertytrigger"></a>
+
+```typescript
+public readonly trigger: ITrigger;
+```
+
+- *Type:* [`aws-cdk-lib.triggers.ITrigger`](#aws-cdk-lib.triggers.ITrigger)
+
+The CDK Trigger that kicks off the process.
+
+You can further customize when the trigger fires using `executeAfter`.
+
+---
 
 
 ### Workload <a name="shady-island.Workload" id="shadyislandworkload"></a>
@@ -1231,7 +1267,6 @@ const baseDatabaseProps: BaseDatabaseProps = { ... }
 | [`vpcSubnets`](#shadyislandbasedatabasepropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
 | [`adminSecret`](#shadyislandbasedatabasepropspropertyadminsecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
 | [`endpoint`](#shadyislandbasedatabasepropspropertyendpoint)<span title="Required">*</span> | [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint) | The cluster or instance endpoint. |
-| [`resource`](#shadyislandbasedatabasepropspropertyresource)<span title="Required">*</span> | [`constructs.Construct`](#constructs.Construct) | The database cluster (used for CloudFormation dependencies). |
 | [`target`](#shadyislandbasedatabasepropspropertytarget)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable) | The target service or database. |
 | [`vpc`](#shadyislandbasedatabasepropspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
 
@@ -1296,18 +1331,6 @@ public readonly endpoint: Endpoint;
 - *Type:* [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint)
 
 The cluster or instance endpoint.
-
----
-
-##### `resource`<sup>Required</sup> <a name="shady-island.BaseDatabaseProps.property.resource" id="shadyislandbasedatabasepropspropertyresource"></a>
-
-```typescript
-public readonly resource: Construct;
-```
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
-The database cluster (used for CloudFormation dependencies).
 
 ---
 
@@ -2153,7 +2176,6 @@ const mysqlDatabaseProps: MysqlDatabaseProps = { ... }
 | [`vpcSubnets`](#shadyislandmysqldatabasepropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
 | [`adminSecret`](#shadyislandmysqldatabasepropspropertyadminsecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
 | [`endpoint`](#shadyislandmysqldatabasepropspropertyendpoint)<span title="Required">*</span> | [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint) | The cluster or instance endpoint. |
-| [`resource`](#shadyislandmysqldatabasepropspropertyresource)<span title="Required">*</span> | [`constructs.Construct`](#constructs.Construct) | The database cluster (used for CloudFormation dependencies). |
 | [`target`](#shadyislandmysqldatabasepropspropertytarget)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable) | The target service or database. |
 | [`vpc`](#shadyislandmysqldatabasepropspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
 | [`characterSet`](#shadyislandmysqldatabasepropspropertycharacterset) | `string` | The database default character set to use. |
@@ -2220,18 +2242,6 @@ public readonly endpoint: Endpoint;
 - *Type:* [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint)
 
 The cluster or instance endpoint.
-
----
-
-##### `resource`<sup>Required</sup> <a name="shady-island.MysqlDatabaseProps.property.resource" id="shadyislandmysqldatabasepropspropertyresource"></a>
-
-```typescript
-public readonly resource: Construct;
-```
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
-The database cluster (used for CloudFormation dependencies).
 
 ---
 
@@ -2822,6 +2832,7 @@ The Secrets Manager secret containing credentials.
 | [`node`](#shadyislandidatabasepropertynode)<span title="Required">*</span> | [`constructs.Node`](#constructs.Node) | The tree node. |
 | [`databaseName`](#shadyislandidatabasepropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog. |
 | [`endpoint`](#shadyislandidatabasepropertyendpoint)<span title="Required">*</span> | [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint) | The cluster or instance endpoint. |
+| [`trigger`](#shadyislandidatabasepropertytrigger)<span title="Required">*</span> | [`aws-cdk-lib.triggers.ITrigger`](#aws-cdk-lib.triggers.ITrigger) | The CDK Trigger that kicks off the process. |
 
 ---
 
@@ -2858,6 +2869,20 @@ public readonly endpoint: Endpoint;
 - *Type:* [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint)
 
 The cluster or instance endpoint.
+
+---
+
+##### `trigger`<sup>Required</sup> <a name="shady-island.IDatabase.property.trigger" id="shadyislandidatabasepropertytrigger"></a>
+
+```typescript
+public readonly trigger: ITrigger;
+```
+
+- *Type:* [`aws-cdk-lib.triggers.ITrigger`](#aws-cdk-lib.triggers.ITrigger)
+
+The CDK Trigger that kicks off the process.
+
+You can further customize when the trigger fires using `executeAfter`.
 
 ---
 
