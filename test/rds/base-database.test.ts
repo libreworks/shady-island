@@ -13,11 +13,15 @@ import {
   AuroraMysqlEngineVersion,
 } from "aws-cdk-lib/aws-rds";
 import { ISecret, Secret } from "aws-cdk-lib/aws-secretsmanager";
+import { ITrigger } from "aws-cdk-lib/triggers";
 import { BaseDatabase } from "../../src/rds";
 
 class ConcreteBaseDatabase extends BaseDatabase {
   public addUserAsOwner(_: ISecret): void {}
   public addUserAsReader(_: ISecret): void {}
+  public get trigger(): ITrigger {
+    return {} as ITrigger;
+  }
   public get protectedSecurityGroup() {
     return this.securityGroup;
   }
@@ -64,7 +68,6 @@ describe("BaseDatabase", () => {
         adminSecret,
         databaseName,
         vpc,
-        resource: cluster,
         target: cluster,
         endpoint: cluster.clusterEndpoint,
       });
@@ -76,7 +79,6 @@ describe("BaseDatabase", () => {
         adminSecret,
         databaseName,
         vpc,
-        resource: cluster,
         target: cluster,
         endpoint: cluster.clusterEndpoint,
       });
@@ -88,7 +90,6 @@ describe("BaseDatabase", () => {
         adminSecret,
         databaseName,
         vpc,
-        resource: cluster,
         target: cluster,
         endpoint: cluster.clusterEndpoint,
       });
@@ -114,7 +115,6 @@ describe("BaseDatabase", () => {
         adminSecret,
         databaseName,
         vpc,
-        resource: cluster,
         target: cluster,
         endpoint: cluster.clusterEndpoint,
         securityGroup,
@@ -149,7 +149,6 @@ describe("BaseDatabase", () => {
         adminSecret,
         databaseName,
         vpc,
-        resource: cluster,
         target: cluster,
         endpoint: cluster.clusterEndpoint,
         securityGroup,
@@ -180,7 +179,6 @@ describe("BaseDatabase", () => {
         adminSecret,
         databaseName,
         vpc,
-        resource: cluster,
         target: cluster,
         endpoint: cluster.clusterEndpoint,
       });
@@ -195,7 +193,6 @@ describe("BaseDatabase", () => {
         adminSecret,
         databaseName,
         vpc,
-        resource: cluster,
         target: cluster,
         endpoint: cluster.clusterEndpoint,
         vpcSubnets,

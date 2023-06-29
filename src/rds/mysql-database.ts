@@ -11,7 +11,7 @@ import {
   ServerlessClusterFromSnapshot,
 } from "aws-cdk-lib/aws-rds";
 import { ISecret } from "aws-cdk-lib/aws-secretsmanager";
-import { Trigger } from "aws-cdk-lib/triggers";
+import { ITrigger, Trigger } from "aws-cdk-lib/triggers";
 import { IConstruct, Construct } from "constructs";
 import {
   BaseDatabase,
@@ -76,6 +76,9 @@ export class MysqlDatabase extends BaseDatabase {
   /**
    * Create a new MysqlDatabase inside a DatabaseCluster.
    *
+   * This method automatically adds the cluster to the CloudFormation
+   * dependencies of the CDK Trigger.
+   *
    * @param scope - The Construct that contains this one.
    * @param id - The identifier of this construct.
    * @param cluster - The database cluster construct.
@@ -95,18 +98,22 @@ export class MysqlDatabase extends BaseDatabase {
       );
     }
     delete props.adminSecret;
-    return new MysqlDatabase(scope, id, {
-      resource: cluster,
+    const database = new MysqlDatabase(scope, id, {
       target: cluster,
       endpoint: cluster.clusterEndpoint,
       adminSecret: clusterSecret,
       vpc: cluster.vpc,
       ...props,
     });
+    database.trigger.executeAfter(cluster);
+    return database;
   }
 
   /**
    * Create a new MysqlDatabase inside a DatabaseClusterFromSnapshot.
+   *
+   * This method automatically adds the cluster to the CloudFormation
+   * dependencies of the CDK Trigger.
    *
    * @param scope - The Construct that contains this one.
    * @param id - The identifier of this construct.
@@ -126,6 +133,9 @@ export class MysqlDatabase extends BaseDatabase {
   /**
    * Create a new MysqlDatabase inside a DatabaseCluster.
    *
+   * This method automatically adds the cluster to the CloudFormation
+   * dependencies of the CDK Trigger.
+   *
    * @param scope - The Construct that contains this one.
    * @param id - The identifier of this construct.
    * @param cluster - The database cluster construct.
@@ -136,7 +146,7 @@ export class MysqlDatabase extends BaseDatabase {
     id: string,
     cluster: ServerlessCluster,
     options: MysqlDatabaseForServerlessClusterOptions
-  ) {
+  ): MysqlDatabase {
     // The ServerlessClusterFromSnapshot type is a subset of ServerlessCluster.
     return MysqlDatabase.forServerlessClusterFromSnapshot(
       scope,
@@ -148,6 +158,9 @@ export class MysqlDatabase extends BaseDatabase {
 
   /**
    * Create a new MysqlDatabase inside a DatabaseClusterFromSnapshot.
+   *
+   * This method automatically adds the cluster to the CloudFormation
+   * dependencies of the CDK Trigger.
    *
    * @param scope - The Construct that contains this one.
    * @param id - The identifier of this construct.
@@ -168,17 +181,21 @@ export class MysqlDatabase extends BaseDatabase {
       );
     }
     delete props.adminSecret;
-    return new MysqlDatabase(scope, id, {
-      resource: cluster,
+    const database = new MysqlDatabase(scope, id, {
       target: cluster,
       endpoint: cluster.clusterEndpoint,
       adminSecret: clusterSecret,
       ...props,
     });
+    database.trigger.executeAfter(cluster);
+    return database;
   }
 
   /**
    * Create a new MysqlDatabase inside a DatabaseInstance.
+   *
+   * This method automatically adds the instance to the CloudFormation
+   * dependencies of the CDK Trigger.
    *
    * @param scope - The Construct that contains this one.
    * @param id - The identifier of this construct.
@@ -199,18 +216,22 @@ export class MysqlDatabase extends BaseDatabase {
       );
     }
     delete props.adminSecret;
-    return new MysqlDatabase(scope, id, {
-      resource: instance,
+    const database = new MysqlDatabase(scope, id, {
       target: instance,
       endpoint: instance.instanceEndpoint,
       adminSecret: clusterSecret,
       vpc: instance.vpc,
       ...props,
     });
+    database.trigger.executeAfter(instance);
+    return database;
   }
 
   /**
    * Create a new MysqlDatabase inside a DatabaseInstanceFromSnapshot.
+   *
+   * This method automatically adds the instance to the CloudFormation
+   * dependencies of the CDK Trigger.
    *
    * @param scope - The Construct that contains this one.
    * @param id - The identifier of this construct.
@@ -227,8 +248,9 @@ export class MysqlDatabase extends BaseDatabase {
     return MysqlDatabase.forInstance(scope, id, instance, options);
   }
 
+  public readonly trigger: ITrigger;
+
   protected readonly lambdaFunction: Function;
-  protected readonly trigger: Trigger;
   protected readonly ownerSecrets: ISecret[] = [];
   protected readonly readerSecrets: ISecret[] = [];
 
@@ -239,14 +261,10 @@ export class MysqlDatabase extends BaseDatabase {
    * @param id - The identifier of this construct.
    * @param props - The configuration properties for this construct.
    */
-  protected constructor(
-    scope: IConstruct,
-    id: string,
-    props: MysqlDatabaseProps
-  ) {
+  public constructor(scope: IConstruct, id: string, props: MysqlDatabaseProps) {
     super(scope, id, props);
 
-    const { adminSecret, resource, vpc, characterSet = "utf8mb4" } = props;
+    const { adminSecret, vpc, characterSet = "utf8mb4" } = props;
 
     const environment: Record<string, string> = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
@@ -266,7 +284,7 @@ export class MysqlDatabase extends BaseDatabase {
       environment.DB_COLLATION = props.collation;
     }
 
-    const lambdaFunction = new Function(this, "Function", {
+    this.lambdaFunction = new Function(this, "Function", {
       runtime: Runtime.NODEJS_18_X,
       code: Code.fromAsset(HANDLER_PATH),
       handler: "index.handler",
@@ -277,13 +295,12 @@ export class MysqlDatabase extends BaseDatabase {
       environment,
       timeout: Duration.minutes(2),
     });
+    adminSecret.grantRead(this.lambdaFunction);
 
-    this.lambdaFunction = lambdaFunction;
-    this.trigger = new Trigger(this, "Trigger", { handler: lambdaFunction });
-
-    adminSecret.grantRead(lambdaFunction);
-
-    this.trigger.executeAfter(resource, lambdaFunction);
+    this.trigger = new Trigger(this, "Trigger", {
+      handler: this.lambdaFunction,
+    });
+    this.trigger.executeAfter(this.lambdaFunction);
   }
 
   public addUserAsOwner(secret: ISecret) {

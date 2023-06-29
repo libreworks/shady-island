@@ -7,6 +7,7 @@ import {
 } from "aws-cdk-lib/aws-ec2";
 import { Endpoint } from "aws-cdk-lib/aws-rds";
 import { ISecret } from "aws-cdk-lib/aws-secretsmanager";
+import { ITrigger } from "aws-cdk-lib/triggers";
 import { IConstruct, Construct } from "constructs";
 
 /**
@@ -22,6 +23,13 @@ export interface IDatabase extends IConstruct {
    * The name of the database/catalog.
    */
   readonly databaseName: string;
+
+  /**
+   * The CDK Trigger that kicks off the process.
+   *
+   * You can further customize when the trigger fires using `executeAfter`.
+   */
+  readonly trigger: ITrigger;
 
   /**
    * Declares a new database user to be assigned ownership permissions.
@@ -73,10 +81,6 @@ export interface BaseDatabaseProps extends BaseDatabaseOptions {
    */
   readonly endpoint: Endpoint;
   /**
-   * The database cluster (used for CloudFormation dependencies).
-   */
-  readonly resource: Construct;
-  /**
    * The target service or database.
    */
   readonly target: IConnectable;
@@ -92,6 +96,8 @@ export interface BaseDatabaseProps extends BaseDatabaseOptions {
 export abstract class BaseDatabase extends Construct implements IDatabase {
   public readonly endpoint: Endpoint;
   public readonly databaseName: string;
+  public abstract readonly trigger: ITrigger;
+
   protected readonly securityGroup: ISecurityGroup;
   protected readonly subnetSelection: SubnetSelection;
 
