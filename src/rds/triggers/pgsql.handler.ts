@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { SecretsManagerClient } from "@aws-sdk/client-secrets-manager";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Client } from "pg";
 import type { DatabaseCredentials } from "./types";
 import { fetchSecret } from "./util";

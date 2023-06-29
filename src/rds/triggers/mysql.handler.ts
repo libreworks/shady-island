@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { SecretsManagerClient } from "@aws-sdk/client-secrets-manager";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { Connection, createConnection } from "mysql2/promise";
 import type { UsernamePassword, DatabaseCredentials } from "./types";
 import { fetchSecret, fetchAllSecrets, parseJsonArrayFromEnv } from "./util";
