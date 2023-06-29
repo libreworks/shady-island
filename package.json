@@ -62,7 +62,9 @@
     "jsii-diff": "^1.84.0",
     "jsii-docgen": "^4.2.44",
     "jsii-pacmak": "^1.84.0",
+    "mysql2": "^3.4.2",
     "npm-check-updates": "^16",
+    "pg": "^8.11.1",
     "prettier": "^2.8.8",
     "projen": "^0.71.100",
     "standard-version": "^9",
@@ -73,14 +75,6 @@
     "aws-cdk-lib": "^2.57.0",
     "constructs": "^10.0.5"
   },
-  "dependencies": {
-    "mysql2": "^3.3.5",
-    "pg": "^8.11.0"
-  },
-  "bundledDependencies": [
-    "mysql2",
-    "pg"
-  ],
   "resolutions": {
     "@types/babel__traverse": "7.18.2",
     "@types/prettier": "2.6.0"

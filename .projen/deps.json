@@ -99,8 +99,16 @@
       "type": "build"
     },
     {
+      "name": "mysql2",
+      "type": "build"
+    },
+    {
       "name": "npm-check-updates",
       "version": "^16",
+      "type": "build"
+    },
+    {
+      "name": "pg",
       "type": "build"
     },
     {
@@ -124,14 +132,6 @@
     {
       "name": "typescript",
       "type": "build"
-    },
-    {
-      "name": "mysql2",
-      "type": "bundled"
-    },
-    {
-      "name": "pg",
-      "type": "bundled"
     },
     {
       "name": "@types/babel__traverse",
