@@ -39,6 +39,13 @@ export interface IFargateTask extends IConnectable, IConstruct {
    * Get the networkConfiguration.awsvpcConfiguration property to run this task.
    */
   readonly awsVpcNetworkConfig: FargateAwsVpcConfiguration;
+
+  /**
+   * Grants permission to invoke ecs:RunTask on this task's cluster.
+   *
+   * @param grantee - The recipient of the permissions
+   */
+  grantRun(grantee: IGrantable): Grant;
 }
 
 /**
