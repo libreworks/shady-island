@@ -490,7 +490,7 @@ new FargateTask(scope: Construct, id: string, props: FargateTaskProps)
 
 | **Name** | **Description** |
 | --- | --- |
-| [`grantRun`](#shadyislandfargatetaskgrantrun) | *No description.* |
+| [`grantRun`](#shadyislandfargatetaskgrantrun) | Grants permission to invoke ecs:RunTask on this task's cluster. |
 
 ---
 
@@ -2989,6 +2989,27 @@ The log group.
 
 Interface for FargateTask.
 
+#### Methods <a name="Methods" id="methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`grantRun`](#shadyislandifargatetaskgrantrun) | Grants permission to invoke ecs:RunTask on this task's cluster. |
+
+---
+
+##### `grantRun` <a name="shady-island.IFargateTask.grantRun" id="shadyislandifargatetaskgrantrun"></a>
+
+```typescript
+public grantRun(grantee: IGrantable)
+```
+
+###### `grantee`<sup>Required</sup> <a name="shady-island.IFargateTask.parameter.grantee" id="shadyislandifargatetaskparametergrantee"></a>
+
+- *Type:* [`aws-cdk-lib.aws_iam.IGrantable`](#aws-cdk-lib.aws_iam.IGrantable)
+
+The recipient of the permissions.
+
+---
 
 #### Properties <a name="Properties" id="properties"></a>
 
