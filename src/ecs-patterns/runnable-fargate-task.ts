@@ -1,11 +1,5 @@
 import { Stack } from "aws-cdk-lib";
-import {
-  Connections,
-  IConnectable,
-  IVpc,
-  ISecurityGroup,
-  SubnetSelection,
-} from "aws-cdk-lib/aws-ec2";
+import { IVpc, ISecurityGroup, SubnetSelection } from "aws-cdk-lib/aws-ec2";
 import {
   Cluster,
   ICluster,
@@ -16,14 +10,13 @@ import {
   FargateServiceBaseProps,
   ApplicationLoadBalancedTaskImageOptions,
 } from "aws-cdk-lib/aws-ecs-patterns";
-import { IGrantable, Grant } from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
 import { FargateTask } from "../ecs/fargate-task";
 
 /**
- * Interface represending an ECS Fargate task.
+ * Interface representing a Fargate task running on an ECS cluster.
  */
-export interface IRunnableFargateTask extends IConnectable {
+export interface IRunnableFargateTask {
   /**
    * The task definition that can be launched.
    */
@@ -32,18 +25,10 @@ export interface IRunnableFargateTask extends IConnectable {
    * The cluster where this task will launch.
    */
   readonly cluster: ICluster;
-
   /**
-   * Grant the ability to run the task on the cluster.
-   *
-   * This policy is more restrictive than those applied by the grantRun method
-   * of the `TaskDefinition` because it requires the task to run on the
-   * associated cluster.
-   *
-   * @param grantee - The principal to receive the grant
-   * @returns The grant
+   * The FargateTask.
    */
-  grantRun(grantee: IGrantable): Grant;
+  readonly task: FargateTask;
 }
 
 /**
@@ -106,19 +91,18 @@ export interface FargateTaskImageOptions
   extends ApplicationLoadBalancedTaskImageOptions {}
 
 /**
- * A task on ECS Fargate, as opposed to a service.
+ * A Fargate task running on an ECS cluster.
  */
 export class RunnableFargateTask
   extends Construct
-  implements IRunnableFargateTask
+  implements IRunnableFargateTask 
 {
   public readonly cluster: ICluster;
   public readonly taskDefinition: FargateTaskDefinition;
-  public readonly connections: Connections = new Connections();
-  protected fargateTask;
+  public readonly task: FargateTask;
 
   /**
-   * Creates a new BaseFargateSetup.
+   * Creates a new RunnableFargateTask.
    */
   public constructor(
     scope: Construct,
@@ -169,7 +153,7 @@ export class RunnableFargateTask
 
     this.cluster = props.cluster || this.getDefaultCluster(this, props.vpc);
 
-    this.fargateTask = new FargateTask(this, "Task", {
+    this.task = new FargateTask(this, "Task", {
       cluster: this.cluster,
       taskDefinition: this.taskDefinition,
       securityGroups: props.securityGroups,
@@ -181,7 +165,7 @@ export class RunnableFargateTask
   /**
    * Creates a new AwsLogDriver.
    *
-   * Modeled after "aws-cdk-lib/aws-ecs".
+   * Modeled after "aws-cdk-lib/aws-ecs-patterns".
    */
   protected createAWSLogDriver(prefix: string): AwsLogDriver {
     return new AwsLogDriver({ streamPrefix: prefix });
@@ -202,9 +186,5 @@ export class RunnableFargateTask
       (stack.node.tryFindChild(DEFAULT_CLUSTER_ID) as Cluster) ||
       new Cluster(stack, DEFAULT_CLUSTER_ID, { vpc })
     );
-  }
-
-  public grantRun(grantee: IGrantable): Grant {
-    return this.fargateTask.grantRun(grantee);
   }
 }

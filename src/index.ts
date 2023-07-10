@@ -6,3 +6,5 @@ export * from "./rds";
 export * from "./vpc";
 export * from "./tier";
 export * from "./workload";
+
+export * as ecspatterns from "./ecs-patterns";
