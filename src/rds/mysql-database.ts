@@ -253,6 +253,7 @@ export class MysqlDatabase extends BaseDatabase {
   protected readonly lambdaFunction: Function;
   protected readonly ownerSecrets: ISecret[] = [];
   protected readonly readerSecrets: ISecret[] = [];
+  protected readonly unprivilegedSecrets: ISecret[] = [];
 
   /**
    * Creates a new MysqlDatabase.
@@ -276,6 +277,10 @@ export class MysqlDatabase extends BaseDatabase {
       READER_SECRETS: Lazy.string({
         produce: () =>
           JSON.stringify(this.readerSecrets.map((s) => s.secretArn)),
+      }),
+      UNPRIVILEGED_SECRETS: Lazy.string({
+        produce: () =>
+          JSON.stringify(this.unprivilegedSecrets.map((s) => s.secretArn)),
       }),
       DB_NAME: this.databaseName,
       DB_CHARACTER_SET: characterSet,
@@ -311,6 +316,12 @@ export class MysqlDatabase extends BaseDatabase {
 
   public addUserAsReader(secret: ISecret) {
     this.readerSecrets.push(secret);
+    secret.grantRead(this.lambdaFunction);
+    this.trigger.executeAfter(secret);
+  }
+
+  public addUserAsUnprivileged(secret: ISecret) {
+    this.unprivilegedSecrets.push(secret);
     secret.grantRead(this.lambdaFunction);
     this.trigger.executeAfter(secret);
   }

@@ -44,6 +44,13 @@ export interface IDatabase extends IConstruct {
    * @param secret - The Secrets Manager secret containing credentials.
    */
   addUserAsReader(secret: ISecret): void;
+
+  /**
+   * Declares a new database user with no permissions.
+   *
+   * @param secret - The Secrets Manager secret containing credentials.
+   */
+  addUserAsUnprivileged(secret: ISecret): void;
 }
 
 /**
@@ -129,4 +136,5 @@ export abstract class BaseDatabase extends Construct implements IDatabase {
 
   public abstract addUserAsOwner(secret: ISecret): void;
   public abstract addUserAsReader(secret: ISecret): void;
+  public abstract addUserAsUnprivileged(secret: ISecret): void;
 }

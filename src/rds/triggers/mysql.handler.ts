@@ -13,6 +13,7 @@ const collation = process.env.DB_COLLATION;
 const secretsManagerClient = new SecretsManagerClient({});
 const ownerSecretArns = parseJsonArrayFromEnv("OWNER_SECRETS");
 const readerSecretArns = parseJsonArrayFromEnv("READER_SECRETS");
+const unprivilegedSecretArns = parseJsonArrayFromEnv("UNPRIVILEGED_SECRETS");
 
 async function createUser(
   connection: Connection,
@@ -76,6 +77,15 @@ const handler = async () => {
     const mysqlUser = `'${userSecret.username}'@'%'`;
     await createUser(connection, mysqlUser, userSecret.password);
     await applyGrant(connection, mysqlUser, "SELECT, SHOW VIEW");
+  }
+
+  const unprivilegedSecrets: UsernamePassword[] = await fetchAllSecrets(
+    unprivilegedSecretArns,
+    secretsManagerClient
+  );
+  for (const userSecret of unprivilegedSecrets) {
+    const mysqlUser = `'${userSecret.username}'@'%'`;
+    await createUser(connection, mysqlUser, userSecret.password);
   }
 
   let flushSql = "FLUSH PRIVILEGES";
