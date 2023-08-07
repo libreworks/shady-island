@@ -138,6 +138,7 @@ The configuration properties for this construct.
 | --- | --- |
 | [`addUserAsOwner`](#shadyislandbasedatabaseadduserasowner) | Declares a new database user to be assigned ownership permissions. |
 | [`addUserAsReader`](#shadyislandbasedatabaseadduserasreader) | Declares a new database user to be assigned read-only permissions. |
+| [`addUserAsUnprivileged`](#shadyislandbasedatabaseadduserasunprivileged) | Declares a new database user with no permissions. |
 
 ---
 
@@ -157,6 +158,18 @@ public addUserAsOwner(secret: ISecret)
 
 ```typescript
 public addUserAsReader(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.BaseDatabase.parameter.secret" id="shadyislandbasedatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+---
+
+##### `addUserAsUnprivileged` <a name="shady-island.BaseDatabase.addUserAsUnprivileged" id="shadyislandbasedatabaseadduserasunprivileged"></a>
+
+```typescript
+public addUserAsUnprivileged(secret: ISecret)
 ```
 
 ###### `secret`<sup>Required</sup> <a name="shady-island.BaseDatabase.parameter.secret" id="shadyislandbasedatabaseparametersecret"></a>
@@ -617,6 +630,7 @@ The configuration properties for this construct.
 | --- | --- |
 | [`addUserAsOwner`](#shadyislandmysqldatabaseadduserasowner) | Declares a new database user to be assigned ownership permissions. |
 | [`addUserAsReader`](#shadyislandmysqldatabaseadduserasreader) | Declares a new database user to be assigned read-only permissions. |
+| [`addUserAsUnprivileged`](#shadyislandmysqldatabaseadduserasunprivileged) | Declares a new database user with no permissions. |
 
 ---
 
@@ -636,6 +650,18 @@ public addUserAsOwner(secret: ISecret)
 
 ```typescript
 public addUserAsReader(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.secret" id="shadyislandmysqldatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+---
+
+##### `addUserAsUnprivileged` <a name="shady-island.MysqlDatabase.addUserAsUnprivileged" id="shadyislandmysqldatabaseadduserasunprivileged"></a>
+
+```typescript
+public addUserAsUnprivileged(secret: ISecret)
 ```
 
 ###### `secret`<sup>Required</sup> <a name="shady-island.MysqlDatabase.parameter.secret" id="shadyislandmysqldatabaseparametersecret"></a>
@@ -2794,6 +2820,7 @@ The definition used to create a database.
 | --- | --- |
 | [`addUserAsOwner`](#shadyislandidatabaseadduserasowner) | Declares a new database user to be assigned ownership permissions. |
 | [`addUserAsReader`](#shadyislandidatabaseadduserasreader) | Declares a new database user to be assigned read-only permissions. |
+| [`addUserAsUnprivileged`](#shadyislandidatabaseadduserasunprivileged) | Declares a new database user with no permissions. |
 
 ---
 
@@ -2815,6 +2842,20 @@ The Secrets Manager secret containing credentials.
 
 ```typescript
 public addUserAsReader(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.IDatabase.parameter.secret" id="shadyislandidatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+The Secrets Manager secret containing credentials.
+
+---
+
+##### `addUserAsUnprivileged` <a name="shady-island.IDatabase.addUserAsUnprivileged" id="shadyislandidatabaseadduserasunprivileged"></a>
+
+```typescript
+public addUserAsUnprivileged(secret: ISecret)
 ```
 
 ###### `secret`<sup>Required</sup> <a name="shady-island.IDatabase.parameter.secret" id="shadyislandidatabaseparametersecret"></a>

@@ -90,6 +90,7 @@ describe("BaseDatabase", () => {
               "Fn::Join": ["", ['["', { Ref: "UserSecret0463E4F5" }, '"]']],
             },
             READER_SECRETS: "[]",
+            UNPRIVILEGED_SECRETS: "[]",
           },
         },
         Handler: "index.handler",
@@ -166,6 +167,111 @@ describe("BaseDatabase", () => {
             DB_NAME: "foobar",
             OWNER_SECRETS: "[]",
             READER_SECRETS: {
+              "Fn::Join": ["", ['["', { Ref: "UserSecret0463E4F5" }, '"]']],
+            },
+            UNPRIVILEGED_SECRETS: "[]",
+          },
+        },
+        Handler: "index.handler",
+        Runtime: "nodejs18.x",
+        Timeout: 120,
+        VpcConfig: {
+          SecurityGroupIds: [
+            { "Fn::GetAtt": ["MyDbSecurityGroupBBC038AB", "GroupId"] },
+          ],
+          SubnetIds: [
+            { Ref: "VPCPrivateSubnet1Subnet8BCA10E0" },
+            { Ref: "VPCPrivateSubnet2SubnetCFCDAA7A" },
+          ],
+        },
+      });
+      template.resourceCountIs("Custom::Trigger", 1);
+      template.hasResource("Custom::Trigger", {
+        DependsOn: Match.arrayWith([
+          "ClusterInstance1448F06E4",
+          "ClusterInstance2C3E0561B",
+          "ClusterEB0386A7",
+          "ClusterSecurityGroupfromStackMyDbSecurityGroup0E936039IndirectPortE751E3FE",
+          "ClusterSecurityGroup0921994B",
+          "ClusterSubnetsDCFA5CB7",
+          "MyDbFunction7E72B045",
+          "MyDbFunctionServiceRoleDefaultPolicyEB977851",
+          "MyDbFunctionServiceRole0211C4A3",
+          "UserSecret0463E4F5",
+        ]),
+      });
+      template.hasResourceProperties("AWS::IAM::Policy", {
+        PolicyDocument: {
+          Statement: [
+            {
+              Action: [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
+              Effect: "Allow",
+              Resource: { Ref: "SecretAttachment2E1B7C3B" },
+            },
+            {
+              Action: [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
+              Effect: "Allow",
+              Resource: { Ref: "UserSecret0463E4F5" },
+            },
+          ],
+          Version: "2012-10-17",
+        },
+        PolicyName: "MyDbFunctionServiceRoleDefaultPolicyEB977851",
+        Roles: [{ Ref: "MyDbFunctionServiceRole0211C4A3" }],
+      });
+    });
+  });
+
+  describe("#addUserAsUnprivileged", () => {
+    test("works as expected", () => {
+      let cluster = new DatabaseCluster(stack, "Cluster", {
+        engine: DatabaseClusterEngine.auroraMysql({
+          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        }),
+        instanceProps: { vpc },
+        credentials: Credentials.fromSecret(adminSecret),
+      });
+      const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
+        databaseName,
+      });
+      const userSecret = new Secret(stack, "UserSecret", {});
+      obj.addUserAsUnprivileged(userSecret);
+      const trigger = obj.node.findChild("Trigger") as Trigger;
+      expect(trigger.node.dependencies).toContain(userSecret);
+    });
+
+    test("synthesizes as expected", () => {
+      let cluster = new DatabaseCluster(stack, "Cluster", {
+        engine: DatabaseClusterEngine.auroraMysql({
+          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        }),
+        instanceProps: { vpc },
+        credentials: Credentials.fromSecret(adminSecret),
+      });
+      const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
+        databaseName,
+        characterSet: "utf8",
+      });
+      const userSecret = new Secret(stack, "UserSecret", {});
+      obj.addUserAsUnprivileged(userSecret);
+      const template = Template.fromStack(stack);
+      template.hasResourceProperties("AWS::Lambda::Function", {
+        Description: "Creates a schema and possibly some secondary users",
+        Environment: {
+          Variables: {
+            ADMIN_SECRET_ARN: { Ref: "SecretAttachment2E1B7C3B" },
+            AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
+            DB_CHARACTER_SET: "utf8",
+            DB_NAME: "foobar",
+            OWNER_SECRETS: "[]",
+            READER_SECRETS: "[]",
+            UNPRIVILEGED_SECRETS: {
               "Fn::Join": ["", ['["', { Ref: "UserSecret0463E4F5" }, '"]']],
             },
           },

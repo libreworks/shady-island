@@ -19,6 +19,7 @@ import { BaseDatabase } from "../../src/rds";
 class ConcreteBaseDatabase extends BaseDatabase {
   public addUserAsOwner(_: ISecret): void {}
   public addUserAsReader(_: ISecret): void {}
+  public addUserAsUnprivileged(_: ISecret): void {}
   public get trigger(): ITrigger {
     return {} as ITrigger;
   }
