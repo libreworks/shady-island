@@ -49,6 +49,7 @@ const handler = async () => {
     password: adminSecret.password,
     port: adminSecret.port,
     ssl: "Amazon RDS",
+    connectTimeout: 40000,
   });
 
   let createDbSql = `CREATE DATABASE IF NOT EXISTS ${databaseName} CHARACTER SET ${characterSet}`;
