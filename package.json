@@ -40,7 +40,7 @@
     "organization": true
   },
   "devDependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.418.0",
+    "@aws-sdk/client-secrets-manager": "^3.421.0",
     "@types/aws-lambda": "^8.10.122",
     "@types/jest": "^27",
     "@types/node": "^16",
@@ -49,7 +49,7 @@
     "@typescript-eslint/parser": "^6",
     "aws-cdk-lib": "2.57.0",
     "constructs": "10.0.5",
-    "esbuild": "^0.19.3",
+    "esbuild": "^0.19.4",
     "eslint": "^8",
     "eslint-config-prettier": "^8.10.0",
     "eslint-import-resolver-node": "^0.3.9",
@@ -67,7 +67,7 @@
     "npm-check-updates": "^16",
     "pg": "^8.11.3",
     "prettier": "^2.8.8",
-    "projen": "^0.73.31",
+    "projen": "^0.73.37",
     "standard-version": "^9",
     "ts-jest": "^27",
     "typescript": "^4.9.5"
