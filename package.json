@@ -40,7 +40,7 @@
     "organization": true
   },
   "devDependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.438.0",
+    "@aws-sdk/client-secrets-manager": "^3.441.0",
     "@types/aws-lambda": "^8.10.125",
     "@types/jest": "^27",
     "@types/node": "^16",
@@ -63,11 +63,11 @@
     "jsii-docgen": "^4.2.44",
     "jsii-pacmak": "^1.91.0",
     "jsii-rosetta": "1.x",
-    "mysql2": "^3.6.2",
+    "mysql2": "^3.6.3",
     "npm-check-updates": "^16",
     "pg": "^8.11.3",
     "prettier": "^2.8.8",
-    "projen": "^0.76.13",
+    "projen": "^0.76.20",
     "standard-version": "^9",
     "ts-jest": "^27",
     "typescript": "^4.9.5"
