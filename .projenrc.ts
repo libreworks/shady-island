@@ -1,11 +1,12 @@
-const { awscdk, javascript, ProjectType } = require("projen");
+import { awscdk, javascript } from "projen";
 
 const project = new awscdk.AwsCdkConstructLibrary({
   name: "shady-island",
-  projectType: ProjectType.LIB,
+  projenrcTs: true,
+
   description: "Utilities and constructs for the AWS CDK",
-  authorName: "LibreWorks Contributors",
-  authorUrl: "https://github.com/libreworks/shady-island/contributors",
+  author: "LibreWorks Contributors",
+  authorAddress: "https://github.com/libreworks/shady-island/contributors",
   authorOrganization: true,
 
   repositoryUrl: "https://github.com:libreworks/shady-island.git",
