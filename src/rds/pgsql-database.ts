@@ -19,38 +19,48 @@ import {
   BaseDatabaseOptions,
 } from "./base-database";
 
-const HANDLER_PATH = path.join(__dirname, "../../assets/rds/triggers/mysql");
+const HANDLER_PATH = path.join(__dirname, "../../assets/rds/triggers/pgsql");
 
 /**
- * MySQL-specific options.
+ * PostgreSQL-specific options.
  */
-export interface MysqlDatabaseOptions {
+export interface PostgresqlDatabaseOptions {
   /**
-   * The database default character set to use.
-   *
-   * @default - "utf8mb4"
+   * The Secrets Manager secret for the owner of the schema.
    */
-  readonly characterSet?: string;
+  readonly ownerSecret: ISecret;
   /**
-   * The database default collation to use.
+   * The name of the schema to create.
    *
-   * @default - rely on MySQL to choose the default collation.
+   * @default - The username of the ownerSecret.
    */
-  readonly collation?: string;
+  readonly schemaName?: string;
+  /**
+   * The database default encoding set to use.
+   *
+   * @default - "UTF8"
+   */
+  readonly encoding?: string;
+  /**
+   * The database default locale to use.
+   *
+   * @default - rely on PostgreSQL to choose the default locale.
+   */
+  readonly locale?: string;
 }
 
 /**
- * Constructor properties for MysqlDatabase.
+ * Constructor properties for PostgresqlDatabase.
  */
-export interface MysqlDatabaseProps
+export interface PostgresqlDatabaseProps
   extends BaseDatabaseProps,
-    MysqlDatabaseOptions {}
+    PostgresqlDatabaseOptions {}
 
 /**
- * Properties to specify when using MysqlDatabase.forCluster().
+ * Properties to specify when using PostgresqlDatabase.forCluster().
  */
-export interface MysqlDatabaseForClusterOptions
-  extends MysqlDatabaseOptions,
+export interface PostgresqlDatabaseForClusterOptions
+  extends PostgresqlDatabaseOptions,
     BaseDatabaseOptions {
   /**
    * A Secrets Manager secret that contains administrative credentials.
@@ -59,10 +69,10 @@ export interface MysqlDatabaseForClusterOptions
 }
 
 /**
- * Properties to specify when using MysqlDatabase.forServerlessCluster().
+ * Properties to specify when using PostgresqlDatabase.forServerlessCluster().
  */
-export interface MysqlDatabaseForServerlessClusterOptions
-  extends MysqlDatabaseForClusterOptions {
+export interface PostgresqlDatabaseForServerlessClusterOptions
+  extends PostgresqlDatabaseForClusterOptions {
   /**
    * The VPC where the Lambda function will run.
    */
@@ -70,11 +80,11 @@ export interface MysqlDatabaseForServerlessClusterOptions
 }
 
 /**
- * A MySQL database.
+ * A PostgreSQL database.
  */
-export class MysqlDatabase extends BaseDatabase {
+export class PostgresqlDatabase extends BaseDatabase {
   /**
-   * Create a new MysqlDatabase inside a DatabaseCluster.
+   * Create a new PostgresqlDatabase inside a DatabaseCluster.
    *
    * This method automatically adds the cluster to the CloudFormation
    * dependencies of the CDK Trigger.
@@ -88,8 +98,8 @@ export class MysqlDatabase extends BaseDatabase {
     scope: Construct,
     id: string,
     cluster: DatabaseCluster,
-    options: MysqlDatabaseForClusterOptions
-  ): MysqlDatabase {
+    options: PostgresqlDatabaseForClusterOptions
+  ): PostgresqlDatabase {
     const props = { ...options };
     let clusterSecret = props.adminSecret || cluster.secret;
     if (clusterSecret === undefined) {
@@ -98,7 +108,7 @@ export class MysqlDatabase extends BaseDatabase {
       );
     }
     delete props.adminSecret;
-    const database = new MysqlDatabase(scope, id, {
+    const database = new PostgresqlDatabase(scope, id, {
       target: cluster,
       endpoint: cluster.clusterEndpoint,
       adminSecret: clusterSecret,
@@ -110,7 +120,7 @@ export class MysqlDatabase extends BaseDatabase {
   }
 
   /**
-   * Create a new MysqlDatabase inside a DatabaseClusterFromSnapshot.
+   * Create a new PostgresqlDatabase inside a DatabaseClusterFromSnapshot.
    *
    * This method automatically adds the cluster to the CloudFormation
    * dependencies of the CDK Trigger.
@@ -124,14 +134,14 @@ export class MysqlDatabase extends BaseDatabase {
     scope: Construct,
     id: string,
     cluster: DatabaseClusterFromSnapshot,
-    options: MysqlDatabaseForClusterOptions
-  ): MysqlDatabase {
+    options: PostgresqlDatabaseForClusterOptions
+  ): PostgresqlDatabase {
     // The DatabaseClusterFromSnapshot type is equivalent to DatabaseCluster.
-    return MysqlDatabase.forCluster(scope, id, cluster, options);
+    return PostgresqlDatabase.forCluster(scope, id, cluster, options);
   }
 
   /**
-   * Create a new MysqlDatabase inside a DatabaseCluster.
+   * Create a new PostgresqlDatabase inside a DatabaseCluster.
    *
    * This method automatically adds the cluster to the CloudFormation
    * dependencies of the CDK Trigger.
@@ -145,10 +155,10 @@ export class MysqlDatabase extends BaseDatabase {
     scope: Construct,
     id: string,
     cluster: ServerlessCluster,
-    options: MysqlDatabaseForServerlessClusterOptions
-  ): MysqlDatabase {
+    options: PostgresqlDatabaseForServerlessClusterOptions
+  ): PostgresqlDatabase {
     // The ServerlessClusterFromSnapshot type is a subset of ServerlessCluster.
-    return MysqlDatabase.forServerlessClusterFromSnapshot(
+    return PostgresqlDatabase.forServerlessClusterFromSnapshot(
       scope,
       id,
       cluster,
@@ -157,7 +167,7 @@ export class MysqlDatabase extends BaseDatabase {
   }
 
   /**
-   * Create a new MysqlDatabase inside a DatabaseClusterFromSnapshot.
+   * Create a new PostgresqlDatabase inside a DatabaseClusterFromSnapshot.
    *
    * This method automatically adds the cluster to the CloudFormation
    * dependencies of the CDK Trigger.
@@ -171,8 +181,8 @@ export class MysqlDatabase extends BaseDatabase {
     scope: Construct,
     id: string,
     cluster: ServerlessClusterFromSnapshot,
-    options: MysqlDatabaseForServerlessClusterOptions
-  ): MysqlDatabase {
+    options: PostgresqlDatabaseForServerlessClusterOptions
+  ): PostgresqlDatabase {
     const props = { ...options };
     let clusterSecret = props.adminSecret || cluster.secret;
     if (clusterSecret === undefined) {
@@ -181,7 +191,7 @@ export class MysqlDatabase extends BaseDatabase {
       );
     }
     delete props.adminSecret;
-    const database = new MysqlDatabase(scope, id, {
+    const database = new PostgresqlDatabase(scope, id, {
       target: cluster,
       endpoint: cluster.clusterEndpoint,
       adminSecret: clusterSecret,
@@ -192,7 +202,7 @@ export class MysqlDatabase extends BaseDatabase {
   }
 
   /**
-   * Create a new MysqlDatabase inside a DatabaseInstance.
+   * Create a new PostgresqlDatabase inside a DatabaseInstance.
    *
    * This method automatically adds the instance to the CloudFormation
    * dependencies of the CDK Trigger.
@@ -206,8 +216,8 @@ export class MysqlDatabase extends BaseDatabase {
     scope: Construct,
     id: string,
     instance: DatabaseInstance,
-    options: MysqlDatabaseForClusterOptions
-  ): MysqlDatabase {
+    options: PostgresqlDatabaseForClusterOptions
+  ): PostgresqlDatabase {
     const props = { ...options };
     let clusterSecret = props.adminSecret || instance.secret;
     if (clusterSecret === undefined) {
@@ -216,7 +226,7 @@ export class MysqlDatabase extends BaseDatabase {
       );
     }
     delete props.adminSecret;
-    const database = new MysqlDatabase(scope, id, {
+    const database = new PostgresqlDatabase(scope, id, {
       target: instance,
       endpoint: instance.instanceEndpoint,
       adminSecret: clusterSecret,
@@ -228,7 +238,7 @@ export class MysqlDatabase extends BaseDatabase {
   }
 
   /**
-   * Create a new MysqlDatabase inside a DatabaseInstanceFromSnapshot.
+   * Create a new PostgresqlDatabase inside a DatabaseInstanceFromSnapshot.
    *
    * This method automatically adds the instance to the CloudFormation
    * dependencies of the CDK Trigger.
@@ -242,10 +252,10 @@ export class MysqlDatabase extends BaseDatabase {
     scope: Construct,
     id: string,
     instance: DatabaseInstanceFromSnapshot,
-    options: MysqlDatabaseForClusterOptions
-  ): MysqlDatabase {
+    options: PostgresqlDatabaseForClusterOptions
+  ): PostgresqlDatabase {
     // The DatabaseInstanceFromSnapshot type is equivalent to DatabaseInstance.
-    return MysqlDatabase.forInstance(scope, id, instance, options);
+    return PostgresqlDatabase.forInstance(scope, id, instance, options);
   }
 
   public readonly trigger: ITrigger;
@@ -256,20 +266,31 @@ export class MysqlDatabase extends BaseDatabase {
   protected readonly unprivilegedSecrets: ISecret[] = [];
 
   /**
-   * Creates a new MysqlDatabase.
+   * Creates a new PostgresqlDatabase.
    *
    * @param scope - The Construct that contains this one.
    * @param id - The identifier of this construct.
    * @param props - The configuration properties for this construct.
    */
-  public constructor(scope: IConstruct, id: string, props: MysqlDatabaseProps) {
+  public constructor(
+    scope: IConstruct,
+    id: string,
+    props: PostgresqlDatabaseProps
+  ) {
     super(scope, id, props);
 
-    const { adminSecret, vpc, characterSet = "utf8mb4" } = props;
+    const {
+      adminSecret,
+      vpc,
+      ownerSecret,
+      schemaName,
+      encoding = "UTF8",
+    } = props;
 
     const environment: Record<string, string> = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       ADMIN_SECRET_ARN: adminSecret.secretArn,
+      OWNER_SECRET_ARN: ownerSecret.secretArn,
       OWNER_SECRETS: Lazy.string({
         produce: () =>
           JSON.stringify(this.ownerSecrets.map((s) => s.secretArn)),
@@ -283,10 +304,11 @@ export class MysqlDatabase extends BaseDatabase {
           JSON.stringify(this.unprivilegedSecrets.map((s) => s.secretArn)),
       }),
       DB_NAME: this.databaseName,
-      DB_CHARACTER_SET: characterSet,
+      SCHEMA_NAME: schemaName || "",
+      DB_ENCODING: encoding,
     };
-    if (props.collation) {
-      environment.DB_COLLATION = props.collation;
+    if (props.locale) {
+      environment.DB_LOCALE = props.locale;
     }
 
     this.lambdaFunction = new Function(this, "Function", {

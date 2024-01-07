@@ -2,7 +2,8 @@ import { App, SecretValue, Stack } from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
 import {
-  AuroraMysqlEngineVersion,
+  AuroraPostgresEngineVersion,
+  ClusterInstance,
   Credentials,
   DatabaseCluster,
   DatabaseClusterFromSnapshot,
@@ -17,9 +18,9 @@ import {
 } from "aws-cdk-lib/aws-rds";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { Trigger } from "aws-cdk-lib/triggers";
-import { MysqlDatabase } from "../../src/rds";
+import { PostgresqlDatabase } from "../../src/rds";
 
-describe("MysqlDatabase", () => {
+describe("BaseDatabase", () => {
   let app: App;
   let stack: Stack;
   let vpc: Vpc;
@@ -47,14 +48,17 @@ describe("MysqlDatabase", () => {
   describe("#addUserAsOwner", () => {
     test("works as expected", () => {
       let cluster = new DatabaseCluster(stack, "Cluster", {
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer", {}),
         credentials: Credentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forCluster(stack, "MyDb", cluster, {
         databaseName,
+        ownerSecret,
       });
       const userSecret = new Secret(stack, "UserSecret", {});
       obj.addUserAsOwner(userSecret);
@@ -64,15 +68,18 @@ describe("MysqlDatabase", () => {
 
     test("synthesizes as expected", () => {
       let cluster = new DatabaseCluster(stack, "Cluster", {
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer", {}),
         credentials: Credentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forCluster(stack, "MyDb", cluster, {
         databaseName,
-        collation: "utf8mb4_0900_ai_ci",
+        ownerSecret,
+        locale: "en_US.utf8",
       });
       const userSecret = new Secret(stack, "UserSecret", {});
       obj.addUserAsOwner(userSecret);
@@ -83,8 +90,8 @@ describe("MysqlDatabase", () => {
           Variables: {
             ADMIN_SECRET_ARN: { Ref: "SecretAttachment2E1B7C3B" },
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
-            DB_CHARACTER_SET: "utf8mb4",
-            DB_COLLATION: "utf8mb4_0900_ai_ci",
+            DB_ENCODING: "UTF8",
+            DB_LOCALE: "en_US.utf8",
             DB_NAME: "foobar",
             OWNER_SECRETS: {
               "Fn::Join": ["", ['["', { Ref: "UserSecret0463E4F5" }, '"]']],
@@ -109,8 +116,6 @@ describe("MysqlDatabase", () => {
       template.resourceCountIs("Custom::Trigger", 1);
       template.hasResource("Custom::Trigger", {
         DependsOn: Match.arrayWith([
-          "ClusterInstance1448F06E4",
-          "ClusterInstance2C3E0561B",
           "ClusterEB0386A7",
           "ClusterSecurityGroupfromStackMyDbSecurityGroup0E936039IndirectPortE751E3FE",
           "ClusterSecurityGroup0921994B",
@@ -127,14 +132,17 @@ describe("MysqlDatabase", () => {
   describe("#addUserAsReader", () => {
     test("works as expected", () => {
       let cluster = new DatabaseCluster(stack, "Cluster", {
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer", {}),
         credentials: Credentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forCluster(stack, "MyDb", cluster, {
         databaseName,
+        ownerSecret,
       });
       const userSecret = new Secret(stack, "UserSecret", {});
       obj.addUserAsReader(userSecret);
@@ -144,15 +152,18 @@ describe("MysqlDatabase", () => {
 
     test("synthesizes as expected", () => {
       let cluster = new DatabaseCluster(stack, "Cluster", {
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer", {}),
         credentials: Credentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forCluster(stack, "MyDb", cluster, {
         databaseName,
-        characterSet: "utf8",
+        ownerSecret,
+        encoding: "UTF8",
       });
       const userSecret = new Secret(stack, "UserSecret", {});
       obj.addUserAsReader(userSecret);
@@ -163,7 +174,7 @@ describe("MysqlDatabase", () => {
           Variables: {
             ADMIN_SECRET_ARN: { Ref: "SecretAttachment2E1B7C3B" },
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
-            DB_CHARACTER_SET: "utf8",
+            DB_ENCODING: "UTF8",
             DB_NAME: "foobar",
             OWNER_SECRETS: "[]",
             READER_SECRETS: {
@@ -188,8 +199,6 @@ describe("MysqlDatabase", () => {
       template.resourceCountIs("Custom::Trigger", 1);
       template.hasResource("Custom::Trigger", {
         DependsOn: Match.arrayWith([
-          "ClusterInstance1448F06E4",
-          "ClusterInstance2C3E0561B",
           "ClusterEB0386A7",
           "ClusterSecurityGroupfromStackMyDbSecurityGroup0E936039IndirectPortE751E3FE",
           "ClusterSecurityGroup0921994B",
@@ -231,14 +240,17 @@ describe("MysqlDatabase", () => {
   describe("#addUserAsUnprivileged", () => {
     test("works as expected", () => {
       let cluster = new DatabaseCluster(stack, "Cluster", {
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer", {}),
         credentials: Credentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forCluster(stack, "MyDb", cluster, {
         databaseName,
+        ownerSecret,
       });
       const userSecret = new Secret(stack, "UserSecret", {});
       obj.addUserAsUnprivileged(userSecret);
@@ -248,15 +260,18 @@ describe("MysqlDatabase", () => {
 
     test("synthesizes as expected", () => {
       let cluster = new DatabaseCluster(stack, "Cluster", {
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer", {}),
         credentials: Credentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forCluster(stack, "MyDb", cluster, {
         databaseName,
-        characterSet: "utf8",
+        ownerSecret,
+        encoding: "UTF8",
       });
       const userSecret = new Secret(stack, "UserSecret", {});
       obj.addUserAsUnprivileged(userSecret);
@@ -267,7 +282,7 @@ describe("MysqlDatabase", () => {
           Variables: {
             ADMIN_SECRET_ARN: { Ref: "SecretAttachment2E1B7C3B" },
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
-            DB_CHARACTER_SET: "utf8",
+            DB_ENCODING: "UTF8",
             DB_NAME: "foobar",
             OWNER_SECRETS: "[]",
             READER_SECRETS: "[]",
@@ -292,8 +307,6 @@ describe("MysqlDatabase", () => {
       template.resourceCountIs("Custom::Trigger", 1);
       template.hasResource("Custom::Trigger", {
         DependsOn: Match.arrayWith([
-          "ClusterInstance1448F06E4",
-          "ClusterInstance2C3E0561B",
           "ClusterEB0386A7",
           "ClusterSecurityGroupfromStackMyDbSecurityGroup0E936039IndirectPortE751E3FE",
           "ClusterSecurityGroup0921994B",
@@ -335,14 +348,17 @@ describe("MysqlDatabase", () => {
   describe("#forDatabaseCluster", () => {
     test("works as expected with defaults", () => {
       let cluster = new DatabaseCluster(stack, "Cluster", {
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer", {}),
         credentials: Credentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forCluster(stack, "MyDb", cluster, {
         databaseName,
+        ownerSecret,
       });
       expect(obj.endpoint).toBe(cluster.clusterEndpoint);
       const trigger = obj.node.findChild("Trigger") as Trigger;
@@ -351,36 +367,42 @@ describe("MysqlDatabase", () => {
 
     test("works as expected with override secret", () => {
       let cluster = new DatabaseCluster(stack, "Cluster", {
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer", {}),
         credentials: Credentials.fromPassword(
           "foobar",
           SecretValue.unsafePlainText("Insecure Password")
         ),
       });
-      const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forCluster(stack, "MyDb", cluster, {
         databaseName,
         adminSecret,
+        ownerSecret,
       });
       expect(obj.endpoint).toBe(cluster.clusterEndpoint);
     });
 
     test("throws an exception with no secret", () => {
       let cluster = new DatabaseCluster(stack, "Cluster", {
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer", {}),
         credentials: Credentials.fromPassword(
           "foobar",
           SecretValue.unsafePlainText("Insecure Password")
         ),
       });
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
       expect(() => {
-        MysqlDatabase.forCluster(stack, "MyDb", cluster, {
+        PostgresqlDatabase.forCluster(stack, "MyDb", cluster, {
           databaseName,
+          ownerSecret,
         });
       }).toThrowError({
         name: "Error",
@@ -394,15 +416,23 @@ describe("MysqlDatabase", () => {
     test("works as expected with defaults", () => {
       let cluster = new DatabaseClusterFromSnapshot(stack, "Cluster", {
         snapshotIdentifier: "aoeu1",
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_3_02_1,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer", {}),
         snapshotCredentials: SnapshotCredentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forClusterFromSnapshot(stack, "MyDb", cluster, {
-        databaseName,
-      });
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forClusterFromSnapshot(
+        stack,
+        "MyDb",
+        cluster,
+        {
+          databaseName,
+          ownerSecret,
+        }
+      );
       expect(obj.endpoint).toBe(cluster.clusterEndpoint);
       const trigger = obj.node.findChild("Trigger") as Trigger;
       expect(trigger.node.dependencies).toContain(cluster);
@@ -418,8 +448,10 @@ describe("MysqlDatabase", () => {
         vpc,
         credentials: Credentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forInstance(stack, "MyDb", cluster, {
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forInstance(stack, "MyDb", cluster, {
         databaseName,
+        ownerSecret,
       });
       expect(obj.endpoint).toBe(cluster.instanceEndpoint);
       const trigger = obj.node.findChild("Trigger") as Trigger;
@@ -437,9 +469,11 @@ describe("MysqlDatabase", () => {
           SecretValue.unsafePlainText("Insecure Password")
         ),
       });
-      const obj = MysqlDatabase.forInstance(stack, "MyDb", cluster, {
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forInstance(stack, "MyDb", cluster, {
         databaseName,
         adminSecret,
+        ownerSecret,
       });
       expect(obj.endpoint).toBe(cluster.instanceEndpoint);
     });
@@ -455,9 +489,11 @@ describe("MysqlDatabase", () => {
           SecretValue.unsafePlainText("Insecure Password")
         ),
       });
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
       expect(() => {
-        MysqlDatabase.forInstance(stack, "MyDb", cluster, {
+        PostgresqlDatabase.forInstance(stack, "MyDb", cluster, {
           databaseName,
+          ownerSecret,
         });
       }).toThrowError({
         name: "Error",
@@ -477,12 +513,14 @@ describe("MysqlDatabase", () => {
         vpc,
         credentials: SnapshotCredentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forInstanceFromSnapshot(
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forInstanceFromSnapshot(
         stack,
         "MyDb",
         cluster,
         {
           databaseName,
+          ownerSecret,
         }
       );
       expect(obj.endpoint).toBe(cluster.instanceEndpoint);
@@ -494,16 +532,23 @@ describe("MysqlDatabase", () => {
   describe("#forServerlessCluster", () => {
     test("works as expected with defaults", () => {
       let cluster = new ServerlessCluster(stack, "Cluster", {
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_2_10_3,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
         vpc,
         credentials: Credentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forServerlessCluster(stack, "MyDb", cluster, {
-        databaseName,
-        vpc,
-      });
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forServerlessCluster(
+        stack,
+        "MyDb",
+        cluster,
+        {
+          databaseName,
+          vpc,
+          ownerSecret,
+        }
+      );
       expect(obj.endpoint).toBe(cluster.clusterEndpoint);
       const trigger = obj.node.findChild("Trigger") as Trigger;
       expect(trigger.node.dependencies).toContain(cluster);
@@ -514,19 +559,21 @@ describe("MysqlDatabase", () => {
     test("works as expected with defaults", () => {
       let cluster = new ServerlessClusterFromSnapshot(stack, "Instance", {
         snapshotIdentifier: "foobar",
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_2_10_3,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
         vpc,
         credentials: SnapshotCredentials.fromSecret(adminSecret),
       });
-      const obj = MysqlDatabase.forServerlessClusterFromSnapshot(
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forServerlessClusterFromSnapshot(
         stack,
         "MyDb",
         cluster,
         {
           databaseName,
           vpc,
+          ownerSecret,
         }
       );
       expect(obj.endpoint).toBe(cluster.clusterEndpoint);
@@ -537,15 +584,16 @@ describe("MysqlDatabase", () => {
     test("works as expected with override secret", () => {
       let cluster = new ServerlessClusterFromSnapshot(stack, "Instance", {
         snapshotIdentifier: "foobar",
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_2_10_3,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
         vpc,
         credentials: SnapshotCredentials.fromPassword(
           SecretValue.unsafePlainText("Insecure Password")
         ),
       });
-      const obj = MysqlDatabase.forServerlessClusterFromSnapshot(
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
+      const obj = PostgresqlDatabase.forServerlessClusterFromSnapshot(
         stack,
         "MyDb",
         cluster,
@@ -553,6 +601,7 @@ describe("MysqlDatabase", () => {
           databaseName,
           adminSecret,
           vpc,
+          ownerSecret,
         }
       );
       expect(obj.endpoint).toBe(cluster.clusterEndpoint);
@@ -561,19 +610,26 @@ describe("MysqlDatabase", () => {
     test("throws an exception with no secret", () => {
       let cluster = new ServerlessClusterFromSnapshot(stack, "Instance", {
         snapshotIdentifier: "foobar",
-        engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_2_10_3,
+        engine: DatabaseClusterEngine.auroraPostgres({
+          version: AuroraPostgresEngineVersion.VER_11_19,
         }),
         vpc,
         credentials: SnapshotCredentials.fromPassword(
           SecretValue.unsafePlainText("Insecure Password")
         ),
       });
+      const ownerSecret = new Secret(stack, "OwnerSecret", {});
       expect(() => {
-        MysqlDatabase.forServerlessClusterFromSnapshot(stack, "MyDb", cluster, {
-          databaseName,
-          vpc,
-        });
+        PostgresqlDatabase.forServerlessClusterFromSnapshot(
+          stack,
+          "MyDb",
+          cluster,
+          {
+            databaseName,
+            vpc,
+            ownerSecret,
+          }
+        );
       }).toThrowError({
         name: "Error",
         message:
