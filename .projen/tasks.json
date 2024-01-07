@@ -61,7 +61,7 @@
       "description": "Create a JavaScript bundle from ./src/rds/triggers/mysql.handler",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/rds/triggers/mysql.handler --target=\"node18\" --platform=\"node\" --outfile=\"assets/rds/triggers/mysql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager"
+          "exec": "esbuild --bundle ./src/rds/triggers/mysql.handler --target=\"node20\" --platform=\"node\" --outfile=\"assets/rds/triggers/mysql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager"
         }
       ]
     },
@@ -70,7 +70,7 @@
       "description": "Create a JavaScript bundle from ./src/rds/triggers/pgsql.handler",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/rds/triggers/pgsql.handler --target=\"node18\" --platform=\"node\" --outfile=\"assets/rds/triggers/pgsql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager"
+          "exec": "esbuild --bundle ./src/rds/triggers/pgsql.handler --target=\"node20\" --platform=\"node\" --outfile=\"assets/rds/triggers/pgsql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager"
         }
       ]
     },
@@ -323,13 +323,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-sdk/client-secrets-manager,@types/aws-lambda,@types/jest,@types/node,@types/pg,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,eslint,jest-junit,jest,jsii-diff,jsii-docgen,jsii-pacmak,mysql2,pg,prettier,projen,standard-version,ts-jest,ts-node,typescript,aws-cdk-lib,constructs"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-sdk/client-secrets-manager,@libreworks/db-provision-pgsql,@types/aws-lambda,@types/jest,@types/node,@types/pg,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,eslint,jest-junit,jest,jsii-diff,jsii-docgen,jsii-pacmak,mysql2,pg,prettier,projen,standard-version,ts-jest,ts-node,typescript,aws-cdk-lib,constructs"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @aws-sdk/client-secrets-manager @types/aws-lambda @types/jest @types/node @types/pg @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest-junit jest jsii-diff jsii-docgen jsii-pacmak mysql2 pg prettier projen standard-version ts-jest ts-node typescript aws-cdk-lib constructs"
+          "exec": "yarn upgrade @aws-sdk/client-secrets-manager @libreworks/db-provision-pgsql @types/aws-lambda @types/jest @types/node @types/pg @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest-junit jest jsii-diff jsii-docgen jsii-pacmak mysql2 pg prettier projen standard-version ts-jest ts-node typescript aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"

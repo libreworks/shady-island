@@ -19,7 +19,7 @@ import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { Trigger } from "aws-cdk-lib/triggers";
 import { MysqlDatabase } from "../../src/rds";
 
-describe("BaseDatabase", () => {
+describe("MysqlDatabase", () => {
   let app: App;
   let stack: Stack;
   let vpc: Vpc;
@@ -94,7 +94,7 @@ describe("BaseDatabase", () => {
           },
         },
         Handler: "index.handler",
-        Runtime: "nodejs18.x",
+        Runtime: "nodejs20.x",
         Timeout: 120,
         VpcConfig: {
           SecurityGroupIds: [
@@ -173,7 +173,7 @@ describe("BaseDatabase", () => {
           },
         },
         Handler: "index.handler",
-        Runtime: "nodejs18.x",
+        Runtime: "nodejs20.x",
         Timeout: 120,
         VpcConfig: {
           SecurityGroupIds: [
@@ -277,7 +277,7 @@ describe("BaseDatabase", () => {
           },
         },
         Handler: "index.handler",
-        Runtime: "nodejs18.x",
+        Runtime: "nodejs20.x",
         Timeout: 120,
         VpcConfig: {
           SecurityGroupIds: [

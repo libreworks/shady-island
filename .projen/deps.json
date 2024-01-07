@@ -5,6 +5,10 @@
       "type": "build"
     },
     {
+      "name": "@libreworks/db-provision-pgsql",
+      "type": "build"
+    },
+    {
       "name": "@types/aws-lambda",
       "type": "build"
     },
@@ -135,7 +139,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "^2.57.0",
+      "version": "^2.108.0",
       "type": "peer"
     },
     {

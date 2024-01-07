@@ -946,6 +946,372 @@ You can further customize when the trigger fires using `executeAfter`.
 ---
 
 
+### PostgresqlDatabase <a name="shady-island.PostgresqlDatabase" id="shadyislandpostgresqldatabase"></a>
+
+A PostgreSQL database.
+
+#### Initializers <a name="shady-island.PostgresqlDatabase.Initializer" id="shadyislandpostgresqldatabaseinitializer"></a>
+
+```typescript
+import { PostgresqlDatabase } from 'shady-island'
+
+new PostgresqlDatabase(scope: IConstruct, id: string, props: PostgresqlDatabaseProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`scope`](#shadyislandpostgresqldatabaseparameterscope)<span title="Required">*</span> | [`constructs.IConstruct`](#constructs.IConstruct) | The Construct that contains this one. |
+| [`id`](#shadyislandpostgresqldatabaseparameterid)<span title="Required">*</span> | `string` | The identifier of this construct. |
+| [`props`](#shadyislandpostgresqldatabaseparameterprops)<span title="Required">*</span> | [`shady-island.PostgresqlDatabaseProps`](#shady-island.PostgresqlDatabaseProps) | The configuration properties for this construct. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.scope" id="shadyislandpostgresqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+The Construct that contains this one.
+
+---
+
+##### `id`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.id" id="shadyislandpostgresqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+##### `props`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.props" id="shadyislandpostgresqldatabaseparameterprops"></a>
+
+- *Type:* [`shady-island.PostgresqlDatabaseProps`](#shady-island.PostgresqlDatabaseProps)
+
+The configuration properties for this construct.
+
+---
+
+#### Methods <a name="Methods" id="methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`addUserAsOwner`](#shadyislandpostgresqldatabaseadduserasowner) | Declares a new database user to be assigned ownership permissions. |
+| [`addUserAsReader`](#shadyislandpostgresqldatabaseadduserasreader) | Declares a new database user to be assigned read-only permissions. |
+| [`addUserAsUnprivileged`](#shadyislandpostgresqldatabaseadduserasunprivileged) | Declares a new database user with no permissions. |
+
+---
+
+##### `addUserAsOwner` <a name="shady-island.PostgresqlDatabase.addUserAsOwner" id="shadyislandpostgresqldatabaseadduserasowner"></a>
+
+```typescript
+public addUserAsOwner(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.secret" id="shadyislandpostgresqldatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+---
+
+##### `addUserAsReader` <a name="shady-island.PostgresqlDatabase.addUserAsReader" id="shadyislandpostgresqldatabaseadduserasreader"></a>
+
+```typescript
+public addUserAsReader(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.secret" id="shadyislandpostgresqldatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+---
+
+##### `addUserAsUnprivileged` <a name="shady-island.PostgresqlDatabase.addUserAsUnprivileged" id="shadyislandpostgresqldatabaseadduserasunprivileged"></a>
+
+```typescript
+public addUserAsUnprivileged(secret: ISecret)
+```
+
+###### `secret`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.secret" id="shadyislandpostgresqldatabaseparametersecret"></a>
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+---
+
+#### Static Functions <a name="Static Functions" id="static-functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`forCluster`](#shadyislandpostgresqldatabaseforcluster) | Create a new PostgresqlDatabase inside a DatabaseCluster. |
+| [`forClusterFromSnapshot`](#shadyislandpostgresqldatabaseforclusterfromsnapshot) | Create a new PostgresqlDatabase inside a DatabaseClusterFromSnapshot. |
+| [`forInstance`](#shadyislandpostgresqldatabaseforinstance) | Create a new PostgresqlDatabase inside a DatabaseInstance. |
+| [`forInstanceFromSnapshot`](#shadyislandpostgresqldatabaseforinstancefromsnapshot) | Create a new PostgresqlDatabase inside a DatabaseInstanceFromSnapshot. |
+| [`forServerlessCluster`](#shadyislandpostgresqldatabaseforserverlesscluster) | Create a new PostgresqlDatabase inside a DatabaseCluster. |
+| [`forServerlessClusterFromSnapshot`](#shadyislandpostgresqldatabaseforserverlessclusterfromsnapshot) | Create a new PostgresqlDatabase inside a DatabaseClusterFromSnapshot. |
+
+---
+
+##### `forCluster` <a name="shady-island.PostgresqlDatabase.forCluster" id="shadyislandpostgresqldatabaseforcluster"></a>
+
+```typescript
+import { PostgresqlDatabase } from 'shady-island'
+
+PostgresqlDatabase.forCluster(scope: Construct, id: string, cluster: DatabaseCluster, options: PostgresqlDatabaseForClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.scope" id="shadyislandpostgresqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.id" id="shadyislandpostgresqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `cluster`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.cluster" id="shadyislandpostgresqldatabaseparametercluster"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.DatabaseCluster`](#aws-cdk-lib.aws_rds.DatabaseCluster)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.options" id="shadyislandpostgresqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.PostgresqlDatabaseForClusterOptions`](#shady-island.PostgresqlDatabaseForClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+##### `forClusterFromSnapshot` <a name="shady-island.PostgresqlDatabase.forClusterFromSnapshot" id="shadyislandpostgresqldatabaseforclusterfromsnapshot"></a>
+
+```typescript
+import { PostgresqlDatabase } from 'shady-island'
+
+PostgresqlDatabase.forClusterFromSnapshot(scope: Construct, id: string, cluster: DatabaseClusterFromSnapshot, options: PostgresqlDatabaseForClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.scope" id="shadyislandpostgresqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.id" id="shadyislandpostgresqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `cluster`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.cluster" id="shadyislandpostgresqldatabaseparametercluster"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.DatabaseClusterFromSnapshot`](#aws-cdk-lib.aws_rds.DatabaseClusterFromSnapshot)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.options" id="shadyislandpostgresqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.PostgresqlDatabaseForClusterOptions`](#shady-island.PostgresqlDatabaseForClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+##### `forInstance` <a name="shady-island.PostgresqlDatabase.forInstance" id="shadyislandpostgresqldatabaseforinstance"></a>
+
+```typescript
+import { PostgresqlDatabase } from 'shady-island'
+
+PostgresqlDatabase.forInstance(scope: Construct, id: string, instance: DatabaseInstance, options: PostgresqlDatabaseForClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.scope" id="shadyislandpostgresqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.id" id="shadyislandpostgresqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `instance`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.instance" id="shadyislandpostgresqldatabaseparameterinstance"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.DatabaseInstance`](#aws-cdk-lib.aws_rds.DatabaseInstance)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.options" id="shadyislandpostgresqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.PostgresqlDatabaseForClusterOptions`](#shady-island.PostgresqlDatabaseForClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+##### `forInstanceFromSnapshot` <a name="shady-island.PostgresqlDatabase.forInstanceFromSnapshot" id="shadyislandpostgresqldatabaseforinstancefromsnapshot"></a>
+
+```typescript
+import { PostgresqlDatabase } from 'shady-island'
+
+PostgresqlDatabase.forInstanceFromSnapshot(scope: Construct, id: string, instance: DatabaseInstanceFromSnapshot, options: PostgresqlDatabaseForClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.scope" id="shadyislandpostgresqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.id" id="shadyislandpostgresqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `instance`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.instance" id="shadyislandpostgresqldatabaseparameterinstance"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.DatabaseInstanceFromSnapshot`](#aws-cdk-lib.aws_rds.DatabaseInstanceFromSnapshot)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.options" id="shadyislandpostgresqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.PostgresqlDatabaseForClusterOptions`](#shady-island.PostgresqlDatabaseForClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+##### `forServerlessCluster` <a name="shady-island.PostgresqlDatabase.forServerlessCluster" id="shadyislandpostgresqldatabaseforserverlesscluster"></a>
+
+```typescript
+import { PostgresqlDatabase } from 'shady-island'
+
+PostgresqlDatabase.forServerlessCluster(scope: Construct, id: string, cluster: ServerlessCluster, options: PostgresqlDatabaseForServerlessClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.scope" id="shadyislandpostgresqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.id" id="shadyislandpostgresqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `cluster`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.cluster" id="shadyislandpostgresqldatabaseparametercluster"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.ServerlessCluster`](#aws-cdk-lib.aws_rds.ServerlessCluster)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.options" id="shadyislandpostgresqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.PostgresqlDatabaseForServerlessClusterOptions`](#shady-island.PostgresqlDatabaseForServerlessClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+##### `forServerlessClusterFromSnapshot` <a name="shady-island.PostgresqlDatabase.forServerlessClusterFromSnapshot" id="shadyislandpostgresqldatabaseforserverlessclusterfromsnapshot"></a>
+
+```typescript
+import { PostgresqlDatabase } from 'shady-island'
+
+PostgresqlDatabase.forServerlessClusterFromSnapshot(scope: Construct, id: string, cluster: ServerlessClusterFromSnapshot, options: PostgresqlDatabaseForServerlessClusterOptions)
+```
+
+###### `scope`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.scope" id="shadyislandpostgresqldatabaseparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The Construct that contains this one.
+
+---
+
+###### `id`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.id" id="shadyislandpostgresqldatabaseparameterid"></a>
+
+- *Type:* `string`
+
+The identifier of this construct.
+
+---
+
+###### `cluster`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.cluster" id="shadyislandpostgresqldatabaseparametercluster"></a>
+
+- *Type:* [`aws-cdk-lib.aws_rds.ServerlessClusterFromSnapshot`](#aws-cdk-lib.aws_rds.ServerlessClusterFromSnapshot)
+
+The database cluster construct.
+
+---
+
+###### `options`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.parameter.options" id="shadyislandpostgresqldatabaseparameteroptions"></a>
+
+- *Type:* [`shady-island.PostgresqlDatabaseForServerlessClusterOptions`](#shady-island.PostgresqlDatabaseForServerlessClusterOptions)
+
+The configuration properties for this construct.
+
+---
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`trigger`](#shadyislandpostgresqldatabasepropertytrigger)<span title="Required">*</span> | [`aws-cdk-lib.triggers.ITrigger`](#aws-cdk-lib.triggers.ITrigger) | The CDK Trigger that kicks off the process. |
+
+---
+
+##### `trigger`<sup>Required</sup> <a name="shady-island.PostgresqlDatabase.property.trigger" id="shadyislandpostgresqldatabasepropertytrigger"></a>
+
+```typescript
+public readonly trigger: ITrigger;
+```
+
+- *Type:* [`aws-cdk-lib.triggers.ITrigger`](#aws-cdk-lib.triggers.ITrigger)
+
+The CDK Trigger that kicks off the process.
+
+You can further customize when the trigger fires using `executeAfter`.
+
+---
+
+
 ### Workload <a name="shady-island.Workload" id="shadyislandworkload"></a>
 
 A collection of Stacks in an Environment representing a deployment Tier.
@@ -1493,9 +1859,11 @@ const encryptedFileSystemProps: EncryptedFileSystemProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | [`vpc`](#shadyislandencryptedfilesystempropspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | VPC to launch the file system in. |
+| [`allowAnonymousAccess`](#shadyislandencryptedfilesystempropspropertyallowanonymousaccess) | `boolean` | Allow access from anonymous client that doesn't use IAM authentication. |
 | [`enableAutomaticBackups`](#shadyislandencryptedfilesystempropspropertyenableautomaticbackups) | `boolean` | Whether to enable automatic backups for the file system. |
 | [`encrypted`](#shadyislandencryptedfilesystempropspropertyencrypted) | `boolean` | Defines if the data at rest in the file system is encrypted or not. |
 | [`fileSystemName`](#shadyislandencryptedfilesystempropspropertyfilesystemname) | `string` | The file system's name. |
+| [`fileSystemPolicy`](#shadyislandencryptedfilesystempropspropertyfilesystempolicy) | [`aws-cdk-lib.aws_iam.PolicyDocument`](#aws-cdk-lib.aws_iam.PolicyDocument) | File system policy is an IAM resource policy used to control NFS access to an EFS file system. |
 | [`kmsKey`](#shadyislandencryptedfilesystempropspropertykmskey) | [`aws-cdk-lib.aws_kms.IKey`](#aws-cdk-lib.aws_kms.IKey) | The KMS key used for encryption. |
 | [`lifecyclePolicy`](#shadyislandencryptedfilesystempropspropertylifecyclepolicy) | [`aws-cdk-lib.aws_efs.LifecyclePolicy`](#aws-cdk-lib.aws_efs.LifecyclePolicy) | A policy used by EFS lifecycle management to transition files to the Infrequent Access (IA) storage class. |
 | [`outOfInfrequentAccessPolicy`](#shadyislandencryptedfilesystempropspropertyoutofinfrequentaccesspolicy) | [`aws-cdk-lib.aws_efs.OutOfInfrequentAccessPolicy`](#aws-cdk-lib.aws_efs.OutOfInfrequentAccessPolicy) | A policy used by EFS lifecycle management to transition files from Infrequent Access (IA) storage class to primary storage class. |
@@ -1520,6 +1888,19 @@ VPC to launch the file system in.
 
 ---
 
+##### `allowAnonymousAccess`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.allowAnonymousAccess" id="shadyislandencryptedfilesystempropspropertyallowanonymousaccess"></a>
+
+```typescript
+public readonly allowAnonymousAccess: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false when using `grantRead`, `grantWrite`, `grantRootAccess` or set `@aws-cdk/aws-efs:denyAnonymousAccess` feature flag, otherwise true
+
+Allow access from anonymous client that doesn't use IAM authentication.
+
+---
+
 ##### `enableAutomaticBackups`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.enableAutomaticBackups" id="shadyislandencryptedfilesystempropspropertyenableautomaticbackups"></a>
 
 ```typescript
@@ -1540,7 +1921,7 @@ public readonly encrypted: boolean;
 ```
 
 - *Type:* `boolean`
-- *Default:* If your application has the '
+- *Default:* If your application has the '@aws-cdk/aws-efs:defaultEncryptionAtRest' feature flag set, the default is true, otherwise, the default is false.
 
 Defines if the data at rest in the file system is encrypted or not.
 
@@ -1561,6 +1942,19 @@ The file system's name.
 
 ---
 
+##### `fileSystemPolicy`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.fileSystemPolicy" id="shadyislandencryptedfilesystempropspropertyfilesystempolicy"></a>
+
+```typescript
+public readonly fileSystemPolicy: PolicyDocument;
+```
+
+- *Type:* [`aws-cdk-lib.aws_iam.PolicyDocument`](#aws-cdk-lib.aws_iam.PolicyDocument)
+- *Default:* none
+
+File system policy is an IAM resource policy used to control NFS access to an EFS file system.
+
+---
+
 ##### `kmsKey`<sup>Optional</sup> <a name="shady-island.EncryptedFileSystemProps.property.kmsKey" id="shadyislandencryptedfilesystempropspropertykmskey"></a>
 
 ```typescript
@@ -1572,7 +1966,7 @@ public readonly kmsKey: IKey;
 
 The KMS key used for encryption.
 
-This is required to encrypt the data at rest if @encrypted is set to true.
+This is required to encrypt the data at rest if
 
 ---
 
@@ -1776,25 +2170,9 @@ const fargateAwsVpcConfiguration: FargateAwsVpcConfiguration = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| [`subnets`](#shadyislandfargateawsvpcconfigurationpropertysubnets)<span title="Required">*</span> | `string`[] | The IDs of the subnets associated with the task or service. |
 | [`assignPublicIp`](#shadyislandfargateawsvpcconfigurationpropertyassignpublicip) | `string` | Whether the task's elastic network interface receives a public IP address. |
 | [`securityGroups`](#shadyislandfargateawsvpcconfigurationpropertysecuritygroups) | `string`[] | The IDs of the security groups associated with the task or service. |
-
----
-
-##### `subnets`<sup>Required</sup> <a name="shady-island.FargateAwsVpcConfiguration.property.subnets" id="shadyislandfargateawsvpcconfigurationpropertysubnets"></a>
-
-```typescript
-public readonly subnets: string[];
-```
-
-- *Type:* `string`[]
-
-The IDs of the subnets associated with the task or service.
-
-There's a limit of 16 subnets that can be specified per `AwsVpcConfiguration` .  > All specified subnets must be from the same VPC.
-
-> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-subnets](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-subnets)
+| [`subnets`](#shadyislandfargateawsvpcconfigurationpropertysubnets) | `string`[] | The IDs of the subnets associated with the task or service. |
 
 ---
 
@@ -1810,7 +2188,7 @@ Whether the task's elastic network interface receives a public IP address.
 
 The default value is `DISABLED` .
 
-> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-assignpublicip](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-assignpublicip)
+> http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-assignpublicip
 
 ---
 
@@ -1826,7 +2204,23 @@ The IDs of the security groups associated with the task or service.
 
 If you don't specify a security group, the default security group for the VPC is used. There's a limit of 5 security groups that can be specified per `AwsVpcConfiguration` .  > All specified security groups must be from the same VPC.
 
-> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-securitygroups](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-securitygroups)
+> http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-securitygroups
+
+---
+
+##### `subnets`<sup>Optional</sup> <a name="shady-island.FargateAwsVpcConfiguration.property.subnets" id="shadyislandfargateawsvpcconfigurationpropertysubnets"></a>
+
+```typescript
+public readonly subnets: string[];
+```
+
+- *Type:* `string`[]
+
+The IDs of the subnets associated with the task or service.
+
+There's a limit of 16 subnets that can be specified per `AwsVpcConfiguration` .  > All specified subnets must be from the same VPC.
+
+> http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-subnets
 
 ---
 
@@ -2321,6 +2715,516 @@ The database default collation to use.
 
 ---
 
+### PostgresqlDatabaseForClusterOptions <a name="shady-island.PostgresqlDatabaseForClusterOptions" id="shadyislandpostgresqldatabaseforclusteroptions"></a>
+
+Properties to specify when using PostgresqlDatabase.forCluster().
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { PostgresqlDatabaseForClusterOptions } from 'shady-island'
+
+const postgresqlDatabaseForClusterOptions: PostgresqlDatabaseForClusterOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`ownerSecret`](#shadyislandpostgresqldatabaseforclusteroptionspropertyownersecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | The Secrets Manager secret for the owner of the schema. |
+| [`encoding`](#shadyislandpostgresqldatabaseforclusteroptionspropertyencoding) | `string` | The database default encoding set to use. |
+| [`locale`](#shadyislandpostgresqldatabaseforclusteroptionspropertylocale) | `string` | The database default locale to use. |
+| [`schemaName`](#shadyislandpostgresqldatabaseforclusteroptionspropertyschemaname) | `string` | The name of the schema to create. |
+| [`databaseName`](#shadyislandpostgresqldatabaseforclusteroptionspropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog to create. |
+| [`securityGroup`](#shadyislandpostgresqldatabaseforclusteroptionspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | The security group for the Lambda function. |
+| [`vpcSubnets`](#shadyislandpostgresqldatabaseforclusteroptionspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
+| [`adminSecret`](#shadyislandpostgresqldatabaseforclusteroptionspropertyadminsecret) | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
+
+---
+
+##### `ownerSecret`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseForClusterOptions.property.ownerSecret" id="shadyislandpostgresqldatabaseforclusteroptionspropertyownersecret"></a>
+
+```typescript
+public readonly ownerSecret: ISecret;
+```
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+The Secrets Manager secret for the owner of the schema.
+
+---
+
+##### `encoding`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForClusterOptions.property.encoding" id="shadyislandpostgresqldatabaseforclusteroptionspropertyencoding"></a>
+
+```typescript
+public readonly encoding: string;
+```
+
+- *Type:* `string`
+- *Default:* "UTF8"
+
+The database default encoding set to use.
+
+---
+
+##### `locale`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForClusterOptions.property.locale" id="shadyislandpostgresqldatabaseforclusteroptionspropertylocale"></a>
+
+```typescript
+public readonly locale: string;
+```
+
+- *Type:* `string`
+- *Default:* rely on PostgreSQL to choose the default locale.
+
+The database default locale to use.
+
+---
+
+##### `schemaName`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForClusterOptions.property.schemaName" id="shadyislandpostgresqldatabaseforclusteroptionspropertyschemaname"></a>
+
+```typescript
+public readonly schemaName: string;
+```
+
+- *Type:* `string`
+- *Default:* The username of the ownerSecret.
+
+The name of the schema to create.
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseForClusterOptions.property.databaseName" id="shadyislandpostgresqldatabaseforclusteroptionspropertydatabasename"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* `string`
+
+The name of the database/catalog to create.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForClusterOptions.property.securityGroup" id="shadyislandpostgresqldatabaseforclusteroptionspropertysecuritygroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)
+- *Default:* a new security group is created
+
+The security group for the Lambda function.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForClusterOptions.property.vpcSubnets" id="shadyislandpostgresqldatabaseforclusteroptionspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* the Vpc default strategy if not specified.
+
+The type of subnets in the VPC where the Lambda function will run.
+
+---
+
+##### `adminSecret`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForClusterOptions.property.adminSecret" id="shadyislandpostgresqldatabaseforclusteroptionspropertyadminsecret"></a>
+
+```typescript
+public readonly adminSecret: ISecret;
+```
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+A Secrets Manager secret that contains administrative credentials.
+
+---
+
+### PostgresqlDatabaseForServerlessClusterOptions <a name="shady-island.PostgresqlDatabaseForServerlessClusterOptions" id="shadyislandpostgresqldatabaseforserverlessclusteroptions"></a>
+
+Properties to specify when using PostgresqlDatabase.forServerlessCluster().
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { PostgresqlDatabaseForServerlessClusterOptions } from 'shady-island'
+
+const postgresqlDatabaseForServerlessClusterOptions: PostgresqlDatabaseForServerlessClusterOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`ownerSecret`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyownersecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | The Secrets Manager secret for the owner of the schema. |
+| [`encoding`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyencoding) | `string` | The database default encoding set to use. |
+| [`locale`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertylocale) | `string` | The database default locale to use. |
+| [`schemaName`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyschemaname) | `string` | The name of the schema to create. |
+| [`databaseName`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog to create. |
+| [`securityGroup`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | The security group for the Lambda function. |
+| [`vpcSubnets`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
+| [`adminSecret`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyadminsecret) | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
+| [`vpc`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
+
+---
+
+##### `ownerSecret`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseForServerlessClusterOptions.property.ownerSecret" id="shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyownersecret"></a>
+
+```typescript
+public readonly ownerSecret: ISecret;
+```
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+The Secrets Manager secret for the owner of the schema.
+
+---
+
+##### `encoding`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForServerlessClusterOptions.property.encoding" id="shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyencoding"></a>
+
+```typescript
+public readonly encoding: string;
+```
+
+- *Type:* `string`
+- *Default:* "UTF8"
+
+The database default encoding set to use.
+
+---
+
+##### `locale`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForServerlessClusterOptions.property.locale" id="shadyislandpostgresqldatabaseforserverlessclusteroptionspropertylocale"></a>
+
+```typescript
+public readonly locale: string;
+```
+
+- *Type:* `string`
+- *Default:* rely on PostgreSQL to choose the default locale.
+
+The database default locale to use.
+
+---
+
+##### `schemaName`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForServerlessClusterOptions.property.schemaName" id="shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyschemaname"></a>
+
+```typescript
+public readonly schemaName: string;
+```
+
+- *Type:* `string`
+- *Default:* The username of the ownerSecret.
+
+The name of the schema to create.
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseForServerlessClusterOptions.property.databaseName" id="shadyislandpostgresqldatabaseforserverlessclusteroptionspropertydatabasename"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* `string`
+
+The name of the database/catalog to create.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForServerlessClusterOptions.property.securityGroup" id="shadyislandpostgresqldatabaseforserverlessclusteroptionspropertysecuritygroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)
+- *Default:* a new security group is created
+
+The security group for the Lambda function.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForServerlessClusterOptions.property.vpcSubnets" id="shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* the Vpc default strategy if not specified.
+
+The type of subnets in the VPC where the Lambda function will run.
+
+---
+
+##### `adminSecret`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForServerlessClusterOptions.property.adminSecret" id="shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyadminsecret"></a>
+
+```typescript
+public readonly adminSecret: ISecret;
+```
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+A Secrets Manager secret that contains administrative credentials.
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseForServerlessClusterOptions.property.vpc" id="shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyvpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc)
+
+The VPC where the Lambda function will run.
+
+---
+
+### PostgresqlDatabaseOptions <a name="shady-island.PostgresqlDatabaseOptions" id="shadyislandpostgresqldatabaseoptions"></a>
+
+PostgreSQL-specific options.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { PostgresqlDatabaseOptions } from 'shady-island'
+
+const postgresqlDatabaseOptions: PostgresqlDatabaseOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`ownerSecret`](#shadyislandpostgresqldatabaseoptionspropertyownersecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | The Secrets Manager secret for the owner of the schema. |
+| [`encoding`](#shadyislandpostgresqldatabaseoptionspropertyencoding) | `string` | The database default encoding set to use. |
+| [`locale`](#shadyislandpostgresqldatabaseoptionspropertylocale) | `string` | The database default locale to use. |
+| [`schemaName`](#shadyislandpostgresqldatabaseoptionspropertyschemaname) | `string` | The name of the schema to create. |
+
+---
+
+##### `ownerSecret`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseOptions.property.ownerSecret" id="shadyislandpostgresqldatabaseoptionspropertyownersecret"></a>
+
+```typescript
+public readonly ownerSecret: ISecret;
+```
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+The Secrets Manager secret for the owner of the schema.
+
+---
+
+##### `encoding`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseOptions.property.encoding" id="shadyislandpostgresqldatabaseoptionspropertyencoding"></a>
+
+```typescript
+public readonly encoding: string;
+```
+
+- *Type:* `string`
+- *Default:* "UTF8"
+
+The database default encoding set to use.
+
+---
+
+##### `locale`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseOptions.property.locale" id="shadyislandpostgresqldatabaseoptionspropertylocale"></a>
+
+```typescript
+public readonly locale: string;
+```
+
+- *Type:* `string`
+- *Default:* rely on PostgreSQL to choose the default locale.
+
+The database default locale to use.
+
+---
+
+##### `schemaName`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseOptions.property.schemaName" id="shadyislandpostgresqldatabaseoptionspropertyschemaname"></a>
+
+```typescript
+public readonly schemaName: string;
+```
+
+- *Type:* `string`
+- *Default:* The username of the ownerSecret.
+
+The name of the schema to create.
+
+---
+
+### PostgresqlDatabaseProps <a name="shady-island.PostgresqlDatabaseProps" id="shadyislandpostgresqldatabaseprops"></a>
+
+Constructor properties for PostgresqlDatabase.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { PostgresqlDatabaseProps } from 'shady-island'
+
+const postgresqlDatabaseProps: PostgresqlDatabaseProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`databaseName`](#shadyislandpostgresqldatabasepropspropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog to create. |
+| [`securityGroup`](#shadyislandpostgresqldatabasepropspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | The security group for the Lambda function. |
+| [`vpcSubnets`](#shadyislandpostgresqldatabasepropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
+| [`adminSecret`](#shadyislandpostgresqldatabasepropspropertyadminsecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
+| [`endpoint`](#shadyislandpostgresqldatabasepropspropertyendpoint)<span title="Required">*</span> | [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint) | The cluster or instance endpoint. |
+| [`target`](#shadyislandpostgresqldatabasepropspropertytarget)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable) | The target service or database. |
+| [`vpc`](#shadyislandpostgresqldatabasepropspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
+| [`ownerSecret`](#shadyislandpostgresqldatabasepropspropertyownersecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | The Secrets Manager secret for the owner of the schema. |
+| [`encoding`](#shadyislandpostgresqldatabasepropspropertyencoding) | `string` | The database default encoding set to use. |
+| [`locale`](#shadyislandpostgresqldatabasepropspropertylocale) | `string` | The database default locale to use. |
+| [`schemaName`](#shadyislandpostgresqldatabasepropspropertyschemaname) | `string` | The name of the schema to create. |
+
+---
+
+##### `databaseName`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseProps.property.databaseName" id="shadyislandpostgresqldatabasepropspropertydatabasename"></a>
+
+```typescript
+public readonly databaseName: string;
+```
+
+- *Type:* `string`
+
+The name of the database/catalog to create.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseProps.property.securityGroup" id="shadyislandpostgresqldatabasepropspropertysecuritygroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)
+- *Default:* a new security group is created
+
+The security group for the Lambda function.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseProps.property.vpcSubnets" id="shadyislandpostgresqldatabasepropspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* the Vpc default strategy if not specified.
+
+The type of subnets in the VPC where the Lambda function will run.
+
+---
+
+##### `adminSecret`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseProps.property.adminSecret" id="shadyislandpostgresqldatabasepropspropertyadminsecret"></a>
+
+```typescript
+public readonly adminSecret: ISecret;
+```
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+A Secrets Manager secret that contains administrative credentials.
+
+---
+
+##### `endpoint`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseProps.property.endpoint" id="shadyislandpostgresqldatabasepropspropertyendpoint"></a>
+
+```typescript
+public readonly endpoint: Endpoint;
+```
+
+- *Type:* [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint)
+
+The cluster or instance endpoint.
+
+---
+
+##### `target`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseProps.property.target" id="shadyislandpostgresqldatabasepropspropertytarget"></a>
+
+```typescript
+public readonly target: IConnectable;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable)
+
+The target service or database.
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseProps.property.vpc" id="shadyislandpostgresqldatabasepropspropertyvpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc)
+
+The VPC where the Lambda function will run.
+
+---
+
+##### `ownerSecret`<sup>Required</sup> <a name="shady-island.PostgresqlDatabaseProps.property.ownerSecret" id="shadyislandpostgresqldatabasepropspropertyownersecret"></a>
+
+```typescript
+public readonly ownerSecret: ISecret;
+```
+
+- *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
+
+The Secrets Manager secret for the owner of the schema.
+
+---
+
+##### `encoding`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseProps.property.encoding" id="shadyislandpostgresqldatabasepropspropertyencoding"></a>
+
+```typescript
+public readonly encoding: string;
+```
+
+- *Type:* `string`
+- *Default:* "UTF8"
+
+The database default encoding set to use.
+
+---
+
+##### `locale`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseProps.property.locale" id="shadyislandpostgresqldatabasepropspropertylocale"></a>
+
+```typescript
+public readonly locale: string;
+```
+
+- *Type:* `string`
+- *Default:* rely on PostgreSQL to choose the default locale.
+
+The database default locale to use.
+
+---
+
+##### `schemaName`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseProps.property.schemaName" id="shadyislandpostgresqldatabasepropspropertyschemaname"></a>
+
+```typescript
+public readonly schemaName: string;
+```
+
+- *Type:* `string`
+- *Default:* The username of the ownerSecret.
+
+The name of the schema to create.
+
+---
+
 ### PrioritizedLines <a name="shady-island.PrioritizedLines" id="shadyislandprioritizedlines"></a>
 
 A container for lines of a User Data script, sortable by `priority`.
@@ -2810,7 +3714,7 @@ The IPv6-enabled VPC.
 
 - *Extends:* [`constructs.IConstruct`](#constructs.IConstruct)
 
-- *Implemented By:* [`shady-island.BaseDatabase`](#shady-island.BaseDatabase), [`shady-island.MysqlDatabase`](#shady-island.MysqlDatabase), [`shady-island.IDatabase`](#shady-island.IDatabase)
+- *Implemented By:* [`shady-island.BaseDatabase`](#shady-island.BaseDatabase), [`shady-island.MysqlDatabase`](#shady-island.MysqlDatabase), [`shady-island.PostgresqlDatabase`](#shady-island.PostgresqlDatabase), [`shady-island.IDatabase`](#shady-island.IDatabase)
 
 The definition used to create a database.
 

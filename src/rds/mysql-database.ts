@@ -290,7 +290,7 @@ export class MysqlDatabase extends BaseDatabase {
     }
 
     this.lambdaFunction = new Function(this, "Function", {
-      runtime: Runtime.NODEJS_18_X,
+      runtime: Runtime.NODEJS_20_X,
       code: Code.fromAsset(HANDLER_PATH),
       handler: "index.handler",
       description: "Creates a schema and possibly some secondary users",

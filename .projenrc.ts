@@ -1,5 +1,7 @@
 import { awscdk, javascript } from "projen";
 
+const handlerLibs = ["@libreworks/db-provision-pgsql", "mysql2", "pg"];
+
 const project = new awscdk.AwsCdkConstructLibrary({
   name: "shady-island",
   projenrcTs: true,
@@ -30,7 +32,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
-  cdkVersion: "2.57.0",
+  cdkVersion: "2.108.0",
   majorVersion: 0,
 
   projenTokenSecret: "PROJEN_GITHUB_TOKEN",
@@ -52,15 +54,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   catalog: { announce: true },
 
-  // deps: [],                /* Runtime dependencies of this module. */
   devDeps: [
     "@types/aws-lambda",
     "@types/pg",
     "@aws-sdk/client-secrets-manager",
-    "pg",
-    "mysql2",
+    ...handlerLibs,
   ],
 });
+
+project.package.file.addOverride("bundledDeps", handlerLibs);
 
 // All of the AWS Lambda handlers.
 project.bundler.addBundle("src/vpc/assign-on-launch.handler.js", {
@@ -75,7 +77,7 @@ const handlers = [
 ];
 for (const handler of handlers) {
   project.bundler.addBundle(handler, {
-    target: "node18",
+    target: "node20",
     platform: "node",
     externals: ["pg-native", "@aws-sdk/client-secrets-manager"],
     watchTask: false,
