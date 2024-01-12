@@ -1800,7 +1800,9 @@ If this parameter is not specified or is undefined, the CIDR block will be provi
 
 ---
 
-##### `assignAddressOnLaunch`<sup>Optional</sup> <a name="shady-island.CidrContextProps.property.assignAddressOnLaunch" id="shadyislandcidrcontextpropspropertyassignaddressonlaunch"></a>
+##### ~~`assignAddressOnLaunch`~~<sup>Optional</sup> <a name="shady-island.CidrContextProps.property.assignAddressOnLaunch" id="shadyislandcidrcontextpropspropertyassignaddressonlaunch"></a>
+
+- *Deprecated:* - Launch templates now support specifying IPv6 addresses
 
 ```typescript
 public readonly assignAddressOnLaunch: boolean;

@@ -44,6 +44,8 @@ export interface CidrContextProps {
    * Whether this VPC should auto-assign an IPv6 address to launched ENIs.
    *
    * True by default.
+   *
+   * @deprecated - Launch templates now support specifying IPv6 addresses
    */
   readonly assignAddressOnLaunch?: boolean;
 }
