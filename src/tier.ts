@@ -1,5 +1,7 @@
-import { IAspect, Tag, Tags } from "aws-cdk-lib";
+import { Annotations, IAspect, Tag, Tags } from "aws-cdk-lib";
 import type { IConstruct } from "constructs";
+
+const TIER_SYMBOL = Symbol.for("shady-island-tier");
 
 /**
  * A deployment environment with a specific purpose and audience.
@@ -25,6 +27,22 @@ export class Tier {
    * A tier that represents a development environment.
    */
   public static readonly DEVELOPMENT: Tier = new Tier("dev", "Development");
+
+  /**
+   * Finds the deployment tier of the given construct.
+   *
+   * @param construct - The construct to inspect
+   * @returns The assigned deployment tier if found, otherwise undefined
+   */
+  public static of(construct: IConstruct) {
+    for (const scope of construct.node.scopes.reverse()) {
+      const tier = (scope as any)[TIER_SYMBOL];
+      if (tier instanceof Tier) {
+        return tier;
+      }
+    }
+    return undefined;
+  }
 
   /**
    * Return the deployment tier that corresponds to the provided value.
@@ -95,6 +113,42 @@ export class Tier {
       return true;
     }
     return other instanceof Tier && this.id === other.id;
+  }
+
+  /**
+   * Assigns this tier to a construct.
+   *
+   * This method will register an error annotation on the construct if any of
+   * the constructs in its parent scopes have a different tier assigned.
+   *
+   * @param construct - The construct to receive the tier assignment
+   */
+  public assignTo(construct: IConstruct) {
+    const existingTier = (construct as any)[TIER_SYMBOL];
+    if (this.matches(existingTier)) {
+      // Return early if the tier is already set.
+      return;
+    }
+
+    for (const scope of construct.node.scopes.reverse().slice(1)) {
+      const tier = (scope as any)[TIER_SYMBOL];
+      if (this.matches(tier)) {
+        // Return early if a parent scope has the same tier.
+        return;
+      } else if (tier instanceof Tier) {
+        // Register an error if a parent scope has a different tier.
+        Annotations.of(construct).addError(
+          `The tier assigned to this construct is different from the tier assigned to the path: ${scope.node.path}`
+        );
+        break;
+      }
+    }
+
+    Object.defineProperty(construct, TIER_SYMBOL, {
+      value: this,
+      configurable: true,
+      enumerable: false,
+    });
   }
 
   /**

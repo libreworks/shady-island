@@ -299,6 +299,54 @@ The IPv6-enabled VPC.
 ---
 
 
+### ContextLoadingStage <a name="shady-island.ContextLoadingStage" id="shadyislandcontextloadingstage"></a>
+
+A Stage that can load context values from a JSON file.
+
+#### Initializers <a name="shady-island.ContextLoadingStage.Initializer" id="shadyislandcontextloadingstageinitializer"></a>
+
+```typescript
+import { ContextLoadingStage } from 'shady-island'
+
+new ContextLoadingStage(scope: Construct, id: string, props: ContextLoadingStageProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`scope`](#shadyislandcontextloadingstageparameterscope)<span title="Required">*</span> | [`constructs.Construct`](#constructs.Construct) | The scope in which to define this construct. |
+| [`id`](#shadyislandcontextloadingstageparameterid)<span title="Required">*</span> | `string` | The scoped construct ID. |
+| [`props`](#shadyislandcontextloadingstageparameterprops)<span title="Required">*</span> | [`shady-island.ContextLoadingStageProps`](#shady-island.ContextLoadingStageProps) | Initialization properties for this construct. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="shady-island.ContextLoadingStage.parameter.scope" id="shadyislandcontextloadingstageparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The scope in which to define this construct.
+
+---
+
+##### `id`<sup>Required</sup> <a name="shady-island.ContextLoadingStage.parameter.id" id="shadyislandcontextloadingstageparameterid"></a>
+
+- *Type:* `string`
+
+The scoped construct ID.
+
+---
+
+##### `props`<sup>Required</sup> <a name="shady-island.ContextLoadingStage.parameter.props" id="shadyislandcontextloadingstageparameterprops"></a>
+
+- *Type:* [`shady-island.ContextLoadingStageProps`](#shady-island.ContextLoadingStageProps)
+
+Initialization properties for this construct.
+
+---
+
+
+
+
+
 ### DeploymentTierStage <a name="shady-island.DeploymentTierStage" id="shadyislanddeploymenttierstage"></a>
 
 A Stage whose stacks are part of a single deployment tier.
@@ -1920,6 +1968,116 @@ Split the CIDRs into this many groups (by default one for each subnet).
 
 ---
 
+### ContextLoadingStageProps <a name="shady-island.ContextLoadingStageProps" id="shadyislandcontextloadingstageprops"></a>
+
+Constructor properties for ContextLoadingStage.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { ContextLoadingStageProps } from 'shady-island'
+
+const contextLoadingStageProps: ContextLoadingStageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`env`](#shadyislandcontextloadingstagepropspropertyenv) | [`aws-cdk-lib.Environment`](#aws-cdk-lib.Environment) | Default AWS environment (account/region) for `Stack`s in this `Stage`. |
+| [`outdir`](#shadyislandcontextloadingstagepropspropertyoutdir) | `string` | The output directory into which to emit synthesized artifacts. |
+| [`permissionsBoundary`](#shadyislandcontextloadingstagepropspropertypermissionsboundary) | [`aws-cdk-lib.PermissionsBoundary`](#aws-cdk-lib.PermissionsBoundary) | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
+| [`policyValidationBeta1`](#shadyislandcontextloadingstagepropspropertypolicyvalidationbeta1) | [`aws-cdk-lib.IPolicyValidationPluginBeta1`](#aws-cdk-lib.IPolicyValidationPluginBeta1)[] | Validation plugins to run during synthesis. |
+| [`stageName`](#shadyislandcontextloadingstagepropspropertystagename) | `string` | Name of this stage. |
+| [`contextFile`](#shadyislandcontextloadingstagepropspropertycontextfile) | `string` | The filesystem path to a JSON file that contains context values to load. |
+
+---
+
+##### `env`<sup>Optional</sup> <a name="shady-island.ContextLoadingStageProps.property.env" id="shadyislandcontextloadingstagepropspropertyenv"></a>
+
+```typescript
+public readonly env: Environment;
+```
+
+- *Type:* [`aws-cdk-lib.Environment`](#aws-cdk-lib.Environment)
+- *Default:* The environments should be configured on the `Stack`s.
+
+Default AWS environment (account/region) for `Stack`s in this `Stage`.
+
+Stacks defined inside this `Stage` with either `region` or `account` missing from its env will use the corresponding field given here.  If either `region` or `account`is is not configured for `Stack` (either on the `Stack` itself or on the containing `Stage`), the Stack will be *environment-agnostic*.  Environment-agnostic stacks can be deployed to any environment, may not be able to take advantage of all features of the CDK. For example, they will not be able to use environmental context lookups, will not automatically translate Service Principals to the right format based on the environment's AWS partition, and other such enhancements.
+
+---
+
+##### `outdir`<sup>Optional</sup> <a name="shady-island.ContextLoadingStageProps.property.outdir" id="shadyislandcontextloadingstagepropspropertyoutdir"></a>
+
+```typescript
+public readonly outdir: string;
+```
+
+- *Type:* `string`
+- *Default:* for nested stages, outdir will be determined as a relative directory to the outdir of the app. For apps, if outdir is not specified, a temporary directory will be created.
+
+The output directory into which to emit synthesized artifacts.
+
+Can only be specified if this stage is the root stage (the app). If this is specified and this stage is nested within another stage, an error will be thrown.
+
+---
+
+##### `permissionsBoundary`<sup>Optional</sup> <a name="shady-island.ContextLoadingStageProps.property.permissionsBoundary" id="shadyislandcontextloadingstagepropspropertypermissionsboundary"></a>
+
+```typescript
+public readonly permissionsBoundary: PermissionsBoundary;
+```
+
+- *Type:* [`aws-cdk-lib.PermissionsBoundary`](#aws-cdk-lib.PermissionsBoundary)
+- *Default:* no permissions boundary is applied
+
+Options for applying a permissions boundary to all IAM Roles and Users created within this Stage.
+
+---
+
+##### `policyValidationBeta1`<sup>Optional</sup> <a name="shady-island.ContextLoadingStageProps.property.policyValidationBeta1" id="shadyislandcontextloadingstagepropspropertypolicyvalidationbeta1"></a>
+
+```typescript
+public readonly policyValidationBeta1: IPolicyValidationPluginBeta1[];
+```
+
+- *Type:* [`aws-cdk-lib.IPolicyValidationPluginBeta1`](#aws-cdk-lib.IPolicyValidationPluginBeta1)[]
+- *Default:* no validation plugins are used
+
+Validation plugins to run during synthesis.
+
+If any plugin reports any violation, synthesis will be interrupted and the report displayed to the user.
+
+---
+
+##### `stageName`<sup>Optional</sup> <a name="shady-island.ContextLoadingStageProps.property.stageName" id="shadyislandcontextloadingstagepropspropertystagename"></a>
+
+```typescript
+public readonly stageName: string;
+```
+
+- *Type:* `string`
+- *Default:* Derived from the id.
+
+Name of this stage.
+
+---
+
+##### `contextFile`<sup>Optional</sup> <a name="shady-island.ContextLoadingStageProps.property.contextFile" id="shadyislandcontextloadingstagepropspropertycontextfile"></a>
+
+```typescript
+public readonly contextFile: string;
+```
+
+- *Type:* `string`
+
+The filesystem path to a JSON file that contains context values to load.
+
+Using this property allows you to load different context values within each Stage, directly from a file you can check into source control.
+
+---
+
 ### DeploymentTierStageProps <a name="shady-island.DeploymentTierStageProps" id="shadyislanddeploymenttierstageprops"></a>
 
 Constructor properties for DeploymentTierStage.
@@ -1941,9 +2099,9 @@ const deploymentTierStageProps: DeploymentTierStageProps = { ... }
 | [`permissionsBoundary`](#shadyislanddeploymenttierstagepropspropertypermissionsboundary) | [`aws-cdk-lib.PermissionsBoundary`](#aws-cdk-lib.PermissionsBoundary) | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
 | [`policyValidationBeta1`](#shadyislanddeploymenttierstagepropspropertypolicyvalidationbeta1) | [`aws-cdk-lib.IPolicyValidationPluginBeta1`](#aws-cdk-lib.IPolicyValidationPluginBeta1)[] | Validation plugins to run during synthesis. |
 | [`stageName`](#shadyislanddeploymenttierstagepropspropertystagename) | `string` | Name of this stage. |
+| [`contextFile`](#shadyislanddeploymenttierstagepropspropertycontextfile) | `string` | The filesystem path to a JSON file that contains context values to load. |
 | [`tier`](#shadyislanddeploymenttierstagepropspropertytier)<span title="Required">*</span> | [`shady-island.Tier`](#shady-island.Tier) | The deployment tier. |
 | [`addTag`](#shadyislanddeploymenttierstagepropspropertyaddtag) | `boolean` | Whether a `DeploymentTier` tag is added to nested constructs. |
-| [`contextFile`](#shadyislanddeploymenttierstagepropspropertycontextfile) | `string` | The filesystem path to a JSON file that contains context values to load. |
 
 ---
 
@@ -2018,6 +2176,20 @@ Name of this stage.
 
 ---
 
+##### `contextFile`<sup>Optional</sup> <a name="shady-island.DeploymentTierStageProps.property.contextFile" id="shadyislanddeploymenttierstagepropspropertycontextfile"></a>
+
+```typescript
+public readonly contextFile: string;
+```
+
+- *Type:* `string`
+
+The filesystem path to a JSON file that contains context values to load.
+
+Using this property allows you to load different context values within each Stage, directly from a file you can check into source control.
+
+---
+
 ##### `tier`<sup>Required</sup> <a name="shady-island.DeploymentTierStageProps.property.tier" id="shadyislanddeploymenttierstagepropspropertytier"></a>
 
 ```typescript
@@ -2040,20 +2212,6 @@ public readonly addTag: boolean;
 - *Default:* true
 
 Whether a `DeploymentTier` tag is added to nested constructs.
-
----
-
-##### `contextFile`<sup>Optional</sup> <a name="shady-island.DeploymentTierStageProps.property.contextFile" id="shadyislanddeploymenttierstagepropspropertycontextfile"></a>
-
-```typescript
-public readonly contextFile: string;
-```
-
-- *Type:* `string`
-
-The filesystem path to a JSON file that contains context values to load.
-
-Using this property allows you to load different context values within each instantiated `DeploymentTierStage`, directly from a file you can check into source control.
 
 ---
 
@@ -3676,6 +3834,7 @@ The human-readable label for this tier (e.g. Production).
 | **Name** | **Description** |
 | --- | --- |
 | [`applyTags`](#shadyislandtierapplytags) | Adds the label of this tier as a tag to the provided construct. |
+| [`assignTo`](#shadyislandtierassignto) | Assigns this tier to a construct. |
 | [`matches`](#shadyislandtiermatches) | Compares this tier to the provided value and tests for equality. |
 
 ---
@@ -3689,6 +3848,20 @@ public applyTags(construct: IConstruct)
 ###### `construct`<sup>Required</sup> <a name="shady-island.Tier.parameter.construct" id="shadyislandtierparameterconstruct"></a>
 
 - *Type:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+---
+
+##### `assignTo` <a name="shady-island.Tier.assignTo" id="shadyislandtierassignto"></a>
+
+```typescript
+public assignTo(construct: IConstruct)
+```
+
+###### `construct`<sup>Required</sup> <a name="shady-island.Tier.parameter.construct" id="shadyislandtierparameterconstruct"></a>
+
+- *Type:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+The construct to receive the tier assignment.
 
 ---
 
@@ -3710,7 +3883,24 @@ The value to compare.
 
 | **Name** | **Description** |
 | --- | --- |
+| [`of`](#shadyislandtierof) | Finds the deployment tier of the given construct. |
 | [`parse`](#shadyislandtierparse) | Return the deployment tier that corresponds to the provided value. |
+
+---
+
+##### `of` <a name="shady-island.Tier.of" id="shadyislandtierof"></a>
+
+```typescript
+import { Tier } from 'shady-island'
+
+Tier.of(construct: IConstruct)
+```
+
+###### `construct`<sup>Required</sup> <a name="shady-island.Tier.parameter.construct" id="shadyislandtierparameterconstruct"></a>
+
+- *Type:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+The construct to inspect.
 
 ---
 

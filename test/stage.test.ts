@@ -2,8 +2,79 @@ import * as path from "path";
 import { App, Aspects, Stack } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import { Bucket } from "aws-cdk-lib/aws-s3";
-import { DeploymentTierStage } from "../src/stage";
+import { ContextLoadingStage, DeploymentTierStage } from "../src/stage";
 import { Tier } from "../src/tier";
+
+describe("ContextLoadingStage", () => {
+  let app: App;
+
+  beforeEach(() => {
+    app = new App();
+  });
+
+  afterEach(() => {
+    // @ts-ignore: TS2322
+    app = undefined;
+  });
+
+  describe("#loadContext", () => {
+    test("throws error when file is missing", () => {
+      const contextFile = path.join(__dirname, "does-not-exist.json");
+      expect(
+        () => new ContextLoadingStage(app, "MyStuffTest", { contextFile })
+      ).toThrow({
+        name: "Error",
+        message: `Context file does not exist: ${contextFile}`,
+      });
+    });
+
+    test("throws error when file is not readable", () => {
+      const contextFile = path.join(__dirname, "not-readable.json");
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const fs = require("fs");
+      const original = fs.accessSync;
+      fs.accessSync = (_: string, mode?: number) => {
+        if (fs.constants.R_OK === mode) {
+          throw new Error("Nope");
+        }
+      };
+      expect(
+        () => new ContextLoadingStage(app, "MyStuffTest", { contextFile })
+      ).toThrow({
+        name: "Error",
+        message: `Context file is not readable: ${contextFile}`,
+      });
+      fs.accessSync = original;
+    });
+
+    test("throws error when file is not JSON", () => {
+      const contextFile = path.join(__dirname, "tier.test.ts");
+      expect(
+        () => new ContextLoadingStage(app, "MyStuffTest", { contextFile })
+      ).toThrow({
+        name: "Error",
+        message: `Context file contains invalid JSON syntax: ${contextFile}`,
+      });
+    });
+
+    test("sets values when file contains JSON", () => {
+      const contextFile = path.normalize(
+        path.join(__dirname, "..", ".projen", "files.json")
+      );
+      const object = new ContextLoadingStage(app, "MyStuffUat", {
+        contextFile,
+      });
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const fs = require("fs");
+      const data = fs.readFileSync(contextFile, { encoding: "utf8" });
+      const values = JSON.parse(data);
+      expect(Object.entries(values).length).toBe(2);
+      for (const [key, value] of Object.entries(values)) {
+        expect(object.node.tryGetContext(key)).toStrictEqual(value);
+      }
+    });
+  });
+});
 
 describe("DeploymentTierStage", () => {
   let app: App;
@@ -28,6 +99,8 @@ describe("DeploymentTierStage", () => {
       expect(object.account).toBe(env.account);
       expect(object.region).toBe(env.region);
       expect(object.tier).toBe(tier);
+      expect(object.stageName).toBe(tier.label);
+      expect(Tier.of(object)).toBe(tier);
     });
 
     test("handles undefined env property", () => {
@@ -90,69 +163,6 @@ describe("DeploymentTierStage", () => {
     ])("behaves as expected with %p", (tier: Tier, expected: boolean) => {
       const object = new DeploymentTierStage(app, "MyStuffDev", { tier });
       expect(object.inProduction).toBe(expected);
-    });
-  });
-
-  describe("#loadContext", () => {
-    test("throws error when file is missing", () => {
-      const tier = Tier.TESTING;
-      const contextFile = path.join(__dirname, "does-not-exist.json");
-      expect(
-        () => new DeploymentTierStage(app, "MyStuffTest", { tier, contextFile })
-      ).toThrow({
-        name: "Error",
-        message: `Context file does not exist: ${contextFile}`,
-      });
-    });
-
-    test("throws error when file is not readable", () => {
-      const tier = Tier.TESTING;
-      const contextFile = path.join(__dirname, "not-readable.json");
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const fs = require("fs");
-      const original = fs.accessSync;
-      fs.accessSync = (_: string, mode?: number) => {
-        if (fs.constants.R_OK === mode) {
-          throw new Error("Nope");
-        }
-      };
-      expect(
-        () => new DeploymentTierStage(app, "MyStuffTest", { tier, contextFile })
-      ).toThrow({
-        name: "Error",
-        message: `Context file is not readable: ${contextFile}`,
-      });
-      fs.accessSync = original;
-    });
-
-    test("throws error when file is not JSON", () => {
-      const tier = Tier.ACCEPTANCE;
-      const contextFile = path.join(__dirname, "tier.test.ts");
-      expect(
-        () => new DeploymentTierStage(app, "MyStuffTest", { tier, contextFile })
-      ).toThrow({
-        name: "Error",
-        message: `Context file contains invalid JSON syntax: ${contextFile}`,
-      });
-    });
-
-    test("sets values when file contains JSON", () => {
-      const tier = Tier.ACCEPTANCE;
-      const contextFile = path.normalize(
-        path.join(__dirname, "..", ".projen", "files.json")
-      );
-      const object = new DeploymentTierStage(app, "MyStuffUat", {
-        tier,
-        contextFile,
-      });
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const fs = require("fs");
-      const data = fs.readFileSync(contextFile, { encoding: "utf8" });
-      const values = JSON.parse(data);
-      expect(Object.entries(values).length).toBe(2);
-      for (const [key, value] of Object.entries(values)) {
-        expect(object.node.tryGetContext(key)).toStrictEqual(value);
-      }
     });
   });
 });
