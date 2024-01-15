@@ -1,4 +1,4 @@
-import { Tags } from "aws-cdk-lib";
+import { IAspect, Tag, Tags } from "aws-cdk-lib";
 import type { IConstruct } from "constructs";
 
 /**
@@ -102,5 +102,21 @@ export class Tier {
    */
   public applyTags(construct: IConstruct): void {
     Tags.of(construct).add("DeploymentTier", this.label);
+  }
+}
+
+/**
+ * A CDK Aspect to apply the `DeploymentTier` tag to Stacks.
+ */
+export class TierTagger implements IAspect {
+  /**
+   * Create a new TierTagger.
+   *
+   * @param tier - The deployment tier
+   */
+  public constructor(private readonly tier: Tier) {}
+
+  public visit(node: IConstruct) {
+    new Tag("DeploymentTier", this.tier.label).visit(node);
   }
 }
