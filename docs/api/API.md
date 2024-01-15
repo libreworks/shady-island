@@ -3578,6 +3578,60 @@ This value will be used to create the `publicDomainName` property.  By default, 
 
 ## Classes <a name="Classes" id="classes"></a>
 
+### ContextLoader <a name="shady-island.ContextLoader" id="shadyislandcontextloader"></a>
+
+A utility to load context values into a construct node.
+
+If you want to use this utility in your own construct, make sure to invoke it before you create any child constructs.
+
+#### Initializers <a name="shady-island.ContextLoader.Initializer" id="shadyislandcontextloaderinitializer"></a>
+
+```typescript
+import { ContextLoader } from 'shady-island'
+
+new ContextLoader()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="static-functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| [`loadContext`](#shadyislandcontextloaderloadcontext) | Parses JSON file contents, then provides the values to a Node's context. |
+
+---
+
+##### `loadContext` <a name="shady-island.ContextLoader.loadContext" id="shadyislandcontextloaderloadcontext"></a>
+
+```typescript
+import { ContextLoader } from 'shady-island'
+
+ContextLoader.loadContext(filename: string, node: Node)
+```
+
+###### `filename`<sup>Required</sup> <a name="shady-island.ContextLoader.parameter.filename" id="shadyislandcontextloaderparameterfilename"></a>
+
+- *Type:* `string`
+
+The JSON file with an object to use as context values.
+
+---
+
+###### `node`<sup>Required</sup> <a name="shady-island.ContextLoader.parameter.node" id="shadyislandcontextloaderparameternode"></a>
+
+- *Type:* [`constructs.Node`](#constructs.Node)
+
+The constructs node to receive the context values.
+
+---
+
+
+
 ### Tier <a name="shady-island.Tier" id="shadyislandtier"></a>
 
 A deployment environment with a specific purpose and audience.
