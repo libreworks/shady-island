@@ -6,5 +6,5 @@ export * from "./rds";
 export * from "./vpc";
 export * from "./context";
 export * from "./stage";
-export * from "./tier";
+export { Tier, TierTagger } from "./tier";
 export * from "./workload";

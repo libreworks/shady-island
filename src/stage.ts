@@ -4,21 +4,50 @@ import { ContextLoader } from "./context";
 import { Tier, TierTagger } from "./tier";
 
 /**
- * Constructor properties for DeploymentTierStage.
+ * Constructor properties for ContextLoadingStage.
  */
-export interface DeploymentTierStageProps extends StageProps {
-  /**
-   * The deployment tier.
-   */
-  readonly tier: Tier;
+export interface ContextLoadingStageProps extends StageProps {
   /**
    * The filesystem path to a JSON file that contains context values to load.
    *
    * Using this property allows you to load different context values within each
-   * instantiated `DeploymentTierStage`, directly from a file you can check into
-   * source control.
+   * Stage, directly from a file you can check into source control.
    */
   readonly contextFile?: string;
+}
+
+/**
+ * A Stage that can load context values from a JSON file.
+ */
+export class ContextLoadingStage extends Stage {
+  /**
+   * Creates a new ContextLoadingStage.
+   *
+   * @param scope - The scope in which to define this construct.
+   * @param id - The scoped construct ID.
+   * @param props - Initialization properties for this construct.
+   */
+  public constructor(
+    scope: Construct,
+    id: string,
+    props: ContextLoadingStageProps
+  ) {
+    super(scope, id, { ...props });
+
+    if (props.contextFile) {
+      ContextLoader.loadContext(props.contextFile, this.node);
+    }
+  }
+}
+
+/**
+ * Constructor properties for DeploymentTierStage.
+ */
+export interface DeploymentTierStageProps extends ContextLoadingStageProps {
+  /**
+   * The deployment tier.
+   */
+  readonly tier: Tier;
   /**
    * Whether a `DeploymentTier` tag is added to nested constructs.
    *
@@ -30,7 +59,7 @@ export interface DeploymentTierStageProps extends StageProps {
 /**
  * A Stage whose stacks are part of a single deployment tier.
  */
-export class DeploymentTierStage extends Stage {
+export class DeploymentTierStage extends ContextLoadingStage {
   public readonly tier: Tier;
 
   /**
@@ -50,12 +79,9 @@ export class DeploymentTierStage extends Stage {
       stageName: props.stageName || props.tier.label,
     });
 
-    const { tier, contextFile, addTag = true } = props;
+    const { tier, addTag = true } = props;
     this.tier = tier;
-
-    if (contextFile) {
-      ContextLoader.loadContext(contextFile, this.node);
-    }
+    tier.assignTo(this);
 
     if (addTag) {
       Aspects.of(this).add(new TierTagger(tier));
