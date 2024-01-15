@@ -1,6 +1,6 @@
-import * as fs from "fs";
 import { Environment, Stage, Stack, StackProps } from "aws-cdk-lib";
 import { Construct, IConstruct } from "constructs";
+import { ContextLoader } from "./context";
 import { Tier } from "./tier";
 
 const WORKLOAD_SYMBOL = Symbol.for("@shady-island/core.Workload");
@@ -190,33 +190,7 @@ export class Workload extends Construct {
     this.account = account || stageAccount;
 
     if (contextFile) {
-      this.loadContext(contextFile);
-    }
-  }
-
-  private loadContext(filename: string) {
-    try {
-      fs.accessSync(filename, fs.constants.F_OK);
-    } catch (err) {
-      throw new Error(`Context file does not exist: ${filename}`);
-    }
-    try {
-      fs.accessSync(filename, fs.constants.R_OK);
-    } catch (err) {
-      throw new Error(`Context file is not readable: ${filename}`);
-    }
-
-    const data = fs.readFileSync(filename, { encoding: "utf8" });
-
-    let defaults = {};
-    try {
-      defaults = JSON.parse(data);
-    } catch (e) {
-      throw new Error(`Context file contains invalid JSON syntax: ${filename}`);
-    }
-
-    for (const [k, v] of Object.entries(defaults)) {
-      this.node.setContext(k, v);
+      ContextLoader.loadContext(contextFile, this.node);
     }
   }
 

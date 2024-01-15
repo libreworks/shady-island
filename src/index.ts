@@ -4,5 +4,7 @@ export * from "./ecs";
 export * from "./efs";
 export * from "./rds";
 export * from "./vpc";
+export * from "./context";
+export * from "./stage";
 export * from "./tier";
 export * from "./workload";

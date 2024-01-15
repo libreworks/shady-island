@@ -1,7 +1,7 @@
-import { App, Stack } from "aws-cdk-lib";
+import { App, Aspects, Stack } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import { Bucket } from "aws-cdk-lib/aws-s3";
-import { Tier } from "../src/tier";
+import { Tier, TierTagger } from "../src/tier";
 
 describe("Tier", () => {
   test("equals works on identical object", () => {
@@ -43,5 +43,19 @@ describe("Tier", () => {
     ["    absolutely anything you want    ", Tier.DEVELOPMENT],
   ])("given %p, returns %p", (first: string, expected: Tier) => {
     expect(Tier.parse(first)).toEqual(expected);
+  });
+});
+
+describe("TierTagger", () => {
+  const tier = Tier.DEVELOPMENT;
+  const object = new TierTagger(tier);
+  const app = new App();
+  const stack = new Stack(app, "Stack");
+  Aspects.of(stack).add(object);
+  new Bucket(stack, "Bucket");
+
+  const template = Template.fromStack(stack);
+  template.hasResourceProperties("AWS::S3::Bucket", {
+    Tags: [{ Key: "DeploymentTier", Value: tier.label }],
   });
 });
