@@ -339,11 +339,12 @@ export class PostgresqlDatabase extends BaseDatabase {
       timeout: Duration.minutes(2),
     });
     adminSecret.grantRead(this.lambdaFunction);
+    ownerSecret.grantRead(this.lambdaFunction);
 
     this.trigger = new Trigger(this, "Trigger", {
       handler: this.lambdaFunction,
     });
-    this.trigger.executeAfter(this.lambdaFunction);
+    this.trigger.executeAfter(adminSecret, ownerSecret, this.lambdaFunction);
   }
 
   public addUserAsOwner(secret: ISecret) {
