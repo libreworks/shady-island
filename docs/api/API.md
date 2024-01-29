@@ -3107,6 +3107,7 @@ const postgresqlDatabaseForClusterOptions: PostgresqlDatabaseForClusterOptions =
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | [`ownerSecret`](#shadyislandpostgresqldatabaseforclusteroptionspropertyownersecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | The Secrets Manager secret for the owner of the schema. |
+| [`certificateAuthoritiesUrl`](#shadyislandpostgresqldatabaseforclusteroptionspropertycertificateauthoritiesurl) | `string` | The URL to the PEM-encoded Certificate Authority file. |
 | [`encoding`](#shadyislandpostgresqldatabaseforclusteroptionspropertyencoding) | `string` | The database default encoding set to use. |
 | [`locale`](#shadyislandpostgresqldatabaseforclusteroptionspropertylocale) | `string` | The database default locale to use. |
 | [`schemaName`](#shadyislandpostgresqldatabaseforclusteroptionspropertyschemaname) | `string` | The name of the schema to create. |
@@ -3126,6 +3127,23 @@ public readonly ownerSecret: ISecret;
 - *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
 
 The Secrets Manager secret for the owner of the schema.
+
+---
+
+##### `certificateAuthoritiesUrl`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForClusterOptions.property.certificateAuthoritiesUrl" id="shadyislandpostgresqldatabaseforclusteroptionspropertycertificateauthoritiesurl"></a>
+
+```typescript
+public readonly certificateAuthoritiesUrl: string;
+```
+
+- *Type:* `string`
+- *Default:* https://truststore.pki.rds.amazonaws.com/REGION/REGION-bundle.pem
+
+The URL to the PEM-encoded Certificate Authority file.
+
+Normally, we would just assume the Lambda runtime has the certificates to trust already installed. Since the current Lambda runtime environments lack the newer RDS certificate authority certificates, this option can be used to specify a URL to a remote file containing the CAs.
+
+> https://github.com/aws/aws-lambda-base-images/issues/123
 
 ---
 
@@ -3235,6 +3253,7 @@ const postgresqlDatabaseForServerlessClusterOptions: PostgresqlDatabaseForServer
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | [`ownerSecret`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyownersecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | The Secrets Manager secret for the owner of the schema. |
+| [`certificateAuthoritiesUrl`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertycertificateauthoritiesurl) | `string` | The URL to the PEM-encoded Certificate Authority file. |
 | [`encoding`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyencoding) | `string` | The database default encoding set to use. |
 | [`locale`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertylocale) | `string` | The database default locale to use. |
 | [`schemaName`](#shadyislandpostgresqldatabaseforserverlessclusteroptionspropertyschemaname) | `string` | The name of the schema to create. |
@@ -3255,6 +3274,23 @@ public readonly ownerSecret: ISecret;
 - *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
 
 The Secrets Manager secret for the owner of the schema.
+
+---
+
+##### `certificateAuthoritiesUrl`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseForServerlessClusterOptions.property.certificateAuthoritiesUrl" id="shadyislandpostgresqldatabaseforserverlessclusteroptionspropertycertificateauthoritiesurl"></a>
+
+```typescript
+public readonly certificateAuthoritiesUrl: string;
+```
+
+- *Type:* `string`
+- *Default:* https://truststore.pki.rds.amazonaws.com/REGION/REGION-bundle.pem
+
+The URL to the PEM-encoded Certificate Authority file.
+
+Normally, we would just assume the Lambda runtime has the certificates to trust already installed. Since the current Lambda runtime environments lack the newer RDS certificate authority certificates, this option can be used to specify a URL to a remote file containing the CAs.
+
+> https://github.com/aws/aws-lambda-base-images/issues/123
 
 ---
 
@@ -3376,6 +3412,7 @@ const postgresqlDatabaseOptions: PostgresqlDatabaseOptions = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | [`ownerSecret`](#shadyislandpostgresqldatabaseoptionspropertyownersecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | The Secrets Manager secret for the owner of the schema. |
+| [`certificateAuthoritiesUrl`](#shadyislandpostgresqldatabaseoptionspropertycertificateauthoritiesurl) | `string` | The URL to the PEM-encoded Certificate Authority file. |
 | [`encoding`](#shadyislandpostgresqldatabaseoptionspropertyencoding) | `string` | The database default encoding set to use. |
 | [`locale`](#shadyislandpostgresqldatabaseoptionspropertylocale) | `string` | The database default locale to use. |
 | [`schemaName`](#shadyislandpostgresqldatabaseoptionspropertyschemaname) | `string` | The name of the schema to create. |
@@ -3391,6 +3428,23 @@ public readonly ownerSecret: ISecret;
 - *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
 
 The Secrets Manager secret for the owner of the schema.
+
+---
+
+##### `certificateAuthoritiesUrl`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseOptions.property.certificateAuthoritiesUrl" id="shadyislandpostgresqldatabaseoptionspropertycertificateauthoritiesurl"></a>
+
+```typescript
+public readonly certificateAuthoritiesUrl: string;
+```
+
+- *Type:* `string`
+- *Default:* https://truststore.pki.rds.amazonaws.com/REGION/REGION-bundle.pem
+
+The URL to the PEM-encoded Certificate Authority file.
+
+Normally, we would just assume the Lambda runtime has the certificates to trust already installed. Since the current Lambda runtime environments lack the newer RDS certificate authority certificates, this option can be used to specify a URL to a remote file containing the CAs.
+
+> https://github.com/aws/aws-lambda-base-images/issues/123
 
 ---
 
@@ -3457,6 +3511,7 @@ const postgresqlDatabaseProps: PostgresqlDatabaseProps = { ... }
 | [`target`](#shadyislandpostgresqldatabasepropspropertytarget)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable) | The target service or database. |
 | [`vpc`](#shadyislandpostgresqldatabasepropspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
 | [`ownerSecret`](#shadyislandpostgresqldatabasepropspropertyownersecret)<span title="Required">*</span> | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | The Secrets Manager secret for the owner of the schema. |
+| [`certificateAuthoritiesUrl`](#shadyislandpostgresqldatabasepropspropertycertificateauthoritiesurl) | `string` | The URL to the PEM-encoded Certificate Authority file. |
 | [`encoding`](#shadyislandpostgresqldatabasepropspropertyencoding) | `string` | The database default encoding set to use. |
 | [`locale`](#shadyislandpostgresqldatabasepropspropertylocale) | `string` | The database default locale to use. |
 | [`schemaName`](#shadyislandpostgresqldatabasepropspropertyschemaname) | `string` | The name of the schema to create. |
@@ -3558,6 +3613,23 @@ public readonly ownerSecret: ISecret;
 - *Type:* [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret)
 
 The Secrets Manager secret for the owner of the schema.
+
+---
+
+##### `certificateAuthoritiesUrl`<sup>Optional</sup> <a name="shady-island.PostgresqlDatabaseProps.property.certificateAuthoritiesUrl" id="shadyislandpostgresqldatabasepropspropertycertificateauthoritiesurl"></a>
+
+```typescript
+public readonly certificateAuthoritiesUrl: string;
+```
+
+- *Type:* `string`
+- *Default:* https://truststore.pki.rds.amazonaws.com/REGION/REGION-bundle.pem
+
+The URL to the PEM-encoded Certificate Authority file.
+
+Normally, we would just assume the Lambda runtime has the certificates to trust already installed. Since the current Lambda runtime environments lack the newer RDS certificate authority certificates, this option can be used to specify a URL to a remote file containing the CAs.
+
+> https://github.com/aws/aws-lambda-base-images/issues/123
 
 ---
 
