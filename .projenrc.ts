@@ -32,6 +32,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
+  tsconfig: {
+    compilerOptions: {
+      lib: ["ES2022"],
+      target: "es2022",
+    },
+  },
+
   cdkVersion: "2.108.0",
   majorVersion: 0,
 

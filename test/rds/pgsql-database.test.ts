@@ -80,6 +80,7 @@ describe("BaseDatabase", () => {
         databaseName,
         ownerSecret,
         locale: "en_US.utf8",
+        certificateAuthoritiesUrl: "https://example.com/whatever.pem",
       });
       const userSecret = new Secret(stack, "UserSecret", {});
       obj.addUserAsOwner(userSecret);
@@ -98,6 +99,7 @@ describe("BaseDatabase", () => {
             },
             READER_SECRETS: "[]",
             UNPRIVILEGED_SECRETS: "[]",
+            CA_CERTS_URL: "https://example.com/whatever.pem",
           },
         },
         Handler: "index.handler",
