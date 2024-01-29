@@ -20,7 +20,7 @@ import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { Trigger } from "aws-cdk-lib/triggers";
 import { PostgresqlDatabase } from "../../src/rds";
 
-describe("BaseDatabase", () => {
+describe("PostgresqlDatabase", () => {
   let app: App;
   let stack: Stack;
   let vpc: Vpc;
@@ -128,6 +128,39 @@ describe("BaseDatabase", () => {
           "UserSecret0463E4F5",
         ]),
       });
+      template.hasResourceProperties("AWS::IAM::Policy", {
+        PolicyDocument: {
+          Statement: [
+            {
+              Action: [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
+              Effect: "Allow",
+              Resource: { Ref: "SecretAttachment2E1B7C3B" },
+            },
+            {
+              Action: [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
+              Effect: "Allow",
+              Resource: { Ref: "OwnerSecretC51D9290" },
+            },
+            {
+              Action: [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
+              Effect: "Allow",
+              Resource: { Ref: "UserSecret0463E4F5" },
+            },
+          ],
+          Version: "2012-10-17",
+        },
+        PolicyName: "MyDbFunctionServiceRoleDefaultPolicyEB977851",
+        Roles: [{ Ref: "MyDbFunctionServiceRole0211C4A3" }],
+      });
     });
   });
 
@@ -221,6 +254,14 @@ describe("BaseDatabase", () => {
               ],
               Effect: "Allow",
               Resource: { Ref: "SecretAttachment2E1B7C3B" },
+            },
+            {
+              Action: [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
+              Effect: "Allow",
+              Resource: { Ref: "OwnerSecretC51D9290" },
             },
             {
               Action: [
@@ -329,6 +370,14 @@ describe("BaseDatabase", () => {
               ],
               Effect: "Allow",
               Resource: { Ref: "SecretAttachment2E1B7C3B" },
+            },
+            {
+              Action: [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
+              Effect: "Allow",
+              Resource: { Ref: "OwnerSecretC51D9290" },
             },
             {
               Action: [
