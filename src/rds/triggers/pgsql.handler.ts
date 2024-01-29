@@ -1,3 +1,4 @@
+import * as https from "https";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { SecretsManagerClient } from "@aws-sdk/client-secrets-manager";
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -9,8 +10,9 @@ import {
   Role,
   ServerClient,
 } from "@libreworks/db-provision-pgsql";
+import type { Handler } from "aws-lambda";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Client } from "pg";
+import { Client, ClientConfig } from "pg";
 import type { DatabaseCredentials, UsernamePassword } from "./types";
 import { fetchSecret, fetchAllSecrets, parseJsonArrayFromEnv } from "./util";
 
@@ -26,7 +28,29 @@ const ownerSecretArns = parseJsonArrayFromEnv("OWNER_SECRETS");
 const readerSecretArns = parseJsonArrayFromEnv("READER_SECRETS");
 const unprivilegedSecretArns = parseJsonArrayFromEnv("UNPRIVILEGED_SECRETS");
 
-const handler = async () => {
+/**
+ * Reads an HTTPS resource into a string.
+ *
+ * We need this function since newer RDS CA certificates aren't in Lambda.
+ *
+ * @see https://github.com/aws/aws-lambda-base-images/issues/123
+ */
+function readRemote(
+  url: string,
+  options?: https.RequestOptions
+): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    https
+      .get(url, options || {}, (res) => {
+        const data: Buffer[] = [];
+        res.on("data", (d) => data.push(d));
+        res.on("end", () => resolve(Buffer.concat(data)));
+      })
+      .on("error", (e) => reject(e));
+  });
+}
+
+const handler: Handler = async () => {
   // Here's the first network request:
   // Load the admin secret, needed to create the catalog and its owner.
   const adminSecret: DatabaseCredentials = await fetchSecret(
@@ -34,14 +58,21 @@ const handler = async () => {
     secretsManagerClient
   );
 
+  // Here's the second network request:
+  const region = process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION;
+  const caBundle = await readRemote(
+    process.env.CA_CERTS_URL ||
+      `https://truststore.pki.rds.amazonaws.com/${region}/${region}-bundle.pem`
+  );
+
   // First we need to connect to the "postgres" database.
-  const clientDefaults = {
+  const clientDefaults: Partial<ClientConfig> = {
     host: adminSecret.host,
     port: adminSecret.port,
     user: adminSecret.username,
     password: adminSecret.password,
     connectionTimeoutMillis: 40000,
-    ssl: true,
+    ssl: { ca: caBundle },
   };
   const client = new Client({
     ...clientDefaults,
@@ -105,7 +136,10 @@ const handler = async () => {
   }
 
   const grants: Grant[] = [];
-  // Create a Grant object for the schema owner and all readers.
+  // Create a Grant object for the schema owner.
+  let owner = loginMap.get(schemaOwnerSecret)!;
+  grants.push(catalog.grant(owner, "CONNECT", "CREATE", "TEMP"));
+  // Create a Grant object for schema admins and all readers.
   for (const secret of [...ownerSecrets, ...readerSecrets]) {
     grants.push(catalog.grant(loginMap.get(secret)!, "CONNECT", "TEMP"));
   }
@@ -128,6 +162,8 @@ const handler = async () => {
 
   const schemaClient = new Client({
     ...clientDefaults,
+    user: owner.name,
+    password: owner.password,
     database: databaseName,
   });
   const databaseClient = new DatabaseClient(schemaClient);
@@ -135,8 +171,6 @@ const handler = async () => {
   // Here is the next network request:
   console.log(`About to open a connection to database: ${databaseName}`);
   await schemaClient.connect();
-
-  let owner = new Login(schemaOwnerSecret.username, schemaOwnerSecret.password);
 
   // Here is the next network request:
   const schema = catalog.createSchema(schemaName || owner.username, owner);
