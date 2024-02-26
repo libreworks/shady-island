@@ -1,4 +1,3 @@
-import * as https from "https";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { SecretsManagerClient } from "@aws-sdk/client-secrets-manager";
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -14,7 +13,12 @@ import type { Handler } from "aws-lambda";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Client, ClientConfig } from "pg";
 import type { DatabaseCredentials, UsernamePassword } from "./types";
-import { fetchSecret, fetchAllSecrets, parseJsonArrayFromEnv } from "./util";
+import {
+  fetchSecret,
+  fetchAllSecrets,
+  parseJsonArrayFromEnv,
+  readRemote,
+} from "./util";
 
 const adminSecretArn = process.env.ADMIN_SECRET_ARN!;
 const ownerSecretArn = process.env.OWNER_SECRET_ARN!;
@@ -27,28 +31,6 @@ const secretsManagerClient = new SecretsManagerClient({});
 const ownerSecretArns = parseJsonArrayFromEnv("OWNER_SECRETS");
 const readerSecretArns = parseJsonArrayFromEnv("READER_SECRETS");
 const unprivilegedSecretArns = parseJsonArrayFromEnv("UNPRIVILEGED_SECRETS");
-
-/**
- * Reads an HTTPS resource into a string.
- *
- * We need this function since newer RDS CA certificates aren't in Lambda.
- *
- * @see https://github.com/aws/aws-lambda-base-images/issues/123
- */
-function readRemote(
-  url: string,
-  options?: https.RequestOptions
-): Promise<Buffer> {
-  return new Promise((resolve, reject) => {
-    https
-      .get(url, options || {}, (res) => {
-        const data: Buffer[] = [];
-        res.on("data", (d) => data.push(d));
-        res.on("end", () => resolve(Buffer.concat(data)));
-      })
-      .on("error", (e) => reject(e));
-  });
-}
 
 const handler: Handler = async () => {
   // Here's the first network request:

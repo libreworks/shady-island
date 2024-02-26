@@ -2704,12 +2704,30 @@ const mysqlDatabaseForClusterOptions: MysqlDatabaseForClusterOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| [`certificateAuthoritiesUrl`](#shadyislandmysqldatabaseforclusteroptionspropertycertificateauthoritiesurl) | `string` | The URL to the PEM-encoded Certificate Authority file. |
 | [`characterSet`](#shadyislandmysqldatabaseforclusteroptionspropertycharacterset) | `string` | The database default character set to use. |
 | [`collation`](#shadyislandmysqldatabaseforclusteroptionspropertycollation) | `string` | The database default collation to use. |
 | [`databaseName`](#shadyislandmysqldatabaseforclusteroptionspropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog to create. |
 | [`securityGroup`](#shadyislandmysqldatabaseforclusteroptionspropertysecuritygroup) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup) | The security group for the Lambda function. |
 | [`vpcSubnets`](#shadyislandmysqldatabaseforclusteroptionspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
 | [`adminSecret`](#shadyislandmysqldatabaseforclusteroptionspropertyadminsecret) | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
+
+---
+
+##### `certificateAuthoritiesUrl`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForClusterOptions.property.certificateAuthoritiesUrl" id="shadyislandmysqldatabaseforclusteroptionspropertycertificateauthoritiesurl"></a>
+
+```typescript
+public readonly certificateAuthoritiesUrl: string;
+```
+
+- *Type:* `string`
+- *Default:* https://truststore.pki.rds.amazonaws.com/REGION/REGION-bundle.pem
+
+The URL to the PEM-encoded Certificate Authority file.
+
+Normally, we would just assume the Lambda runtime has the certificates to trust already installed. Since the current Lambda runtime environments lack the newer RDS certificate authority certificates, this option can be used to specify a URL to a remote file containing the CAs.
+
+> https://github.com/aws/aws-lambda-base-images/issues/123
 
 ---
 
@@ -2805,6 +2823,7 @@ const mysqlDatabaseForServerlessClusterOptions: MysqlDatabaseForServerlessCluste
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| [`certificateAuthoritiesUrl`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertycertificateauthoritiesurl) | `string` | The URL to the PEM-encoded Certificate Authority file. |
 | [`characterSet`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertycharacterset) | `string` | The database default character set to use. |
 | [`collation`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertycollation) | `string` | The database default collation to use. |
 | [`databaseName`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertydatabasename)<span title="Required">*</span> | `string` | The name of the database/catalog to create. |
@@ -2812,6 +2831,23 @@ const mysqlDatabaseForServerlessClusterOptions: MysqlDatabaseForServerlessCluste
 | [`vpcSubnets`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The type of subnets in the VPC where the Lambda function will run. |
 | [`adminSecret`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertyadminsecret) | [`aws-cdk-lib.aws_secretsmanager.ISecret`](#aws-cdk-lib.aws_secretsmanager.ISecret) | A Secrets Manager secret that contains administrative credentials. |
 | [`vpc`](#shadyislandmysqldatabaseforserverlessclusteroptionspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
+
+---
+
+##### `certificateAuthoritiesUrl`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseForServerlessClusterOptions.property.certificateAuthoritiesUrl" id="shadyislandmysqldatabaseforserverlessclusteroptionspropertycertificateauthoritiesurl"></a>
+
+```typescript
+public readonly certificateAuthoritiesUrl: string;
+```
+
+- *Type:* `string`
+- *Default:* https://truststore.pki.rds.amazonaws.com/REGION/REGION-bundle.pem
+
+The URL to the PEM-encoded Certificate Authority file.
+
+Normally, we would just assume the Lambda runtime has the certificates to trust already installed. Since the current Lambda runtime environments lack the newer RDS certificate authority certificates, this option can be used to specify a URL to a remote file containing the CAs.
+
+> https://github.com/aws/aws-lambda-base-images/issues/123
 
 ---
 
@@ -2919,8 +2955,26 @@ const mysqlDatabaseOptions: MysqlDatabaseOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| [`certificateAuthoritiesUrl`](#shadyislandmysqldatabaseoptionspropertycertificateauthoritiesurl) | `string` | The URL to the PEM-encoded Certificate Authority file. |
 | [`characterSet`](#shadyislandmysqldatabaseoptionspropertycharacterset) | `string` | The database default character set to use. |
 | [`collation`](#shadyislandmysqldatabaseoptionspropertycollation) | `string` | The database default collation to use. |
+
+---
+
+##### `certificateAuthoritiesUrl`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseOptions.property.certificateAuthoritiesUrl" id="shadyislandmysqldatabaseoptionspropertycertificateauthoritiesurl"></a>
+
+```typescript
+public readonly certificateAuthoritiesUrl: string;
+```
+
+- *Type:* `string`
+- *Default:* https://truststore.pki.rds.amazonaws.com/REGION/REGION-bundle.pem
+
+The URL to the PEM-encoded Certificate Authority file.
+
+Normally, we would just assume the Lambda runtime has the certificates to trust already installed. Since the current Lambda runtime environments lack the newer RDS certificate authority certificates, this option can be used to specify a URL to a remote file containing the CAs.
+
+> https://github.com/aws/aws-lambda-base-images/issues/123
 
 ---
 
@@ -2973,6 +3027,7 @@ const mysqlDatabaseProps: MysqlDatabaseProps = { ... }
 | [`endpoint`](#shadyislandmysqldatabasepropspropertyendpoint)<span title="Required">*</span> | [`aws-cdk-lib.aws_rds.Endpoint`](#aws-cdk-lib.aws_rds.Endpoint) | The cluster or instance endpoint. |
 | [`target`](#shadyislandmysqldatabasepropspropertytarget)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IConnectable`](#aws-cdk-lib.aws_ec2.IConnectable) | The target service or database. |
 | [`vpc`](#shadyislandmysqldatabasepropspropertyvpc)<span title="Required">*</span> | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the Lambda function will run. |
+| [`certificateAuthoritiesUrl`](#shadyislandmysqldatabasepropspropertycertificateauthoritiesurl) | `string` | The URL to the PEM-encoded Certificate Authority file. |
 | [`characterSet`](#shadyislandmysqldatabasepropspropertycharacterset) | `string` | The database default character set to use. |
 | [`collation`](#shadyislandmysqldatabasepropspropertycollation) | `string` | The database default collation to use. |
 
@@ -3061,6 +3116,23 @@ public readonly vpc: IVpc;
 - *Type:* [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc)
 
 The VPC where the Lambda function will run.
+
+---
+
+##### `certificateAuthoritiesUrl`<sup>Optional</sup> <a name="shady-island.MysqlDatabaseProps.property.certificateAuthoritiesUrl" id="shadyislandmysqldatabasepropspropertycertificateauthoritiesurl"></a>
+
+```typescript
+public readonly certificateAuthoritiesUrl: string;
+```
+
+- *Type:* `string`
+- *Default:* https://truststore.pki.rds.amazonaws.com/REGION/REGION-bundle.pem
+
+The URL to the PEM-encoded Certificate Authority file.
+
+Normally, we would just assume the Lambda runtime has the certificates to trust already installed. Since the current Lambda runtime environments lack the newer RDS certificate authority certificates, this option can be used to specify a URL to a remote file containing the CAs.
+
+> https://github.com/aws/aws-lambda-base-images/issues/123
 
 ---
 
