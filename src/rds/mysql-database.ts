@@ -37,6 +37,19 @@ export interface MysqlDatabaseOptions {
    * @default - rely on MySQL to choose the default collation.
    */
   readonly collation?: string;
+  /**
+   * The URL to the PEM-encoded Certificate Authority file.
+   *
+   * Normally, we would just assume the Lambda runtime has the certificates to
+   * trust already installed. Since the current Lambda runtime environments lack
+   * the newer RDS certificate authority certificates, this option can be used
+   * to specify a URL to a remote file containing the CAs.
+   *
+   * @see https://github.com/aws/aws-lambda-base-images/issues/123
+   *
+   * @default - https://truststore.pki.rds.amazonaws.com/REGION/REGION-bundle.pem
+   */
+  readonly certificateAuthoritiesUrl?: string;
 }
 
 /**
@@ -287,6 +300,9 @@ export class MysqlDatabase extends BaseDatabase {
     };
     if (props.collation) {
       environment.DB_COLLATION = props.collation;
+    }
+    if (props.certificateAuthoritiesUrl) {
+      environment.CA_CERTS_URL = props.certificateAuthoritiesUrl;
     }
 
     this.lambdaFunction = new Function(this, "Function", {

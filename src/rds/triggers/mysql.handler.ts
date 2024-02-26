@@ -3,7 +3,12 @@ import { SecretsManagerClient } from "@aws-sdk/client-secrets-manager";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Connection, createConnection } from "mysql2/promise";
 import type { UsernamePassword, DatabaseCredentials } from "./types";
-import { fetchSecret, fetchAllSecrets, parseJsonArrayFromEnv } from "./util";
+import {
+  fetchSecret,
+  fetchAllSecrets,
+  parseJsonArrayFromEnv,
+  readRemote,
+} from "./util";
 
 const adminSecretArn = process.env.ADMIN_SECRET_ARN!;
 const databaseName = process.env.DB_NAME!;
@@ -43,12 +48,19 @@ const handler = async () => {
     adminSecretArn,
     secretsManagerClient
   );
+
+  const region = process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION;
+  const caBundle = await readRemote(
+    process.env.CA_CERTS_URL ||
+      `https://truststore.pki.rds.amazonaws.com/${region}/${region}-bundle.pem`
+  );
+
   const connection = await createConnection({
     host: adminSecret.host,
     user: adminSecret.username,
     password: adminSecret.password,
     port: adminSecret.port,
-    ssl: "Amazon RDS",
+    ssl: { ca: caBundle },
     connectTimeout: 40000,
   });
 
