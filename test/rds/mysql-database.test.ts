@@ -3,6 +3,7 @@ import { Match, Template } from "aws-cdk-lib/assertions";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
 import {
   AuroraMysqlEngineVersion,
+  ClusterInstance,
   Credentials,
   DatabaseCluster,
   DatabaseClusterFromSnapshot,
@@ -50,7 +51,8 @@ describe("MysqlDatabase", () => {
         engine: DatabaseClusterEngine.auroraMysql({
           version: AuroraMysqlEngineVersion.VER_3_02_1,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer"),
         credentials: Credentials.fromSecret(adminSecret),
       });
       const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
@@ -67,12 +69,14 @@ describe("MysqlDatabase", () => {
         engine: DatabaseClusterEngine.auroraMysql({
           version: AuroraMysqlEngineVersion.VER_3_02_1,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer"),
         credentials: Credentials.fromSecret(adminSecret),
       });
       const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
         databaseName,
         collation: "utf8mb4_0900_ai_ci",
+        certificateAuthoritiesUrl: "https://example.com/whatever.pem",
       });
       const userSecret = new Secret(stack, "UserSecret", {});
       obj.addUserAsOwner(userSecret);
@@ -83,6 +87,7 @@ describe("MysqlDatabase", () => {
           Variables: {
             ADMIN_SECRET_ARN: { Ref: "SecretAttachment2E1B7C3B" },
             AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
+            CA_CERTS_URL: "https://example.com/whatever.pem",
             DB_CHARACTER_SET: "utf8mb4",
             DB_COLLATION: "utf8mb4_0900_ai_ci",
             DB_NAME: "foobar",
@@ -109,12 +114,11 @@ describe("MysqlDatabase", () => {
       template.resourceCountIs("Custom::Trigger", 1);
       template.hasResource("Custom::Trigger", {
         DependsOn: Match.arrayWith([
-          "ClusterInstance1448F06E4",
-          "ClusterInstance2C3E0561B",
           "ClusterEB0386A7",
           "ClusterSecurityGroupfromStackMyDbSecurityGroup0E936039IndirectPortE751E3FE",
           "ClusterSecurityGroup0921994B",
           "ClusterSubnetsDCFA5CB7",
+          "Clusterwriter2D9E9F4C",
           "MyDbFunction7E72B045",
           "MyDbFunctionServiceRoleDefaultPolicyEB977851",
           "MyDbFunctionServiceRole0211C4A3",
@@ -130,7 +134,8 @@ describe("MysqlDatabase", () => {
         engine: DatabaseClusterEngine.auroraMysql({
           version: AuroraMysqlEngineVersion.VER_3_02_1,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer"),
         credentials: Credentials.fromSecret(adminSecret),
       });
       const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
@@ -147,7 +152,8 @@ describe("MysqlDatabase", () => {
         engine: DatabaseClusterEngine.auroraMysql({
           version: AuroraMysqlEngineVersion.VER_3_02_1,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer"),
         credentials: Credentials.fromSecret(adminSecret),
       });
       const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
@@ -188,12 +194,11 @@ describe("MysqlDatabase", () => {
       template.resourceCountIs("Custom::Trigger", 1);
       template.hasResource("Custom::Trigger", {
         DependsOn: Match.arrayWith([
-          "ClusterInstance1448F06E4",
-          "ClusterInstance2C3E0561B",
           "ClusterEB0386A7",
           "ClusterSecurityGroupfromStackMyDbSecurityGroup0E936039IndirectPortE751E3FE",
           "ClusterSecurityGroup0921994B",
           "ClusterSubnetsDCFA5CB7",
+          "Clusterwriter2D9E9F4C",
           "MyDbFunction7E72B045",
           "MyDbFunctionServiceRoleDefaultPolicyEB977851",
           "MyDbFunctionServiceRole0211C4A3",
@@ -234,7 +239,8 @@ describe("MysqlDatabase", () => {
         engine: DatabaseClusterEngine.auroraMysql({
           version: AuroraMysqlEngineVersion.VER_3_02_1,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer"),
         credentials: Credentials.fromSecret(adminSecret),
       });
       const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
@@ -251,7 +257,8 @@ describe("MysqlDatabase", () => {
         engine: DatabaseClusterEngine.auroraMysql({
           version: AuroraMysqlEngineVersion.VER_3_02_1,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer"),
         credentials: Credentials.fromSecret(adminSecret),
       });
       const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
@@ -292,12 +299,11 @@ describe("MysqlDatabase", () => {
       template.resourceCountIs("Custom::Trigger", 1);
       template.hasResource("Custom::Trigger", {
         DependsOn: Match.arrayWith([
-          "ClusterInstance1448F06E4",
-          "ClusterInstance2C3E0561B",
           "ClusterEB0386A7",
           "ClusterSecurityGroupfromStackMyDbSecurityGroup0E936039IndirectPortE751E3FE",
           "ClusterSecurityGroup0921994B",
           "ClusterSubnetsDCFA5CB7",
+          "Clusterwriter2D9E9F4C",
           "MyDbFunction7E72B045",
           "MyDbFunctionServiceRoleDefaultPolicyEB977851",
           "MyDbFunctionServiceRole0211C4A3",
@@ -338,7 +344,8 @@ describe("MysqlDatabase", () => {
         engine: DatabaseClusterEngine.auroraMysql({
           version: AuroraMysqlEngineVersion.VER_3_02_1,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer"),
         credentials: Credentials.fromSecret(adminSecret),
       });
       const obj = MysqlDatabase.forCluster(stack, "MyDb", cluster, {
@@ -354,7 +361,8 @@ describe("MysqlDatabase", () => {
         engine: DatabaseClusterEngine.auroraMysql({
           version: AuroraMysqlEngineVersion.VER_3_02_1,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer"),
         credentials: Credentials.fromPassword(
           "foobar",
           SecretValue.unsafePlainText("Insecure Password")
@@ -372,7 +380,8 @@ describe("MysqlDatabase", () => {
         engine: DatabaseClusterEngine.auroraMysql({
           version: AuroraMysqlEngineVersion.VER_3_02_1,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer"),
         credentials: Credentials.fromPassword(
           "foobar",
           SecretValue.unsafePlainText("Insecure Password")
@@ -397,7 +406,8 @@ describe("MysqlDatabase", () => {
         engine: DatabaseClusterEngine.auroraMysql({
           version: AuroraMysqlEngineVersion.VER_3_02_1,
         }),
-        instanceProps: { vpc },
+        vpc,
+        writer: ClusterInstance.provisioned("writer"),
         snapshotCredentials: SnapshotCredentials.fromSecret(adminSecret),
       });
       const obj = MysqlDatabase.forClusterFromSnapshot(stack, "MyDb", cluster, {
@@ -495,7 +505,7 @@ describe("MysqlDatabase", () => {
     test("works as expected with defaults", () => {
       let cluster = new ServerlessCluster(stack, "Cluster", {
         engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_2_10_3,
+          version: AuroraMysqlEngineVersion.VER_2_12_0,
         }),
         vpc,
         credentials: Credentials.fromSecret(adminSecret),
@@ -508,6 +518,29 @@ describe("MysqlDatabase", () => {
       const trigger = obj.node.findChild("Trigger") as Trigger;
       expect(trigger.node.dependencies).toContain(cluster);
     });
+
+    test("synthesizes as expected", () => {
+      let cluster = new ServerlessCluster(stack, "Cluster", {
+        engine: DatabaseClusterEngine.auroraMysql({
+          version: AuroraMysqlEngineVersion.VER_2_12_0,
+        }),
+        vpc,
+        credentials: Credentials.fromSecret(adminSecret),
+      });
+      MysqlDatabase.forServerlessCluster(stack, "MyDb", cluster, {
+        databaseName,
+        vpc,
+      });
+      const template = Template.fromStack(stack);
+      template.hasResourceProperties("AWS::Lambda::Function", {
+        Environment: {
+          Variables: {
+            CA_CERTS_URL:
+              "https://www.amazontrust.com/repository/AmazonRootCA1.pem",
+          },
+        },
+      });
+    });
   });
 
   describe("#forServerlessClusterFromSnapshot", () => {
@@ -515,7 +548,7 @@ describe("MysqlDatabase", () => {
       let cluster = new ServerlessClusterFromSnapshot(stack, "Instance", {
         snapshotIdentifier: "foobar",
         engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_2_10_3,
+          version: AuroraMysqlEngineVersion.VER_2_12_0,
         }),
         vpc,
         credentials: SnapshotCredentials.fromSecret(adminSecret),
@@ -538,7 +571,7 @@ describe("MysqlDatabase", () => {
       let cluster = new ServerlessClusterFromSnapshot(stack, "Instance", {
         snapshotIdentifier: "foobar",
         engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_2_10_3,
+          version: AuroraMysqlEngineVersion.VER_2_12_0,
         }),
         vpc,
         credentials: SnapshotCredentials.fromPassword(
@@ -562,7 +595,7 @@ describe("MysqlDatabase", () => {
       let cluster = new ServerlessClusterFromSnapshot(stack, "Instance", {
         snapshotIdentifier: "foobar",
         engine: DatabaseClusterEngine.auroraMysql({
-          version: AuroraMysqlEngineVersion.VER_2_10_3,
+          version: AuroraMysqlEngineVersion.VER_2_12_0,
         }),
         vpc,
         credentials: SnapshotCredentials.fromPassword(

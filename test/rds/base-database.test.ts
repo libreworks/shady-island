@@ -8,6 +8,7 @@ import {
   Vpc,
 } from "aws-cdk-lib/aws-ec2";
 import {
+  ClusterInstance,
   DatabaseCluster,
   DatabaseClusterEngine,
   AuroraMysqlEngineVersion,
@@ -48,7 +49,8 @@ describe("BaseDatabase", () => {
       engine: DatabaseClusterEngine.auroraMysql({
         version: AuroraMysqlEngineVersion.VER_3_02_1,
       }),
-      instanceProps: { vpc },
+      vpc,
+      writer: ClusterInstance.provisioned("writer"),
     });
   });
 
