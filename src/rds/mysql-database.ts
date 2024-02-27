@@ -21,6 +21,10 @@ import {
 
 const HANDLER_PATH = path.join(__dirname, "../../assets/rds/triggers/mysql");
 
+// https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html#aurora-serverless.tls
+const AMAZON_ROOT_CA1 =
+  "https://www.amazontrust.com/repository/AmazonRootCA1.pem";
+
 /**
  * MySQL-specific options.
  */
@@ -198,6 +202,7 @@ export class MysqlDatabase extends BaseDatabase {
       target: cluster,
       endpoint: cluster.clusterEndpoint,
       adminSecret: clusterSecret,
+      certificateAuthoritiesUrl: AMAZON_ROOT_CA1,
       ...props,
     });
     database.trigger.executeAfter(cluster);
