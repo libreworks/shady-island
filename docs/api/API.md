@@ -587,7 +587,7 @@ The log group.
 
 - *Implements:* [`shady-island.IFargateTask`](#shady-island.IFargateTask)
 
-An FargateTask.
+An ECS Fargate Task.
 
 If `vpcSubnets` is blank but `assignPublicIp` is set, the task will launch in Public subnets, otherwise the first available one of Private, Isolated, Public, in that order.
 
@@ -629,7 +629,39 @@ new FargateTask(scope: Construct, id: string, props: FargateTaskProps)
 
 | **Name** | **Description** |
 | --- | --- |
+| [`createRuleTarget`](#shadyislandfargatetaskcreateruletarget) | Create a new EventBridge Rule Target that launches this ECS task. |
+| [`createStateMachineTask`](#shadyislandfargatetaskcreatestatemachinetask) | Create a new Step Functions task that launches this ECS task. |
 | [`grantRun`](#shadyislandfargatetaskgrantrun) | Grants permission to invoke ecs:RunTask on this task's cluster. |
+
+---
+
+##### `createRuleTarget` <a name="shady-island.FargateTask.createRuleTarget" id="shadyislandfargatetaskcreateruletarget"></a>
+
+```typescript
+public createRuleTarget(props: EventTargetProps)
+```
+
+###### `props`<sup>Required</sup> <a name="shady-island.FargateTask.parameter.props" id="shadyislandfargatetaskparameterprops"></a>
+
+- *Type:* [`shady-island.EventTargetProps`](#shady-island.EventTargetProps)
+
+---
+
+##### `createStateMachineTask` <a name="shady-island.FargateTask.createStateMachineTask" id="shadyislandfargatetaskcreatestatemachinetask"></a>
+
+```typescript
+public createStateMachineTask(id: string, props: StateMachineTaskProps)
+```
+
+###### `id`<sup>Required</sup> <a name="shady-island.FargateTask.parameter.id" id="shadyislandfargatetaskparameterid"></a>
+
+- *Type:* `string`
+
+---
+
+###### `props`<sup>Required</sup> <a name="shady-island.FargateTask.parameter.props" id="shadyislandfargatetaskparameterprops"></a>
+
+- *Type:* [`shady-island.StateMachineTaskProps`](#shady-island.StateMachineTaskProps)
 
 ---
 
@@ -1438,6 +1470,88 @@ You can further customize when the trigger fires using `executeAfter`.
 ---
 
 
+### RunnableFargateTask <a name="shady-island.RunnableFargateTask" id="shadyislandrunnablefargatetask"></a>
+
+- *Implements:* [`shady-island.IRunnableFargateTask`](#shady-island.IRunnableFargateTask)
+
+An RunnableFargateTask construct.
+
+#### Initializers <a name="shady-island.RunnableFargateTask.Initializer" id="shadyislandrunnablefargatetaskinitializer"></a>
+
+```typescript
+import { RunnableFargateTask } from 'shady-island'
+
+new RunnableFargateTask(scope: Construct, id: string, props: RunnableFargateTaskProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`scope`](#shadyislandrunnablefargatetaskparameterscope)<span title="Required">*</span> | [`constructs.Construct`](#constructs.Construct) | The scope in which to define this construct. |
+| [`id`](#shadyislandrunnablefargatetaskparameterid)<span title="Required">*</span> | `string` | The scoped construct ID. |
+| [`props`](#shadyislandrunnablefargatetaskparameterprops)<span title="Required">*</span> | [`shady-island.RunnableFargateTaskProps`](#shady-island.RunnableFargateTaskProps) | Initialization properties for this construct. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="shady-island.RunnableFargateTask.parameter.scope" id="shadyislandrunnablefargatetaskparameterscope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+The scope in which to define this construct.
+
+---
+
+##### `id`<sup>Required</sup> <a name="shady-island.RunnableFargateTask.parameter.id" id="shadyislandrunnablefargatetaskparameterid"></a>
+
+- *Type:* `string`
+
+The scoped construct ID.
+
+---
+
+##### `props`<sup>Required</sup> <a name="shady-island.RunnableFargateTask.parameter.props" id="shadyislandrunnablefargatetaskparameterprops"></a>
+
+- *Type:* [`shady-island.RunnableFargateTaskProps`](#shady-island.RunnableFargateTaskProps)
+
+Initialization properties for this construct.
+
+---
+
+
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`task`](#shadyislandrunnablefargatetaskpropertytask)<span title="Required">*</span> | [`shady-island.IFargateTask`](#shady-island.IFargateTask) | The FargateTask in this construct. |
+| [`taskDefinition`](#shadyislandrunnablefargatetaskpropertytaskdefinition)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition) | The FargateTaskDefinition in this construct. |
+
+---
+
+##### `task`<sup>Required</sup> <a name="shady-island.RunnableFargateTask.property.task" id="shadyislandrunnablefargatetaskpropertytask"></a>
+
+```typescript
+public readonly task: IFargateTask;
+```
+
+- *Type:* [`shady-island.IFargateTask`](#shady-island.IFargateTask)
+
+The FargateTask in this construct.
+
+---
+
+##### `taskDefinition`<sup>Required</sup> <a name="shady-island.RunnableFargateTask.property.taskDefinition" id="shadyislandrunnablefargatetaskpropertytaskdefinition"></a>
+
+```typescript
+public readonly taskDefinition: FargateTaskDefinition;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition)
+
+The FargateTaskDefinition in this construct.
+
+---
+
+
 ### Workload <a name="shady-island.Workload" id="shadyislandworkload"></a>
 
 A collection of Stacks in an Environment representing a deployment Tier.
@@ -1876,6 +1990,69 @@ The VPC where the Lambda function will run.
 
 ---
 
+### BaseFargateTaskProps <a name="shady-island.BaseFargateTaskProps" id="shadyislandbasefargatetaskprops"></a>
+
+Common parameters for Fargate Tasks.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { BaseFargateTaskProps } from 'shady-island'
+
+const baseFargateTaskProps: BaseFargateTaskProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`assignPublicIp`](#shadyislandbasefargatetaskpropspropertyassignpublicip) | `boolean` | Specifies whether the task's elastic network interface receives a public IP address. |
+| [`securityGroups`](#shadyislandbasefargatetaskpropspropertysecuritygroups) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)[] | Existing security groups to use for your task. |
+| [`vpcSubnets`](#shadyislandbasefargatetaskpropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The subnets to associate with the task. |
+
+---
+
+##### `assignPublicIp`<sup>Optional</sup> <a name="shady-island.BaseFargateTaskProps.property.assignPublicIp" id="shadyislandbasefargatetaskpropspropertyassignpublicip"></a>
+
+```typescript
+public readonly assignPublicIp: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Specifies whether the task's elastic network interface receives a public IP address.
+
+If true, the task will receive a public IP address.
+
+---
+
+##### `securityGroups`<sup>Optional</sup> <a name="shady-island.BaseFargateTaskProps.property.securityGroups" id="shadyislandbasefargatetaskpropspropertysecuritygroups"></a>
+
+```typescript
+public readonly securityGroups: ISecurityGroup[];
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)[]
+- *Default:* a new security group will be created.
+
+Existing security groups to use for your task.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.BaseFargateTaskProps.property.vpcSubnets" id="shadyislandbasefargatetaskpropspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* Public subnets if `assignPublicIp` is set, otherwise the first available one of Private, Isolated, Public, in that order.
+
+The subnets to associate with the task.
+
+---
+
 ### CidrContextProps <a name="shady-island.CidrContextProps" id="shadyislandcidrcontextprops"></a>
 
 Properties for creating a new {@link CidrContext}.
@@ -1952,7 +2129,7 @@ public readonly cidrBlock: string;
 
 An IPv6 CIDR block from the IPv6 address pool to use for this VPC.
 
-The {@link EnableIpv6Props#addressPool} attribute is required if this parameter is specified.
+The {@link EnableIpv6Props#addressPool } attribute is required if this parameter is specified.
 
 ---
 
@@ -2529,6 +2706,180 @@ How long, in days, the log contents will be retained.
 
 ---
 
+### EventTargetProps <a name="shady-island.EventTargetProps" id="shadyislandeventtargetprops"></a>
+
+Properties to create a new EventBridge Rule Target.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { EventTargetProps } from 'shady-island'
+
+const eventTargetProps: EventTargetProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`deadLetterQueue`](#shadyislandeventtargetpropspropertydeadletterqueue) | [`aws-cdk-lib.aws_sqs.IQueue`](#aws-cdk-lib.aws_sqs.IQueue) | The SQS queue to be used as deadLetterQueue. Check out the [considerations for using a dead-letter queue](https://docs.aws.amazon.com/eventbridge/latest/userguide/rule-dlq.html#dlq-considerations). |
+| [`maxEventAge`](#shadyislandeventtargetpropspropertymaxeventage) | [`aws-cdk-lib.Duration`](#aws-cdk-lib.Duration) | The maximum age of a request that Lambda sends to a function for processing. |
+| [`retryAttempts`](#shadyislandeventtargetpropspropertyretryattempts) | `number` | The maximum number of times to retry when the function returns an error. |
+| [`containerOverrides`](#shadyislandeventtargetpropspropertycontaineroverrides) | [`aws-cdk-lib.aws_events_targets.ContainerOverride`](#aws-cdk-lib.aws_events_targets.ContainerOverride)[] | Container setting overrides. |
+| [`enableExecuteCommand`](#shadyislandeventtargetpropspropertyenableexecutecommand) | `boolean` | Whether or not to enable the execute command functionality for the containers in this task. |
+| [`launchType`](#shadyislandeventtargetpropspropertylaunchtype) | [`aws-cdk-lib.aws_ecs.LaunchType`](#aws-cdk-lib.aws_ecs.LaunchType) | Specifies the launch type on which your task is running. |
+| [`propagateTags`](#shadyislandeventtargetpropspropertypropagatetags) | [`aws-cdk-lib.aws_ecs.PropagatedTagSource`](#aws-cdk-lib.aws_ecs.PropagatedTagSource) | Specifies whether to propagate the tags from the task definition to the task. |
+| [`role`](#shadyislandeventtargetpropspropertyrole) | [`aws-cdk-lib.aws_iam.IRole`](#aws-cdk-lib.aws_iam.IRole) | Existing IAM role to run the ECS task. |
+| [`tags`](#shadyislandeventtargetpropspropertytags) | [`aws-cdk-lib.aws_events_targets.Tag`](#aws-cdk-lib.aws_events_targets.Tag)[] | The metadata that you apply to the task to help you categorize and organize them. |
+| [`taskCount`](#shadyislandeventtargetpropspropertytaskcount) | `number` | How many tasks should be started when this event is triggered. |
+
+---
+
+##### `deadLetterQueue`<sup>Optional</sup> <a name="shady-island.EventTargetProps.property.deadLetterQueue" id="shadyislandeventtargetpropspropertydeadletterqueue"></a>
+
+```typescript
+public readonly deadLetterQueue: IQueue;
+```
+
+- *Type:* [`aws-cdk-lib.aws_sqs.IQueue`](#aws-cdk-lib.aws_sqs.IQueue)
+- *Default:* no dead-letter queue
+
+The SQS queue to be used as deadLetterQueue. Check out the [considerations for using a dead-letter queue](https://docs.aws.amazon.com/eventbridge/latest/userguide/rule-dlq.html#dlq-considerations).
+
+The events not successfully delivered are automatically retried for a specified period of time, depending on the retry policy of the target. If an event is not delivered before all retry attempts are exhausted, it will be sent to the dead letter queue.
+
+---
+
+##### `maxEventAge`<sup>Optional</sup> <a name="shady-island.EventTargetProps.property.maxEventAge" id="shadyislandeventtargetpropspropertymaxeventage"></a>
+
+```typescript
+public readonly maxEventAge: Duration;
+```
+
+- *Type:* [`aws-cdk-lib.Duration`](#aws-cdk-lib.Duration)
+- *Default:* Duration.hours(24)
+
+The maximum age of a request that Lambda sends to a function for processing.
+
+Minimum value of 60. Maximum value of 86400.
+
+---
+
+##### `retryAttempts`<sup>Optional</sup> <a name="shady-island.EventTargetProps.property.retryAttempts" id="shadyislandeventtargetpropspropertyretryattempts"></a>
+
+```typescript
+public readonly retryAttempts: number;
+```
+
+- *Type:* `number`
+- *Default:* 185
+
+The maximum number of times to retry when the function returns an error.
+
+Minimum value of 0. Maximum value of 185.
+
+---
+
+##### `containerOverrides`<sup>Optional</sup> <a name="shady-island.EventTargetProps.property.containerOverrides" id="shadyislandeventtargetpropspropertycontaineroverrides"></a>
+
+```typescript
+public readonly containerOverrides: ContainerOverride[];
+```
+
+- *Type:* [`aws-cdk-lib.aws_events_targets.ContainerOverride`](#aws-cdk-lib.aws_events_targets.ContainerOverride)[]
+
+Container setting overrides.
+
+Key is the name of the container to override, value is the values you want to override.
+
+---
+
+##### `enableExecuteCommand`<sup>Optional</sup> <a name="shady-island.EventTargetProps.property.enableExecuteCommand" id="shadyislandeventtargetpropspropertyenableexecutecommand"></a>
+
+```typescript
+public readonly enableExecuteCommand: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Whether or not to enable the execute command functionality for the containers in this task.
+
+If true, this enables execute command functionality on all containers in the task.
+
+---
+
+##### `launchType`<sup>Optional</sup> <a name="shady-island.EventTargetProps.property.launchType" id="shadyislandeventtargetpropspropertylaunchtype"></a>
+
+```typescript
+public readonly launchType: LaunchType;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.LaunchType`](#aws-cdk-lib.aws_ecs.LaunchType)
+- *Default:* 'EC2' if `isEc2Compatible` for the `taskDefinition` is true, otherwise 'FARGATE'
+
+Specifies the launch type on which your task is running.
+
+The launch type that you specify here must match one of the launch type (compatibilities) of the target task.
+
+---
+
+##### `propagateTags`<sup>Optional</sup> <a name="shady-island.EventTargetProps.property.propagateTags" id="shadyislandeventtargetpropspropertypropagatetags"></a>
+
+```typescript
+public readonly propagateTags: PropagatedTagSource;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.PropagatedTagSource`](#aws-cdk-lib.aws_ecs.PropagatedTagSource)
+- *Default:* Tags will not be propagated
+
+Specifies whether to propagate the tags from the task definition to the task.
+
+If no value is specified, the tags are not propagated.
+
+---
+
+##### `role`<sup>Optional</sup> <a name="shady-island.EventTargetProps.property.role" id="shadyislandeventtargetpropspropertyrole"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* [`aws-cdk-lib.aws_iam.IRole`](#aws-cdk-lib.aws_iam.IRole)
+- *Default:* A new IAM role is created
+
+Existing IAM role to run the ECS task.
+
+---
+
+##### `tags`<sup>Optional</sup> <a name="shady-island.EventTargetProps.property.tags" id="shadyislandeventtargetpropspropertytags"></a>
+
+```typescript
+public readonly tags: Tag[];
+```
+
+- *Type:* [`aws-cdk-lib.aws_events_targets.Tag`](#aws-cdk-lib.aws_events_targets.Tag)[]
+- *Default:* No additional tags are applied to the task
+
+The metadata that you apply to the task to help you categorize and organize them.
+
+Each tag consists of a key and an optional value, both of which you define.
+
+---
+
+##### `taskCount`<sup>Optional</sup> <a name="shady-island.EventTargetProps.property.taskCount" id="shadyislandeventtargetpropspropertytaskcount"></a>
+
+```typescript
+public readonly taskCount: number;
+```
+
+- *Type:* `number`
+- *Default:* 1
+
+How many tasks should be started when this event is triggered.
+
+---
+
 ### FargateAwsVpcConfiguration <a name="shady-island.FargateAwsVpcConfiguration" id="shadyislandfargateawsvpcconfiguration"></a>
 
 The `networkConfiguration.awsvpcConfiguration` values for `ecs.RunTask`.
@@ -2599,6 +2950,217 @@ There's a limit of 16 subnets that can be specified per `AwsVpcConfiguration` . 
 
 ---
 
+### FargateTaskImageOptions <a name="shady-island.FargateTaskImageOptions" id="shadyislandfargatetaskimageoptions"></a>
+
+The properties for the FargateTask using an image.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { FargateTaskImageOptions } from 'shady-island'
+
+const fargateTaskImageOptions: FargateTaskImageOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`image`](#shadyislandfargatetaskimageoptionspropertyimage)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.ContainerImage`](#aws-cdk-lib.aws_ecs.ContainerImage) | The image used to start a container. |
+| [`command`](#shadyislandfargatetaskimageoptionspropertycommand) | `string`[] | The command that's passed to the container. |
+| [`containerName`](#shadyislandfargatetaskimageoptionspropertycontainername) | `string` | The container name value to be specified in the task definition. |
+| [`containerPort`](#shadyislandfargatetaskimageoptionspropertycontainerport) | `number` | The port number on the container that is bound to the user-specified or automatically assigned host port. |
+| [`dockerLabels`](#shadyislandfargatetaskimageoptionspropertydockerlabels) | {[ key: string ]: `string`} | A key/value map of labels to add to the container. |
+| [`enableLogging`](#shadyislandfargatetaskimageoptionspropertyenablelogging) | `boolean` | Flag to indicate whether to enable logging. |
+| [`entryPoint`](#shadyislandfargatetaskimageoptionspropertyentrypoint) | `string`[] | The entry point that's passed to the container. |
+| [`environment`](#shadyislandfargatetaskimageoptionspropertyenvironment) | {[ key: string ]: `string`} | The environment variables to pass to the container. |
+| [`executionRole`](#shadyislandfargatetaskimageoptionspropertyexecutionrole) | [`aws-cdk-lib.aws_iam.IRole`](#aws-cdk-lib.aws_iam.IRole) | The name of the task execution IAM role that grants the Amazon ECS container agent permission to call AWS APIs on your behalf. |
+| [`family`](#shadyislandfargatetaskimageoptionspropertyfamily) | `string` | The name of a family that this task definition is registered to. |
+| [`logDriver`](#shadyislandfargatetaskimageoptionspropertylogdriver) | [`aws-cdk-lib.aws_ecs.LogDriver`](#aws-cdk-lib.aws_ecs.LogDriver) | The log driver to use. |
+| [`secrets`](#shadyislandfargatetaskimageoptionspropertysecrets) | {[ key: string ]: [`aws-cdk-lib.aws_ecs.Secret`](#aws-cdk-lib.aws_ecs.Secret)} | The secret to expose to the container as an environment variable. |
+| [`taskRole`](#shadyislandfargatetaskimageoptionspropertytaskrole) | [`aws-cdk-lib.aws_iam.IRole`](#aws-cdk-lib.aws_iam.IRole) | The name of the task IAM role that grants containers in the task permission to call AWS APIs on your behalf. |
+
+---
+
+##### `image`<sup>Required</sup> <a name="shady-island.FargateTaskImageOptions.property.image" id="shadyislandfargatetaskimageoptionspropertyimage"></a>
+
+```typescript
+public readonly image: ContainerImage;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.ContainerImage`](#aws-cdk-lib.aws_ecs.ContainerImage)
+- *Default:* none
+
+The image used to start a container.
+
+Image or taskDefinition must be specified, not both.
+
+---
+
+##### `command`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.command" id="shadyislandfargatetaskimageoptionspropertycommand"></a>
+
+```typescript
+public readonly command: string[];
+```
+
+- *Type:* `string`[]
+- *Default:* none
+
+The command that's passed to the container.
+
+If there are multiple arguments, make sure that each argument is a separated string in the array.  This parameter maps to `Cmd` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `COMMAND` parameter to [docker run](https://docs.docker.com/engine/reference/commandline/run/).  For more information about the Docker `CMD` parameter, see https://docs.docker.com/engine/reference/builder/#cmd.
+
+---
+
+##### `containerName`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.containerName" id="shadyislandfargatetaskimageoptionspropertycontainername"></a>
+
+```typescript
+public readonly containerName: string;
+```
+
+- *Type:* `string`
+- *Default:* none
+
+The container name value to be specified in the task definition.
+
+---
+
+##### `containerPort`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.containerPort" id="shadyislandfargatetaskimageoptionspropertycontainerport"></a>
+
+```typescript
+public readonly containerPort: number;
+```
+
+- *Type:* `number`
+- *Default:* 80
+
+The port number on the container that is bound to the user-specified or automatically assigned host port.
+
+If you are using containers in a task with the awsvpc or host network mode, exposed ports should be specified using containerPort. If you are using containers in a task with the bridge network mode and you specify a container port and not a host port, your container automatically receives a host port in the ephemeral port range.  Port mappings that are automatically assigned in this way do not count toward the 100 reserved ports limit of a container instance.  For more information, see [hostPort](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_PortMapping.html#ECS-Type-PortMapping-hostPort).
+
+---
+
+##### `dockerLabels`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.dockerLabels" id="shadyislandfargatetaskimageoptionspropertydockerlabels"></a>
+
+```typescript
+public readonly dockerLabels: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+- *Default:* No labels.
+
+A key/value map of labels to add to the container.
+
+---
+
+##### `enableLogging`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.enableLogging" id="shadyislandfargatetaskimageoptionspropertyenablelogging"></a>
+
+```typescript
+public readonly enableLogging: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* true
+
+Flag to indicate whether to enable logging.
+
+---
+
+##### `entryPoint`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.entryPoint" id="shadyislandfargatetaskimageoptionspropertyentrypoint"></a>
+
+```typescript
+public readonly entryPoint: string[];
+```
+
+- *Type:* `string`[]
+- *Default:* none
+
+The entry point that's passed to the container.
+
+This parameter maps to `Entrypoint` in the [Create a container](https://docs.docker.com/engine/api/v1.38/#operation/ContainerCreate) section of the [Docker Remote API](https://docs.docker.com/engine/api/v1.38/) and the `--entrypoint` option to [docker run](https://docs.docker.com/engine/reference/commandline/run/).  For more information about the Docker `ENTRYPOINT` parameter, see https://docs.docker.com/engine/reference/builder/#entrypoint.
+
+---
+
+##### `environment`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.environment" id="shadyislandfargatetaskimageoptionspropertyenvironment"></a>
+
+```typescript
+public readonly environment: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+- *Default:* No environment variables.
+
+The environment variables to pass to the container.
+
+---
+
+##### `executionRole`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.executionRole" id="shadyislandfargatetaskimageoptionspropertyexecutionrole"></a>
+
+```typescript
+public readonly executionRole: IRole;
+```
+
+- *Type:* [`aws-cdk-lib.aws_iam.IRole`](#aws-cdk-lib.aws_iam.IRole)
+- *Default:* No value
+
+The name of the task execution IAM role that grants the Amazon ECS container agent permission to call AWS APIs on your behalf.
+
+---
+
+##### `family`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.family" id="shadyislandfargatetaskimageoptionspropertyfamily"></a>
+
+```typescript
+public readonly family: string;
+```
+
+- *Type:* `string`
+- *Default:* Automatically generated name.
+
+The name of a family that this task definition is registered to.
+
+A family groups multiple versions of a task definition.
+
+---
+
+##### `logDriver`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.logDriver" id="shadyislandfargatetaskimageoptionspropertylogdriver"></a>
+
+```typescript
+public readonly logDriver: LogDriver;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.LogDriver`](#aws-cdk-lib.aws_ecs.LogDriver)
+- *Default:* AwsLogDriver if enableLogging is true
+
+The log driver to use.
+
+---
+
+##### `secrets`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.secrets" id="shadyislandfargatetaskimageoptionspropertysecrets"></a>
+
+```typescript
+public readonly secrets: {[ key: string ]: Secret};
+```
+
+- *Type:* {[ key: string ]: [`aws-cdk-lib.aws_ecs.Secret`](#aws-cdk-lib.aws_ecs.Secret)}
+- *Default:* No secret environment variables.
+
+The secret to expose to the container as an environment variable.
+
+---
+
+##### `taskRole`<sup>Optional</sup> <a name="shady-island.FargateTaskImageOptions.property.taskRole" id="shadyislandfargatetaskimageoptionspropertytaskrole"></a>
+
+```typescript
+public readonly taskRole: IRole;
+```
+
+- *Type:* [`aws-cdk-lib.aws_iam.IRole`](#aws-cdk-lib.aws_iam.IRole)
+- *Default:* A task role is automatically created for you.
+
+The name of the task IAM role that grants containers in the task permission to call AWS APIs on your behalf.
+
+---
+
 ### FargateTaskProps <a name="shady-island.FargateTaskProps" id="shadyislandfargatetaskprops"></a>
 
 Constructor parameters for FargateTask.
@@ -2615,35 +3177,11 @@ const fargateTaskProps: FargateTaskProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| [`cluster`](#shadyislandfargatetaskpropspropertycluster)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster) | The name of the cluster that hosts the service. |
-| [`taskDefinition`](#shadyislandfargatetaskpropspropertytaskdefinition)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition) | The task definition that can be launched. |
 | [`assignPublicIp`](#shadyislandfargatetaskpropspropertyassignpublicip) | `boolean` | Specifies whether the task's elastic network interface receives a public IP address. |
 | [`securityGroups`](#shadyislandfargatetaskpropspropertysecuritygroups) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)[] | Existing security groups to use for your task. |
 | [`vpcSubnets`](#shadyislandfargatetaskpropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The subnets to associate with the task. |
-
----
-
-##### `cluster`<sup>Required</sup> <a name="shady-island.FargateTaskProps.property.cluster" id="shadyislandfargatetaskpropspropertycluster"></a>
-
-```typescript
-public readonly cluster: ICluster;
-```
-
-- *Type:* [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster)
-
-The name of the cluster that hosts the service.
-
----
-
-##### `taskDefinition`<sup>Required</sup> <a name="shady-island.FargateTaskProps.property.taskDefinition" id="shadyislandfargatetaskpropspropertytaskdefinition"></a>
-
-```typescript
-public readonly taskDefinition: FargateTaskDefinition;
-```
-
-- *Type:* [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition)
-
-The task definition that can be launched.
+| [`cluster`](#shadyislandfargatetaskpropspropertycluster)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster) | The name of the cluster that hosts the service. |
+| [`taskDefinition`](#shadyislandfargatetaskpropspropertytaskdefinition)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition) | The task definition that can be launched. |
 
 ---
 
@@ -2685,6 +3223,30 @@ public readonly vpcSubnets: SubnetSelection;
 - *Default:* Public subnets if `assignPublicIp` is set, otherwise the first available one of Private, Isolated, Public, in that order.
 
 The subnets to associate with the task.
+
+---
+
+##### `cluster`<sup>Required</sup> <a name="shady-island.FargateTaskProps.property.cluster" id="shadyislandfargatetaskpropspropertycluster"></a>
+
+```typescript
+public readonly cluster: ICluster;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster)
+
+The name of the cluster that hosts the service.
+
+---
+
+##### `taskDefinition`<sup>Required</sup> <a name="shady-island.FargateTaskProps.property.taskDefinition" id="shadyislandfargatetaskpropspropertytaskdefinition"></a>
+
+```typescript
+public readonly taskDefinition: FargateTaskDefinition;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition)
+
+The task definition that can be launched.
 
 ---
 
@@ -3789,6 +4351,472 @@ The priority for this set of commands.
 
 ---
 
+### RunnableFargateTaskProps <a name="shady-island.RunnableFargateTaskProps" id="shadyislandrunnablefargatetaskprops"></a>
+
+Constructor properties for RunnableFargateTask.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { RunnableFargateTaskProps } from 'shady-island'
+
+const runnableFargateTaskProps: RunnableFargateTaskProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`assignPublicIp`](#shadyislandrunnablefargatetaskpropspropertyassignpublicip) | `boolean` | Specifies whether the task's elastic network interface receives a public IP address. |
+| [`securityGroups`](#shadyislandrunnablefargatetaskpropspropertysecuritygroups) | [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)[] | Existing security groups to use for your task. |
+| [`vpcSubnets`](#shadyislandrunnablefargatetaskpropspropertyvpcsubnets) | [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection) | The subnets to associate with the task. |
+| [`cpu`](#shadyislandrunnablefargatetaskpropspropertycpu) | `number` | The number of cpu units used by the task. |
+| [`memoryLimitMiB`](#shadyislandrunnablefargatetaskpropspropertymemorylimitmib) | `number` | The amount (in MiB) of memory used by the task. |
+| [`platformVersion`](#shadyislandrunnablefargatetaskpropspropertyplatformversion) | [`aws-cdk-lib.aws_ecs.FargatePlatformVersion`](#aws-cdk-lib.aws_ecs.FargatePlatformVersion) | The platform version on which to run your service. |
+| [`runtimePlatform`](#shadyislandrunnablefargatetaskpropspropertyruntimeplatform) | [`aws-cdk-lib.aws_ecs.RuntimePlatform`](#aws-cdk-lib.aws_ecs.RuntimePlatform) | The runtime platform of the task definition. |
+| [`taskDefinition`](#shadyislandrunnablefargatetaskpropspropertytaskdefinition) | [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition) | The task definition to use for tasks in the service. TaskDefinition or TaskImageOptions must be specified, but not both. |
+| [`cluster`](#shadyislandrunnablefargatetaskpropspropertycluster) | [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster) | The cluster that hosts the service. |
+| [`taskImageOptions`](#shadyislandrunnablefargatetaskpropspropertytaskimageoptions) | [`shady-island.FargateTaskImageOptions`](#shady-island.FargateTaskImageOptions) | The properties to define if the construct is to create a TaskDefinition. |
+| [`vpc`](#shadyislandrunnablefargatetaskpropspropertyvpc) | [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc) | The VPC where the container instances will be launched or the elastic network interfaces (ENIs) will be deployed. |
+
+---
+
+##### `assignPublicIp`<sup>Optional</sup> <a name="shady-island.RunnableFargateTaskProps.property.assignPublicIp" id="shadyislandrunnablefargatetaskpropspropertyassignpublicip"></a>
+
+```typescript
+public readonly assignPublicIp: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Specifies whether the task's elastic network interface receives a public IP address.
+
+If true, the task will receive a public IP address.
+
+---
+
+##### `securityGroups`<sup>Optional</sup> <a name="shady-island.RunnableFargateTaskProps.property.securityGroups" id="shadyislandrunnablefargatetaskpropspropertysecuritygroups"></a>
+
+```typescript
+public readonly securityGroups: ISecurityGroup[];
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.ISecurityGroup`](#aws-cdk-lib.aws_ec2.ISecurityGroup)[]
+- *Default:* a new security group will be created.
+
+Existing security groups to use for your task.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="shady-island.RunnableFargateTaskProps.property.vpcSubnets" id="shadyislandrunnablefargatetaskpropspropertyvpcsubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.SubnetSelection`](#aws-cdk-lib.aws_ec2.SubnetSelection)
+- *Default:* Public subnets if `assignPublicIp` is set, otherwise the first available one of Private, Isolated, Public, in that order.
+
+The subnets to associate with the task.
+
+---
+
+##### `cpu`<sup>Optional</sup> <a name="shady-island.RunnableFargateTaskProps.property.cpu" id="shadyislandrunnablefargatetaskpropspropertycpu"></a>
+
+```typescript
+public readonly cpu: number;
+```
+
+- *Type:* `number`
+- *Default:* 256
+
+The number of cpu units used by the task.
+
+Valid values, which determines your range of valid values for the memory parameter:  256 (.25 vCPU) - Available memory values: 0.5GB, 1GB, 2GB  512 (.5 vCPU) - Available memory values: 1GB, 2GB, 3GB, 4GB  1024 (1 vCPU) - Available memory values: 2GB, 3GB, 4GB, 5GB, 6GB, 7GB, 8GB  2048 (2 vCPU) - Available memory values: Between 4GB and 16GB in 1GB increments  4096 (4 vCPU) - Available memory values: Between 8GB and 30GB in 1GB increments  8192 (8 vCPU) - Available memory values: Between 16GB and 60GB in 4GB increments  16384 (16 vCPU) - Available memory values: Between 32GB and 120GB in 8GB increments  This default is set in the underlying FargateTaskDefinition construct.
+
+---
+
+##### `memoryLimitMiB`<sup>Optional</sup> <a name="shady-island.RunnableFargateTaskProps.property.memoryLimitMiB" id="shadyislandrunnablefargatetaskpropspropertymemorylimitmib"></a>
+
+```typescript
+public readonly memoryLimitMiB: number;
+```
+
+- *Type:* `number`
+- *Default:* 512
+
+The amount (in MiB) of memory used by the task.
+
+This field is required and you must use one of the following values, which determines your range of valid values for the cpu parameter:  512 (0.5 GB), 1024 (1 GB), 2048 (2 GB) - Available cpu values: 256 (.25 vCPU)  1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB) - Available cpu values: 512 (.5 vCPU)  2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB) - Available cpu values: 1024 (1 vCPU)  Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB) - Available cpu values: 2048 (2 vCPU)  Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB) - Available cpu values: 4096 (4 vCPU)  Between 16384 (16 GB) and 61440 (60 GB) in increments of 4096 (4 GB) - Available cpu values: 8192 (8 vCPU)  Between 32768 (32 GB) and 122880 (120 GB) in increments of 8192 (8 GB) - Available cpu values: 16384 (16 vCPU)  This default is set in the underlying FargateTaskDefinition construct.
+
+---
+
+##### `platformVersion`<sup>Optional</sup> <a name="shady-island.RunnableFargateTaskProps.property.platformVersion" id="shadyislandrunnablefargatetaskpropspropertyplatformversion"></a>
+
+```typescript
+public readonly platformVersion: FargatePlatformVersion;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.FargatePlatformVersion`](#aws-cdk-lib.aws_ecs.FargatePlatformVersion)
+- *Default:* Latest
+
+The platform version on which to run your service.
+
+If one is not specified, the LATEST platform version is used by default. For more information, see [AWS Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html) in the Amazon Elastic Container Service Developer Guide.
+
+---
+
+##### `runtimePlatform`<sup>Optional</sup> <a name="shady-island.RunnableFargateTaskProps.property.runtimePlatform" id="shadyislandrunnablefargatetaskpropspropertyruntimeplatform"></a>
+
+```typescript
+public readonly runtimePlatform: RuntimePlatform;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.RuntimePlatform`](#aws-cdk-lib.aws_ecs.RuntimePlatform)
+- *Default:* If the property is undefined, `operatingSystemFamily` is LINUX and `cpuArchitecture` is X86_64
+
+The runtime platform of the task definition.
+
+---
+
+##### `taskDefinition`<sup>Optional</sup> <a name="shady-island.RunnableFargateTaskProps.property.taskDefinition" id="shadyislandrunnablefargatetaskpropspropertytaskdefinition"></a>
+
+```typescript
+public readonly taskDefinition: FargateTaskDefinition;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition)
+- *Default:* none
+
+The task definition to use for tasks in the service. TaskDefinition or TaskImageOptions must be specified, but not both.
+
+[disable-awslint:ref-via-interface]
+
+---
+
+##### `cluster`<sup>Optional</sup> <a name="shady-island.RunnableFargateTaskProps.property.cluster" id="shadyislandrunnablefargatetaskpropspropertycluster"></a>
+
+```typescript
+public readonly cluster: ICluster;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.ICluster`](#aws-cdk-lib.aws_ecs.ICluster)
+- *Default:* create a new cluster; if both cluster and vpc are omitted, a new VPC will be created for you.
+
+The cluster that hosts the service.
+
+If a cluster is specified, the vpc construct should be omitted. Alternatively, you can omit both cluster and vpc.
+
+---
+
+##### `taskImageOptions`<sup>Optional</sup> <a name="shady-island.RunnableFargateTaskProps.property.taskImageOptions" id="shadyislandrunnablefargatetaskpropspropertytaskimageoptions"></a>
+
+```typescript
+public readonly taskImageOptions: FargateTaskImageOptions;
+```
+
+- *Type:* [`shady-island.FargateTaskImageOptions`](#shady-island.FargateTaskImageOptions)
+- *Default:* none
+
+The properties to define if the construct is to create a TaskDefinition.
+
+taskDefinition or image must be defined, but not both.
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="shady-island.RunnableFargateTaskProps.property.vpc" id="shadyislandrunnablefargatetaskpropspropertyvpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ec2.IVpc`](#aws-cdk-lib.aws_ec2.IVpc)
+- *Default:* uses the VPC defined in the cluster or creates a new VPC.
+
+The VPC where the container instances will be launched or the elastic network interfaces (ENIs) will be deployed.
+
+If a vpc is specified, the cluster construct should be omitted. Alternatively, you can omit both vpc and cluster.
+
+---
+
+### StateMachineTaskProps <a name="shady-island.StateMachineTaskProps" id="shadyislandstatemachinetaskprops"></a>
+
+Properties to create a new State Machine EcsRunTask step.
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { StateMachineTaskProps } from 'shady-island'
+
+const stateMachineTaskProps: StateMachineTaskProps = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`comment`](#shadyislandstatemachinetaskpropspropertycomment) | `string` | An optional description for this state. |
+| [`credentials`](#shadyislandstatemachinetaskpropspropertycredentials) | [`aws-cdk-lib.aws_stepfunctions.Credentials`](#aws-cdk-lib.aws_stepfunctions.Credentials) | Credentials for an IAM Role that the State Machine assumes for executing the task. |
+| [`heartbeat`](#shadyislandstatemachinetaskpropspropertyheartbeat) | [`aws-cdk-lib.Duration`](#aws-cdk-lib.Duration) | Timeout for the heartbeat. |
+| [`heartbeatTimeout`](#shadyislandstatemachinetaskpropspropertyheartbeattimeout) | [`aws-cdk-lib.aws_stepfunctions.Timeout`](#aws-cdk-lib.aws_stepfunctions.Timeout) | Timeout for the heartbeat. |
+| [`inputPath`](#shadyislandstatemachinetaskpropspropertyinputpath) | `string` | JSONPath expression to select part of the state to be the input to this state. |
+| [`integrationPattern`](#shadyislandstatemachinetaskpropspropertyintegrationpattern) | [`aws-cdk-lib.aws_stepfunctions.IntegrationPattern`](#aws-cdk-lib.aws_stepfunctions.IntegrationPattern) | AWS Step Functions integrates with services directly in the Amazon States Language. |
+| [`outputPath`](#shadyislandstatemachinetaskpropspropertyoutputpath) | `string` | JSONPath expression to select select a portion of the state output to pass to the next state. |
+| [`resultPath`](#shadyislandstatemachinetaskpropspropertyresultpath) | `string` | JSONPath expression to indicate where to inject the state's output. |
+| [`resultSelector`](#shadyislandstatemachinetaskpropspropertyresultselector) | {[ key: string ]: `any`} | The JSON that will replace the state's raw result and become the effective result before ResultPath is applied. |
+| [`stateName`](#shadyislandstatemachinetaskpropspropertystatename) | `string` | Optional name for this state. |
+| [`taskTimeout`](#shadyislandstatemachinetaskpropspropertytasktimeout) | [`aws-cdk-lib.aws_stepfunctions.Timeout`](#aws-cdk-lib.aws_stepfunctions.Timeout) | Timeout for the task. |
+| [`timeout`](#shadyislandstatemachinetaskpropspropertytimeout) | [`aws-cdk-lib.Duration`](#aws-cdk-lib.Duration) | Timeout for the task. |
+| [`containerOverrides`](#shadyislandstatemachinetaskpropspropertycontaineroverrides) | [`aws-cdk-lib.aws_stepfunctions_tasks.ContainerOverride`](#aws-cdk-lib.aws_stepfunctions_tasks.ContainerOverride)[] | Container setting overrides. |
+| [`enableExecuteCommand`](#shadyislandstatemachinetaskpropspropertyenableexecutecommand) | `boolean` | Whether ECS Exec should be enabled. |
+| [`propagatedTagSource`](#shadyislandstatemachinetaskpropspropertypropagatedtagsource) | [`aws-cdk-lib.aws_ecs.PropagatedTagSource`](#aws-cdk-lib.aws_ecs.PropagatedTagSource) | Specifies whether to propagate the tags from the task definition to the task. |
+| [`revisionNumber`](#shadyislandstatemachinetaskpropspropertyrevisionnumber) | `number` | The revision number of ECS task definition family. |
+
+---
+
+##### `comment`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.comment" id="shadyislandstatemachinetaskpropspropertycomment"></a>
+
+```typescript
+public readonly comment: string;
+```
+
+- *Type:* `string`
+- *Default:* No comment
+
+An optional description for this state.
+
+---
+
+##### `credentials`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.credentials" id="shadyislandstatemachinetaskpropspropertycredentials"></a>
+
+```typescript
+public readonly credentials: Credentials;
+```
+
+- *Type:* [`aws-cdk-lib.aws_stepfunctions.Credentials`](#aws-cdk-lib.aws_stepfunctions.Credentials)
+- *Default:* None (Task is executed using the State Machine's execution role)
+
+Credentials for an IAM Role that the State Machine assumes for executing the task.
+
+This enables cross-account resource invocations.
+
+> https://docs.aws.amazon.com/step-functions/latest/dg/concepts-access-cross-acct-resources.html
+
+---
+
+##### ~~`heartbeat`~~<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.heartbeat" id="shadyislandstatemachinetaskpropspropertyheartbeat"></a>
+
+- *Deprecated:* use `heartbeatTimeout`
+
+```typescript
+public readonly heartbeat: Duration;
+```
+
+- *Type:* [`aws-cdk-lib.Duration`](#aws-cdk-lib.Duration)
+- *Default:* None
+
+Timeout for the heartbeat.
+
+---
+
+##### `heartbeatTimeout`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.heartbeatTimeout" id="shadyislandstatemachinetaskpropspropertyheartbeattimeout"></a>
+
+```typescript
+public readonly heartbeatTimeout: Timeout;
+```
+
+- *Type:* [`aws-cdk-lib.aws_stepfunctions.Timeout`](#aws-cdk-lib.aws_stepfunctions.Timeout)
+- *Default:* None
+
+Timeout for the heartbeat.
+
+[disable-awslint:duration-prop-type] is needed because all props interface in aws-stepfunctions-tasks extend this interface
+
+---
+
+##### `inputPath`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.inputPath" id="shadyislandstatemachinetaskpropspropertyinputpath"></a>
+
+```typescript
+public readonly inputPath: string;
+```
+
+- *Type:* `string`
+- *Default:* The entire task input (JSON path '$')
+
+JSONPath expression to select part of the state to be the input to this state.
+
+May also be the special value JsonPath.DISCARD, which will cause the effective input to be the empty object {}.
+
+---
+
+##### `integrationPattern`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.integrationPattern" id="shadyislandstatemachinetaskpropspropertyintegrationpattern"></a>
+
+```typescript
+public readonly integrationPattern: IntegrationPattern;
+```
+
+- *Type:* [`aws-cdk-lib.aws_stepfunctions.IntegrationPattern`](#aws-cdk-lib.aws_stepfunctions.IntegrationPattern)
+- *Default:* `IntegrationPattern.REQUEST_RESPONSE` for most tasks. `IntegrationPattern.RUN_JOB` for the following exceptions: `BatchSubmitJob`, `EmrAddStep`, `EmrCreateCluster`, `EmrTerminationCluster`, and `EmrContainersStartJobRun`.
+
+AWS Step Functions integrates with services directly in the Amazon States Language.
+
+You can control these AWS services using service integration patterns
+
+> https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token
+
+---
+
+##### `outputPath`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.outputPath" id="shadyislandstatemachinetaskpropspropertyoutputpath"></a>
+
+```typescript
+public readonly outputPath: string;
+```
+
+- *Type:* `string`
+- *Default:* The entire JSON node determined by the state input, the task result, and resultPath is passed to the next state (JSON path '$')
+
+JSONPath expression to select select a portion of the state output to pass to the next state.
+
+May also be the special value JsonPath.DISCARD, which will cause the effective output to be the empty object {}.
+
+---
+
+##### `resultPath`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.resultPath" id="shadyislandstatemachinetaskpropspropertyresultpath"></a>
+
+```typescript
+public readonly resultPath: string;
+```
+
+- *Type:* `string`
+- *Default:* Replaces the entire input with the result (JSON path '$')
+
+JSONPath expression to indicate where to inject the state's output.
+
+May also be the special value JsonPath.DISCARD, which will cause the state's input to become its output.
+
+---
+
+##### `resultSelector`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.resultSelector" id="shadyislandstatemachinetaskpropspropertyresultselector"></a>
+
+```typescript
+public readonly resultSelector: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: `any`}
+- *Default:* None
+
+The JSON that will replace the state's raw result and become the effective result before ResultPath is applied.
+
+You can use ResultSelector to create a payload with values that are static or selected from the state's raw result.
+
+> https://docs.aws.amazon.com/step-functions/latest/dg/input-output-inputpath-params.html#input-output-resultselector
+
+---
+
+##### `stateName`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.stateName" id="shadyislandstatemachinetaskpropspropertystatename"></a>
+
+```typescript
+public readonly stateName: string;
+```
+
+- *Type:* `string`
+- *Default:* The construct ID will be used as state name
+
+Optional name for this state.
+
+---
+
+##### `taskTimeout`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.taskTimeout" id="shadyislandstatemachinetaskpropspropertytasktimeout"></a>
+
+```typescript
+public readonly taskTimeout: Timeout;
+```
+
+- *Type:* [`aws-cdk-lib.aws_stepfunctions.Timeout`](#aws-cdk-lib.aws_stepfunctions.Timeout)
+- *Default:* None
+
+Timeout for the task.
+
+[disable-awslint:duration-prop-type] is needed because all props interface in aws-stepfunctions-tasks extend this interface
+
+---
+
+##### ~~`timeout`~~<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.timeout" id="shadyislandstatemachinetaskpropspropertytimeout"></a>
+
+- *Deprecated:* use `taskTimeout`
+
+```typescript
+public readonly timeout: Duration;
+```
+
+- *Type:* [`aws-cdk-lib.Duration`](#aws-cdk-lib.Duration)
+- *Default:* None
+
+Timeout for the task.
+
+---
+
+##### `containerOverrides`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.containerOverrides" id="shadyislandstatemachinetaskpropspropertycontaineroverrides"></a>
+
+```typescript
+public readonly containerOverrides: ContainerOverride[];
+```
+
+- *Type:* [`aws-cdk-lib.aws_stepfunctions_tasks.ContainerOverride`](#aws-cdk-lib.aws_stepfunctions_tasks.ContainerOverride)[]
+- *Default:* No overrides
+
+Container setting overrides.
+
+Specify the container to use and the overrides to apply.
+
+---
+
+##### `enableExecuteCommand`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.enableExecuteCommand" id="shadyislandstatemachinetaskpropspropertyenableexecutecommand"></a>
+
+```typescript
+public readonly enableExecuteCommand: boolean;
+```
+
+- *Type:* `boolean`
+- *Default:* false
+
+Whether ECS Exec should be enabled.
+
+> https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html#ECS-RunTask-request-enableExecuteCommand
+
+---
+
+##### `propagatedTagSource`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.propagatedTagSource" id="shadyislandstatemachinetaskpropspropertypropagatedtagsource"></a>
+
+```typescript
+public readonly propagatedTagSource: PropagatedTagSource;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.PropagatedTagSource`](#aws-cdk-lib.aws_ecs.PropagatedTagSource)
+- *Default:* No tags are propagated.
+
+Specifies whether to propagate the tags from the task definition to the task.
+
+An error will be received if you specify the SERVICE option when running a task.
+
+> https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_RunTask.html#ECS-RunTask-request-propagateTags
+
+---
+
+##### `revisionNumber`<sup>Optional</sup> <a name="shady-island.StateMachineTaskProps.property.revisionNumber" id="shadyislandstatemachinetaskpropspropertyrevisionnumber"></a>
+
+```typescript
+public readonly revisionNumber: number;
+```
+
+- *Type:* `number`
+- *Default:* '$latest'
+
+The revision number of ECS task definition family.
+
+---
+
 ### WorkloadProps <a name="shady-island.WorkloadProps" id="shadyislandworkloadprops"></a>
 
 Constructor properties for a Workload.
@@ -4594,7 +5622,45 @@ Interface for FargateTask.
 
 | **Name** | **Description** |
 | --- | --- |
+| [`createRuleTarget`](#shadyislandifargatetaskcreateruletarget) | Create a new EventBridge Rule Target that launches this ECS task. |
+| [`createStateMachineTask`](#shadyislandifargatetaskcreatestatemachinetask) | Create a new Step Functions task that launches this ECS task. |
 | [`grantRun`](#shadyislandifargatetaskgrantrun) | Grants permission to invoke ecs:RunTask on this task's cluster. |
+
+---
+
+##### `createRuleTarget` <a name="shady-island.IFargateTask.createRuleTarget" id="shadyislandifargatetaskcreateruletarget"></a>
+
+```typescript
+public createRuleTarget(props: EventTargetProps)
+```
+
+###### `props`<sup>Required</sup> <a name="shady-island.IFargateTask.parameter.props" id="shadyislandifargatetaskparameterprops"></a>
+
+- *Type:* [`shady-island.EventTargetProps`](#shady-island.EventTargetProps)
+
+The properties to create the EcsTask object.
+
+---
+
+##### `createStateMachineTask` <a name="shady-island.IFargateTask.createStateMachineTask" id="shadyislandifargatetaskcreatestatemachinetask"></a>
+
+```typescript
+public createStateMachineTask(id: string, props: StateMachineTaskProps)
+```
+
+###### `id`<sup>Required</sup> <a name="shady-island.IFargateTask.parameter.id" id="shadyislandifargatetaskparameterid"></a>
+
+- *Type:* `string`
+
+The construct ID.
+
+---
+
+###### `props`<sup>Required</sup> <a name="shady-island.IFargateTask.parameter.props" id="shadyislandifargatetaskparameterprops"></a>
+
+- *Type:* [`shady-island.StateMachineTaskProps`](#shady-island.StateMachineTaskProps)
+
+The properties to create the EcsRunTask object.
 
 ---
 
@@ -4681,6 +5747,61 @@ public readonly taskDefinition: FargateTaskDefinition;
 - *Type:* [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition)
 
 The task definition that can be launched.
+
+---
+
+### IRunnableFargateTask <a name="shady-island.IRunnableFargateTask" id="shadyislandirunnablefargatetask"></a>
+
+- *Extends:* [`constructs.IConstruct`](#constructs.IConstruct)
+
+- *Implemented By:* [`shady-island.RunnableFargateTask`](#shady-island.RunnableFargateTask), [`shady-island.IRunnableFargateTask`](#shady-island.IRunnableFargateTask)
+
+Interface for RunnableFargateTask.
+
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`node`](#shadyislandirunnablefargatetaskpropertynode)<span title="Required">*</span> | [`constructs.Node`](#constructs.Node) | The tree node. |
+| [`task`](#shadyislandirunnablefargatetaskpropertytask)<span title="Required">*</span> | [`shady-island.IFargateTask`](#shady-island.IFargateTask) | The FargateTask in this construct. |
+| [`taskDefinition`](#shadyislandirunnablefargatetaskpropertytaskdefinition)<span title="Required">*</span> | [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition) | The FargateTaskDefinition in this construct. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="shady-island.IRunnableFargateTask.property.node" id="shadyislandirunnablefargatetaskpropertynode"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* [`constructs.Node`](#constructs.Node)
+
+The tree node.
+
+---
+
+##### `task`<sup>Required</sup> <a name="shady-island.IRunnableFargateTask.property.task" id="shadyislandirunnablefargatetaskpropertytask"></a>
+
+```typescript
+public readonly task: IFargateTask;
+```
+
+- *Type:* [`shady-island.IFargateTask`](#shady-island.IFargateTask)
+
+The FargateTask in this construct.
+
+---
+
+##### `taskDefinition`<sup>Required</sup> <a name="shady-island.IRunnableFargateTask.property.taskDefinition" id="shadyislandirunnablefargatetaskpropertytaskdefinition"></a>
+
+```typescript
+public readonly taskDefinition: FargateTaskDefinition;
+```
+
+- *Type:* [`aws-cdk-lib.aws_ecs.FargateTaskDefinition`](#aws-cdk-lib.aws_ecs.FargateTaskDefinition)
+
+The FargateTaskDefinition in this construct.
 
 ---
 
