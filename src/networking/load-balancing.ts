@@ -13,7 +13,6 @@ import {
   IpAddressType,
   ListenerAction,
   ListenerCondition,
-  HealthCheck,
   SslPolicy,
 } from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import {
@@ -35,24 +34,11 @@ export interface TargetOptions extends ApplicationTargetGroupProps {
   readonly hostnames?: string[];
 
   /**
-   * The health check details.
+   * The priority of the listener rule.
    *
-   * The default properties if none are specified are:
-   * - path: /
-   * - healthyThresholdCount: 2
-   * - interval: Duration.seconds(30)
-   * - timeout: Duration.seconds(29)
+   * @default - Automatically determined
    */
-  readonly healthCheck?: HealthCheck;
-
-  /**
-   * The amount of time for Elastic Load Balancing to wait before deregistering.
-   *
-   * This number should be the same as the idle timeout on the load balancer.
-   *
-   * @default - 59 seconds
-   */
-  readonly deregistrationDelay?: Duration;
+  readonly priority?: number;
 }
 
 /**
@@ -66,8 +52,10 @@ export interface WebLoadBalancingProps {
 
   /**
    * A security group for the load balancer itself.
+   *
+   * @default - A new security group will be created
    */
-  readonly securityGroup: ISecurityGroup;
+  readonly securityGroup?: ISecurityGroup;
 
   /**
    * The certificate to attach to the load balancer and CloudFront distribution.
@@ -146,6 +134,8 @@ export class WebLoadBalancing extends Construct {
   private readonly enableSecretHeader: boolean;
   private readonly enableKnownHostnames: boolean;
   private readonly idleTimeout: Duration;
+  private readonly priorities: Set<number>;
+  private defaultAction?: ListenerAction;
 
   /**
    * Creates a new WebLoadBalancing.
@@ -167,6 +157,7 @@ export class WebLoadBalancing extends Construct {
     );
     this.enableKnownHostnames = Boolean(props.requireKnownHostname);
     this.idleTimeout = props.idleTimeout || Duration.seconds(59);
+    this.priorities = new Set();
 
     const alb = new ApplicationLoadBalancer(this, "LoadBalancer", {
       vpc,
@@ -198,6 +189,9 @@ export class WebLoadBalancing extends Construct {
       this.enableSecretHeader || this.enableKnownHostnames
         ? ListenerAction.fixedResponse(421, { contentType: "text/plain" })
         : undefined;
+    if (defaultAction) {
+      this.defaultAction = defaultAction;
+    }
 
     this.listener = alb.addListener("HttpsListener", {
       port: 443,
@@ -211,26 +205,34 @@ export class WebLoadBalancing extends Construct {
   /**
    * Adds a target to the listener.
    *
+   * If the following options are left undefined, these defaults will be used.
+   * - `port`: 443
+   * - `protocol`: HTTPS
+   * - `deregistrationDelay`: load balancer idle timeout
+   * - `healthCheck.path`: /
+   * - `healthCheck.healthyThresholdCount`: 2
+   * - `healthCheck.interval`: 30 seconds
+   * - `healthCheck.timeout`: 29 seconds
+   *
    * @param id - The ID of the new target group.
-   * @param priority - The priority for this target.
    * @param target - The load balancing target to receive traffic.
    * @param options - The target group options.
    * @returns The new Application Target Group
    */
   public addTarget(
     id: string,
-    priority: number,
     target: IApplicationLoadBalancerTarget,
-    options: TargetOptions
+    options?: TargetOptions
   ): IApplicationTargetGroup {
     const {
+      priority,
       hostnames = [],
       healthCheck = {},
       port = 443,
       protocol = ApplicationProtocol.HTTPS,
       deregistrationDelay = this.idleTimeout,
       ...others
-    } = options;
+    } = options || {};
     delete others.vpc;
     delete others.targets;
 
@@ -261,23 +263,35 @@ export class WebLoadBalancing extends Construct {
       ? [this.secretHeader.createListenerCondition()]
       : [];
 
+    const nextSafePriority =
+      this.priorities.size === 0
+        ? 1
+        : Math.max(...Array.from(this.priorities.values())) + 1;
+    let rulePriority = priority ?? nextSafePriority;
+
     if (hostnames.length > 0) {
       // ListenerRule only supports 5 "Condition Values per Rule".
       // The number of hostnames per host header condition must consider this.
       const hostnameRules = collate(hostnames, 5 - conditions.length);
-      for (const [index, hostnames] of hostnameRules.entries()) {
+      for (const [index, names] of hostnameRules.entries()) {
+        const groupPriority = rulePriority + index;
         this.listener.addTargetGroups(`${id}Hosts${index}`, {
           targetGroups: [targetGroup],
-          priority: priority + index,
-          conditions: [...conditions, ListenerCondition.hostHeaders(hostnames)],
+          priority: groupPriority,
+          conditions: [...conditions, ListenerCondition.hostHeaders(names)],
         });
+        this.priorities.add(groupPriority);
       }
     } else {
+      const groupPriority = this.defaultAction ? rulePriority : undefined;
       this.listener.addTargetGroups(id, {
         targetGroups: [targetGroup],
-        priority,
-        conditions,
+        priority: groupPriority,
+        conditions: conditions.length > 0 ? conditions : undefined,
       });
+      if (groupPriority) {
+        this.priorities.add(groupPriority);
+      }
     }
 
     return targetGroup;

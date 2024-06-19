@@ -2793,9 +2793,7 @@ The Secrets Manager secret that contains the name and value of the header.
 
 ### WebLoadBalancing <a name="WebLoadBalancing" id="shady-island.networking.WebLoadBalancing"></a>
 
-- *Implements:* shady-island.networking.IWebLoadBalancing
-
-An WebLoadBalancing construct.
+A utility for creating a public-facing Application Load Balancer.
 
 #### Initializers <a name="Initializers" id="shady-island.networking.WebLoadBalancing.Initializer"></a>
 
@@ -2857,20 +2855,25 @@ Returns a string representation of this construct.
 ##### `addTarget` <a name="addTarget" id="shady-island.networking.WebLoadBalancing.addTarget"></a>
 
 ```typescript
-public addTarget(id: string, priority: number, target: IApplicationLoadBalancerTarget, options: TargetOptions): IApplicationTargetGroup
+public addTarget(id: string, target: IApplicationLoadBalancerTarget, options?: TargetOptions): IApplicationTargetGroup
 ```
 
 Adds a target to the listener.
+
+If the following options are left undefined, these defaults will be used.
+- `port`: 443
+- `protocol`: HTTPS
+- `deregistrationDelay`: load balancer idle timeout
+- `healthCheck.path`: /
+- `healthCheck.healthyThresholdCount`: 2
+- `healthCheck.interval`: 30 seconds
+- `healthCheck.timeout`: 29 seconds
 
 ###### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.WebLoadBalancing.addTarget.parameter.id"></a>
 
 - *Type:* string
 
----
-
-###### `priority`<sup>Required</sup> <a name="priority" id="shady-island.networking.WebLoadBalancing.addTarget.parameter.priority"></a>
-
-- *Type:* number
+The ID of the new target group.
 
 ---
 
@@ -2878,11 +2881,15 @@ Adds a target to the listener.
 
 - *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.IApplicationLoadBalancerTarget
 
+The load balancing target to receive traffic.
+
 ---
 
-###### `options`<sup>Required</sup> <a name="options" id="shady-island.networking.WebLoadBalancing.addTarget.parameter.options"></a>
+###### `options`<sup>Optional</sup> <a name="options" id="shady-island.networking.WebLoadBalancing.addTarget.parameter.options"></a>
 
 - *Type:* shady-island.networking.TargetOptions
+
+The target group options.
 
 ---
 
@@ -2919,7 +2926,7 @@ Any object.
 | <code><a href="#shady-island.networking.WebLoadBalancing.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#shady-island.networking.WebLoadBalancing.property.listener">listener</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.IApplicationListener</code> | The HTTPS listener. |
 | <code><a href="#shady-island.networking.WebLoadBalancing.property.loadBalancer">loadBalancer</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.IApplicationLoadBalancer</code> | The load balancer itself. |
-| <code><a href="#shady-island.networking.WebLoadBalancing.property.secretHeader">secretHeader</a></code> | <code>shady-island.networking.ISecretHttpHeader</code> | The secret header. |
+| <code><a href="#shady-island.networking.WebLoadBalancing.property.secretHeader">secretHeader</a></code> | <code>shady-island.networking.ISecretHttpHeader</code> | The secret header (if `requireSecretHeader` was set to `true`). |
 
 ---
 
@@ -2959,7 +2966,7 @@ The load balancer itself.
 
 ---
 
-##### `secretHeader`<sup>Required</sup> <a name="secretHeader" id="shady-island.networking.WebLoadBalancing.property.secretHeader"></a>
+##### `secretHeader`<sup>Optional</sup> <a name="secretHeader" id="shady-island.networking.WebLoadBalancing.property.secretHeader"></a>
 
 ```typescript
 public readonly secretHeader: ISecretHttpHeader;
@@ -2967,7 +2974,7 @@ public readonly secretHeader: ISecretHttpHeader;
 
 - *Type:* shady-island.networking.ISecretHttpHeader
 
-The secret header.
+The secret header (if `requireSecretHeader` was set to `true`).
 
 ---
 
@@ -6573,21 +6580,227 @@ const targetOptions: networking.TargetOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#shady-island.networking.TargetOptions.property.healthCheckPath">healthCheckPath</a></code> | <code>string</code> | The path for the ALB health check. |
+| <code><a href="#shady-island.networking.TargetOptions.property.deregistrationDelay">deregistrationDelay</a></code> | <code>aws-cdk-lib.Duration</code> | The amount of time for Elastic Load Balancing to wait before deregistering a target. |
+| <code><a href="#shady-island.networking.TargetOptions.property.healthCheck">healthCheck</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.HealthCheck</code> | Health check configuration. |
+| <code><a href="#shady-island.networking.TargetOptions.property.targetGroupName">targetGroupName</a></code> | <code>string</code> | The name of the target group. |
+| <code><a href="#shady-island.networking.TargetOptions.property.targetType">targetType</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.TargetType</code> | The type of targets registered to this TargetGroup, either IP or Instance. |
+| <code><a href="#shady-island.networking.TargetOptions.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The virtual private cloud (VPC). |
+| <code><a href="#shady-island.networking.TargetOptions.property.loadBalancingAlgorithmType">loadBalancingAlgorithmType</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.TargetGroupLoadBalancingAlgorithmType</code> | The load balancing algorithm to select targets for routing requests. |
+| <code><a href="#shady-island.networking.TargetOptions.property.port">port</a></code> | <code>number</code> | The port on which the target receives traffic. |
+| <code><a href="#shady-island.networking.TargetOptions.property.protocol">protocol</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationProtocol</code> | The protocol used for communication with the target. |
+| <code><a href="#shady-island.networking.TargetOptions.property.protocolVersion">protocolVersion</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationProtocolVersion</code> | The protocol version to use. |
+| <code><a href="#shady-island.networking.TargetOptions.property.slowStart">slowStart</a></code> | <code>aws-cdk-lib.Duration</code> | The time period during which the load balancer sends a newly registered target a linearly increasing share of the traffic to the target group. |
+| <code><a href="#shady-island.networking.TargetOptions.property.stickinessCookieDuration">stickinessCookieDuration</a></code> | <code>aws-cdk-lib.Duration</code> | The stickiness cookie expiration period. |
+| <code><a href="#shady-island.networking.TargetOptions.property.stickinessCookieName">stickinessCookieName</a></code> | <code>string</code> | The name of an application-based stickiness cookie. |
+| <code><a href="#shady-island.networking.TargetOptions.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.IApplicationLoadBalancerTarget[]</code> | The targets to add to this target group. |
 | <code><a href="#shady-island.networking.TargetOptions.property.hostnames">hostnames</a></code> | <code>string[]</code> | The hostnames on which traffic is served. |
+| <code><a href="#shady-island.networking.TargetOptions.property.priority">priority</a></code> | <code>number</code> | The priority of the listener rule. |
 
 ---
 
-##### `healthCheckPath`<sup>Optional</sup> <a name="healthCheckPath" id="shady-island.networking.TargetOptions.property.healthCheckPath"></a>
+##### `deregistrationDelay`<sup>Optional</sup> <a name="deregistrationDelay" id="shady-island.networking.TargetOptions.property.deregistrationDelay"></a>
 
 ```typescript
-public readonly healthCheckPath: string;
+public readonly deregistrationDelay: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* 300
+
+The amount of time for Elastic Load Balancing to wait before deregistering a target.
+
+The range is 0-3600 seconds.
+
+---
+
+##### `healthCheck`<sup>Optional</sup> <a name="healthCheck" id="shady-island.networking.TargetOptions.property.healthCheck"></a>
+
+```typescript
+public readonly healthCheck: HealthCheck;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.HealthCheck
+- *Default:* The default value for each property in this configuration varies depending on the target.
+
+Health check configuration.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html#aws-resource-elasticloadbalancingv2-targetgroup-properties](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html#aws-resource-elasticloadbalancingv2-targetgroup-properties)
+
+---
+
+##### `targetGroupName`<sup>Optional</sup> <a name="targetGroupName" id="shady-island.networking.TargetOptions.property.targetGroupName"></a>
+
+```typescript
+public readonly targetGroupName: string;
 ```
 
 - *Type:* string
-- *Default:* "/"
+- *Default:* Automatically generated.
 
-The path for the ALB health check.
+The name of the target group.
+
+This name must be unique per region per account, can have a maximum of
+32 characters, must contain only alphanumeric characters or hyphens, and
+must not begin or end with a hyphen.
+
+---
+
+##### `targetType`<sup>Optional</sup> <a name="targetType" id="shady-island.networking.TargetOptions.property.targetType"></a>
+
+```typescript
+public readonly targetType: TargetType;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.TargetType
+- *Default:* Determined automatically.
+
+The type of targets registered to this TargetGroup, either IP or Instance.
+
+All targets registered into the group must be of this type. If you
+register targets to the TargetGroup in the CDK app, the TargetType is
+determined automatically.
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="shady-island.networking.TargetOptions.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+- *Default:* undefined
+
+The virtual private cloud (VPC).
+
+only if `TargetType` is `Ip` or `InstanceId`
+
+---
+
+##### `loadBalancingAlgorithmType`<sup>Optional</sup> <a name="loadBalancingAlgorithmType" id="shady-island.networking.TargetOptions.property.loadBalancingAlgorithmType"></a>
+
+```typescript
+public readonly loadBalancingAlgorithmType: TargetGroupLoadBalancingAlgorithmType;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.TargetGroupLoadBalancingAlgorithmType
+- *Default:* TargetGroupLoadBalancingAlgorithmType.ROUND_ROBIN
+
+The load balancing algorithm to select targets for routing requests.
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="shady-island.networking.TargetOptions.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+- *Default:* Determined from protocol if known
+
+The port on which the target receives traffic.
+
+This is not applicable for Lambda targets.
+
+---
+
+##### `protocol`<sup>Optional</sup> <a name="protocol" id="shady-island.networking.TargetOptions.property.protocol"></a>
+
+```typescript
+public readonly protocol: ApplicationProtocol;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationProtocol
+- *Default:* Determined from port if known
+
+The protocol used for communication with the target.
+
+This is not applicable for Lambda targets.
+
+---
+
+##### `protocolVersion`<sup>Optional</sup> <a name="protocolVersion" id="shady-island.networking.TargetOptions.property.protocolVersion"></a>
+
+```typescript
+public readonly protocolVersion: ApplicationProtocolVersion;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationProtocolVersion
+- *Default:* ApplicationProtocolVersion.HTTP1
+
+The protocol version to use.
+
+---
+
+##### `slowStart`<sup>Optional</sup> <a name="slowStart" id="shady-island.networking.TargetOptions.property.slowStart"></a>
+
+```typescript
+public readonly slowStart: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* 0
+
+The time period during which the load balancer sends a newly registered target a linearly increasing share of the traffic to the target group.
+
+The range is 30-900 seconds (15 minutes).
+
+---
+
+##### `stickinessCookieDuration`<sup>Optional</sup> <a name="stickinessCookieDuration" id="shady-island.networking.TargetOptions.property.stickinessCookieDuration"></a>
+
+```typescript
+public readonly stickinessCookieDuration: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* Duration.days(1)
+
+The stickiness cookie expiration period.
+
+Setting this value enables load balancer stickiness.
+
+After this period, the cookie is considered stale. The minimum value is
+1 second and the maximum value is 7 days (604800 seconds).
+
+---
+
+##### `stickinessCookieName`<sup>Optional</sup> <a name="stickinessCookieName" id="shady-island.networking.TargetOptions.property.stickinessCookieName"></a>
+
+```typescript
+public readonly stickinessCookieName: string;
+```
+
+- *Type:* string
+- *Default:* If `stickinessCookieDuration` is set, a load-balancer generated cookie is used. Otherwise, no stickiness is defined.
+
+The name of an application-based stickiness cookie.
+
+Names that start with the following prefixes are not allowed: AWSALB, AWSALBAPP,
+and AWSALBTG; they're reserved for use by the load balancer.
+
+Note: `stickinessCookieName` parameter depends on the presence of `stickinessCookieDuration` parameter.
+If `stickinessCookieDuration` is not set, `stickinessCookieName` will be omitted.
+
+> [https://docs.aws.amazon.com/elasticloadbalancing/latest/application/sticky-sessions.html](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/sticky-sessions.html)
+
+---
+
+##### `targets`<sup>Optional</sup> <a name="targets" id="shady-island.networking.TargetOptions.property.targets"></a>
+
+```typescript
+public readonly targets: IApplicationLoadBalancerTarget[];
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.IApplicationLoadBalancerTarget[]
+- *Default:* No targets.
+
+The targets to add to this target group.
+
+Can be `Instance`, `IPAddress`, or any self-registering load balancing
+target. If you use either `Instance` or `IPAddress` as targets, all
+target must be of the same type.
 
 ---
 
@@ -6600,6 +6813,19 @@ public readonly hostnames: string[];
 - *Type:* string[]
 
 The hostnames on which traffic is served.
+
+---
+
+##### `priority`<sup>Optional</sup> <a name="priority" id="shady-island.networking.TargetOptions.property.priority"></a>
+
+```typescript
+public readonly priority: number;
+```
+
+- *Type:* number
+- *Default:* Automatically determined
+
+The priority of the listener rule.
 
 ---
 
@@ -6620,10 +6846,13 @@ const webLoadBalancingProps: networking.WebLoadBalancingProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#shady-island.networking.WebLoadBalancingProps.property.certificates">certificates</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate[]</code> | The certificate to attach to the load balancer and CloudFront distribution. |
-| <code><a href="#shady-island.networking.WebLoadBalancingProps.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | A security group for the load balancer itself. |
 | <code><a href="#shady-island.networking.WebLoadBalancingProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC where these resources should be deployed. |
+| <code><a href="#shady-island.networking.WebLoadBalancingProps.property.idleTimeout">idleTimeout</a></code> | <code>aws-cdk-lib.Duration</code> | The load balancer idle timeout, in seconds. |
+| <code><a href="#shady-island.networking.WebLoadBalancingProps.property.ipAddressType">ipAddressType</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.IpAddressType</code> | The type of IP addresses to use (IPv4 or Dual Stack). |
 | <code><a href="#shady-island.networking.WebLoadBalancingProps.property.requireKnownHostname">requireKnownHostname</a></code> | <code>boolean</code> | Forbid requests that ask for an unknown hostname. |
 | <code><a href="#shady-island.networking.WebLoadBalancingProps.property.requireSecretHeader">requireSecretHeader</a></code> | <code>boolean</code> | Forbid requests that are missing an HTTP header with a specific value. |
+| <code><a href="#shady-island.networking.WebLoadBalancingProps.property.secretHeaderName">secretHeaderName</a></code> | <code>string</code> | The name of the secret HTTP header. |
+| <code><a href="#shady-island.networking.WebLoadBalancingProps.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | A security group for the load balancer itself. |
 
 ---
 
@@ -6639,18 +6868,6 @@ The certificate to attach to the load balancer and CloudFront distribution.
 
 ---
 
-##### `securityGroup`<sup>Required</sup> <a name="securityGroup" id="shady-island.networking.WebLoadBalancingProps.property.securityGroup"></a>
-
-```typescript
-public readonly securityGroup: ISecurityGroup;
-```
-
-- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup
-
-A security group for the load balancer itself.
-
----
-
 ##### `vpc`<sup>Required</sup> <a name="vpc" id="shady-island.networking.WebLoadBalancingProps.property.vpc"></a>
 
 ```typescript
@@ -6660,6 +6877,36 @@ public readonly vpc: IVpc;
 - *Type:* aws-cdk-lib.aws_ec2.IVpc
 
 The VPC where these resources should be deployed.
+
+---
+
+##### `idleTimeout`<sup>Optional</sup> <a name="idleTimeout" id="shady-island.networking.WebLoadBalancingProps.property.idleTimeout"></a>
+
+```typescript
+public readonly idleTimeout: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* 59 seconds
+
+The load balancer idle timeout, in seconds.
+
+If you have a reverse proxy in front of this load balancer, such as
+CloudFront, this number should be less than the reverse proxy's request
+timeout.
+
+---
+
+##### `ipAddressType`<sup>Optional</sup> <a name="ipAddressType" id="shady-island.networking.WebLoadBalancingProps.property.ipAddressType"></a>
+
+```typescript
+public readonly ipAddressType: IpAddressType;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.IpAddressType
+- *Default:* IPv4 only
+
+The type of IP addresses to use (IPv4 or Dual Stack).
 
 ---
 
@@ -6673,6 +6920,8 @@ public readonly requireKnownHostname: boolean;
 - *Default:* false
 
 Forbid requests that ask for an unknown hostname.
+
+Requests for an unknown hostname will receive an HTTP 421 status response.
 
 ---
 
@@ -6688,8 +6937,38 @@ public readonly requireSecretHeader: boolean;
 Forbid requests that are missing an HTTP header with a specific value.
 
 If this option is set to `true`, this construct will provide a new
-{@link networking.SecretHttpHeader } accessible on the
-{@link networking.WebLoadBalancing.secretHeader } property.
+`SecretHttpHeader` accessible on the `secretHeader` property.
+
+Requests without the correct header name and value will receive an HTTP 421
+status response.
+
+---
+
+##### `secretHeaderName`<sup>Optional</sup> <a name="secretHeaderName" id="shady-island.networking.WebLoadBalancingProps.property.secretHeaderName"></a>
+
+```typescript
+public readonly secretHeaderName: string;
+```
+
+- *Type:* string
+- *Default:* X-Secret-Passphrase
+
+The name of the secret HTTP header.
+
+Providing this option implies that `requireSecretHeader` is `true`.
+
+---
+
+##### `securityGroup`<sup>Optional</sup> <a name="securityGroup" id="shady-island.networking.WebLoadBalancingProps.property.securityGroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup
+- *Default:* A new security group will be created
+
+A security group for the load balancer itself.
 
 ---
 
@@ -7841,121 +8120,6 @@ public readonly headerValue: SecretValue;
 - *Type:* aws-cdk-lib.SecretValue
 
 The value of the secret header.
-
----
-
-### IWebLoadBalancing <a name="IWebLoadBalancing" id="shady-island.networking.IWebLoadBalancing"></a>
-
-- *Extends:* constructs.IConstruct
-
-- *Implemented By:* shady-island.networking.WebLoadBalancing, shady-island.networking.IWebLoadBalancing
-
-Interface for WebLoadBalancing.
-
-#### Methods <a name="Methods" id="Methods"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#shady-island.networking.IWebLoadBalancing.addTarget">addTarget</a></code> | Adds a target to the listener. |
-
----
-
-##### `addTarget` <a name="addTarget" id="shady-island.networking.IWebLoadBalancing.addTarget"></a>
-
-```typescript
-public addTarget(id: string, priority: number, target: IApplicationLoadBalancerTarget, options: TargetOptions): IApplicationTargetGroup
-```
-
-Adds a target to the listener.
-
-###### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.IWebLoadBalancing.addTarget.parameter.id"></a>
-
-- *Type:* string
-
-The ID of the new target group.
-
----
-
-###### `priority`<sup>Required</sup> <a name="priority" id="shady-island.networking.IWebLoadBalancing.addTarget.parameter.priority"></a>
-
-- *Type:* number
-
-The priority for this target.
-
----
-
-###### `target`<sup>Required</sup> <a name="target" id="shady-island.networking.IWebLoadBalancing.addTarget.parameter.target"></a>
-
-- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.IApplicationLoadBalancerTarget
-
-The load balancing target to receive traffic.
-
----
-
-###### `options`<sup>Required</sup> <a name="options" id="shady-island.networking.IWebLoadBalancing.addTarget.parameter.options"></a>
-
-- *Type:* shady-island.networking.TargetOptions
-
-The target group options.
-
----
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#shady-island.networking.IWebLoadBalancing.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#shady-island.networking.IWebLoadBalancing.property.listener">listener</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.IApplicationListener</code> | The HTTPS listener. |
-| <code><a href="#shady-island.networking.IWebLoadBalancing.property.loadBalancer">loadBalancer</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.IApplicationLoadBalancer</code> | The load balancer itself. |
-| <code><a href="#shady-island.networking.IWebLoadBalancing.property.secretHeader">secretHeader</a></code> | <code>shady-island.networking.ISecretHttpHeader</code> | The secret header. |
-
----
-
-##### `node`<sup>Required</sup> <a name="node" id="shady-island.networking.IWebLoadBalancing.property.node"></a>
-
-```typescript
-public readonly node: Node;
-```
-
-- *Type:* constructs.Node
-
-The tree node.
-
----
-
-##### `listener`<sup>Required</sup> <a name="listener" id="shady-island.networking.IWebLoadBalancing.property.listener"></a>
-
-```typescript
-public readonly listener: IApplicationListener;
-```
-
-- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.IApplicationListener
-
-The HTTPS listener.
-
----
-
-##### `loadBalancer`<sup>Required</sup> <a name="loadBalancer" id="shady-island.networking.IWebLoadBalancing.property.loadBalancer"></a>
-
-```typescript
-public readonly loadBalancer: IApplicationLoadBalancer;
-```
-
-- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.IApplicationLoadBalancer
-
-The load balancer itself.
-
----
-
-##### `secretHeader`<sup>Required</sup> <a name="secretHeader" id="shady-island.networking.IWebLoadBalancing.property.secretHeader"></a>
-
-```typescript
-public readonly secretHeader: ISecretHttpHeader;
-```
-
-- *Type:* shady-island.networking.ISecretHttpHeader
-
-The secret header.
 
 ---
 
