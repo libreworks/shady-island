@@ -41,7 +41,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   cdkVersion: "2.108.0",
   majorVersion: 0,
-  jsiiVersion: "~5.3.0",
+  jsiiVersion: "~5.4.0",
 
   projenTokenSecret: "PROJEN_GITHUB_TOKEN",
   autoApproveOptions: {

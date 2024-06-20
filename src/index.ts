@@ -3,6 +3,7 @@ export * from "./ec2";
 export * from "./ecs";
 export * from "./ecs-patterns";
 export * from "./efs";
+export * as networking from "./networking";
 export * from "./rds";
 export * from "./vpc";
 export * from "./context";
