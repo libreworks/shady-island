@@ -1,3 +1,4 @@
+export * as automation from "./automation";
 export * from "./cloudwatch";
 export * from "./ec2";
 export * from "./ecs";

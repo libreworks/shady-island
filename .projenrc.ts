@@ -39,7 +39,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
-  cdkVersion: "2.108.0",
+  cdkVersion: "2.128.0",
   majorVersion: 0,
   jsiiVersion: "~5.4.0",
 
