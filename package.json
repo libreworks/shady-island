@@ -26,6 +26,7 @@
     "post-compile": "npx projen post-compile",
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
+    "python-handlers": "npx projen python-handlers",
     "release": "npx projen release",
     "test": "npx projen test",
     "test:watch": "npx projen test:watch",

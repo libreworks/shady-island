@@ -248,7 +248,24 @@
       "description": "Prepare the project for compilation",
       "steps": [
         {
+          "spawn": "python-handlers"
+        },
+        {
           "spawn": "bundle"
+        }
+      ]
+    },
+    "python-handlers": {
+      "name": "python-handlers",
+      "steps": [
+        {
+          "exec": "mkdir -p assets/automation"
+        },
+        {
+          "exec": "rm -rf assets/automation/ecs_pipeline_handler"
+        },
+        {
+          "exec": "cp -r src/automation/ecs_pipeline_handler assets/automation/"
         }
       ]
     },
