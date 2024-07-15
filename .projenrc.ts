@@ -70,6 +70,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 });
 
+const pythonHandlersTask = project.addTask("python-handlers", {
+  steps: [
+    { exec: "mkdir -p assets/automation" },
+    { exec: "rm -rf assets/automation/ecs_pipeline_handler" },
+    { exec: "cp -r src/automation/ecs_pipeline_handler assets/automation/" },
+  ],
+});
+project.projectBuild.preCompileTask.spawn(pythonHandlersTask);
+
 project.package.file.addOverride("bundledDeps", handlerLibs);
 
 // All of the AWS Lambda handlers.

@@ -12,7 +12,14 @@ import { SingletonFunction, Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import type { IBucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 
-const HANDLER_PATH = path.join(__dirname, "ecs_pipeline_handler");
+const HANDLER_PATH = path.join(
+  __dirname,
+  "..",
+  "..",
+  "assets",
+  "automation",
+  "ecs_pipeline_handler"
+);
 
 /**
  * Properties for the ContainerImagePipeline constructor.
