@@ -9,6 +9,7 @@ For your reading pleasure.
 ### Developer Guide
 
 - [Core](core.md) – The main classes and constructs of this library
+- [Automation](automation.md) - Constructs dealing with automation and deployment
 - [CloudWatch](cloudwatch.md) – Constructs dealing with CloudWatch Metrics and Logs
 - [EC2](ec2.md) – Constructs dealing with EC2-related concepts
 - [EFS](efs.md) – Constructs dealing with EFS
