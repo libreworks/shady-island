@@ -172,13 +172,15 @@ describe("NetworkInterface", () => {
     test("works as expected", () => {
       const networkInterfaceId = "eni-0123456789abcdeff";
       const securityGroups = [new SecurityGroup(stack, "SG", { vpc })];
+      const [subnet] = vpc.publicSubnets;
       const actual = NetworkInterface.fromNetworkInterfaceAttributes(
         stack,
         "NIC",
-        { networkInterfaceId, securityGroups }
+        { networkInterfaceId, securityGroups, subnet }
       );
       expect(actual.networkInterfaceId).toBe(networkInterfaceId);
       expect(actual.connections.securityGroups).toStrictEqual(securityGroups);
+      expect(actual.subnet).toBe(subnet);
     });
   });
 
