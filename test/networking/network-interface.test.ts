@@ -210,7 +210,6 @@ describe("NetworkInterface", () => {
         ipv6: AddressingV6.addressCount(1),
       });
       const template = Template.fromStack(stack);
-      console.log(JSON.stringify(template.toJSON(), undefined, 2));
       template.resourceCountIs("AWS::EC2::SecurityGroup", 1);
       template.hasResourceProperties("AWS::EC2::NetworkInterface", {
         GroupSet: [{ "Fn::GetAtt": ["NICSecurityGroup6D69D966", "GroupId"] }],

@@ -1161,6 +1161,338 @@ public readonly tier: Tier;
 ---
 
 
+### ElasticIp <a name="ElasticIp" id="shady-island.networking.ElasticIp"></a>
+
+- *Implements:* shady-island.networking.IElasticIp
+
+An EC2 Elastic IP address.
+
+#### Initializers <a name="Initializers" id="shady-island.networking.ElasticIp.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+new networking.ElasticIp(scope: Construct, id: string, props?: ElasticIpProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.ElasticIp.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | - The scope in which to define this construct. |
+| <code><a href="#shady-island.networking.ElasticIp.Initializer.parameter.id">id</a></code> | <code>string</code> | - The scoped construct ID. |
+| <code><a href="#shady-island.networking.ElasticIp.Initializer.parameter.props">props</a></code> | <code>shady-island.networking.ElasticIpProps</code> | - Initialization properties for this construct. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.ElasticIp.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The scope in which to define this construct.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.ElasticIp.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+The scoped construct ID.
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="shady-island.networking.ElasticIp.Initializer.parameter.props"></a>
+
+- *Type:* shady-island.networking.ElasticIpProps
+
+Initialization properties for this construct.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.ElasticIp.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.ElasticIp.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+| <code><a href="#shady-island.networking.ElasticIp.grant">grant</a></code> | Grant the given identity custom permissions. |
+
+---
+
+##### `toString` <a name="toString" id="shady-island.networking.ElasticIp.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="shady-island.networking.ElasticIp.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+###### `policy`<sup>Required</sup> <a name="policy" id="shady-island.networking.ElasticIp.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+##### `grant` <a name="grant" id="shady-island.networking.ElasticIp.grant"></a>
+
+```typescript
+public grant(identity: IGrantable, actions: string): Grant
+```
+
+Grant the given identity custom permissions.
+
+e.g. `ec2:AssociateAddress`, `ec2:DisableAddressTransfer`,
+`ec2:DisassociateAddress`, `ec2:EnableAddressTransfer`, among others.
+
+###### `identity`<sup>Required</sup> <a name="identity" id="shady-island.networking.ElasticIp.grant.parameter.identity"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+###### `actions`<sup>Required</sup> <a name="actions" id="shady-island.networking.ElasticIp.grant.parameter.actions"></a>
+
+- *Type:* string
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.ElasticIp.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#shady-island.networking.ElasticIp.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
+| <code><a href="#shady-island.networking.ElasticIp.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+| <code><a href="#shady-island.networking.ElasticIp.fromAllocationId">fromAllocationId</a></code> | Import an existing EIP from the given allocation ID. |
+| <code><a href="#shady-island.networking.ElasticIp.fromElasticIpArn">fromElasticIpArn</a></code> | Import an existing EIP from its ARN. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.networking.ElasticIp.isConstruct"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.ElasticIp.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="shady-island.networking.ElasticIp.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="shady-island.networking.ElasticIp.isOwnedResource"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.ElasticIp.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="shady-island.networking.ElasticIp.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isResource` <a name="isResource" id="shady-island.networking.ElasticIp.isResource"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.ElasticIp.isResource(construct: IConstruct)
+```
+
+Check whether the given construct is a Resource.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="shady-island.networking.ElasticIp.isResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `fromAllocationId` <a name="fromAllocationId" id="shady-island.networking.ElasticIp.fromAllocationId"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.ElasticIp.fromAllocationId(scope: Construct, id: string, allocationId: string)
+```
+
+Import an existing EIP from the given allocation ID.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.ElasticIp.fromAllocationId.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The scope in which to define this construct.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.ElasticIp.fromAllocationId.parameter.id"></a>
+
+- *Type:* string
+
+The scoped construct ID.
+
+---
+
+###### `allocationId`<sup>Required</sup> <a name="allocationId" id="shady-island.networking.ElasticIp.fromAllocationId.parameter.allocationId"></a>
+
+- *Type:* string
+
+The EIP allocation ID.
+
+---
+
+##### `fromElasticIpArn` <a name="fromElasticIpArn" id="shady-island.networking.ElasticIp.fromElasticIpArn"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.ElasticIp.fromElasticIpArn(scope: Construct, id: string, arn: string)
+```
+
+Import an existing EIP from its ARN.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.ElasticIp.fromElasticIpArn.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The scope in which to define this construct.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.ElasticIp.fromElasticIpArn.parameter.id"></a>
+
+- *Type:* string
+
+The scoped construct ID.
+
+---
+
+###### `arn`<sup>Required</sup> <a name="arn" id="shady-island.networking.ElasticIp.fromElasticIpArn.parameter.arn"></a>
+
+- *Type:* string
+
+The EIP ARN.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.ElasticIp.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#shady-island.networking.ElasticIp.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#shady-island.networking.ElasticIp.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#shady-island.networking.ElasticIp.property.allocationId">allocationId</a></code> | <code>string</code> | The allocation ID of the Elastic IP address. |
+| <code><a href="#shady-island.networking.ElasticIp.property.elasticIpArn">elasticIpArn</a></code> | <code>string</code> | The ARN of the Elastic IP address. |
+| <code><a href="#shady-island.networking.ElasticIp.property.publicIp">publicIp</a></code> | <code>string</code> | The IPv4 address. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="shady-island.networking.ElasticIp.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="shady-island.networking.ElasticIp.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="shady-island.networking.ElasticIp.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `allocationId`<sup>Required</sup> <a name="allocationId" id="shady-island.networking.ElasticIp.property.allocationId"></a>
+
+```typescript
+public readonly allocationId: string;
+```
+
+- *Type:* string
+
+The allocation ID of the Elastic IP address.
+
+---
+
+##### `elasticIpArn`<sup>Required</sup> <a name="elasticIpArn" id="shady-island.networking.ElasticIp.property.elasticIpArn"></a>
+
+```typescript
+public readonly elasticIpArn: string;
+```
+
+- *Type:* string
+
+The ARN of the Elastic IP address.
+
+---
+
+##### `publicIp`<sup>Required</sup> <a name="publicIp" id="shady-island.networking.ElasticIp.property.publicIp"></a>
+
+```typescript
+public readonly publicIp: string;
+```
+
+- *Type:* string
+
+The IPv4 address.
+
+---
+
+
 ### EncryptedFileSystem <a name="EncryptedFileSystem" id="shady-island.EncryptedFileSystem"></a>
 
 - *Implements:* <a href="#shady-island.IEncryptedFileSystem">IEncryptedFileSystem</a>
@@ -4233,6 +4565,38 @@ public readonly addTag: boolean;
 - *Default:* true
 
 Whether a `DeploymentTier` tag is added to nested constructs.
+
+---
+
+### ElasticIpProps <a name="ElasticIpProps" id="shady-island.networking.ElasticIpProps"></a>
+
+Constructor properties for ElasticIp.
+
+#### Initializer <a name="Initializer" id="shady-island.networking.ElasticIpProps.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+const elasticIpProps: networking.ElasticIpProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.ElasticIpProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | The removal policy for this resource. |
+
+---
+
+##### `removalPolicy`<sup>Optional</sup> <a name="removalPolicy" id="shady-island.networking.ElasticIpProps.property.removalPolicy"></a>
+
+```typescript
+public readonly removalPolicy: RemovalPolicy;
+```
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+The removal policy for this resource.
 
 ---
 
@@ -8024,6 +8388,128 @@ public readonly trigger: ITrigger;
 The CDK Trigger that kicks off the process.
 
 You can further customize when the trigger fires using `executeAfter`.
+
+---
+
+### IElasticIp <a name="IElasticIp" id="shady-island.networking.IElasticIp"></a>
+
+- *Extends:* aws-cdk-lib.IResource
+
+- *Implemented By:* shady-island.networking.ElasticIp, shady-island.networking.IElasticIp
+
+An EC2 Elastic IP address.
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.IElasticIp.grant">grant</a></code> | Grant the given identity custom permissions. |
+
+---
+
+##### `grant` <a name="grant" id="shady-island.networking.IElasticIp.grant"></a>
+
+```typescript
+public grant(identity: IGrantable, actions: string): Grant
+```
+
+Grant the given identity custom permissions.
+
+e.g. `ec2:AssociateAddress`, `ec2:DisableAddressTransfer`,
+`ec2:DisassociateAddress`, `ec2:EnableAddressTransfer`, among others.
+
+###### `identity`<sup>Required</sup> <a name="identity" id="shady-island.networking.IElasticIp.grant.parameter.identity"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+The resource with a grantPrincipal property.
+
+---
+
+###### `actions`<sup>Required</sup> <a name="actions" id="shady-island.networking.IElasticIp.grant.parameter.actions"></a>
+
+- *Type:* string
+
+The IAM actions to allow.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.IElasticIp.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#shady-island.networking.IElasticIp.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#shady-island.networking.IElasticIp.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#shady-island.networking.IElasticIp.property.allocationId">allocationId</a></code> | <code>string</code> | The allocation ID of the Elastic IP address. |
+| <code><a href="#shady-island.networking.IElasticIp.property.elasticIpArn">elasticIpArn</a></code> | <code>string</code> | The ARN of the Elastic IP address. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="shady-island.networking.IElasticIp.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="shady-island.networking.IElasticIp.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="shady-island.networking.IElasticIp.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `allocationId`<sup>Required</sup> <a name="allocationId" id="shady-island.networking.IElasticIp.property.allocationId"></a>
+
+```typescript
+public readonly allocationId: string;
+```
+
+- *Type:* string
+
+The allocation ID of the Elastic IP address.
+
+---
+
+##### `elasticIpArn`<sup>Required</sup> <a name="elasticIpArn" id="shady-island.networking.IElasticIp.property.elasticIpArn"></a>
+
+```typescript
+public readonly elasticIpArn: string;
+```
+
+- *Type:* string
+
+The ARN of the Elastic IP address.
 
 ---
 
