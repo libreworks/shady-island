@@ -2627,7 +2627,7 @@ The Network Interface attributes.
 | <code><a href="#shady-island.networking.NetworkInterface.property.ipv6Address">ipv6Address</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#shady-island.networking.NetworkInterface.property.networkInterfaceId">networkInterfaceId</a></code> | <code>string</code> | The ID of this Network Interface. |
 | <code><a href="#shady-island.networking.NetworkInterface.property.privateIpv4Address">privateIpv4Address</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#shady-island.networking.NetworkInterface.property.subnet">subnet</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet</code> | *No description.* |
+| <code><a href="#shady-island.networking.NetworkInterface.property.subnet">subnet</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet</code> | The subnet of this Network Interface. |
 
 ---
 
@@ -2725,6 +2725,8 @@ public readonly subnet: ISubnet;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.ISubnet
+
+The subnet of this Network Interface.
 
 ---
 
@@ -3537,6 +3539,448 @@ public readonly secret: ISecret;
 - *Type:* aws-cdk-lib.aws_secretsmanager.ISecret
 
 The Secrets Manager secret that contains the name and value of the header.
+
+---
+
+
+### SingletonLaunchTemplate <a name="SingletonLaunchTemplate" id="shady-island.networking.SingletonLaunchTemplate"></a>
+
+A launch template bound to a single Elastic Network Interface.
+
+#### Initializers <a name="Initializers" id="shady-island.networking.SingletonLaunchTemplate.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+new networking.SingletonLaunchTemplate(scope: Construct, id: string, props: SingletonLaunchTemplateProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | - The scope in which to define this construct. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.Initializer.parameter.id">id</a></code> | <code>string</code> | - The scoped construct ID. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.Initializer.parameter.props">props</a></code> | <code>shady-island.networking.SingletonLaunchTemplateProps</code> | - Initialization properties for this construct. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.SingletonLaunchTemplate.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The scope in which to define this construct.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.SingletonLaunchTemplate.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+The scoped construct ID.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="shady-island.networking.SingletonLaunchTemplate.Initializer.parameter.props"></a>
+
+- *Type:* shady-island.networking.SingletonLaunchTemplateProps
+
+Initialization properties for this construct.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.addSecurityGroup">addSecurityGroup</a></code> | Add the security group to the instance. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.createAutoScalingGroup">createAutoScalingGroup</a></code> | Creates an auto-scaling group for this launch template. |
+
+---
+
+##### `toString` <a name="toString" id="shady-island.networking.SingletonLaunchTemplate.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="shady-island.networking.SingletonLaunchTemplate.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+###### `policy`<sup>Required</sup> <a name="policy" id="shady-island.networking.SingletonLaunchTemplate.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+##### `addSecurityGroup` <a name="addSecurityGroup" id="shady-island.networking.SingletonLaunchTemplate.addSecurityGroup"></a>
+
+```typescript
+public addSecurityGroup(securityGroup: ISecurityGroup): void
+```
+
+Add the security group to the instance.
+
+###### `securityGroup`<sup>Required</sup> <a name="securityGroup" id="shady-island.networking.SingletonLaunchTemplate.addSecurityGroup.parameter.securityGroup"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup
+
+---
+
+##### `createAutoScalingGroup` <a name="createAutoScalingGroup" id="shady-island.networking.SingletonLaunchTemplate.createAutoScalingGroup"></a>
+
+```typescript
+public createAutoScalingGroup(id: string, props: AutoScalingGroupProps): AutoScalingGroup
+```
+
+Creates an auto-scaling group for this launch template.
+
+The following properties are ignored (if specified): `launchTemplate`,
+`minCapacity`, and `maxCapacity`.
+
+###### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.SingletonLaunchTemplate.createAutoScalingGroup.parameter.id"></a>
+
+- *Type:* string
+
+The ID of the auto-scaling group.
+
+---
+
+###### `props`<sup>Required</sup> <a name="props" id="shady-island.networking.SingletonLaunchTemplate.createAutoScalingGroup.parameter.props"></a>
+
+- *Type:* aws-cdk-lib.aws_autoscaling.AutoScalingGroupProps
+
+Constructor properties of the AutoScalingGroup.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.fromLaunchTemplateAttributes">fromLaunchTemplateAttributes</a></code> | Import an existing LaunchTemplate. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.networking.SingletonLaunchTemplate.isConstruct"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.SingletonLaunchTemplate.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="shady-island.networking.SingletonLaunchTemplate.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="shady-island.networking.SingletonLaunchTemplate.isOwnedResource"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.SingletonLaunchTemplate.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="shady-island.networking.SingletonLaunchTemplate.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isResource` <a name="isResource" id="shady-island.networking.SingletonLaunchTemplate.isResource"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.SingletonLaunchTemplate.isResource(construct: IConstruct)
+```
+
+Check whether the given construct is a Resource.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="shady-island.networking.SingletonLaunchTemplate.isResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `fromLaunchTemplateAttributes` <a name="fromLaunchTemplateAttributes" id="shady-island.networking.SingletonLaunchTemplate.fromLaunchTemplateAttributes"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.SingletonLaunchTemplate.fromLaunchTemplateAttributes(scope: Construct, id: string, attrs: LaunchTemplateAttributes)
+```
+
+Import an existing LaunchTemplate.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.SingletonLaunchTemplate.fromLaunchTemplateAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.SingletonLaunchTemplate.fromLaunchTemplateAttributes.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="shady-island.networking.SingletonLaunchTemplate.fromLaunchTemplateAttributes.parameter.attrs"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.LaunchTemplateAttributes
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | Allows specifying security group connections for the instance. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.defaultVersionNumber">defaultVersionNumber</a></code> | <code>string</code> | The default version for the launch template. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.grantPrincipal">grantPrincipal</a></code> | <code>aws-cdk-lib.aws_iam.IPrincipal</code> | Principal to grant permissions to. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.latestVersionNumber">latestVersionNumber</a></code> | <code>string</code> | The latest version of the launch template. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.versionNumber">versionNumber</a></code> | <code>string</code> | The version number of this launch template to use. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.imageId">imageId</a></code> | <code>string</code> | The AMI ID of the image to use. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | Type of instance to launch. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.launchTemplateId">launchTemplateId</a></code> | <code>string</code> | The identifier of the Launch Template. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.launchTemplateName">launchTemplateName</a></code> | <code>string</code> | The name of the Launch Template. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.osType">osType</a></code> | <code>aws-cdk-lib.aws_ec2.OperatingSystemType</code> | The type of OS the instance is running. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | IAM Role assumed by instances that are launched from this template. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.userData">userData</a></code> | <code>aws-cdk-lib.aws_ec2.UserData</code> | UserData executed by instances that are launched from this template. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.networkInterface">networkInterface</a></code> | <code>shady-island.networking.INetworkInterface</code> | The network interface used by this launch template. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="shady-island.networking.SingletonLaunchTemplate.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="shady-island.networking.SingletonLaunchTemplate.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="shady-island.networking.SingletonLaunchTemplate.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `connections`<sup>Required</sup> <a name="connections" id="shady-island.networking.SingletonLaunchTemplate.property.connections"></a>
+
+```typescript
+public readonly connections: Connections;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.Connections
+
+Allows specifying security group connections for the instance.
+
+---
+
+##### `defaultVersionNumber`<sup>Required</sup> <a name="defaultVersionNumber" id="shady-island.networking.SingletonLaunchTemplate.property.defaultVersionNumber"></a>
+
+```typescript
+public readonly defaultVersionNumber: string;
+```
+
+- *Type:* string
+
+The default version for the launch template.
+
+---
+
+##### `grantPrincipal`<sup>Required</sup> <a name="grantPrincipal" id="shady-island.networking.SingletonLaunchTemplate.property.grantPrincipal"></a>
+
+```typescript
+public readonly grantPrincipal: IPrincipal;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IPrincipal
+
+Principal to grant permissions to.
+
+---
+
+##### `latestVersionNumber`<sup>Required</sup> <a name="latestVersionNumber" id="shady-island.networking.SingletonLaunchTemplate.property.latestVersionNumber"></a>
+
+```typescript
+public readonly latestVersionNumber: string;
+```
+
+- *Type:* string
+
+The latest version of the launch template.
+
+---
+
+##### `versionNumber`<sup>Required</sup> <a name="versionNumber" id="shady-island.networking.SingletonLaunchTemplate.property.versionNumber"></a>
+
+```typescript
+public readonly versionNumber: string;
+```
+
+- *Type:* string
+
+The version number of this launch template to use.
+
+---
+
+##### `imageId`<sup>Optional</sup> <a name="imageId" id="shady-island.networking.SingletonLaunchTemplate.property.imageId"></a>
+
+```typescript
+public readonly imageId: string;
+```
+
+- *Type:* string
+
+The AMI ID of the image to use.
+
+---
+
+##### `instanceType`<sup>Optional</sup> <a name="instanceType" id="shady-island.networking.SingletonLaunchTemplate.property.instanceType"></a>
+
+```typescript
+public readonly instanceType: InstanceType;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InstanceType
+
+Type of instance to launch.
+
+---
+
+##### `launchTemplateId`<sup>Optional</sup> <a name="launchTemplateId" id="shady-island.networking.SingletonLaunchTemplate.property.launchTemplateId"></a>
+
+```typescript
+public readonly launchTemplateId: string;
+```
+
+- *Type:* string
+
+The identifier of the Launch Template.
+
+Exactly one of `launchTemplateId` and `launchTemplateName` will be set.
+
+---
+
+##### `launchTemplateName`<sup>Optional</sup> <a name="launchTemplateName" id="shady-island.networking.SingletonLaunchTemplate.property.launchTemplateName"></a>
+
+```typescript
+public readonly launchTemplateName: string;
+```
+
+- *Type:* string
+
+The name of the Launch Template.
+
+Exactly one of `launchTemplateId` and `launchTemplateName` will be set.
+
+---
+
+##### `osType`<sup>Optional</sup> <a name="osType" id="shady-island.networking.SingletonLaunchTemplate.property.osType"></a>
+
+```typescript
+public readonly osType: OperatingSystemType;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.OperatingSystemType
+
+The type of OS the instance is running.
+
+---
+
+##### `role`<sup>Optional</sup> <a name="role" id="shady-island.networking.SingletonLaunchTemplate.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+IAM Role assumed by instances that are launched from this template.
+
+---
+
+##### `userData`<sup>Optional</sup> <a name="userData" id="shady-island.networking.SingletonLaunchTemplate.property.userData"></a>
+
+```typescript
+public readonly userData: UserData;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.UserData
+
+UserData executed by instances that are launched from this template.
+
+---
+
+##### `networkInterface`<sup>Required</sup> <a name="networkInterface" id="shady-island.networking.SingletonLaunchTemplate.property.networkInterface"></a>
+
+```typescript
+public readonly networkInterface: INetworkInterface;
+```
+
+- *Type:* shady-island.networking.INetworkInterface
+
+The network interface used by this launch template.
 
 ---
 
@@ -6337,6 +6781,7 @@ const networkInterfaceAttributes: networking.NetworkInterfaceAttributes = { ... 
 | --- | --- | --- |
 | <code><a href="#shady-island.networking.NetworkInterfaceAttributes.property.networkInterfaceId">networkInterfaceId</a></code> | <code>string</code> | The ID of this Network Interface. |
 | <code><a href="#shady-island.networking.NetworkInterfaceAttributes.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The security groups assigned to the Network Interface. |
+| <code><a href="#shady-island.networking.NetworkInterfaceAttributes.property.subnet">subnet</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet</code> | The subnet where this Network Interface will be created. |
 
 ---
 
@@ -6361,6 +6806,18 @@ public readonly securityGroups: ISecurityGroup[];
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
 
 The security groups assigned to the Network Interface.
+
+---
+
+##### `subnet`<sup>Required</sup> <a name="subnet" id="shady-island.networking.NetworkInterfaceAttributes.property.subnet"></a>
+
+```typescript
+public readonly subnet: ISubnet;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet
+
+The subnet where this Network Interface will be created.
 
 ---
 
@@ -7422,6 +7879,442 @@ public readonly headerName: string;
 - *Default:* X-Secret-Passphrase
 
 The name of the secret HTTP header.
+
+---
+
+### SingletonLaunchTemplateProps <a name="SingletonLaunchTemplateProps" id="shady-island.networking.SingletonLaunchTemplateProps"></a>
+
+Constructor properties for SingletonLaunchTemplate.
+
+#### Initializer <a name="Initializer" id="shady-island.networking.SingletonLaunchTemplateProps.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+const singletonLaunchTemplateProps: networking.SingletonLaunchTemplateProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.associatePublicIpAddress">associatePublicIpAddress</a></code> | <code>boolean</code> | Whether instances should have a public IP addresses associated with them. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.blockDevices">blockDevices</a></code> | <code>aws-cdk-lib.aws_ec2.BlockDevice[]</code> | Specifies how block devices are exposed to the instance. You can specify virtual devices and EBS volumes. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.cpuCredits">cpuCredits</a></code> | <code>aws-cdk-lib.aws_ec2.CpuCredits</code> | CPU credit type for burstable EC2 instance types. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.detailedMonitoring">detailedMonitoring</a></code> | <code>boolean</code> | If set to true, then detailed monitoring will be enabled on instances created with this launch template. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.disableApiTermination">disableApiTermination</a></code> | <code>boolean</code> | If you set this parameter to true, you cannot terminate the instances launched with this launch template using the Amazon EC2 console, CLI, or API; |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.ebsOptimized">ebsOptimized</a></code> | <code>boolean</code> | Indicates whether the instances are optimized for Amazon EBS I/O. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.hibernationConfigured">hibernationConfigured</a></code> | <code>boolean</code> | If you set this parameter to true, the instance is enabled for hibernation. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.httpEndpoint">httpEndpoint</a></code> | <code>boolean</code> | Enables or disables the HTTP metadata endpoint on your instances. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.httpProtocolIpv6">httpProtocolIpv6</a></code> | <code>boolean</code> | Enables or disables the IPv6 endpoint for the instance metadata service. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.httpPutResponseHopLimit">httpPutResponseHopLimit</a></code> | <code>number</code> | The desired HTTP PUT response hop limit for instance metadata requests. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.httpTokens">httpTokens</a></code> | <code>aws-cdk-lib.aws_ec2.LaunchTemplateHttpTokens</code> | The state of token usage for your instance metadata requests. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.instanceInitiatedShutdownBehavior">instanceInitiatedShutdownBehavior</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceInitiatedShutdownBehavior</code> | Indicates whether an instance stops or terminates when you initiate shutdown from the instance (using the operating system command for system shutdown). |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.instanceMetadataTags">instanceMetadataTags</a></code> | <code>boolean</code> | Set to enabled to allow access to instance tags from the instance metadata. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.instanceProfile">instanceProfile</a></code> | <code>aws-cdk-lib.aws_iam.IInstanceProfile</code> | The instance profile used to pass role information to EC2 instances. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | Type of instance to launch. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.keyName">keyName</a></code> | <code>string</code> | Name of SSH keypair to grant access to instance. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.keyPair">keyPair</a></code> | <code>aws-cdk-lib.aws_ec2.IKeyPair</code> | The SSH keypair to grant access to the instance. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.launchTemplateName">launchTemplateName</a></code> | <code>string</code> | Name for this launch template. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.machineImage">machineImage</a></code> | <code>aws-cdk-lib.aws_ec2.IMachineImage</code> | The AMI that will be used by instances. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.nitroEnclaveEnabled">nitroEnclaveEnabled</a></code> | <code>boolean</code> | If this parameter is set to true, the instance is enabled for AWS Nitro Enclaves; |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.requireImdsv2">requireImdsv2</a></code> | <code>boolean</code> | Whether IMDSv2 should be required on launched instances. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | An IAM role to associate with the instance profile that is used by instances. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | Security group to assign to instances created with the launch template. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.spotOptions">spotOptions</a></code> | <code>aws-cdk-lib.aws_ec2.LaunchTemplateSpotOptions</code> | If this property is defined, then the Launch Template's InstanceMarketOptions will be set to use Spot instances, and the options for the Spot instances will be as defined. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.userData">userData</a></code> | <code>aws-cdk-lib.aws_ec2.UserData</code> | The AMI that will be used by instances. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.networkInterface">networkInterface</a></code> | <code>shady-island.networking.INetworkInterface</code> | The Elastic Network Interface to use. |
+
+---
+
+##### `associatePublicIpAddress`<sup>Optional</sup> <a name="associatePublicIpAddress" id="shady-island.networking.SingletonLaunchTemplateProps.property.associatePublicIpAddress"></a>
+
+```typescript
+public readonly associatePublicIpAddress: boolean;
+```
+
+- *Type:* boolean
+- *Default:* Use subnet settings
+
+Whether instances should have a public IP addresses associated with them.
+
+---
+
+##### `blockDevices`<sup>Optional</sup> <a name="blockDevices" id="shady-island.networking.SingletonLaunchTemplateProps.property.blockDevices"></a>
+
+```typescript
+public readonly blockDevices: BlockDevice[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.BlockDevice[]
+- *Default:* Uses the block device mapping of the AMI
+
+Specifies how block devices are exposed to the instance. You can specify virtual devices and EBS volumes.
+
+Each instance that is launched has an associated root device volume,
+either an Amazon EBS volume or an instance store volume.
+You can use block device mappings to specify additional EBS volumes or
+instance store volumes to attach to an instance when it is launched.
+
+> [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html)
+
+---
+
+##### `cpuCredits`<sup>Optional</sup> <a name="cpuCredits" id="shady-island.networking.SingletonLaunchTemplateProps.property.cpuCredits"></a>
+
+```typescript
+public readonly cpuCredits: CpuCredits;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.CpuCredits
+- *Default:* No credit type is specified in the Launch Template.
+
+CPU credit type for burstable EC2 instance types.
+
+> [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html)
+
+---
+
+##### `detailedMonitoring`<sup>Optional</sup> <a name="detailedMonitoring" id="shady-island.networking.SingletonLaunchTemplateProps.property.detailedMonitoring"></a>
+
+```typescript
+public readonly detailedMonitoring: boolean;
+```
+
+- *Type:* boolean
+- *Default:* False - Detailed monitoring is disabled.
+
+If set to true, then detailed monitoring will be enabled on instances created with this launch template.
+
+> [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch-new.html](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch-new.html)
+
+---
+
+##### `disableApiTermination`<sup>Optional</sup> <a name="disableApiTermination" id="shady-island.networking.SingletonLaunchTemplateProps.property.disableApiTermination"></a>
+
+```typescript
+public readonly disableApiTermination: boolean;
+```
+
+- *Type:* boolean
+- *Default:* The API termination setting is not specified in the Launch Template.
+
+If you set this parameter to true, you cannot terminate the instances launched with this launch template using the Amazon EC2 console, CLI, or API;
+
+otherwise, you can.
+
+---
+
+##### `ebsOptimized`<sup>Optional</sup> <a name="ebsOptimized" id="shady-island.networking.SingletonLaunchTemplateProps.property.ebsOptimized"></a>
+
+```typescript
+public readonly ebsOptimized: boolean;
+```
+
+- *Type:* boolean
+- *Default:* EBS optimization is not specified in the launch template.
+
+Indicates whether the instances are optimized for Amazon EBS I/O.
+
+This optimization provides dedicated throughput
+to Amazon EBS and an optimized configuration stack to provide optimal Amazon EBS I/O performance. This optimization
+isn't available with all instance types. Additional usage charges apply when using an EBS-optimized instance.
+
+---
+
+##### `hibernationConfigured`<sup>Optional</sup> <a name="hibernationConfigured" id="shady-island.networking.SingletonLaunchTemplateProps.property.hibernationConfigured"></a>
+
+```typescript
+public readonly hibernationConfigured: boolean;
+```
+
+- *Type:* boolean
+- *Default:* Hibernation configuration is not specified in the launch template; defaulting to false.
+
+If you set this parameter to true, the instance is enabled for hibernation.
+
+---
+
+##### `httpEndpoint`<sup>Optional</sup> <a name="httpEndpoint" id="shady-island.networking.SingletonLaunchTemplateProps.property.httpEndpoint"></a>
+
+```typescript
+public readonly httpEndpoint: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Enables or disables the HTTP metadata endpoint on your instances.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-httpendpoint](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-httpendpoint)
+
+---
+
+##### `httpProtocolIpv6`<sup>Optional</sup> <a name="httpProtocolIpv6" id="shady-island.networking.SingletonLaunchTemplateProps.property.httpProtocolIpv6"></a>
+
+```typescript
+public readonly httpProtocolIpv6: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Enables or disables the IPv6 endpoint for the instance metadata service.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-httpprotocolipv6](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-httpprotocolipv6)
+
+---
+
+##### `httpPutResponseHopLimit`<sup>Optional</sup> <a name="httpPutResponseHopLimit" id="shady-island.networking.SingletonLaunchTemplateProps.property.httpPutResponseHopLimit"></a>
+
+```typescript
+public readonly httpPutResponseHopLimit: number;
+```
+
+- *Type:* number
+- *Default:* 1
+
+The desired HTTP PUT response hop limit for instance metadata requests.
+
+The larger the number, the further instance metadata requests can travel.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-httpputresponsehoplimit](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-httpputresponsehoplimit)
+
+---
+
+##### `httpTokens`<sup>Optional</sup> <a name="httpTokens" id="shady-island.networking.SingletonLaunchTemplateProps.property.httpTokens"></a>
+
+```typescript
+public readonly httpTokens: LaunchTemplateHttpTokens;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.LaunchTemplateHttpTokens
+- *Default:* LaunchTemplateHttpTokens.OPTIONAL
+
+The state of token usage for your instance metadata requests.
+
+The default state is `optional` if not specified. However,
+if requireImdsv2 is true, the state must be `required`.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-httptokens](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-httptokens)
+
+---
+
+##### `instanceInitiatedShutdownBehavior`<sup>Optional</sup> <a name="instanceInitiatedShutdownBehavior" id="shady-island.networking.SingletonLaunchTemplateProps.property.instanceInitiatedShutdownBehavior"></a>
+
+```typescript
+public readonly instanceInitiatedShutdownBehavior: InstanceInitiatedShutdownBehavior;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InstanceInitiatedShutdownBehavior
+- *Default:* Shutdown behavior is not specified in the launch template; defaults to STOP.
+
+Indicates whether an instance stops or terminates when you initiate shutdown from the instance (using the operating system command for system shutdown).
+
+> [https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#Using_ChangingInstanceInitiatedShutdownBehavior](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#Using_ChangingInstanceInitiatedShutdownBehavior)
+
+---
+
+##### `instanceMetadataTags`<sup>Optional</sup> <a name="instanceMetadataTags" id="shady-island.networking.SingletonLaunchTemplateProps.property.instanceMetadataTags"></a>
+
+```typescript
+public readonly instanceMetadataTags: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Set to enabled to allow access to instance tags from the instance metadata.
+
+Set to disabled to turn off access to instance tags from the instance metadata.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-instancemetadatatags](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-instancemetadatatags)
+
+---
+
+##### `instanceProfile`<sup>Optional</sup> <a name="instanceProfile" id="shady-island.networking.SingletonLaunchTemplateProps.property.instanceProfile"></a>
+
+```typescript
+public readonly instanceProfile: IInstanceProfile;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IInstanceProfile
+- *Default:* No instance profile
+
+The instance profile used to pass role information to EC2 instances.
+
+Note: You can provide an instanceProfile or a role, but not both.
+
+---
+
+##### `instanceType`<sup>Optional</sup> <a name="instanceType" id="shady-island.networking.SingletonLaunchTemplateProps.property.instanceType"></a>
+
+```typescript
+public readonly instanceType: InstanceType;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.InstanceType
+- *Default:* This Launch Template does not specify a default Instance Type.
+
+Type of instance to launch.
+
+---
+
+##### ~~`keyName`~~<sup>Optional</sup> <a name="keyName" id="shady-island.networking.SingletonLaunchTemplateProps.property.keyName"></a>
+
+- *Deprecated:* - Use `keyPair` instead - https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_ec2-readme.html#using-an-existing-ec2-key-pair
+
+```typescript
+public readonly keyName: string;
+```
+
+- *Type:* string
+- *Default:* No SSH access will be possible.
+
+Name of SSH keypair to grant access to instance.
+
+---
+
+##### `keyPair`<sup>Optional</sup> <a name="keyPair" id="shady-island.networking.SingletonLaunchTemplateProps.property.keyPair"></a>
+
+```typescript
+public readonly keyPair: IKeyPair;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IKeyPair
+- *Default:* No SSH access will be possible.
+
+The SSH keypair to grant access to the instance.
+
+---
+
+##### `launchTemplateName`<sup>Optional</sup> <a name="launchTemplateName" id="shady-island.networking.SingletonLaunchTemplateProps.property.launchTemplateName"></a>
+
+```typescript
+public readonly launchTemplateName: string;
+```
+
+- *Type:* string
+- *Default:* Automatically generated name
+
+Name for this launch template.
+
+---
+
+##### `machineImage`<sup>Optional</sup> <a name="machineImage" id="shady-island.networking.SingletonLaunchTemplateProps.property.machineImage"></a>
+
+```typescript
+public readonly machineImage: IMachineImage;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IMachineImage
+- *Default:* This Launch Template does not specify a default AMI.
+
+The AMI that will be used by instances.
+
+---
+
+##### `nitroEnclaveEnabled`<sup>Optional</sup> <a name="nitroEnclaveEnabled" id="shady-island.networking.SingletonLaunchTemplateProps.property.nitroEnclaveEnabled"></a>
+
+```typescript
+public readonly nitroEnclaveEnabled: boolean;
+```
+
+- *Type:* boolean
+- *Default:* Enablement of Nitro enclaves is not specified in the launch template; defaulting to false.
+
+If this parameter is set to true, the instance is enabled for AWS Nitro Enclaves;
+
+otherwise, it is not enabled for AWS Nitro Enclaves.
+
+---
+
+##### `requireImdsv2`<sup>Optional</sup> <a name="requireImdsv2" id="shady-island.networking.SingletonLaunchTemplateProps.property.requireImdsv2"></a>
+
+```typescript
+public readonly requireImdsv2: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether IMDSv2 should be required on launched instances.
+
+---
+
+##### `role`<sup>Optional</sup> <a name="role" id="shady-island.networking.SingletonLaunchTemplateProps.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+- *Default:* No new role is created.
+
+An IAM role to associate with the instance profile that is used by instances.
+
+The role must be assumable by the service principal `ec2.amazonaws.com`.
+Note: You can provide an instanceProfile or a role, but not both.
+
+---
+
+*Example*
+
+```typescript
+const role = new iam.Role(this, 'MyRole', {
+  assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com')
+});
+```
+
+
+##### `securityGroup`<sup>Optional</sup> <a name="securityGroup" id="shady-island.networking.SingletonLaunchTemplateProps.property.securityGroup"></a>
+
+```typescript
+public readonly securityGroup: ISecurityGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup
+- *Default:* No security group is assigned.
+
+Security group to assign to instances created with the launch template.
+
+---
+
+##### `spotOptions`<sup>Optional</sup> <a name="spotOptions" id="shady-island.networking.SingletonLaunchTemplateProps.property.spotOptions"></a>
+
+```typescript
+public readonly spotOptions: LaunchTemplateSpotOptions;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.LaunchTemplateSpotOptions
+- *Default:* Instance launched with this template will not be spot instances.
+
+If this property is defined, then the Launch Template's InstanceMarketOptions will be set to use Spot instances, and the options for the Spot instances will be as defined.
+
+---
+
+##### `userData`<sup>Optional</sup> <a name="userData" id="shady-island.networking.SingletonLaunchTemplateProps.property.userData"></a>
+
+```typescript
+public readonly userData: UserData;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.UserData
+- *Default:* This Launch Template creates a UserData based on the type of provided machineImage; no UserData is created if a machineImage is not provided
+
+The AMI that will be used by instances.
+
+---
+
+##### `networkInterface`<sup>Required</sup> <a name="networkInterface" id="shady-island.networking.SingletonLaunchTemplateProps.property.networkInterface"></a>
+
+```typescript
+public readonly networkInterface: INetworkInterface;
+```
+
+- *Type:* shady-island.networking.INetworkInterface
+
+The Elastic Network Interface to use.
 
 ---
 
@@ -9558,6 +10451,7 @@ An Elastic Network Interface.
 | <code><a href="#shady-island.networking.INetworkInterface.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#shady-island.networking.INetworkInterface.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | The network connections associated with this resource. |
 | <code><a href="#shady-island.networking.INetworkInterface.property.networkInterfaceId">networkInterfaceId</a></code> | <code>string</code> | The ID of this Network Interface. |
+| <code><a href="#shady-island.networking.INetworkInterface.property.subnet">subnet</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet</code> | The subnet of this Network Interface. |
 
 ---
 
@@ -9594,6 +10488,18 @@ public readonly networkInterfaceId: string;
 - *Type:* string
 
 The ID of this Network Interface.
+
+---
+
+##### `subnet`<sup>Required</sup> <a name="subnet" id="shady-island.networking.INetworkInterface.property.subnet"></a>
+
+```typescript
+public readonly subnet: ISubnet;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet
+
+The subnet of this Network Interface.
 
 ---
 

@@ -193,6 +193,11 @@ export interface INetworkInterface extends IConstruct, IConnectable {
    * The ID of this Network Interface.
    */
   readonly networkInterfaceId: string;
+
+  /**
+   * The subnet of this Network Interface.
+   */
+  readonly subnet: ISubnet;
 }
 
 /**
@@ -284,6 +289,11 @@ export interface NetworkInterfaceAttributes {
    * The security groups assigned to the Network Interface.
    */
   readonly securityGroups: ISecurityGroup[];
+
+  /**
+   * The subnet where this Network Interface will be created.
+   */
+  readonly subnet: ISubnet;
 }
 
 /**
@@ -307,6 +317,7 @@ export class NetworkInterface extends Resource implements INetworkInterface {
       extends Construct
       implements INetworkInterface
     {
+      public readonly subnet = attribs.subnet;
       public readonly networkInterfaceId = attribs.networkInterfaceId;
       public readonly connections = new Connections({
         securityGroups: attribs.securityGroups,
@@ -369,7 +380,7 @@ export class NetworkInterface extends Resource implements INetworkInterface {
       ...(props.ipv6?.props ?? {}),
     });
 
-    this.networkInterfaceId = eni.attrId;
+    this.networkInterfaceId = eni.ref;
     this.privateIpv4Address = eni.attrPrimaryPrivateIpAddress;
     this.ipv6Address = eni.attrPrimaryIpv6Address;
 
