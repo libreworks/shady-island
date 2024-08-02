@@ -2436,6 +2436,299 @@ You can further customize when the trigger fires using `executeAfter`.
 ---
 
 
+### NetworkInterface <a name="NetworkInterface" id="shady-island.networking.NetworkInterface"></a>
+
+- *Implements:* shady-island.networking.INetworkInterface
+
+A Network Interface.
+
+#### Initializers <a name="Initializers" id="shady-island.networking.NetworkInterface.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+new networking.NetworkInterface(scope: Construct, id: string, props: NetworkInterfaceProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.NetworkInterface.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | - The scope in which to define this construct. |
+| <code><a href="#shady-island.networking.NetworkInterface.Initializer.parameter.id">id</a></code> | <code>string</code> | - The scoped construct ID. |
+| <code><a href="#shady-island.networking.NetworkInterface.Initializer.parameter.props">props</a></code> | <code>shady-island.networking.NetworkInterfaceProps</code> | - Initialization properties for this construct. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.NetworkInterface.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The scope in which to define this construct.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.NetworkInterface.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+The scoped construct ID.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="shady-island.networking.NetworkInterface.Initializer.parameter.props"></a>
+
+- *Type:* shady-island.networking.NetworkInterfaceProps
+
+Initialization properties for this construct.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.NetworkInterface.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.NetworkInterface.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
+
+---
+
+##### `toString` <a name="toString" id="shady-island.networking.NetworkInterface.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="shady-island.networking.NetworkInterface.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+Apply the given removal policy to this resource.
+
+The Removal Policy controls what happens to this resource when it stops
+being managed by CloudFormation, either because you've removed it from the
+CDK application or because you've made a change that requires the resource
+to be replaced.
+
+The resource can be deleted (`RemovalPolicy.DESTROY`), or left in your AWS
+account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
+
+###### `policy`<sup>Required</sup> <a name="policy" id="shady-island.networking.NetworkInterface.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.NetworkInterface.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#shady-island.networking.NetworkInterface.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
+| <code><a href="#shady-island.networking.NetworkInterface.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+| <code><a href="#shady-island.networking.NetworkInterface.fromNetworkInterfaceAttributes">fromNetworkInterfaceAttributes</a></code> | Import an existing Network Interface from the given attributes. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.networking.NetworkInterface.isConstruct"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.NetworkInterface.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="shady-island.networking.NetworkInterface.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="shady-island.networking.NetworkInterface.isOwnedResource"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.NetworkInterface.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="shady-island.networking.NetworkInterface.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `isResource` <a name="isResource" id="shady-island.networking.NetworkInterface.isResource"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.NetworkInterface.isResource(construct: IConstruct)
+```
+
+Check whether the given construct is a Resource.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="shady-island.networking.NetworkInterface.isResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
+
+---
+
+##### `fromNetworkInterfaceAttributes` <a name="fromNetworkInterfaceAttributes" id="shady-island.networking.NetworkInterface.fromNetworkInterfaceAttributes"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.NetworkInterface.fromNetworkInterfaceAttributes(scope: Construct, id: string, attribs: NetworkInterfaceAttributes)
+```
+
+Import an existing Network Interface from the given attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.NetworkInterface.fromNetworkInterfaceAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The scope in which to define this construct.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.NetworkInterface.fromNetworkInterfaceAttributes.parameter.id"></a>
+
+- *Type:* string
+
+The scoped construct ID.
+
+---
+
+###### `attribs`<sup>Required</sup> <a name="attribs" id="shady-island.networking.NetworkInterface.fromNetworkInterfaceAttributes.parameter.attribs"></a>
+
+- *Type:* shady-island.networking.NetworkInterfaceAttributes
+
+The Network Interface attributes.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.NetworkInterface.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#shady-island.networking.NetworkInterface.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#shady-island.networking.NetworkInterface.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#shady-island.networking.NetworkInterface.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | The network connections associated with this resource. |
+| <code><a href="#shady-island.networking.NetworkInterface.property.ipv6Address">ipv6Address</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#shady-island.networking.NetworkInterface.property.networkInterfaceId">networkInterfaceId</a></code> | <code>string</code> | The ID of this Network Interface. |
+| <code><a href="#shady-island.networking.NetworkInterface.property.privateIpv4Address">privateIpv4Address</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#shady-island.networking.NetworkInterface.property.subnet">subnet</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="shady-island.networking.NetworkInterface.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="shady-island.networking.NetworkInterface.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="shady-island.networking.NetworkInterface.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `connections`<sup>Required</sup> <a name="connections" id="shady-island.networking.NetworkInterface.property.connections"></a>
+
+```typescript
+public readonly connections: Connections;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.Connections
+
+The network connections associated with this resource.
+
+---
+
+##### `ipv6Address`<sup>Required</sup> <a name="ipv6Address" id="shady-island.networking.NetworkInterface.property.ipv6Address"></a>
+
+```typescript
+public readonly ipv6Address: string;
+```
+
+- *Type:* string
+
+---
+
+##### `networkInterfaceId`<sup>Required</sup> <a name="networkInterfaceId" id="shady-island.networking.NetworkInterface.property.networkInterfaceId"></a>
+
+```typescript
+public readonly networkInterfaceId: string;
+```
+
+- *Type:* string
+
+The ID of this Network Interface.
+
+---
+
+##### `privateIpv4Address`<sup>Required</sup> <a name="privateIpv4Address" id="shady-island.networking.NetworkInterface.property.privateIpv4Address"></a>
+
+```typescript
+public readonly privateIpv4Address: string;
+```
+
+- *Type:* string
+
+---
+
+##### `subnet`<sup>Required</sup> <a name="subnet" id="shady-island.networking.NetworkInterface.property.subnet"></a>
+
+```typescript
+public readonly subnet: ISubnet;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet
+
+---
+
+
 ### PostgresqlDatabase <a name="PostgresqlDatabase" id="shady-island.PostgresqlDatabase"></a>
 
 A PostgreSQL database.
@@ -6026,6 +6319,216 @@ The database default collation to use.
 
 ---
 
+### NetworkInterfaceAttributes <a name="NetworkInterfaceAttributes" id="shady-island.networking.NetworkInterfaceAttributes"></a>
+
+Attributes to import an existing Network Interface.
+
+#### Initializer <a name="Initializer" id="shady-island.networking.NetworkInterfaceAttributes.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+const networkInterfaceAttributes: networking.NetworkInterfaceAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.NetworkInterfaceAttributes.property.networkInterfaceId">networkInterfaceId</a></code> | <code>string</code> | The ID of this Network Interface. |
+| <code><a href="#shady-island.networking.NetworkInterfaceAttributes.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The security groups assigned to the Network Interface. |
+
+---
+
+##### `networkInterfaceId`<sup>Required</sup> <a name="networkInterfaceId" id="shady-island.networking.NetworkInterfaceAttributes.property.networkInterfaceId"></a>
+
+```typescript
+public readonly networkInterfaceId: string;
+```
+
+- *Type:* string
+
+The ID of this Network Interface.
+
+---
+
+##### `securityGroups`<sup>Required</sup> <a name="securityGroups" id="shady-island.networking.NetworkInterfaceAttributes.property.securityGroups"></a>
+
+```typescript
+public readonly securityGroups: ISecurityGroup[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+The security groups assigned to the Network Interface.
+
+---
+
+### NetworkInterfaceProps <a name="NetworkInterfaceProps" id="shady-island.networking.NetworkInterfaceProps"></a>
+
+Constructor properties for NetworkInterface.
+
+#### Initializer <a name="Initializer" id="shady-island.networking.NetworkInterfaceProps.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+const networkInterfaceProps: networking.NetworkInterfaceProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.NetworkInterfaceProps.property.subnet">subnet</a></code> | <code>aws-cdk-lib.aws_ec2.ISubnet</code> | The subnet where this Network Interface will be created. |
+| <code><a href="#shady-island.networking.NetworkInterfaceProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC where this Network Interface will be created. |
+| <code><a href="#shady-island.networking.NetworkInterfaceProps.property.description">description</a></code> | <code>string</code> | A description for this Network Interface. |
+| <code><a href="#shady-island.networking.NetworkInterfaceProps.property.elasticIp">elasticIp</a></code> | <code>shady-island.networking.IElasticIp</code> | An Elastic IP Address to associate with this Network Interface. |
+| <code><a href="#shady-island.networking.NetworkInterfaceProps.property.enableSourceDestCheck">enableSourceDestCheck</a></code> | <code>boolean</code> | Enable the source/destination check. |
+| <code><a href="#shady-island.networking.NetworkInterfaceProps.property.interfaceType">interfaceType</a></code> | <code>shady-island.networking.InterfaceType</code> | The type of interface (i.e. interface, efa, trunk). |
+| <code><a href="#shady-island.networking.NetworkInterfaceProps.property.ipv4">ipv4</a></code> | <code>shady-island.networking.AddressingV4</code> | How to assign IPv4 addresses. |
+| <code><a href="#shady-island.networking.NetworkInterfaceProps.property.ipv6">ipv6</a></code> | <code>shady-island.networking.AddressingV6</code> | How to assign IPv6 addresses. |
+| <code><a href="#shady-island.networking.NetworkInterfaceProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | The removal policy for this resource. |
+| <code><a href="#shady-island.networking.NetworkInterfaceProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The security groups to assign to the Network Interface. |
+
+---
+
+##### `subnet`<sup>Required</sup> <a name="subnet" id="shady-island.networking.NetworkInterfaceProps.property.subnet"></a>
+
+```typescript
+public readonly subnet: ISubnet;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISubnet
+
+The subnet where this Network Interface will be created.
+
+---
+
+##### `vpc`<sup>Required</sup> <a name="vpc" id="shady-island.networking.NetworkInterfaceProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+The VPC where this Network Interface will be created.
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="shady-island.networking.NetworkInterfaceProps.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+A description for this Network Interface.
+
+---
+
+##### `elasticIp`<sup>Optional</sup> <a name="elasticIp" id="shady-island.networking.NetworkInterfaceProps.property.elasticIp"></a>
+
+```typescript
+public readonly elasticIp: IElasticIp;
+```
+
+- *Type:* shady-island.networking.IElasticIp
+
+An Elastic IP Address to associate with this Network Interface.
+
+Provding an Elastic IP
+
+---
+
+##### `enableSourceDestCheck`<sup>Optional</sup> <a name="enableSourceDestCheck" id="shady-island.networking.NetworkInterfaceProps.property.enableSourceDestCheck"></a>
+
+```typescript
+public readonly enableSourceDestCheck: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Enable the source/destination check.
+
+---
+
+##### `interfaceType`<sup>Optional</sup> <a name="interfaceType" id="shady-island.networking.NetworkInterfaceProps.property.interfaceType"></a>
+
+```typescript
+public readonly interfaceType: InterfaceType;
+```
+
+- *Type:* shady-island.networking.InterfaceType
+- *Default:* InterfaceType.INTERFACE
+
+The type of interface (i.e. interface, efa, trunk).
+
+---
+
+##### `ipv4`<sup>Optional</sup> <a name="ipv4" id="shady-island.networking.NetworkInterfaceProps.property.ipv4"></a>
+
+```typescript
+public readonly ipv4: AddressingV4;
+```
+
+- *Type:* shady-island.networking.AddressingV4
+- *Default:* Dependent on VPC settings
+
+How to assign IPv4 addresses.
+
+The default behavior depends on the VPC. If it's a dual stack VPC, EC2 will
+allocate a single private IP address from the VPC IPv4 CIDR range. If it's
+IPv6-only, EC2 won't allocate an IPv4 address.
+
+---
+
+##### `ipv6`<sup>Optional</sup> <a name="ipv6" id="shady-island.networking.NetworkInterfaceProps.property.ipv6"></a>
+
+```typescript
+public readonly ipv6: AddressingV6;
+```
+
+- *Type:* shady-island.networking.AddressingV6
+- *Default:* Dependent on VPC and subnet settings.
+
+How to assign IPv6 addresses.
+
+The default behavior depends on the VPC. If there are no IPv6 CIDRs defined
+for the VPC, EC2 won't allocate an IPv6 address. If it's a dual stack or an
+IPv6-only VPC, EC2 will allocate an IPv6 address if the subnet auto-assigns
+one.
+
+---
+
+##### `removalPolicy`<sup>Optional</sup> <a name="removalPolicy" id="shady-island.networking.NetworkInterfaceProps.property.removalPolicy"></a>
+
+```typescript
+public readonly removalPolicy: RemovalPolicy;
+```
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+The removal policy for this resource.
+
+---
+
+##### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="shady-island.networking.NetworkInterfaceProps.property.securityGroups"></a>
+
+```typescript
+public readonly securityGroups: ISecurityGroup[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+- *Default:* A new one is created
+
+The security groups to assign to the Network Interface.
+
+---
+
 ### PostgresqlDatabaseForClusterOptions <a name="PostgresqlDatabaseForClusterOptions" id="shady-island.PostgresqlDatabaseForClusterOptions"></a>
 
 Properties to specify when using PostgresqlDatabase.forCluster().
@@ -7726,6 +8229,291 @@ class MyWorkload extends Workload {
 
 ## Classes <a name="Classes" id="Classes"></a>
 
+### AddressingV4 <a name="AddressingV4" id="shady-island.networking.AddressingV4"></a>
+
+Used to assign IPv4 addresses to a Network Interface.
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.AddressingV4.prefixCount">prefixCount</a></code> | Specify a number of IPv4 delegated prefixes to automatically assign. |
+| <code><a href="#shady-island.networking.AddressingV4.prefixes">prefixes</a></code> | Specify one or more IPv4 delegated prefixes to assign. |
+| <code><a href="#shady-island.networking.AddressingV4.privateAddress">privateAddress</a></code> | Specify a private IPv4 address. |
+| <code><a href="#shady-island.networking.AddressingV4.privateAddressAndSecondaryCount">privateAddressAndSecondaryCount</a></code> | Specify a primary IPv4 address and a number of secondary addresses. |
+| <code><a href="#shady-island.networking.AddressingV4.privateAddresses">privateAddresses</a></code> | Specify a primary IPv4 address and one or more secondary IPv4 addresses. |
+
+---
+
+##### `prefixCount` <a name="prefixCount" id="shady-island.networking.AddressingV4.prefixCount"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.AddressingV4.prefixCount(count: number)
+```
+
+Specify a number of IPv4 delegated prefixes to automatically assign.
+
+###### `count`<sup>Required</sup> <a name="count" id="shady-island.networking.AddressingV4.prefixCount.parameter.count"></a>
+
+- *Type:* number
+
+The number of automatic IPv4 delegated prefixes.
+
+---
+
+##### `prefixes` <a name="prefixes" id="shady-island.networking.AddressingV4.prefixes"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.AddressingV4.prefixes(prefixes: string[])
+```
+
+Specify one or more IPv4 delegated prefixes to assign.
+
+IPv4 prefixes must be within a CIDR of /28.
+
+###### `prefixes`<sup>Required</sup> <a name="prefixes" id="shady-island.networking.AddressingV4.prefixes.parameter.prefixes"></a>
+
+- *Type:* string[]
+
+The IPv4 delegated prefixes.
+
+---
+
+##### `privateAddress` <a name="privateAddress" id="shady-island.networking.AddressingV4.privateAddress"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.AddressingV4.privateAddress(ip: string)
+```
+
+Specify a private IPv4 address.
+
+###### `ip`<sup>Required</sup> <a name="ip" id="shady-island.networking.AddressingV4.privateAddress.parameter.ip"></a>
+
+- *Type:* string
+
+The actual IP address.
+
+---
+
+##### `privateAddressAndSecondaryCount` <a name="privateAddressAndSecondaryCount" id="shady-island.networking.AddressingV4.privateAddressAndSecondaryCount"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.AddressingV4.privateAddressAndSecondaryCount(primary: string, count: number)
+```
+
+Specify a primary IPv4 address and a number of secondary addresses.
+
+###### `primary`<sup>Required</sup> <a name="primary" id="shady-island.networking.AddressingV4.privateAddressAndSecondaryCount.parameter.primary"></a>
+
+- *Type:* string
+
+The primary address.
+
+---
+
+###### `count`<sup>Required</sup> <a name="count" id="shady-island.networking.AddressingV4.privateAddressAndSecondaryCount.parameter.count"></a>
+
+- *Type:* number
+
+The number of secondary addresses.
+
+---
+
+##### `privateAddresses` <a name="privateAddresses" id="shady-island.networking.AddressingV4.privateAddresses"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.AddressingV4.privateAddresses(primary: string, secondary: string)
+```
+
+Specify a primary IPv4 address and one or more secondary IPv4 addresses.
+
+###### `primary`<sup>Required</sup> <a name="primary" id="shady-island.networking.AddressingV4.privateAddresses.parameter.primary"></a>
+
+- *Type:* string
+
+The primary address.
+
+---
+
+###### `secondary`<sup>Required</sup> <a name="secondary" id="shady-island.networking.AddressingV4.privateAddresses.parameter.secondary"></a>
+
+- *Type:* string
+
+Any secondary addresses.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.AddressingV4.property.props">props</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="shady-island.networking.AddressingV4.property.props"></a>
+
+```typescript
+public readonly props: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+---
+
+
+### AddressingV6 <a name="AddressingV6" id="shady-island.networking.AddressingV6"></a>
+
+Used to assign IPv6 addresses to a Network Interface.
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.AddressingV6.addressCount">addressCount</a></code> | Specify a number of IPv6 addresses to automatically assign. |
+| <code><a href="#shady-island.networking.AddressingV6.addresses">addresses</a></code> | Specify one or more IPv6 addresses to assign. |
+| <code><a href="#shady-island.networking.AddressingV6.prefixCount">prefixCount</a></code> | Specify a number of IPv6 delegated prefixes to automatically assign. |
+| <code><a href="#shady-island.networking.AddressingV6.prefixes">prefixes</a></code> | Specify one or more IPv6 delegated prefixes to assign. |
+
+---
+
+##### `addressCount` <a name="addressCount" id="shady-island.networking.AddressingV6.addressCount"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.AddressingV6.addressCount(count: number, enablePrimary?: boolean)
+```
+
+Specify a number of IPv6 addresses to automatically assign.
+
+###### `count`<sup>Required</sup> <a name="count" id="shady-island.networking.AddressingV6.addressCount.parameter.count"></a>
+
+- *Type:* number
+
+The number of automatic IPv6 addresses.
+
+---
+
+###### `enablePrimary`<sup>Optional</sup> <a name="enablePrimary" id="shady-island.networking.AddressingV6.addressCount.parameter.enablePrimary"></a>
+
+- *Type:* boolean
+
+Whether to enable a primary IPv6 GUA (default: no).
+
+---
+
+##### `addresses` <a name="addresses" id="shady-island.networking.AddressingV6.addresses"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.AddressingV6.addresses(ips: string[], enablePrimary?: boolean)
+```
+
+Specify one or more IPv6 addresses to assign.
+
+###### `ips`<sup>Required</sup> <a name="ips" id="shady-island.networking.AddressingV6.addresses.parameter.ips"></a>
+
+- *Type:* string[]
+
+The IPv6 addresses.
+
+---
+
+###### `enablePrimary`<sup>Optional</sup> <a name="enablePrimary" id="shady-island.networking.AddressingV6.addresses.parameter.enablePrimary"></a>
+
+- *Type:* boolean
+
+Whether to enable a primary IPv6 GUA (default: no).
+
+---
+
+##### `prefixCount` <a name="prefixCount" id="shady-island.networking.AddressingV6.prefixCount"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.AddressingV6.prefixCount(count: number, enablePrimary?: boolean)
+```
+
+Specify a number of IPv6 delegated prefixes to automatically assign.
+
+###### `count`<sup>Required</sup> <a name="count" id="shady-island.networking.AddressingV6.prefixCount.parameter.count"></a>
+
+- *Type:* number
+
+The number of automatic IPv6 delegated prefixes.
+
+---
+
+###### `enablePrimary`<sup>Optional</sup> <a name="enablePrimary" id="shady-island.networking.AddressingV6.prefixCount.parameter.enablePrimary"></a>
+
+- *Type:* boolean
+
+Whether to enable a primary IPv6 GUA (default: no).
+
+---
+
+##### `prefixes` <a name="prefixes" id="shady-island.networking.AddressingV6.prefixes"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.AddressingV6.prefixes(prefixes: string[], enablePrimary?: boolean)
+```
+
+Specify one or more IPv6 delegated prefixes to assign.
+
+IPv6 prefixes must be within a CIDR of /80.
+
+###### `prefixes`<sup>Required</sup> <a name="prefixes" id="shady-island.networking.AddressingV6.prefixes.parameter.prefixes"></a>
+
+- *Type:* string[]
+
+The IPv6 delegated prefixes.
+
+---
+
+###### `enablePrimary`<sup>Optional</sup> <a name="enablePrimary" id="shady-island.networking.AddressingV6.prefixes.parameter.enablePrimary"></a>
+
+- *Type:* boolean
+
+Whether to enable a primary IPv6 GUA (default: no).
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.AddressingV6.property.props">props</a></code> | <code>{[ key: string ]: any}</code> | *No description.* |
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="shady-island.networking.AddressingV6.property.props"></a>
+
+```typescript
+public readonly props: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+---
+
+
 ### ContextLoader <a name="ContextLoader" id="shady-island.ContextLoader"></a>
 
 A utility to load context values into a construct node.
@@ -8754,6 +9542,61 @@ The task definition that can be launched.
 
 ---
 
+### INetworkInterface <a name="INetworkInterface" id="shady-island.networking.INetworkInterface"></a>
+
+- *Extends:* constructs.IConstruct, aws-cdk-lib.aws_ec2.IConnectable
+
+- *Implemented By:* shady-island.networking.NetworkInterface, shady-island.networking.INetworkInterface
+
+An Elastic Network Interface.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.INetworkInterface.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#shady-island.networking.INetworkInterface.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | The network connections associated with this resource. |
+| <code><a href="#shady-island.networking.INetworkInterface.property.networkInterfaceId">networkInterfaceId</a></code> | <code>string</code> | The ID of this Network Interface. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="shady-island.networking.INetworkInterface.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `connections`<sup>Required</sup> <a name="connections" id="shady-island.networking.INetworkInterface.property.connections"></a>
+
+```typescript
+public readonly connections: Connections;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.Connections
+
+The network connections associated with this resource.
+
+---
+
+##### `networkInterfaceId`<sup>Required</sup> <a name="networkInterfaceId" id="shady-island.networking.INetworkInterface.property.networkInterfaceId"></a>
+
+```typescript
+public readonly networkInterfaceId: string;
+```
+
+- *Type:* string
+
+The ID of this Network Interface.
+
+---
+
 ### IRunnableFargateTask <a name="IRunnableFargateTask" id="shady-island.IRunnableFargateTask"></a>
 
 - *Extends:* constructs.IConstruct
@@ -8885,6 +9728,42 @@ public readonly headerValue: SecretValue;
 - *Type:* aws-cdk-lib.SecretValue
 
 The value of the secret header.
+
+---
+
+## Enums <a name="Enums" id="Enums"></a>
+
+### InterfaceType <a name="InterfaceType" id="shady-island.networking.InterfaceType"></a>
+
+The type of Network Interface.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.InterfaceType.INTERFACE">INTERFACE</a></code> | A standard ENI. |
+| <code><a href="#shady-island.networking.InterfaceType.EFA">EFA</a></code> | An Elastic Fabric Adapter ENI. |
+| <code><a href="#shady-island.networking.InterfaceType.TRUNK">TRUNK</a></code> | An ENI for use with ECS awsvpc trunking. |
+
+---
+
+##### `INTERFACE` <a name="INTERFACE" id="shady-island.networking.InterfaceType.INTERFACE"></a>
+
+A standard ENI.
+
+---
+
+
+##### `EFA` <a name="EFA" id="shady-island.networking.InterfaceType.EFA"></a>
+
+An Elastic Fabric Adapter ENI.
+
+---
+
+
+##### `TRUNK` <a name="TRUNK" id="shady-island.networking.InterfaceType.TRUNK"></a>
+
+An ENI for use with ECS awsvpc trunking.
 
 ---
 

@@ -100,9 +100,14 @@ export class AddressingV4 {
     });
   }
 
-  private constructor(
-    public readonly props: Partial<CfnNetworkInterfaceProps>
-  ) {}
+  public readonly props: Record<string, any>;
+
+  /**
+   * @ignore
+   */
+  private constructor(props: Partial<CfnNetworkInterfaceProps>) {
+    this.props = props;
+  }
 }
 
 /**
@@ -144,7 +149,7 @@ export class AddressingV6 {
   /**
    * Specify one or more IPv6 addresses to assign.
    *
-   * @param addresses - The IPv6 addresses
+   * @param ips - The IPv6 addresses
    * @param enablePrimary - Whether to enable a primary IPv6 GUA (default: no)
    */
   public static addresses(ips: string[], enablePrimary?: boolean) {
@@ -170,10 +175,14 @@ export class AddressingV6 {
         : {}),
     });
   }
+  public readonly props: Record<string, any>;
 
-  private constructor(
-    public readonly props: Partial<CfnNetworkInterfaceProps>
-  ) {}
+  /**
+   * @ignore
+   */
+  private constructor(props: Partial<CfnNetworkInterfaceProps>) {
+    this.props = props;
+  }
 }
 
 /**
