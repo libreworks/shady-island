@@ -131,7 +131,7 @@ export class ElasticIp extends ElasticIpBase implements IElasticIp {
     const { removalPolicy } = props;
 
     const eip = new CfnEIP(this, "Resource", { domain: "vpc" });
-    this.allocationId = eip.ref;
+    this.allocationId = eip.attrAllocationId;
 
     this.elasticIpArn = Stack.of(this).formatArn({
       service: "ec2",
