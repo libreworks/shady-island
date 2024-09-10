@@ -11,14 +11,14 @@ export interface OutputFileOptions {
    *
    * @default - END_OF_FILE
    */
-  delimiter?: string;
+  readonly delimiter?: string;
 
   /**
    * Use `true` to enable variable and command substitution inside the heredoc.
    *
    * @default - disabled
    */
-  substitution?: boolean;
+  readonly substitution?: boolean;
 }
 
 /**
@@ -28,17 +28,17 @@ export interface AddDirectoryOptions {
   /**
    * The username or numeric user ID to assign as the directory owner.
    */
-  owner?: string;
+  readonly owner?: string;
 
   /**
    * The group name or numeric group ID to assign as the directory group.
    */
-  group?: string;
+  readonly group?: string;
 
   /**
    * The file mode, e.g. 2755, 0400
    */
-  mode?: string;
+  readonly mode?: string;
 }
 
 /**
