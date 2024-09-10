@@ -1250,7 +1250,7 @@ account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
 ##### `grant` <a name="grant" id="shady-island.networking.ElasticIp.grant"></a>
 
 ```typescript
-public grant(identity: IGrantable, actions: string): Grant
+public grant(identity: IGrantable, actions: ...string[]): Grant
 ```
 
 Grant the given identity custom permissions.
@@ -1266,7 +1266,7 @@ e.g. `ec2:AssociateAddress`, `ec2:DisableAddressTransfer`,
 
 ###### `actions`<sup>Required</sup> <a name="actions" id="shady-island.networking.ElasticIp.grant.parameter.actions"></a>
 
-- *Type:* string
+- *Type:* ...string[]
 
 ---
 
@@ -4298,7 +4298,7 @@ The new Stack properties.
 ##### `import` <a name="import" id="shady-island.Workload.import"></a>
 
 ```typescript
-public import(stacks: Stack): void
+public import(stacks: ...Stack[]): void
 ```
 
 Forces a return value for `Workload.of` for one or more `Stack` objects.
@@ -4327,7 +4327,7 @@ will be thrown.
 
 ###### `stacks`<sup>Required</sup> <a name="stacks" id="shady-island.Workload.import.parameter.stacks"></a>
 
-- *Type:* aws-cdk-lib.Stack
+- *Type:* ...aws-cdk-lib.Stack[]
 
 The `Stack` instances to import to this `Workload`.
 
@@ -9226,7 +9226,7 @@ The number of secondary addresses.
 ```typescript
 import { networking } from 'shady-island'
 
-networking.AddressingV4.privateAddresses(primary: string, secondary: string)
+networking.AddressingV4.privateAddresses(primary: string, secondary: ...string[])
 ```
 
 Specify a primary IPv4 address and one or more secondary IPv4 addresses.
@@ -9241,7 +9241,7 @@ The primary address.
 
 ###### `secondary`<sup>Required</sup> <a name="secondary" id="shady-island.networking.AddressingV4.privateAddresses.parameter.secondary"></a>
 
-- *Type:* string
+- *Type:* ...string[]
 
 Any secondary addresses.
 
@@ -9792,14 +9792,14 @@ new UserDataBuilder()
 ##### `addCommands` <a name="addCommands" id="shady-island.UserDataBuilder.addCommands"></a>
 
 ```typescript
-public addCommands(commands: string): void
+public addCommands(commands: ...string[]): void
 ```
 
 Add one or more commands to the user data with a priority of `0`.
 
 ###### `commands`<sup>Required</sup> <a name="commands" id="shady-island.UserDataBuilder.addCommands.parameter.commands"></a>
 
-- *Type:* string
+- *Type:* ...string[]
 
 The lines to add.
 
@@ -9816,7 +9816,7 @@ Produces the User Data script with all lines sorted in priority order.
 ##### `insertCommands` <a name="insertCommands" id="shady-island.UserDataBuilder.insertCommands"></a>
 
 ```typescript
-public insertCommands(priority: number, commands: string): void
+public insertCommands(priority: number, commands: ...string[]): void
 ```
 
 Add one or more commands to the user data at a specific priority.
@@ -9831,7 +9831,7 @@ The priority of these lines (lower executes earlier).
 
 ###### `commands`<sup>Required</sup> <a name="commands" id="shady-island.UserDataBuilder.insertCommands.parameter.commands"></a>
 
-- *Type:* string
+- *Type:* ...string[]
 
 The lines to add.
 
@@ -10091,7 +10091,7 @@ An EC2 Elastic IP address.
 ##### `grant` <a name="grant" id="shady-island.networking.IElasticIp.grant"></a>
 
 ```typescript
-public grant(identity: IGrantable, actions: string): Grant
+public grant(identity: IGrantable, actions: ...string[]): Grant
 ```
 
 Grant the given identity custom permissions.
@@ -10109,7 +10109,7 @@ The resource with a grantPrincipal property.
 
 ###### `actions`<sup>Required</sup> <a name="actions" id="shady-island.networking.IElasticIp.grant.parameter.actions"></a>
 
-- *Type:* string
+- *Type:* ...string[]
 
 The IAM actions to allow.
 
