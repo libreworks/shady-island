@@ -4524,6 +4524,64 @@ The default region for all resources defined within this workload.
 
 ## Structs <a name="Structs" id="Structs"></a>
 
+### AddDirectoryOptions <a name="AddDirectoryOptions" id="shady-island.configuration.AddDirectoryOptions"></a>
+
+Options for the `ShellCommands.addDirectory` method.
+
+#### Initializer <a name="Initializer" id="shady-island.configuration.AddDirectoryOptions.Initializer"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+const addDirectoryOptions: configuration.AddDirectoryOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.configuration.AddDirectoryOptions.property.group">group</a></code> | <code>string</code> | The group name or numeric group ID to assign as the directory group. |
+| <code><a href="#shady-island.configuration.AddDirectoryOptions.property.mode">mode</a></code> | <code>string</code> | The file mode, e.g. 2755, 0400. |
+| <code><a href="#shady-island.configuration.AddDirectoryOptions.property.owner">owner</a></code> | <code>string</code> | The username or numeric user ID to assign as the directory owner. |
+
+---
+
+##### `group`<sup>Optional</sup> <a name="group" id="shady-island.configuration.AddDirectoryOptions.property.group"></a>
+
+```typescript
+public readonly group: string;
+```
+
+- *Type:* string
+
+The group name or numeric group ID to assign as the directory group.
+
+---
+
+##### `mode`<sup>Optional</sup> <a name="mode" id="shady-island.configuration.AddDirectoryOptions.property.mode"></a>
+
+```typescript
+public readonly mode: string;
+```
+
+- *Type:* string
+
+The file mode, e.g. 2755, 0400.
+
+---
+
+##### `owner`<sup>Optional</sup> <a name="owner" id="shady-island.configuration.AddDirectoryOptions.property.owner"></a>
+
+```typescript
+public readonly owner: string;
+```
+
+- *Type:* string
+
+The username or numeric user ID to assign as the directory owner.
+
+---
+
 ### AssignOnLaunchProps <a name="AssignOnLaunchProps" id="shady-island.AssignOnLaunchProps"></a>
 
 Properties for creating a new {@link AssignOnLaunch}.
@@ -6983,6 +7041,53 @@ public readonly securityGroups: ISecurityGroup[];
 - *Default:* A new one is created
 
 The security groups to assign to the Network Interface.
+
+---
+
+### OutputFileOptions <a name="OutputFileOptions" id="shady-island.configuration.OutputFileOptions"></a>
+
+Options for the `ShellCommands.outputFile` method.
+
+#### Initializer <a name="Initializer" id="shady-island.configuration.OutputFileOptions.Initializer"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+const outputFileOptions: configuration.OutputFileOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.configuration.OutputFileOptions.property.delimiter">delimiter</a></code> | <code>string</code> | The bash heredoc delimiter. |
+| <code><a href="#shady-island.configuration.OutputFileOptions.property.substitution">substitution</a></code> | <code>boolean</code> | Use `true` to enable variable and command substitution inside the heredoc. |
+
+---
+
+##### `delimiter`<sup>Optional</sup> <a name="delimiter" id="shady-island.configuration.OutputFileOptions.property.delimiter"></a>
+
+```typescript
+public readonly delimiter: string;
+```
+
+- *Type:* string
+- *Default:* END_OF_FILE
+
+The bash heredoc delimiter.
+
+---
+
+##### `substitution`<sup>Optional</sup> <a name="substitution" id="shady-island.configuration.OutputFileOptions.property.substitution"></a>
+
+```typescript
+public readonly substitution: boolean;
+```
+
+- *Type:* boolean
+- *Default:* disabled
+
+Use `true` to enable variable and command substitution inside the heredoc.
 
 ---
 
@@ -9459,6 +9564,240 @@ The JSON file with an object to use as context values.
 - *Type:* constructs.Node
 
 The constructs node to receive the context values.
+
+---
+
+
+
+### ShellCommands <a name="ShellCommands" id="shady-island.configuration.ShellCommands"></a>
+
+A utility class that provides POSIX shell commands for User Data scripts.
+
+#### Initializers <a name="Initializers" id="shady-island.configuration.ShellCommands.Initializer"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+new configuration.ShellCommands()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.configuration.ShellCommands.addDirectory">addDirectory</a></code> | Uses either `mkdir` or `install` to create a directory. |
+| <code><a href="#shady-island.configuration.ShellCommands.changeOwnership">changeOwnership</a></code> | Gets a command to change the ownership and/or group membership of a file. |
+| <code><a href="#shady-island.configuration.ShellCommands.disableUnattendedUpgrades">disableUnattendedUpgrades</a></code> | Gets a command to disable unattended package upgrades on Debian/Ubuntu. |
+| <code><a href="#shady-island.configuration.ShellCommands.downloadSecret">downloadSecret</a></code> | Gets the command to download a Secrets Manager secret to the filesystem. |
+| <code><a href="#shady-island.configuration.ShellCommands.mountElasticFileSystem">mountElasticFileSystem</a></code> | Gets the command to mount an EFS filesystem to a destination path. |
+| <code><a href="#shady-island.configuration.ShellCommands.outputFile">outputFile</a></code> | Writes the literal contents of a string to a destination file. |
+| <code><a href="#shady-island.configuration.ShellCommands.syncFromBucket">syncFromBucket</a></code> | Gets commands to synchronize objects from an S3 bucket to the filesystem. |
+
+---
+
+##### `addDirectory` <a name="addDirectory" id="shady-island.configuration.ShellCommands.addDirectory"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+configuration.ShellCommands.addDirectory(name: string, options?: AddDirectoryOptions)
+```
+
+Uses either `mkdir` or `install` to create a directory.
+
+###### `name`<sup>Required</sup> <a name="name" id="shady-island.configuration.ShellCommands.addDirectory.parameter.name"></a>
+
+- *Type:* string
+
+The name of the directory to create.
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="shady-island.configuration.ShellCommands.addDirectory.parameter.options"></a>
+
+- *Type:* shady-island.configuration.AddDirectoryOptions
+
+Configuration options.
+
+---
+
+##### `changeOwnership` <a name="changeOwnership" id="shady-island.configuration.ShellCommands.changeOwnership"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+configuration.ShellCommands.changeOwnership(filename: string, uid?: string, gid?: string)
+```
+
+Gets a command to change the ownership and/or group membership of a file.
+
+If both `uid` and `gid` are provided, this method returns a single
+`chown` command to set both values. If just `uid` is provided, this method
+returns a single `chown` command that sets the owner. If just `gid` is
+provided, this method returns a single `chgrp` command. If neither are
+provided, this method returns an empty array.
+
+###### `filename`<sup>Required</sup> <a name="filename" id="shady-island.configuration.ShellCommands.changeOwnership.parameter.filename"></a>
+
+- *Type:* string
+
+The local filesystem path to the file or directory.
+
+---
+
+###### `uid`<sup>Optional</sup> <a name="uid" id="shady-island.configuration.ShellCommands.changeOwnership.parameter.uid"></a>
+
+- *Type:* string
+
+Optional.
+
+The owner username or uid.
+
+---
+
+###### `gid`<sup>Optional</sup> <a name="gid" id="shady-island.configuration.ShellCommands.changeOwnership.parameter.gid"></a>
+
+- *Type:* string
+
+Optional.
+
+The group name or gid.
+
+---
+
+##### `disableUnattendedUpgrades` <a name="disableUnattendedUpgrades" id="shady-island.configuration.ShellCommands.disableUnattendedUpgrades"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+configuration.ShellCommands.disableUnattendedUpgrades()
+```
+
+Gets a command to disable unattended package upgrades on Debian/Ubuntu.
+
+##### `downloadSecret` <a name="downloadSecret" id="shady-island.configuration.ShellCommands.downloadSecret"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+configuration.ShellCommands.downloadSecret(secret: ISecret, destination: string)
+```
+
+Gets the command to download a Secrets Manager secret to the filesystem.
+
+Be sure to grant your autoscaling group or EC2 instance read access.
+
+###### `secret`<sup>Required</sup> <a name="secret" id="shady-island.configuration.ShellCommands.downloadSecret.parameter.secret"></a>
+
+- *Type:* aws-cdk-lib.aws_secretsmanager.ISecret
+
+The secret to download.
+
+---
+
+###### `destination`<sup>Required</sup> <a name="destination" id="shady-island.configuration.ShellCommands.downloadSecret.parameter.destination"></a>
+
+- *Type:* string
+
+The local filesystem path where the secret is stored.
+
+---
+
+##### `mountElasticFileSystem` <a name="mountElasticFileSystem" id="shady-island.configuration.ShellCommands.mountElasticFileSystem"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+configuration.ShellCommands.mountElasticFileSystem(filesystem: IFileSystem, destination: string)
+```
+
+Gets the command to mount an EFS filesystem to a destination path.
+
+Be sure to grant your autoscaling group or EC2 instance network access.
+
+###### `filesystem`<sup>Required</sup> <a name="filesystem" id="shady-island.configuration.ShellCommands.mountElasticFileSystem.parameter.filesystem"></a>
+
+- *Type:* aws-cdk-lib.aws_efs.IFileSystem
+
+The EFS filesystem.
+
+---
+
+###### `destination`<sup>Required</sup> <a name="destination" id="shady-island.configuration.ShellCommands.mountElasticFileSystem.parameter.destination"></a>
+
+- *Type:* string
+
+The local filesystem path for the mount point.
+
+---
+
+##### `outputFile` <a name="outputFile" id="shady-island.configuration.ShellCommands.outputFile"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+configuration.ShellCommands.outputFile(contents: string, destination: string, options?: OutputFileOptions)
+```
+
+Writes the literal contents of a string to a destination file.
+
+###### `contents`<sup>Required</sup> <a name="contents" id="shady-island.configuration.ShellCommands.outputFile.parameter.contents"></a>
+
+- *Type:* string
+
+The file contents.
+
+---
+
+###### `destination`<sup>Required</sup> <a name="destination" id="shady-island.configuration.ShellCommands.outputFile.parameter.destination"></a>
+
+- *Type:* string
+
+The filename to output.
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="shady-island.configuration.ShellCommands.outputFile.parameter.options"></a>
+
+- *Type:* shady-island.configuration.OutputFileOptions
+
+Configuration options.
+
+---
+
+##### `syncFromBucket` <a name="syncFromBucket" id="shady-island.configuration.ShellCommands.syncFromBucket"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+configuration.ShellCommands.syncFromBucket(bucket: IBucket, destinations: {[ key: string ]: string})
+```
+
+Gets commands to synchronize objects from an S3 bucket to the filesystem.
+
+e.g. `syncFromBucket(bucket, {"nginx-config": "/etc/nginx"})`.
+
+Be sure to grant your autoscaling group or EC2 instance read access.
+
+###### `bucket`<sup>Required</sup> <a name="bucket" id="shady-island.configuration.ShellCommands.syncFromBucket.parameter.bucket"></a>
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+The source bucket.
+
+---
+
+###### `destinations`<sup>Required</sup> <a name="destinations" id="shady-island.configuration.ShellCommands.syncFromBucket.parameter.destinations"></a>
+
+- *Type:* {[ key: string ]: string}
+
+Record with S3 object keys to filesystem path values.
 
 ---
 
