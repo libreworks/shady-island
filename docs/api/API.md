@@ -9227,6 +9227,120 @@ class MyWorkload extends Workload {
 
 ## Classes <a name="Classes" id="Classes"></a>
 
+### Address <a name="Address" id="shady-island.networking.Address"></a>
+
+An IPv4 or IPv6 address (or range of addresses).
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.Address.isAny">isAny</a></code> | Whether this address represents everything in the addressing space. |
+| <code><a href="#shady-island.networking.Address.isIpv4">isIpv4</a></code> | Whether this address is an IPv4 address. |
+| <code><a href="#shady-island.networking.Address.isIpv6">isIpv6</a></code> | Whether this address is an IPv6 address. |
+| <code><a href="#shady-island.networking.Address.toString">toString</a></code> | *No description.* |
+
+---
+
+##### `isAny` <a name="isAny" id="shady-island.networking.Address.isAny"></a>
+
+```typescript
+public isAny(): boolean
+```
+
+Whether this address represents everything in the addressing space.
+
+##### `isIpv4` <a name="isIpv4" id="shady-island.networking.Address.isIpv4"></a>
+
+```typescript
+public isIpv4(): boolean
+```
+
+Whether this address is an IPv4 address.
+
+##### `isIpv6` <a name="isIpv6" id="shady-island.networking.Address.isIpv6"></a>
+
+```typescript
+public isIpv6(): boolean
+```
+
+Whether this address is an IPv6 address.
+
+##### `toString` <a name="toString" id="shady-island.networking.Address.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.Address.anyIpv4">anyIpv4</a></code> | Creates an address that represents the entire IPv4 addressing space. |
+| <code><a href="#shady-island.networking.Address.anyIpv6">anyIpv6</a></code> | Creates an address that represents the entire IPv4 addressing space. |
+| <code><a href="#shady-island.networking.Address.ipv4">ipv4</a></code> | Creates an IPv4 network address (either a single address or a range). |
+| <code><a href="#shady-island.networking.Address.ipv6">ipv6</a></code> | Creates an IPv6 network address (either a single address or a range). |
+
+---
+
+##### `anyIpv4` <a name="anyIpv4" id="shady-island.networking.Address.anyIpv4"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.Address.anyIpv4()
+```
+
+Creates an address that represents the entire IPv4 addressing space.
+
+##### `anyIpv6` <a name="anyIpv6" id="shady-island.networking.Address.anyIpv6"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.Address.anyIpv6()
+```
+
+Creates an address that represents the entire IPv4 addressing space.
+
+##### `ipv4` <a name="ipv4" id="shady-island.networking.Address.ipv4"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.Address.ipv4(address: string)
+```
+
+Creates an IPv4 network address (either a single address or a range).
+
+###### `address`<sup>Required</sup> <a name="address" id="shady-island.networking.Address.ipv4.parameter.address"></a>
+
+- *Type:* string
+
+The IP address (with optional netmask).
+
+---
+
+##### `ipv6` <a name="ipv6" id="shady-island.networking.Address.ipv6"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.Address.ipv6(address: string)
+```
+
+Creates an IPv6 network address (either a single address or a range).
+
+###### `address`<sup>Required</sup> <a name="address" id="shady-island.networking.Address.ipv6.parameter.address"></a>
+
+- *Type:* string
+
+The IP address (with optional prefix length).
+
+---
+
+
+
 ### AddressingV4 <a name="AddressingV4" id="shady-island.networking.AddressingV4"></a>
 
 Used to assign IPv4 addresses to a Network Interface.
@@ -9566,6 +9680,44 @@ The JSON file with an object to use as context values.
 The constructs node to receive the context values.
 
 ---
+
+
+
+### InstanceFirewall <a name="InstanceFirewall" id="shady-island.configuration.InstanceFirewall"></a>
+
+Produces the appropriate commands to configure an on-instance firewall.
+
+#### Initializers <a name="Initializers" id="shady-island.configuration.InstanceFirewall.Initializer"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+new configuration.InstanceFirewall()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.configuration.InstanceFirewall.iptables">iptables</a></code> | Define an instance firewall using iptables/ip6tables. |
+
+---
+
+##### `iptables` <a name="iptables" id="shady-island.configuration.InstanceFirewall.iptables"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+configuration.InstanceFirewall.iptables()
+```
+
+Define an instance firewall using iptables/ip6tables.
 
 
 
@@ -10773,6 +10925,85 @@ public readonly taskDefinition: FargateTaskDefinition;
 The task definition that can be launched.
 
 ---
+
+### IFirewallRules <a name="IFirewallRules" id="shady-island.configuration.IFirewallRules"></a>
+
+- *Implemented By:* shady-island.configuration.IFirewallRules
+
+Used to configure on-instance firewall rules (e.g. iptables, firewalld).
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.configuration.IFirewallRules.buildCommands">buildCommands</a></code> | Retrieves the shell commands used to configure the instance firewall. |
+| <code><a href="#shady-island.configuration.IFirewallRules.inbound">inbound</a></code> | Declare an inbound rule. |
+| <code><a href="#shady-island.configuration.IFirewallRules.outbound">outbound</a></code> | Declare an outbound rule. |
+
+---
+
+##### `buildCommands` <a name="buildCommands" id="shady-island.configuration.IFirewallRules.buildCommands"></a>
+
+```typescript
+public buildCommands(): string[]
+```
+
+Retrieves the shell commands used to configure the instance firewall.
+
+##### `inbound` <a name="inbound" id="shady-island.configuration.IFirewallRules.inbound"></a>
+
+```typescript
+public inbound(port: Port, address?: Address): IFirewallRules
+```
+
+Declare an inbound rule.
+
+Only the following protocols are allowed: TCP, UDP, ICMP, and ICMPv6. The
+address can be a single address or a range of addresses in CIDR notation.
+
+###### `port`<sup>Required</sup> <a name="port" id="shady-island.configuration.IFirewallRules.inbound.parameter.port"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.Port
+
+The ingress port.
+
+---
+
+###### `address`<sup>Optional</sup> <a name="address" id="shady-island.configuration.IFirewallRules.inbound.parameter.address"></a>
+
+- *Type:* shady-island.networking.Address
+
+The source address (default: all IPv4 addresses).
+
+---
+
+##### `outbound` <a name="outbound" id="shady-island.configuration.IFirewallRules.outbound"></a>
+
+```typescript
+public outbound(port: Port, address?: Address): IFirewallRules
+```
+
+Declare an outbound rule.
+
+Only the following protocols are allowed: TCP, UDP, ICMP, and ICMPv6. The
+address can be a single address or a range of addresses in CIDR notation.
+
+###### `port`<sup>Required</sup> <a name="port" id="shady-island.configuration.IFirewallRules.outbound.parameter.port"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.Port
+
+The egress port.
+
+---
+
+###### `address`<sup>Optional</sup> <a name="address" id="shady-island.configuration.IFirewallRules.outbound.parameter.address"></a>
+
+- *Type:* shady-island.networking.Address
+
+The target address (default: all IPv4 addresses).
+
+---
+
 
 ### INetworkInterface <a name="INetworkInterface" id="shady-island.networking.INetworkInterface"></a>
 
