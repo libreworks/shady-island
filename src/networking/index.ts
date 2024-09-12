@@ -1,3 +1,4 @@
+export * from "./address";
 export * from "./elastic-ip";
 export * from "./network-interface";
 export * from "./load-balancing";
