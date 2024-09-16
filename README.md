@@ -18,7 +18,7 @@ Utilities and constructs for the AWS CDK.
 
 ## Documentation
 
-- [TypeScript API Reference](https://libreworks.github.io/shady-island/api/API.html)
+- [TypeScript API Reference](https://libreworks.github.io/shady-island/api/)
 
 ## The Name
 

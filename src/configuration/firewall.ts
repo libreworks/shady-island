@@ -13,10 +13,30 @@ export interface IFirewallRules {
    * address can be a single address or a range of addresses in CIDR notation.
    *
    * @param port - The ingress port
-   * @param address - The source address (default: all IPv4 addresses)
+   * @param address - The source address
    * @returns provides a fluent interface
    */
-  inbound(port: Port, address?: Address): this;
+  inbound(port: Port, address: Address): this;
+
+  /**
+   * Declare an inbound rule that covers all IPv4 addresses.
+   *
+   * Only the following protocols are allowed: TCP, UDP, ICMP, and ICMPv6.
+   *
+   * @param port - The ingress port
+   * @returns provides a fluent interface
+   */
+  inboundFromAnyIpv4(port: Port): this;
+
+  /**
+   * Declare an inbound rule that covers all IPv6 addresses.
+   *
+   * Only the following protocols are allowed: TCP, UDP, ICMP, and ICMPv6.
+   *
+   * @param port - The ingress port
+   * @returns provides a fluent interface
+   */
+  inboundFromAnyIpv6(port: Port): this;
 
   /**
    * Declare an outbound rule.
@@ -25,10 +45,30 @@ export interface IFirewallRules {
    * address can be a single address or a range of addresses in CIDR notation.
    *
    * @param port - The egress port
-   * @param address - The target address (default: all IPv4 addresses)
+   * @param address - The target address
    * @returns provides a fluent interface
    */
-  outbound(port: Port, address?: Address): this;
+  outbound(port: Port, address: Address): this;
+
+  /**
+   * Declare an outbound rule that covers all IPv4 addresses.
+   *
+   * Only the following protocols are allowed: TCP, UDP, and ICMP.
+   *
+   * @param port - The egress port
+   * @returns provides a fluent interface
+   */
+  outboundToAnyIpv4(port: Port): this;
+
+  /**
+   * Declare an outbound rule that covers all IPv6 addresses.
+   *
+   * Only the following protocols are allowed: TCP, UDP, and ICMPv6.
+   *
+   * @param port - The egress port
+   * @returns provides a fluent interface
+   */
+  outboundToAnyIpv6(port: Port): this;
 
   /**
    * Retrieves the shell commands used to configure the instance firewall.
@@ -63,26 +103,21 @@ class IptablesRules implements IFirewallRules {
     this.#hasIpv6 = false;
   }
 
-  public inbound(port: Port, address?: Address) {
+  public inbound(port: Port, address: Address) {
     const portJson = port.toRuleJson() as PortRuleJson;
     this.validateProtocol(portJson.ipProtocol);
 
-    const source =
-      address ??
-      (portJson.ipProtocol === Protocol.ICMPV6
-        ? Address.anyIpv6()
-        : Address.anyIpv4());
-    if (source.isIpv4()) {
+    if (address.isIpv4()) {
       this.#hasIpv4 = true;
     }
-    if (source.isIpv6()) {
+    if (address.isIpv6()) {
       this.#hasIpv6 = true;
     }
 
-    const ruleKey = `${source}|${portJson.ipProtocol}`;
+    const ruleKey = `${address}|${portJson.ipProtocol}`;
     if (!this.#inboundRules.has(ruleKey)) {
       this.#inboundRules.set(ruleKey, {
-        address: source,
+        address,
         protocol: portJson.ipProtocol,
         ports: new Map(),
       });
@@ -96,26 +131,29 @@ class IptablesRules implements IFirewallRules {
     return this;
   }
 
-  public outbound(port: Port, address?: Address) {
+  public inboundFromAnyIpv4(port: Port) {
+    return this.inbound(port, Address.anyIpv4());
+  }
+
+  public inboundFromAnyIpv6(port: Port) {
+    return this.inbound(port, Address.anyIpv6());
+  }
+
+  public outbound(port: Port, address: Address) {
     const portJson = port.toRuleJson() as PortRuleJson;
     this.validateProtocol(portJson.ipProtocol);
 
-    const target =
-      address ??
-      (portJson.ipProtocol === Protocol.ICMPV6
-        ? Address.anyIpv6()
-        : Address.anyIpv4());
-    if (target.isIpv4()) {
+    if (address.isIpv4()) {
       this.#hasIpv4 = true;
     }
-    if (target.isIpv6()) {
+    if (address.isIpv6()) {
       this.#hasIpv6 = true;
     }
 
-    const ruleKey = `${target}|${portJson.ipProtocol}`;
+    const ruleKey = `${address}|${portJson.ipProtocol}`;
     if (!this.#outboundRules.has(ruleKey)) {
       this.#outboundRules.set(ruleKey, {
-        address: target,
+        address,
         protocol: portJson.ipProtocol,
         ports: new Map(),
       });
@@ -127,6 +165,14 @@ class IptablesRules implements IFirewallRules {
     }
 
     return this;
+  }
+
+  public outboundToAnyIpv4(port: Port) {
+    return this.outbound(port, Address.anyIpv4());
+  }
+
+  public outboundToAnyIpv6(port: Port) {
+    return this.outbound(port, Address.anyIpv6());
   }
 
   private validateProtocol(protocol: any) {
