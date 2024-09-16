@@ -5,6 +5,7 @@ import {
   InstanceType,
   LaunchTemplate,
   MachineImage,
+  Port,
   SecurityGroup,
   UserData,
   Vpc,
@@ -13,10 +14,12 @@ import { FileSystem } from "aws-cdk-lib/aws-efs";
 import { Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import {
+  InstanceFirewallAddOn,
   BucketSyncAddOn,
   ElasticFileSystemAddOn,
 } from "../../src/configuration/addons";
 import { ShellCommands } from "../../src/configuration/commands";
+import { InstanceFirewall } from "../../src/configuration/firewall";
 import { Starter } from "../../src/configuration/starter";
 
 describe("addons", () => {
@@ -39,6 +42,45 @@ describe("addons", () => {
     stack = undefined;
     // @ts-ignore: TS2322
     vpc = undefined;
+  });
+
+  describe("InstanceFirewallAddOn", () => {
+    let launchTemplate: LaunchTemplate;
+    let starter: Starter;
+
+    beforeEach(() => {
+      launchTemplate = new LaunchTemplate(stack, "Instance", {
+        userData: UserData.forLinux(),
+        instanceType,
+        machineImage,
+        securityGroup: new SecurityGroup(stack, "SG", { vpc }),
+        role: new Role(stack, "Role", {
+          assumedBy: new ServicePrincipal("ec2.amazonaws.com"),
+        }),
+      });
+      starter = Starter.forLaunchTemplate(launchTemplate);
+    });
+
+    afterEach(() => {
+      // @ts-ignore: TS2322
+      launchTemplate = undefined;
+      // @ts-ignore: TS2322
+      starter = undefined;
+    });
+
+    describe("#configure", () => {
+      test("behaves as expected", () => {
+        const firewall = InstanceFirewall.iptables().inboundFromAnyIpv4(
+          Port.icmpPing()
+        );
+        const obj = new InstanceFirewallAddOn(firewall);
+        const spy = jest.spyOn(obj, "configure");
+        starter.withAddOns(obj);
+        expect(starter.orderedLines).toStrictEqual(firewall.buildCommands());
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledWith(starter);
+      });
+    });
   });
 
   describe("ElasticFileSystemAddOn", () => {
@@ -100,6 +142,9 @@ describe("addons", () => {
         const destination = "/mnt/stuff";
         const obj = new ElasticFileSystemAddOn(filesystem, destination, {
           priority: 20,
+          chown: "www-data",
+          chgrp: "www-data",
+          chmod: 2775,
         });
         starter.withAddOns(obj);
         const template = Template.fromStack(stack);
@@ -113,7 +158,7 @@ describe("addons", () => {
                   { Ref: "FileSystem8A8E25C0" },
                   ".efs.",
                   { Ref: "AWS::Region" },
-                  '.amazonaws.com:/ "/mnt/stuff"',
+                  '.amazonaws.com:/ "/mnt/stuff"\nchmod 2775 "/mnt/stuff"\nchown www-data:www-data "/mnt/stuff"',
                 ],
               ],
             },

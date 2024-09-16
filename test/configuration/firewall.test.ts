@@ -8,16 +8,16 @@ describe("IptablesRules", () => {
       const obj = InstanceFirewall.iptables();
       const peer = Address.ipv4("10.12.0.13");
       obj
-        .inbound(Port.udp(68))
+        .inboundFromAnyIpv4(Port.udp(68))
         .inbound(Port.allIcmp(), peer)
-        .outbound(Port.tcp(53))
-        .outbound(Port.tcp(80))
-        .outbound(Port.tcp(443))
-        .outbound(Port.tcp(587))
-        .outbound(Port.udp(53))
-        .outbound(Port.udp(67))
-        .outbound(Port.udp(123))
-        .outbound(Port.icmpPing());
+        .outboundToAnyIpv4(Port.tcp(53))
+        .outboundToAnyIpv4(Port.tcp(80))
+        .outboundToAnyIpv4(Port.tcp(443))
+        .outboundToAnyIpv4(Port.tcp(587))
+        .outboundToAnyIpv4(Port.udp(53))
+        .outboundToAnyIpv4(Port.udp(67))
+        .outboundToAnyIpv4(Port.udp(123))
+        .outboundToAnyIpv4(Port.icmpPing());
       const actual = obj.buildCommands();
       expect(actual).toStrictEqual([
         "iptables -A INPUT -i lo -j ACCEPT",
@@ -70,7 +70,7 @@ describe("IptablesRules", () => {
       const portNumbers = Array.from(new Array(20), (_, i) => i);
       portNumbers.shift();
 
-      portNumbers.forEach((n) => obj.outbound(Port.tcp(n)));
+      portNumbers.forEach((n) => obj.outboundToAnyIpv4(Port.tcp(n)));
 
       const actual = obj.buildCommands();
       expect(actual).toStrictEqual([
@@ -88,15 +88,15 @@ describe("IptablesRules", () => {
 
     test("behaves as expected with IPv4", () => {
       const obj = InstanceFirewall.iptables();
-      obj.inbound(Port.udp(68));
-      obj.outbound(Port.tcp(53));
-      obj.outbound(Port.tcp(80));
-      obj.outbound(Port.tcp(443));
-      obj.outbound(Port.tcp(587));
-      obj.outbound(Port.udp(53));
-      obj.outbound(Port.udp(67));
-      obj.outbound(Port.udp(123));
-      obj.outbound(Port.icmpPing());
+      obj.inboundFromAnyIpv4(Port.udp(68));
+      obj.outboundToAnyIpv4(Port.tcp(53));
+      obj.outboundToAnyIpv4(Port.tcp(80));
+      obj.outboundToAnyIpv4(Port.tcp(443));
+      obj.outboundToAnyIpv4(Port.tcp(587));
+      obj.outboundToAnyIpv4(Port.udp(53));
+      obj.outboundToAnyIpv4(Port.udp(67));
+      obj.outboundToAnyIpv4(Port.udp(123));
+      obj.outboundToAnyIpv4(Port.icmpPing());
       const actual = obj.buildCommands();
       expect(actual).toStrictEqual([
         "iptables -A INPUT -i lo -j ACCEPT",
@@ -124,7 +124,7 @@ describe("IptablesRules", () => {
       obj.outbound(Port.udp(53), peer);
       obj.outbound(Port.udp(67), peer);
       obj.outbound(Port.udp(123), peer);
-      obj.outbound(Port.allIcmpV6());
+      obj.outboundToAnyIpv6(Port.allIcmpV6());
       const actual = obj.buildCommands();
       expect(actual).toStrictEqual([
         "ip6tables -A INPUT -i lo -j ACCEPT",
@@ -143,17 +143,17 @@ describe("IptablesRules", () => {
 
     test("behaves as expected with both IPv4 and IPv6", () => {
       const obj = InstanceFirewall.iptables();
-      obj.inbound(Port.udp(68));
-      obj.outbound(Port.tcp(53));
-      obj.outbound(Port.tcp(80));
-      obj.outbound(Port.tcp(443));
-      obj.outbound(Port.tcp(587));
-      obj.outbound(Port.udp(53));
-      obj.outbound(Port.udp(67));
-      obj.outbound(Port.udp(123));
-      obj.outbound(Port.allIcmp());
+      obj.inboundFromAnyIpv4(Port.udp(68));
+      obj.outboundToAnyIpv4(Port.tcp(53));
+      obj.outboundToAnyIpv4(Port.tcp(80));
+      obj.outboundToAnyIpv4(Port.tcp(443));
+      obj.outboundToAnyIpv4(Port.tcp(587));
+      obj.outboundToAnyIpv4(Port.udp(53));
+      obj.outboundToAnyIpv4(Port.udp(67));
+      obj.outboundToAnyIpv4(Port.udp(123));
+      obj.outboundToAnyIpv4(Port.allIcmp());
       const peer = Address.anyIpv6();
-      obj.inbound(Port.allIcmpV6());
+      obj.inboundFromAnyIpv6(Port.allIcmpV6());
       obj.inbound(Port.udp(68), peer);
       obj.outbound(Port.tcp(53), peer);
       obj.outbound(Port.tcp(80), peer);
@@ -193,7 +193,7 @@ describe("IptablesRules", () => {
 
     test("throws exception for unsupported protocol", () => {
       const obj = InstanceFirewall.iptables();
-      expect(() => obj.inbound(Port.esp())).toThrowError({
+      expect(() => obj.inboundFromAnyIpv4(Port.esp())).toThrowError({
         name: "Error",
         message: `iptables does not support rules for the protocol: 50`,
       });

@@ -1,6 +1,7 @@
 import type { IFileSystem } from "aws-cdk-lib/aws-efs";
 import type { IBucket } from "aws-cdk-lib/aws-s3";
 import { ShellCommands } from "./commands";
+import type { IFirewallRules } from "./firewall";
 import { IStarterAddOn, Starter } from "./starter";
 
 /**
@@ -16,6 +17,26 @@ export interface SinglePriorityProps {
 }
 
 /**
+ * An add-on that configures an on-instance firewall.
+ */
+export class InstanceFirewallAddOn implements IStarterAddOn {
+  /**
+   * An add-on that configures an on-instance firewall.
+   *
+   * @param rules - The instance firewall rules
+   * @param props - Optional configuration properties
+   */
+  public constructor(
+    private readonly rules: IFirewallRules,
+    private readonly props?: SinglePriorityProps
+  ) {}
+
+  public configure(starter: Starter): void {
+    starter.addScript(this.props?.priority ?? 0, ...this.rules.buildCommands());
+  }
+}
+
+/**
  * An add-on that synchronizes files from S3 to directories on the instance.
  *
  * This add-on also grants read access to the bucket.
@@ -28,6 +49,7 @@ export class BucketSyncAddOn implements IStarterAddOn {
    *
    * @param bucket - The S3 bucket from which files can be downloaded
    * @param destinations - An object where keys are S3 object key prefixes and values are filesystem directories
+   * @param props - Optional configuration properties
    */
   public constructor(
     private readonly bucket: IBucket,
@@ -80,6 +102,20 @@ export interface ElasticFileSystemAddOnProps extends SinglePriorityProps {
  * This visitor also configures the Security Groups on both ends.
  */
 export class ElasticFileSystemAddOn implements IStarterAddOn {
+  /**
+   * An add-on that configures a mount point for an EFS filesystem.
+   *
+   * This add-on will produce a startup script to:
+   * - Create the mount directory
+   * - Mount the NFS filesystem to the mount point
+   * - Optionally change the mode or ownership of the mount point
+   *
+   * This visitor also configures the Security Groups on both ends.
+   *
+   * @param filesystem - The elastic filesystem to mount
+   * @param destination - The directory to use as the mount point
+   * @param props - Optional configuration properties
+   */
   public constructor(
     private readonly filesystem: IFileSystem,
     private readonly destination: string,

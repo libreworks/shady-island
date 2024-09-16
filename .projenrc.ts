@@ -70,6 +70,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 });
 
+const docgenTask = project.tasks.tryFind("docgen");
+if (docgenTask) {
+  docgenTask.reset(
+    "jsii-docgen .jsii -o docs/api/README.md --split-by-submodule"
+  );
+}
+
 const pythonHandlersTask = project.addTask("python-handlers", {
   steps: [
     { exec: "mkdir -p assets/automation" },

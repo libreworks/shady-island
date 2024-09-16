@@ -18,7 +18,7 @@ For your reading pleasure.
 
 ### API
 
-- [TypeScript API Reference](api/API.md)
+- [TypeScript API Reference](api/)
 
 ## The Name
 
