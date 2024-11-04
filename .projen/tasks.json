@@ -347,7 +347,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-sdk/client-secrets-manager,@libreworks/db-provision-pgsql,@types/aws-lambda,@types/jest,@types/pg,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,jsii-diff,jsii-pacmak,mysql2,pg,prettier,projen,ts-jest,ts-node,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@aws-sdk/client-secrets-manager,@libreworks/db-provision-pgsql,@types/aws-lambda,@types/jest,@types/node,@types/pg,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,jsii-diff,jsii-pacmak,mysql2,pg,prettier,projen,ts-jest,ts-node,typescript"
         },
         {
           "exec": "yarn install --check-files"
