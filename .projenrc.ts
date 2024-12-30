@@ -1,4 +1,4 @@
-import { awscdk, javascript } from "projen";
+import { awscdk, github, javascript } from "projen";
 
 const handlerLibs = ["@libreworks/db-provision-pgsql", "mysql2", "pg"];
 
@@ -25,6 +25,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   defaultReleaseBranch: "main",
   githubOptions: {
+    projenCredentials: github.GithubCredentials.fromApp({}),
     pullRequestLintOptions: {
       semanticTitleOptions: {
         types: ["feat", "fix", "chore", "docs"],
@@ -41,9 +42,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   cdkVersion: "2.128.0",
   majorVersion: 0,
-  jsiiVersion: "~5.4.0",
+  jsiiVersion: "~5.5.0",
 
-  projenTokenSecret: "PROJEN_GITHUB_TOKEN",
   autoApproveOptions: {
     // Anyone with write access to this repository can have auto-approval.
     allowedUsernames: [],
