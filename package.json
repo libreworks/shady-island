@@ -41,7 +41,7 @@
     "organization": true
   },
   "devDependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.726.1",
+    "@aws-sdk/client-secrets-manager": "^3.731.1",
     "@libreworks/db-provision-pgsql": "^0.0.36",
     "@types/aws-lambda": "^8.10.147",
     "@types/jest": "^27",
