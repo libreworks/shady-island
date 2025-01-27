@@ -41,12 +41,12 @@
     "organization": true
   },
   "devDependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.731.1",
+    "@aws-sdk/client-secrets-manager": "^3.734.0",
     "@libreworks/db-provision-pgsql": "^0.0.36",
     "@types/aws-lambda": "^8.10.147",
     "@types/jest": "^27",
     "@types/node": "^18",
-    "@types/pg": "^8.11.10",
+    "@types/pg": "^8.11.11",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
     "aws-cdk-lib": "2.128.0",
