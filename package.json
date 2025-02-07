@@ -41,7 +41,7 @@
     "organization": true
   },
   "devDependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.738.0",
+    "@aws-sdk/client-secrets-manager": "^3.743.0",
     "@libreworks/db-provision-pgsql": "^0.0.36",
     "@types/aws-lambda": "^8.10.147",
     "@types/jest": "^27",
@@ -68,7 +68,7 @@
     "mysql2": "^3.12.0",
     "pg": "^8.13.1",
     "prettier": "^2.8.8",
-    "projen": "^0.91.7",
+    "projen": "^0.91.8",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
