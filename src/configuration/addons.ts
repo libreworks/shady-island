@@ -1,3 +1,4 @@
+import { Lazy } from "aws-cdk-lib";
 import type { IFileSystem } from "aws-cdk-lib/aws-efs";
 import type { IBucket } from "aws-cdk-lib/aws-s3";
 import { ShellCommands } from "./commands";
@@ -32,7 +33,10 @@ export class InstanceFirewallAddOn implements IStarterAddOn {
   ) {}
 
   public configure(starter: Starter): void {
-    starter.addScript(this.props?.priority ?? 0, ...this.rules.buildCommands());
+    starter.addScript(
+      this.props?.priority ?? 0,
+      Lazy.string({ produce: () => this.rules.buildCommands().join("\n") })
+    );
   }
 }
 
