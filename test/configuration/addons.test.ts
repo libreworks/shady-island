@@ -1,4 +1,4 @@
-import { App, Stack } from "aws-cdk-lib";
+import { App, Token, Stack } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import {
   Instance,
@@ -76,9 +76,28 @@ describe("addons", () => {
         const obj = new InstanceFirewallAddOn(firewall);
         const spy = jest.spyOn(obj, "configure");
         starter.withAddOns(obj);
-        expect(starter.orderedLines).toStrictEqual(firewall.buildCommands());
+        expect(Token.isUnresolved(firewall.buildCommands()));
         expect(spy).toHaveBeenCalledTimes(1);
         expect(spy).toHaveBeenCalledWith(starter);
+      });
+
+      test("synthesizes as expected", () => {
+        const firewall = InstanceFirewall.iptables().inboundFromAnyIpv4(
+          Port.icmpPing()
+        );
+        const obj = new InstanceFirewallAddOn(firewall, { priority: -1 });
+        starter.withAddOns(obj);
+
+        const template = Template.fromStack(stack);
+        template.hasResourceProperties("AWS::EC2::LaunchTemplate", {
+          LaunchTemplateData: {
+            UserData: {
+              "Fn::Base64": `#!/bin/bash\n${firewall
+                .buildCommands()
+                .join("\n")}`,
+            },
+          },
+        });
       });
     });
   });
