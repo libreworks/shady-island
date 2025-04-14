@@ -41,12 +41,12 @@
     "organization": true
   },
   "devDependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.782.0",
+    "@aws-sdk/client-secrets-manager": "^3.787.0",
     "@libreworks/db-provision-pgsql": "^0.0.36",
-    "@types/aws-lambda": "^8.10.148",
+    "@types/aws-lambda": "^8.10.149",
     "@types/jest": "^27",
     "@types/node": "^18",
-    "@types/pg": "^8.11.11",
+    "@types/pg": "^8.11.12",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
     "aws-cdk-lib": "2.128.0",
@@ -69,7 +69,7 @@
     "pg": "^8.14.1",
     "prettier": "^2.8.8",
     "projen": "^0.91.20",
-    "ts-jest": "^29.3.1",
+    "ts-jest": "^29.3.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
