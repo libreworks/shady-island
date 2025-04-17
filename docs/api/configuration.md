@@ -216,6 +216,67 @@ The priority for the script added by this add-on.
 
 ---
 
+### UpdateRoute53AddOnProps <a name="UpdateRoute53AddOnProps" id="shady-island.configuration.UpdateRoute53AddOnProps"></a>
+
+Constructor properties for UpdateRoute53AddOn.
+
+#### Initializer <a name="Initializer" id="shady-island.configuration.UpdateRoute53AddOnProps.Initializer"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+const updateRoute53AddOnProps: configuration.UpdateRoute53AddOnProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.configuration.UpdateRoute53AddOnProps.property.priority">priority</a></code> | <code>number</code> | The priority for the script added by this add-on. |
+| <code><a href="#shady-island.configuration.UpdateRoute53AddOnProps.property.ipv4">ipv4</a></code> | <code>boolean</code> | Whether to create/update an "A" record for the instance. |
+| <code><a href="#shady-island.configuration.UpdateRoute53AddOnProps.property.ipv6">ipv6</a></code> | <code>boolean</code> | Whether to create/update an "AAAA" record for the instance. |
+
+---
+
+##### `priority`<sup>Optional</sup> <a name="priority" id="shady-island.configuration.UpdateRoute53AddOnProps.property.priority"></a>
+
+```typescript
+public readonly priority: number;
+```
+
+- *Type:* number
+- *Default:* 10
+
+The priority for the script added by this add-on.
+
+---
+
+##### `ipv4`<sup>Optional</sup> <a name="ipv4" id="shady-island.configuration.UpdateRoute53AddOnProps.property.ipv4"></a>
+
+```typescript
+public readonly ipv4: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Whether to create/update an "A" record for the instance.
+
+---
+
+##### `ipv6`<sup>Optional</sup> <a name="ipv6" id="shady-island.configuration.UpdateRoute53AddOnProps.property.ipv6"></a>
+
+```typescript
+public readonly ipv6: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to create/update an "AAAA" record for the instance.
+
+---
+
 ## Classes <a name="Classes" id="Classes"></a>
 
 ### BucketSyncAddOn <a name="BucketSyncAddOn" id="shady-island.configuration.BucketSyncAddOn"></a>
@@ -878,6 +939,79 @@ All lines of the startup script in priority order.
 ---
 
 
+### UpdateRoute53AddOn <a name="UpdateRoute53AddOn" id="shady-island.configuration.UpdateRoute53AddOn"></a>
+
+- *Implements:* <a href="#shady-island.configuration.IStarterAddOn">IStarterAddOn</a>
+
+An add-on that updates Route 53 with instance public-facing IP addresses.
+
+This add-on also configures the necessary IAM policy.
+
+#### Initializers <a name="Initializers" id="shady-island.configuration.UpdateRoute53AddOn.Initializer"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+new configuration.UpdateRoute53AddOn(zone: IHostedZone, subdomain: string, props?: UpdateRoute53AddOnProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.configuration.UpdateRoute53AddOn.Initializer.parameter.zone">zone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | - The Route 53 hosted zone. |
+| <code><a href="#shady-island.configuration.UpdateRoute53AddOn.Initializer.parameter.subdomain">subdomain</a></code> | <code>string</code> | - The subdomain of the DNS record. |
+| <code><a href="#shady-island.configuration.UpdateRoute53AddOn.Initializer.parameter.props">props</a></code> | <code><a href="#shady-island.configuration.UpdateRoute53AddOnProps">UpdateRoute53AddOnProps</a></code> | - Optional configuration properties. |
+
+---
+
+##### `zone`<sup>Required</sup> <a name="zone" id="shady-island.configuration.UpdateRoute53AddOn.Initializer.parameter.zone"></a>
+
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
+
+The Route 53 hosted zone.
+
+---
+
+##### `subdomain`<sup>Required</sup> <a name="subdomain" id="shady-island.configuration.UpdateRoute53AddOn.Initializer.parameter.subdomain"></a>
+
+- *Type:* string
+
+The subdomain of the DNS record.
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="shady-island.configuration.UpdateRoute53AddOn.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#shady-island.configuration.UpdateRoute53AddOnProps">UpdateRoute53AddOnProps</a>
+
+Optional configuration properties.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.configuration.UpdateRoute53AddOn.configure">configure</a></code> | Any configuration or customization of the virtual machine takes place here. |
+
+---
+
+##### `configure` <a name="configure" id="shady-island.configuration.UpdateRoute53AddOn.configure"></a>
+
+```typescript
+public configure(starter: Starter): void
+```
+
+Any configuration or customization of the virtual machine takes place here.
+
+###### `starter`<sup>Required</sup> <a name="starter" id="shady-island.configuration.UpdateRoute53AddOn.configure.parameter.starter"></a>
+
+- *Type:* <a href="#shady-island.configuration.Starter">Starter</a>
+
+---
+
+
+
+
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
 ### IFirewallRules <a name="IFirewallRules" id="shady-island.configuration.IFirewallRules"></a>
@@ -1037,7 +1171,7 @@ The egress port.
 
 ### IStarterAddOn <a name="IStarterAddOn" id="shady-island.configuration.IStarterAddOn"></a>
 
-- *Implemented By:* <a href="#shady-island.configuration.BucketSyncAddOn">BucketSyncAddOn</a>, <a href="#shady-island.configuration.ElasticFileSystemAddOn">ElasticFileSystemAddOn</a>, <a href="#shady-island.configuration.InstanceFirewallAddOn">InstanceFirewallAddOn</a>, <a href="#shady-island.configuration.IStarterAddOn">IStarterAddOn</a>
+- *Implemented By:* <a href="#shady-island.configuration.BucketSyncAddOn">BucketSyncAddOn</a>, <a href="#shady-island.configuration.ElasticFileSystemAddOn">ElasticFileSystemAddOn</a>, <a href="#shady-island.configuration.InstanceFirewallAddOn">InstanceFirewallAddOn</a>, <a href="#shady-island.configuration.UpdateRoute53AddOn">UpdateRoute53AddOn</a>, <a href="#shady-island.configuration.IStarterAddOn">IStarterAddOn</a>
 
 A component involved in the startup process of an EC2 instance.
 

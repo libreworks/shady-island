@@ -42,7 +42,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   cdkVersion: "2.128.0",
   majorVersion: 0,
-  jsiiVersion: "~5.5.0",
+  jsiiVersion: "~5.8.0",
 
   autoApproveOptions: {
     // Anyone with write access to this repository can have auto-approval.

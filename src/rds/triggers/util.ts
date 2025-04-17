@@ -26,7 +26,7 @@ export async function fetchSecret<T = Record<string, any>>(
   const output = await client.send(
     new GetSecretValueCommand({ SecretId: arn })
   );
-  return output.SecretString ? JSON.parse(output.SecretString) : {};
+  return output.SecretString ? JSON.parse(output.SecretString) : ({} as T);
 }
 
 export async function fetchAllSecrets<T = Record<string, any>>(

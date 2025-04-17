@@ -12,11 +12,13 @@ import {
 } from "aws-cdk-lib/aws-ec2";
 import { FileSystem } from "aws-cdk-lib/aws-efs";
 import { Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
+import { HostedZone } from "aws-cdk-lib/aws-route53";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import {
   InstanceFirewallAddOn,
   BucketSyncAddOn,
   ElasticFileSystemAddOn,
+  UpdateRoute53AddOn,
 } from "../../src/configuration/addons";
 import { ShellCommands } from "../../src/configuration/commands";
 import { InstanceFirewall } from "../../src/configuration/firewall";
@@ -204,6 +206,178 @@ describe("addons", () => {
             "Fn::GetAtt": ["SGADB53937", "GroupId"],
           },
           ToPort: 2049,
+        });
+      });
+    });
+  });
+
+  describe("UpdateRoute53AddOn", () => {
+    let launchTemplate: LaunchTemplate;
+    let starter: Starter;
+    let hostedZone: HostedZone;
+
+    beforeEach(() => {
+      launchTemplate = new LaunchTemplate(stack, "Instance", {
+        userData: UserData.forLinux(),
+        instanceType,
+        machineImage,
+        securityGroup: new SecurityGroup(stack, "SG", { vpc }),
+        role: new Role(stack, "Role", {
+          assumedBy: new ServicePrincipal("ec2.amazonaws.com"),
+        }),
+      });
+      starter = Starter.forLaunchTemplate(launchTemplate);
+      hostedZone = new HostedZone(stack, "Zone", {
+        zoneName: "si.example.com",
+      });
+    });
+
+    afterEach(() => {
+      // @ts-ignore: TS2322
+      launchTemplate = undefined;
+      // @ts-ignore: TS2322
+      starter = undefined;
+      // @ts-ignore: TS2322
+      hostedZone = undefined;
+    });
+
+    describe("#configure", () => {
+      test("behaves as expected with ipv4", () => {
+        const obj = new UpdateRoute53AddOn(hostedZone, "foobar");
+        const spy = jest.spyOn(obj, "configure");
+        starter.withAddOns(obj);
+        expect(starter.orderedLines).toStrictEqual([
+          'metaToken=$(curl -sX PUT "http://instance-data/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 300")',
+          'metaTokenHeader="X-aws-ec2-metadata-token: $metaToken"',
+          "IMD=http://instance-data/latest/meta-data",
+          'IMDNIM="$IMD/network/interfaces/macs"',
+          'myNetworkMac=$(curl -sH "$metaTokenHeader" "$IMDNIM/")',
+          'IMDNIMC="$IMDNIM/$myNetworkMac"',
+          'myHostIpPublic=$(curl -sH "$metaTokenHeader" "${IMDNIMC}public-ipv4s")',
+          expect.stringMatching(/.*"foobar\.si\.example\.com".*"Type":"A".*/),
+        ]);
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledWith(starter);
+      });
+
+      test("behaves as expected with ipv6", () => {
+        const obj = new UpdateRoute53AddOn(hostedZone, "foobar", {
+          ipv4: false,
+          ipv6: true,
+        });
+        const spy = jest.spyOn(obj, "configure");
+        starter.withAddOns(obj);
+        expect(starter.orderedLines).toStrictEqual([
+          'metaToken=$(curl -sX PUT "http://instance-data/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 300")',
+          'metaTokenHeader="X-aws-ec2-metadata-token: $metaToken"',
+          "IMD=http://instance-data/latest/meta-data",
+          'IMDNIM="$IMD/network/interfaces/macs"',
+          'myNetworkMac=$(curl -sH "$metaTokenHeader" "$IMDNIM/")',
+          'IMDNIMC="$IMDNIM/$myNetworkMac"',
+          'myHostIpv6=$(curl -sH "$metaTokenHeader" "${IMDNIMC}ipv6s")',
+          expect.stringMatching(
+            /.*"foobar\.si\.example\.com".*"Type":"AAAA".*/
+          ),
+        ]);
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledWith(starter);
+      });
+
+      test("behaves as expected with both", () => {
+        const obj = new UpdateRoute53AddOn(hostedZone, "foobar", {
+          ipv4: true,
+          ipv6: true,
+        });
+        const spy = jest.spyOn(obj, "configure");
+        starter.withAddOns(obj);
+        expect(starter.orderedLines).toStrictEqual([
+          'metaToken=$(curl -sX PUT "http://instance-data/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 300")',
+          'metaTokenHeader="X-aws-ec2-metadata-token: $metaToken"',
+          "IMD=http://instance-data/latest/meta-data",
+          'IMDNIM="$IMD/network/interfaces/macs"',
+          'myNetworkMac=$(curl -sH "$metaTokenHeader" "$IMDNIM/")',
+          'IMDNIMC="$IMDNIM/$myNetworkMac"',
+          'myHostIpPublic=$(curl -sH "$metaTokenHeader" "${IMDNIMC}public-ipv4s")',
+          'myHostIpv6=$(curl -sH "$metaTokenHeader" "${IMDNIMC}ipv6s")',
+          expect.stringMatching(
+            /.*"foobar\.si\.example\.com".*"Type":"A".*"foobar\.si\.example\.com".*"Type":"AAAA".*/
+          ),
+        ]);
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledWith(starter);
+      });
+
+      test("behaves as expected with neither", () => {
+        const obj = new UpdateRoute53AddOn(hostedZone, "foobar", {
+          ipv4: false,
+          ipv6: false,
+        });
+        const spy = jest.spyOn(obj, "configure");
+        starter.withAddOns(obj);
+        expect(starter.orderedLines).toStrictEqual([]);
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy).toHaveBeenCalledWith(starter);
+      });
+
+      test("synthesizes as expected", () => {
+        const obj = new UpdateRoute53AddOn(hostedZone, "foobar", {
+          ipv4: true,
+          ipv6: true,
+        });
+        starter.withAddOns(obj);
+        const template = Template.fromStack(stack);
+        template.hasResourceProperties("AWS::EC2::LaunchTemplate", {
+          LaunchTemplateData: {
+            UserData: {
+              "Fn::Base64": {
+                "Fn::Join": [
+                  "",
+                  [
+                    '#!/bin/bash\nmetaToken=$(curl -sX PUT "http://instance-data/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 300")\nmetaTokenHeader="X-aws-ec2-metadata-token: $metaToken"\nIMD=http://instance-data/latest/meta-data\nIMDNIM="$IMD/network/interfaces/macs"\nmyNetworkMac=$(curl -sH "$metaTokenHeader" "$IMDNIM/")\nIMDNIMC="$IMDNIM/$myNetworkMac"\nmyHostIpPublic=$(curl -sH "$metaTokenHeader" "${IMDNIMC}public-ipv4s")\nmyHostIpv6=$(curl -sH "$metaTokenHeader" "${IMDNIMC}ipv6s")\naws route53 change-resource-record-sets --hosted-zone-id ',
+                    { Ref: "ZoneA5DE4B68" },
+                    ' --change-batch \'{"Changes":[{"Action":"UPSERT","ResourceRecordSet":{"Name":"foobar.si.example.com","Type":"A","TTL":300,"ResourceRecords":[{"Value":"\'$myHostIpPublic\'"}]}},{"Action":"UPSERT","ResourceRecordSet":{"Name":"foobar.si.example.com","Type":"AAAA","TTL":300,"ResourceRecords":[{"Value":"\'$myHostIpv6\'"}]}}]}\'',
+                  ],
+                ],
+              },
+            },
+          },
+        });
+        template.hasResourceProperties("AWS::IAM::Policy", {
+          PolicyDocument: {
+            Statement: [
+              {
+                Action: "route53:changeResourceRecordSets",
+                Condition: {
+                  "ForAllValues:StringLike": {
+                    "route53:ChangeResourceRecordSetsNormalizedRecordNames": [
+                      "foobar.si.example.com",
+                    ],
+                  },
+                  "ForAllValues:StringEquals": {
+                    "route53:ChangeResourceRecordSetsActions": ["UPSERT"],
+                    "route53:ChangeResourceRecordSetsRecordTypes": [
+                      "A",
+                      "AAAA",
+                    ],
+                  },
+                },
+                Effect: "Allow",
+                Resource: {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      { Ref: "AWS::Partition" },
+                      ":route53:::hostedzone/",
+                      { Ref: "ZoneA5DE4B68" },
+                    ],
+                  ],
+                },
+              },
+            ],
+            Version: "2012-10-17",
+          },
+          PolicyName: "RoleDefaultPolicy5FFB7DAB",
         });
       });
     });
