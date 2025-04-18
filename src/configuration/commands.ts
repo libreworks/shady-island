@@ -42,6 +42,22 @@ export interface AddDirectoryOptions {
 }
 
 /**
+ * Constructor properties for AptPackagesAddOn.
+ */
+export interface InstallAptPackagesOptions {
+  /**
+   * Additional Apt Repositories to enable using add-apt-repository.
+   */
+  readonly repositories?: string[];
+  /**
+   * Whether to run apt autoremove after installation finishes.
+   *
+   * @default - true
+   */
+  readonly autoRemove?: boolean;
+}
+
+/**
  * A utility class that provides POSIX shell commands for User Data scripts.
  */
 export class ShellCommands {
@@ -214,5 +230,39 @@ export class ShellCommands {
       'cp "/usr/share/unattended-upgrades/20auto-upgrades-disabled" "/etc/apt/apt.conf.d/"',
       "snap refresh --hold || true",
     ];
+  }
+
+  /**
+   * Gets commands to setup APT and install packages.
+   *
+   * @param packages - The packages to install
+   * @param options - Configuration options
+   * @returns The shell commands.
+   */
+  public static installAptPackages(
+    packages: string[],
+    options?: InstallAptPackagesOptions
+  ): string[] {
+    const { repositories = [], autoRemove = true } = options || {};
+    const packagesToInstall = new Set(packages);
+    const repositoriesToAdd = new Set(repositories);
+
+    const commands = [];
+
+    if (repositoriesToAdd.size > 0) {
+      commands.push(...repositories.map((r) => `add-apt-repository -y "${r}"`));
+    }
+    commands.push("apt -yq update");
+    if (packagesToInstall.size > 0) {
+      const packageNames = Array.from(packagesToInstall).join(" ");
+      commands.push(
+        `DEBIAN_FRONTEND=noninteractive apt -yq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install ${packageNames}`
+      );
+    }
+    if (autoRemove) {
+      commands.push("apt -yq autoremove");
+    }
+
+    return commands;
   }
 }

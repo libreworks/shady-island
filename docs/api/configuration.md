@@ -136,6 +136,52 @@ The intended Linux username or ID of the owner of the mounted directory.
 
 ---
 
+### InstallAptPackagesOptions <a name="InstallAptPackagesOptions" id="shady-island.configuration.InstallAptPackagesOptions"></a>
+
+Constructor properties for AptPackagesAddOn.
+
+#### Initializer <a name="Initializer" id="shady-island.configuration.InstallAptPackagesOptions.Initializer"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+const installAptPackagesOptions: configuration.InstallAptPackagesOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.configuration.InstallAptPackagesOptions.property.autoRemove">autoRemove</a></code> | <code>boolean</code> | Whether to run apt autoremove after installation finishes. |
+| <code><a href="#shady-island.configuration.InstallAptPackagesOptions.property.repositories">repositories</a></code> | <code>string[]</code> | Additional Apt Repositories to enable using add-apt-repository. |
+
+---
+
+##### `autoRemove`<sup>Optional</sup> <a name="autoRemove" id="shady-island.configuration.InstallAptPackagesOptions.property.autoRemove"></a>
+
+```typescript
+public readonly autoRemove: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Whether to run apt autoremove after installation finishes.
+
+---
+
+##### `repositories`<sup>Optional</sup> <a name="repositories" id="shady-island.configuration.InstallAptPackagesOptions.property.repositories"></a>
+
+```typescript
+public readonly repositories: string[];
+```
+
+- *Type:* string[]
+
+Additional Apt Repositories to enable using add-apt-repository.
+
+---
+
 ### OutputFileOptions <a name="OutputFileOptions" id="shady-island.configuration.OutputFileOptions"></a>
 
 Options for the `ShellCommands.outputFile` method.
@@ -556,6 +602,7 @@ new configuration.ShellCommands()
 | <code><a href="#shady-island.configuration.ShellCommands.changeOwnership">changeOwnership</a></code> | Gets a command to change the ownership and/or group membership of a file. |
 | <code><a href="#shady-island.configuration.ShellCommands.disableUnattendedUpgrades">disableUnattendedUpgrades</a></code> | Gets a command to disable unattended package upgrades on Debian/Ubuntu. |
 | <code><a href="#shady-island.configuration.ShellCommands.downloadSecret">downloadSecret</a></code> | Gets the command to download a Secrets Manager secret to the filesystem. |
+| <code><a href="#shady-island.configuration.ShellCommands.installAptPackages">installAptPackages</a></code> | Gets commands to setup APT and install packages. |
 | <code><a href="#shady-island.configuration.ShellCommands.mountElasticFileSystem">mountElasticFileSystem</a></code> | Gets the command to mount an EFS filesystem to a destination path. |
 | <code><a href="#shady-island.configuration.ShellCommands.outputFile">outputFile</a></code> | Writes the literal contents of a string to a destination file. |
 | <code><a href="#shady-island.configuration.ShellCommands.syncFromBucket">syncFromBucket</a></code> | Gets commands to synchronize objects from an S3 bucket to the filesystem. |
@@ -667,6 +714,32 @@ The secret to download.
 - *Type:* string
 
 The local filesystem path where the secret is stored.
+
+---
+
+##### `installAptPackages` <a name="installAptPackages" id="shady-island.configuration.ShellCommands.installAptPackages"></a>
+
+```typescript
+import { configuration } from 'shady-island'
+
+configuration.ShellCommands.installAptPackages(packages: string[], options?: InstallAptPackagesOptions)
+```
+
+Gets commands to setup APT and install packages.
+
+###### `packages`<sup>Required</sup> <a name="packages" id="shady-island.configuration.ShellCommands.installAptPackages.parameter.packages"></a>
+
+- *Type:* string[]
+
+The packages to install.
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="shady-island.configuration.ShellCommands.installAptPackages.parameter.options"></a>
+
+- *Type:* <a href="#shady-island.configuration.InstallAptPackagesOptions">InstallAptPackagesOptions</a>
+
+Configuration options.
 
 ---
 
