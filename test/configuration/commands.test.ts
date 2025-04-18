@@ -147,6 +147,44 @@ describe("ShellCommands", () => {
     });
   });
 
+  describe("#installAptPackages", () => {
+    test("behaves as expected with defaults", () => {
+      const actual = ShellCommands.installAptPackages(["mysql-client", "nano"]);
+      expect(actual).toStrictEqual([
+        "apt -yq update",
+        `DEBIAN_FRONTEND=noninteractive apt -yq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install mysql-client nano`,
+        "apt -yq autoremove",
+      ]);
+    });
+
+    test("behaves as expected with no packages", () => {
+      const actual = ShellCommands.installAptPackages([]);
+      expect(actual).toStrictEqual(["apt -yq update", "apt -yq autoremove"]);
+    });
+
+    test("behaves as expected with no autoremove", () => {
+      const actual = ShellCommands.installAptPackages(["mysql-client"], {
+        autoRemove: false,
+      });
+      expect(actual).toStrictEqual([
+        "apt -yq update",
+        `DEBIAN_FRONTEND=noninteractive apt -yq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install mysql-client`,
+      ]);
+    });
+
+    test("behaves as expected with repositories", () => {
+      const actual = ShellCommands.installAptPackages(["mysql-client"], {
+        repositories: ["ppa:whatever"],
+      });
+      expect(actual).toStrictEqual([
+        `add-apt-repository -y "ppa:whatever"`,
+        "apt -yq update",
+        `DEBIAN_FRONTEND=noninteractive apt -yq -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install mysql-client`,
+        "apt -yq autoremove",
+      ]);
+    });
+  });
+
   describe("#changeOwnership", () => {
     test("behaves as expected with both values", () => {
       const filename = "/mnt/whatever";
