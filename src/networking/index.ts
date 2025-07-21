@@ -1,4 +1,5 @@
 export * from "./address";
+export * from "./domain";
 export * from "./elastic-ip";
 export * from "./network-interface";
 export * from "./load-balancing";

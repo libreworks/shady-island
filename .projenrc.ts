@@ -40,7 +40,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
-  cdkVersion: "2.128.0",
+  cdkVersion: "2.176.0",
   majorVersion: 0,
   jsiiVersion: "~5.8.0",
 
@@ -66,6 +66,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     "@types/aws-lambda",
     "@types/pg",
     "@aws-sdk/client-secrets-manager",
+    "yaml",
     ...handlerLibs,
   ],
 });

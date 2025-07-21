@@ -2,6 +2,448 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### BaseDomain <a name="BaseDomain" id="shady-island.networking.BaseDomain"></a>
+
+- *Implements:* <a href="#shady-island.networking.IDomain">IDomain</a>
+
+A DNS domain and its wildcard X.509 certificate.
+
+#### Initializers <a name="Initializers" id="shady-island.networking.BaseDomain.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+new networking.BaseDomain(scope: Construct, id: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.BaseDomain.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | The scope in which to define this construct. |
+| <code><a href="#shady-island.networking.BaseDomain.Initializer.parameter.id">id</a></code> | <code>string</code> | The scoped construct ID. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.BaseDomain.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The scope in which to define this construct.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.BaseDomain.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+The scoped construct ID.
+
+Must be unique amongst siblings. If
+the ID includes a path separator (`/`), then it will be replaced by double
+dash `--`.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.BaseDomain.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="shady-island.networking.BaseDomain.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.BaseDomain.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.networking.BaseDomain.isConstruct"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.BaseDomain.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="shady-island.networking.BaseDomain.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.BaseDomain.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#shady-island.networking.BaseDomain.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate</code> | The wildcard certificate for resources in this domain. |
+| <code><a href="#shady-island.networking.BaseDomain.property.hostedZone">hostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | The hosted zone that contains records for this domain. |
+| <code><a href="#shady-island.networking.BaseDomain.property.name">name</a></code> | <code>string</code> | The fully-qualified domain name of the hosted zone. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="shady-island.networking.BaseDomain.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `certificate`<sup>Required</sup> <a name="certificate" id="shady-island.networking.BaseDomain.property.certificate"></a>
+
+```typescript
+public readonly certificate: ICertificate;
+```
+
+- *Type:* aws-cdk-lib.aws_certificatemanager.ICertificate
+
+The wildcard certificate for resources in this domain.
+
+---
+
+##### `hostedZone`<sup>Required</sup> <a name="hostedZone" id="shady-island.networking.BaseDomain.property.hostedZone"></a>
+
+```typescript
+public readonly hostedZone: IHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
+
+The hosted zone that contains records for this domain.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="shady-island.networking.BaseDomain.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The fully-qualified domain name of the hosted zone.
+
+---
+
+
+### CrossAccountDelegationDomain <a name="CrossAccountDelegationDomain" id="shady-island.networking.CrossAccountDelegationDomain"></a>
+
+Provides a domain using delegation from a parent zone in another account.
+
+This construct creates a new Route 53 hosted zone for the subdomain, a zone
+delegation record, and a new wildcard ACM certificate for the subdomain.
+
+#### Initializers <a name="Initializers" id="shady-island.networking.CrossAccountDelegationDomain.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+new networking.CrossAccountDelegationDomain(scope: Construct, id: string, props: CrossAccountDelegationDomainProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomain.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomain.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomain.Initializer.parameter.props">props</a></code> | <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps">CrossAccountDelegationDomainProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.CrossAccountDelegationDomain.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.CrossAccountDelegationDomain.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="shady-island.networking.CrossAccountDelegationDomain.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#shady-island.networking.CrossAccountDelegationDomainProps">CrossAccountDelegationDomainProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomain.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="shady-island.networking.CrossAccountDelegationDomain.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomain.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.networking.CrossAccountDelegationDomain.isConstruct"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.CrossAccountDelegationDomain.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="shady-island.networking.CrossAccountDelegationDomain.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomain.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomain.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate</code> | The wildcard certificate for resources in this domain. |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomain.property.hostedZone">hostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | The hosted zone that contains records for this domain. |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomain.property.name">name</a></code> | <code>string</code> | The fully-qualified domain name of the hosted zone. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="shady-island.networking.CrossAccountDelegationDomain.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `certificate`<sup>Required</sup> <a name="certificate" id="shady-island.networking.CrossAccountDelegationDomain.property.certificate"></a>
+
+```typescript
+public readonly certificate: ICertificate;
+```
+
+- *Type:* aws-cdk-lib.aws_certificatemanager.ICertificate
+
+The wildcard certificate for resources in this domain.
+
+---
+
+##### `hostedZone`<sup>Required</sup> <a name="hostedZone" id="shady-island.networking.CrossAccountDelegationDomain.property.hostedZone"></a>
+
+```typescript
+public readonly hostedZone: IHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
+
+The hosted zone that contains records for this domain.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="shady-island.networking.CrossAccountDelegationDomain.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The fully-qualified domain name of the hosted zone.
+
+---
+
+
+### DelegationDomain <a name="DelegationDomain" id="shady-island.networking.DelegationDomain"></a>
+
+Provides a domain using delegation from a parent zone in the same account.
+
+This construct creates a new Route 53 hosted zone for the subdomain, a zone
+delegation record, and a new wildcard ACM certificate for the subdomain.
+
+#### Initializers <a name="Initializers" id="shady-island.networking.DelegationDomain.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+new networking.DelegationDomain(scope: Construct, id: string, props: DelegationDomainProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.DelegationDomain.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#shady-island.networking.DelegationDomain.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#shady-island.networking.DelegationDomain.Initializer.parameter.props">props</a></code> | <code><a href="#shady-island.networking.DelegationDomainProps">DelegationDomainProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.DelegationDomain.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.DelegationDomain.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="shady-island.networking.DelegationDomain.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#shady-island.networking.DelegationDomainProps">DelegationDomainProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.DelegationDomain.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.DelegationDomain.applyRemovalPolicy">applyRemovalPolicy</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="shady-island.networking.DelegationDomain.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="shady-island.networking.DelegationDomain.applyRemovalPolicy"></a>
+
+```typescript
+public applyRemovalPolicy(policy: RemovalPolicy): void
+```
+
+###### `policy`<sup>Required</sup> <a name="policy" id="shady-island.networking.DelegationDomain.applyRemovalPolicy.parameter.policy"></a>
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.DelegationDomain.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.networking.DelegationDomain.isConstruct"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.DelegationDomain.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="shady-island.networking.DelegationDomain.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.DelegationDomain.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#shady-island.networking.DelegationDomain.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate</code> | The wildcard certificate for resources in this domain. |
+| <code><a href="#shady-island.networking.DelegationDomain.property.hostedZone">hostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | The hosted zone that contains records for this domain. |
+| <code><a href="#shady-island.networking.DelegationDomain.property.name">name</a></code> | <code>string</code> | The fully-qualified domain name of the hosted zone. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="shady-island.networking.DelegationDomain.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `certificate`<sup>Required</sup> <a name="certificate" id="shady-island.networking.DelegationDomain.property.certificate"></a>
+
+```typescript
+public readonly certificate: ICertificate;
+```
+
+- *Type:* aws-cdk-lib.aws_certificatemanager.ICertificate
+
+The wildcard certificate for resources in this domain.
+
+---
+
+##### `hostedZone`<sup>Required</sup> <a name="hostedZone" id="shady-island.networking.DelegationDomain.property.hostedZone"></a>
+
+```typescript
+public readonly hostedZone: IHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
+
+The hosted zone that contains records for this domain.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="shady-island.networking.DelegationDomain.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The fully-qualified domain name of the hosted zone.
+
+---
+
+
 ### ElasticIp <a name="ElasticIp" id="shady-island.networking.ElasticIp"></a>
 
 - *Implements:* <a href="#shady-island.networking.IElasticIp">IElasticIp</a>
@@ -330,6 +772,184 @@ public readonly publicIp: string;
 - *Type:* string
 
 The IPv4 address.
+
+---
+
+
+### ExistingZoneDomain <a name="ExistingZoneDomain" id="shady-island.networking.ExistingZoneDomain"></a>
+
+Provides a domain using an existing hosted zone.
+
+This construct will create a new wildcard ACM certificate using the existing
+hosted zone name.
+
+#### Initializers <a name="Initializers" id="shady-island.networking.ExistingZoneDomain.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+new networking.ExistingZoneDomain(scope: Construct, id: string, props: ExistingZoneDomainProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.ExistingZoneDomain.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#shady-island.networking.ExistingZoneDomain.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#shady-island.networking.ExistingZoneDomain.Initializer.parameter.props">props</a></code> | <code><a href="#shady-island.networking.ExistingZoneDomainProps">ExistingZoneDomainProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.ExistingZoneDomain.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.ExistingZoneDomain.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="shady-island.networking.ExistingZoneDomain.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#shady-island.networking.ExistingZoneDomainProps">ExistingZoneDomainProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.ExistingZoneDomain.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="shady-island.networking.ExistingZoneDomain.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.networking.ExistingZoneDomain.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#shady-island.networking.ExistingZoneDomain.fromDomainAttributes">fromDomainAttributes</a></code> | Returns an ExistingZoneDomain using the provided attributes. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.networking.ExistingZoneDomain.isConstruct"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.ExistingZoneDomain.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="shady-island.networking.ExistingZoneDomain.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromDomainAttributes` <a name="fromDomainAttributes" id="shady-island.networking.ExistingZoneDomain.fromDomainAttributes"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+networking.ExistingZoneDomain.fromDomainAttributes(scope: Construct, id: string, attrs: DomainAttributes)
+```
+
+Returns an ExistingZoneDomain using the provided attributes.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="shady-island.networking.ExistingZoneDomain.fromDomainAttributes.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The scope in which to define this construct.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="shady-island.networking.ExistingZoneDomain.fromDomainAttributes.parameter.id"></a>
+
+- *Type:* string
+
+The scoped construct ID.
+
+---
+
+###### `attrs`<sup>Required</sup> <a name="attrs" id="shady-island.networking.ExistingZoneDomain.fromDomainAttributes.parameter.attrs"></a>
+
+- *Type:* <a href="#shady-island.networking.DomainAttributes">DomainAttributes</a>
+
+The provided attributes.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.ExistingZoneDomain.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#shady-island.networking.ExistingZoneDomain.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate</code> | The wildcard certificate for resources in this domain. |
+| <code><a href="#shady-island.networking.ExistingZoneDomain.property.hostedZone">hostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | The hosted zone that contains records for this domain. |
+| <code><a href="#shady-island.networking.ExistingZoneDomain.property.name">name</a></code> | <code>string</code> | The fully-qualified domain name of the hosted zone. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="shady-island.networking.ExistingZoneDomain.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `certificate`<sup>Required</sup> <a name="certificate" id="shady-island.networking.ExistingZoneDomain.property.certificate"></a>
+
+```typescript
+public readonly certificate: ICertificate;
+```
+
+- *Type:* aws-cdk-lib.aws_certificatemanager.ICertificate
+
+The wildcard certificate for resources in this domain.
+
+---
+
+##### `hostedZone`<sup>Required</sup> <a name="hostedZone" id="shady-island.networking.ExistingZoneDomain.property.hostedZone"></a>
+
+```typescript
+public readonly hostedZone: IHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
+
+The hosted zone that contains records for this domain.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="shady-island.networking.ExistingZoneDomain.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The fully-qualified domain name of the hosted zone.
 
 ---
 
@@ -1469,6 +2089,227 @@ The secret header (if `requireSecretHeader` was set to `true`).
 
 ## Structs <a name="Structs" id="Structs"></a>
 
+### CrossAccountDelegationDomainProps <a name="CrossAccountDelegationDomainProps" id="shady-island.networking.CrossAccountDelegationDomainProps"></a>
+
+Constructor properties for CrossAccountDelegationDomain.
+
+#### Initializer <a name="Initializer" id="shady-island.networking.CrossAccountDelegationDomainProps.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+const crossAccountDelegationDomainProps: networking.CrossAccountDelegationDomainProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.delegationRole">delegationRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The delegation role in the parent account. |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.subdomain">subdomain</a></code> | <code>string</code> | The subdomain in the parent hosted zone. |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.assumeRoleRegion">assumeRoleRegion</a></code> | <code>string</code> | Region from which to obtain temporary credentials. |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.parentHostedZoneId">parentHostedZoneId</a></code> | <code>string</code> | The hosted zone id in the parent account. |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.parentHostedZoneName">parentHostedZoneName</a></code> | <code>string</code> | The hosted zone name in the parent account. |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | The removal policy to apply. |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.ttl">ttl</a></code> | <code>aws-cdk-lib.Duration</code> | The resource record cache time to live (TTL). |
+
+---
+
+##### `delegationRole`<sup>Required</sup> <a name="delegationRole" id="shady-island.networking.CrossAccountDelegationDomainProps.property.delegationRole"></a>
+
+```typescript
+public readonly delegationRole: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The delegation role in the parent account.
+
+---
+
+##### `subdomain`<sup>Required</sup> <a name="subdomain" id="shady-island.networking.CrossAccountDelegationDomainProps.property.subdomain"></a>
+
+```typescript
+public readonly subdomain: string;
+```
+
+- *Type:* string
+
+The subdomain in the parent hosted zone.
+
+---
+
+##### `assumeRoleRegion`<sup>Optional</sup> <a name="assumeRoleRegion" id="shady-island.networking.CrossAccountDelegationDomainProps.property.assumeRoleRegion"></a>
+
+```typescript
+public readonly assumeRoleRegion: string;
+```
+
+- *Type:* string
+- *Default:* the Route53 signing region in the current partition
+
+Region from which to obtain temporary credentials.
+
+---
+
+##### `parentHostedZoneId`<sup>Optional</sup> <a name="parentHostedZoneId" id="shady-island.networking.CrossAccountDelegationDomainProps.property.parentHostedZoneId"></a>
+
+```typescript
+public readonly parentHostedZoneId: string;
+```
+
+- *Type:* string
+- *Default:* hosted zone ID will be looked up based on the zone name
+
+The hosted zone id in the parent account.
+
+---
+
+##### `parentHostedZoneName`<sup>Optional</sup> <a name="parentHostedZoneName" id="shady-island.networking.CrossAccountDelegationDomainProps.property.parentHostedZoneName"></a>
+
+```typescript
+public readonly parentHostedZoneName: string;
+```
+
+- *Type:* string
+- *Default:* no zone name
+
+The hosted zone name in the parent account.
+
+---
+
+##### `removalPolicy`<sup>Optional</sup> <a name="removalPolicy" id="shady-island.networking.CrossAccountDelegationDomainProps.property.removalPolicy"></a>
+
+```typescript
+public readonly removalPolicy: RemovalPolicy;
+```
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+- *Default:* RemovalPolicy.DESTROY
+
+The removal policy to apply.
+
+---
+
+##### `ttl`<sup>Optional</sup> <a name="ttl" id="shady-island.networking.CrossAccountDelegationDomainProps.property.ttl"></a>
+
+```typescript
+public readonly ttl: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* Duration.days(2)
+
+The resource record cache time to live (TTL).
+
+---
+
+### DelegationDomainProps <a name="DelegationDomainProps" id="shady-island.networking.DelegationDomainProps"></a>
+
+Constructor properties for DelegationDomain.
+
+#### Initializer <a name="Initializer" id="shady-island.networking.DelegationDomainProps.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+const delegationDomainProps: networking.DelegationDomainProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.DelegationDomainProps.property.parentHostedZone">parentHostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IPublicHostedZone</code> | The parent/delegating hosted zone. |
+| <code><a href="#shady-island.networking.DelegationDomainProps.property.subdomain">subdomain</a></code> | <code>string</code> | The subdomain in the parent hosted zone. |
+| <code><a href="#shady-island.networking.DelegationDomainProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | The removal policy to apply. |
+
+---
+
+##### `parentHostedZone`<sup>Required</sup> <a name="parentHostedZone" id="shady-island.networking.DelegationDomainProps.property.parentHostedZone"></a>
+
+```typescript
+public readonly parentHostedZone: IPublicHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IPublicHostedZone
+
+The parent/delegating hosted zone.
+
+The "zone name" is needed.
+
+---
+
+##### `subdomain`<sup>Required</sup> <a name="subdomain" id="shady-island.networking.DelegationDomainProps.property.subdomain"></a>
+
+```typescript
+public readonly subdomain: string;
+```
+
+- *Type:* string
+
+The subdomain in the parent hosted zone.
+
+---
+
+##### `removalPolicy`<sup>Optional</sup> <a name="removalPolicy" id="shady-island.networking.DelegationDomainProps.property.removalPolicy"></a>
+
+```typescript
+public readonly removalPolicy: RemovalPolicy;
+```
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+- *Default:* RemovalPolicy.DESTROY
+
+The removal policy to apply.
+
+---
+
+### DomainAttributes <a name="DomainAttributes" id="shady-island.networking.DomainAttributes"></a>
+
+A domain in the Domain Name System.
+
+#### Initializer <a name="Initializer" id="shady-island.networking.DomainAttributes.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+const domainAttributes: networking.DomainAttributes = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.DomainAttributes.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate</code> | The wildcard certificate for resources in this domain. |
+| <code><a href="#shady-island.networking.DomainAttributes.property.hostedZone">hostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | The hosted zone that contains records for this domain. |
+
+---
+
+##### `certificate`<sup>Required</sup> <a name="certificate" id="shady-island.networking.DomainAttributes.property.certificate"></a>
+
+```typescript
+public readonly certificate: ICertificate;
+```
+
+- *Type:* aws-cdk-lib.aws_certificatemanager.ICertificate
+
+The wildcard certificate for resources in this domain.
+
+---
+
+##### `hostedZone`<sup>Required</sup> <a name="hostedZone" id="shady-island.networking.DomainAttributes.property.hostedZone"></a>
+
+```typescript
+public readonly hostedZone: IHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
+
+The hosted zone that contains records for this domain.
+
+---
+
 ### ElasticIpProps <a name="ElasticIpProps" id="shady-island.networking.ElasticIpProps"></a>
 
 Constructor properties for ElasticIp.
@@ -1498,6 +2339,38 @@ public readonly removalPolicy: RemovalPolicy;
 - *Type:* aws-cdk-lib.RemovalPolicy
 
 The removal policy for this resource.
+
+---
+
+### ExistingZoneDomainProps <a name="ExistingZoneDomainProps" id="shady-island.networking.ExistingZoneDomainProps"></a>
+
+Constructor properties for ExistingZoneDomain.
+
+#### Initializer <a name="Initializer" id="shady-island.networking.ExistingZoneDomainProps.Initializer"></a>
+
+```typescript
+import { networking } from 'shady-island'
+
+const existingZoneDomainProps: networking.ExistingZoneDomainProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.ExistingZoneDomainProps.property.hostedZone">hostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | The hosted zone that contains records for this domain. |
+
+---
+
+##### `hostedZone`<sup>Required</sup> <a name="hostedZone" id="shady-island.networking.ExistingZoneDomainProps.property.hostedZone"></a>
+
+```typescript
+public readonly hostedZone: IHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
+
+The hosted zone that contains records for this domain.
 
 ---
 
@@ -1798,6 +2671,7 @@ const singletonLaunchTemplateProps: networking.SingletonLaunchTemplateProps = { 
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | Security group to assign to instances created with the launch template. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.spotOptions">spotOptions</a></code> | <code>aws-cdk-lib.aws_ec2.LaunchTemplateSpotOptions</code> | If this property is defined, then the Launch Template's InstanceMarketOptions will be set to use Spot instances, and the options for the Spot instances will be as defined. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.userData">userData</a></code> | <code>aws-cdk-lib.aws_ec2.UserData</code> | The AMI that will be used by instances. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.versionDescription">versionDescription</a></code> | <code>string</code> | A description for the first version of the launch template. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.networkInterface">networkInterface</a></code> | <code><a href="#shady-island.networking.INetworkInterface">INetworkInterface</a></code> | The Elastic Network Interface to use. |
 
 ---
@@ -2181,6 +3055,23 @@ The AMI that will be used by instances.
 
 ---
 
+##### `versionDescription`<sup>Optional</sup> <a name="versionDescription" id="shady-island.networking.SingletonLaunchTemplateProps.property.versionDescription"></a>
+
+```typescript
+public readonly versionDescription: string;
+```
+
+- *Type:* string
+- *Default:* No description
+
+A description for the first version of the launch template.
+
+The version description must be maximum 255 characters long.
+
+> [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-launchtemplate.html#cfn-ec2-launchtemplate-versiondescription](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-launchtemplate.html#cfn-ec2-launchtemplate-versiondescription)
+
+---
+
 ##### `networkInterface`<sup>Required</sup> <a name="networkInterface" id="shady-island.networking.SingletonLaunchTemplateProps.property.networkInterface"></a>
 
 ```typescript
@@ -2209,11 +3100,14 @@ const targetOptions: networking.TargetOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#shady-island.networking.TargetOptions.property.crossZoneEnabled">crossZoneEnabled</a></code> | <code>boolean</code> | Indicates whether cross zone load balancing is enabled. |
 | <code><a href="#shady-island.networking.TargetOptions.property.deregistrationDelay">deregistrationDelay</a></code> | <code>aws-cdk-lib.Duration</code> | The amount of time for Elastic Load Balancing to wait before deregistering a target. |
 | <code><a href="#shady-island.networking.TargetOptions.property.healthCheck">healthCheck</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.HealthCheck</code> | Health check configuration. |
+| <code><a href="#shady-island.networking.TargetOptions.property.ipAddressType">ipAddressType</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.TargetGroupIpAddressType</code> | The type of IP addresses of the targets registered with the target group. |
 | <code><a href="#shady-island.networking.TargetOptions.property.targetGroupName">targetGroupName</a></code> | <code>string</code> | The name of the target group. |
 | <code><a href="#shady-island.networking.TargetOptions.property.targetType">targetType</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.TargetType</code> | The type of targets registered to this TargetGroup, either IP or Instance. |
 | <code><a href="#shady-island.networking.TargetOptions.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The virtual private cloud (VPC). |
+| <code><a href="#shady-island.networking.TargetOptions.property.enableAnomalyMitigation">enableAnomalyMitigation</a></code> | <code>boolean</code> | Indicates whether anomaly mitigation is enabled. |
 | <code><a href="#shady-island.networking.TargetOptions.property.loadBalancingAlgorithmType">loadBalancingAlgorithmType</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.TargetGroupLoadBalancingAlgorithmType</code> | The load balancing algorithm to select targets for routing requests. |
 | <code><a href="#shady-island.networking.TargetOptions.property.port">port</a></code> | <code>number</code> | The port on which the target receives traffic. |
 | <code><a href="#shady-island.networking.TargetOptions.property.protocol">protocol</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationProtocol</code> | The protocol used for communication with the target. |
@@ -2224,6 +3118,21 @@ const targetOptions: networking.TargetOptions = { ... }
 | <code><a href="#shady-island.networking.TargetOptions.property.targets">targets</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.IApplicationLoadBalancerTarget[]</code> | The targets to add to this target group. |
 | <code><a href="#shady-island.networking.TargetOptions.property.hostnames">hostnames</a></code> | <code>string[]</code> | The hostnames on which traffic is served. |
 | <code><a href="#shady-island.networking.TargetOptions.property.priority">priority</a></code> | <code>number</code> | The priority of the listener rule. |
+
+---
+
+##### `crossZoneEnabled`<sup>Optional</sup> <a name="crossZoneEnabled" id="shady-island.networking.TargetOptions.property.crossZoneEnabled"></a>
+
+```typescript
+public readonly crossZoneEnabled: boolean;
+```
+
+- *Type:* boolean
+- *Default:* use load balancer configuration
+
+Indicates whether cross zone load balancing is enabled.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-targetgroup-targetgroupattribute.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-targetgroup-targetgroupattribute.html)
 
 ---
 
@@ -2254,6 +3163,19 @@ public readonly healthCheck: HealthCheck;
 Health check configuration.
 
 > [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html#aws-resource-elasticloadbalancingv2-targetgroup-properties](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html#aws-resource-elasticloadbalancingv2-targetgroup-properties)
+
+---
+
+##### `ipAddressType`<sup>Optional</sup> <a name="ipAddressType" id="shady-island.networking.TargetOptions.property.ipAddressType"></a>
+
+```typescript
+public readonly ipAddressType: TargetGroupIpAddressType;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.TargetGroupIpAddressType
+- *Default:* undefined - ELB defaults to IPv4
+
+The type of IP addresses of the targets registered with the target group.
 
 ---
 
@@ -2303,6 +3225,23 @@ public readonly vpc: IVpc;
 The virtual private cloud (VPC).
 
 only if `TargetType` is `Ip` or `InstanceId`
+
+---
+
+##### `enableAnomalyMitigation`<sup>Optional</sup> <a name="enableAnomalyMitigation" id="shady-island.networking.TargetOptions.property.enableAnomalyMitigation"></a>
+
+```typescript
+public readonly enableAnomalyMitigation: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Indicates whether anomaly mitigation is enabled.
+
+Only available when `loadBalancingAlgorithmType` is `TargetGroupLoadBalancingAlgorithmType.WEIGHTED_RANDOM`
+
+> [https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html#automatic-target-weights](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html#automatic-target-weights)
 
 ---
 
@@ -2384,7 +3323,7 @@ public readonly stickinessCookieDuration: Duration;
 ```
 
 - *Type:* aws-cdk-lib.Duration
-- *Default:* Duration.days(1)
+- *Default:* Stickiness is disabled
 
 The stickiness cookie expiration period.
 
@@ -3003,6 +3942,74 @@ public readonly props: {[ key: string ]: any};
 
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
+
+### IDomain <a name="IDomain" id="shady-island.networking.IDomain"></a>
+
+- *Extends:* constructs.IConstruct
+
+- *Implemented By:* <a href="#shady-island.networking.BaseDomain">BaseDomain</a>, <a href="#shady-island.networking.CrossAccountDelegationDomain">CrossAccountDelegationDomain</a>, <a href="#shady-island.networking.DelegationDomain">DelegationDomain</a>, <a href="#shady-island.networking.ExistingZoneDomain">ExistingZoneDomain</a>, <a href="#shady-island.networking.IDomain">IDomain</a>
+
+A DNS domain and its wildcard X.509 certificate.
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.IDomain.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#shady-island.networking.IDomain.property.certificate">certificate</a></code> | <code>aws-cdk-lib.aws_certificatemanager.ICertificate</code> | The wildcard certificate for resources in this domain. |
+| <code><a href="#shady-island.networking.IDomain.property.hostedZone">hostedZone</a></code> | <code>aws-cdk-lib.aws_route53.IHostedZone</code> | The hosted zone that contains records for this domain. |
+| <code><a href="#shady-island.networking.IDomain.property.name">name</a></code> | <code>string</code> | The fully-qualified domain name of the hosted zone. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="shady-island.networking.IDomain.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `certificate`<sup>Required</sup> <a name="certificate" id="shady-island.networking.IDomain.property.certificate"></a>
+
+```typescript
+public readonly certificate: ICertificate;
+```
+
+- *Type:* aws-cdk-lib.aws_certificatemanager.ICertificate
+
+The wildcard certificate for resources in this domain.
+
+---
+
+##### `hostedZone`<sup>Required</sup> <a name="hostedZone" id="shady-island.networking.IDomain.property.hostedZone"></a>
+
+```typescript
+public readonly hostedZone: IHostedZone;
+```
+
+- *Type:* aws-cdk-lib.aws_route53.IHostedZone
+
+The hosted zone that contains records for this domain.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="shady-island.networking.IDomain.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The fully-qualified domain name of the hosted zone.
+
+---
 
 ### IElasticIp <a name="IElasticIp" id="shady-island.networking.IElasticIp"></a>
 
