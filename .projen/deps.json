@@ -125,8 +125,12 @@
       "type": "build"
     },
     {
+      "name": "yaml",
+      "type": "build"
+    },
+    {
       "name": "aws-cdk-lib",
-      "version": "^2.128.0",
+      "version": "^2.176.0",
       "type": "peer"
     },
     {
