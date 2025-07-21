@@ -55,6 +55,7 @@ describe("WebLoadBalancing", () => {
           IpAddressType: "dualstack",
           LoadBalancerAttributes: [
             { Key: "deletion_protection.enabled", Value: "false" },
+            { Key: "routing.http2.enabled", Value: "true" },
             { Key: "idle_timeout.timeout_seconds", Value: "59" },
             { Key: "access_logs.s3.enabled", Value: "true" },
             {
@@ -126,6 +127,7 @@ describe("WebLoadBalancing", () => {
           IpAddressType: "ipv4",
           LoadBalancerAttributes: [
             { Key: "deletion_protection.enabled", Value: "false" },
+            { Key: "routing.http2.enabled", Value: "true" },
             { Key: "idle_timeout.timeout_seconds", Value: "59" },
             { Key: "access_logs.s3.enabled", Value: "true" },
             {

@@ -3654,6 +3654,7 @@ const encryptedFileSystemProps: EncryptedFileSystemProps = { ... }
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.performanceMode">performanceMode</a></code> | <code>aws-cdk-lib.aws_efs.PerformanceMode</code> | The performance mode that the file system will operate under. |
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.provisionedThroughputPerSecond">provisionedThroughputPerSecond</a></code> | <code>aws-cdk-lib.Size</code> | Provisioned throughput for the file system. |
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | The removal policy to apply to the file system. |
+| <code><a href="#shady-island.EncryptedFileSystemProps.property.replicationConfiguration">replicationConfiguration</a></code> | <code>aws-cdk-lib.aws_efs.ReplicationConfiguration</code> | Replication configuration for the file system. |
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.replicationOverwriteProtection">replicationOverwriteProtection</a></code> | <code>aws-cdk-lib.aws_efs.ReplicationOverwriteProtection</code> | Whether to enable the filesystem's replication overwrite protection or not. |
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | Security Group to assign to this file system. |
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.throughputMode">throughputMode</a></code> | <code>aws-cdk-lib.aws_efs.ThroughputMode</code> | Enum to mention the throughput mode of the file system. |
@@ -3841,6 +3842,19 @@ public readonly removalPolicy: RemovalPolicy;
 - *Default:* RemovalPolicy.RETAIN
 
 The removal policy to apply to the file system.
+
+---
+
+##### `replicationConfiguration`<sup>Optional</sup> <a name="replicationConfiguration" id="shady-island.EncryptedFileSystemProps.property.replicationConfiguration"></a>
+
+```typescript
+public readonly replicationConfiguration: ReplicationConfiguration;
+```
+
+- *Type:* aws-cdk-lib.aws_efs.ReplicationConfiguration
+- *Default:* no replication
+
+Replication configuration for the file system.
 
 ---
 
@@ -4204,7 +4218,7 @@ public readonly assignPublicIp: string;
 
 Whether the task's elastic network interface receives a public IP address.
 
-The default value is `DISABLED` .
+The default value is `ENABLED` .
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-assignpublicip](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-assignpublicip)
 
@@ -4220,7 +4234,7 @@ public readonly securityGroups: string[];
 
 The IDs of the security groups associated with the task or service.
 
-If you don't specify a security group, the default security group for the VPC is used. There's a limit of 5 security groups that can be specified per `AwsVpcConfiguration` .
+If you don't specify a security group, the default security group for the VPC is used. There's a limit of 5 security groups that can be specified per `awsvpcConfiguration` .
 
 > All specified security groups must be from the same VPC.
 
@@ -4238,7 +4252,7 @@ public readonly subnets: string[];
 
 The IDs of the subnets associated with the task or service.
 
-There's a limit of 16 subnets that can be specified per `AwsVpcConfiguration` .
+There's a limit of 16 subnets that can be specified per `awsvpcConfiguration` .
 
 > All specified subnets must be from the same VPC.
 
@@ -5708,6 +5722,7 @@ const runnableFargateTaskProps: RunnableFargateTaskProps = { ... }
 | <code><a href="#shady-island.RunnableFargateTaskProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | Existing security groups to use for your task. |
 | <code><a href="#shady-island.RunnableFargateTaskProps.property.vpcSubnets">vpcSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | The subnets to associate with the task. |
 | <code><a href="#shady-island.RunnableFargateTaskProps.property.cpu">cpu</a></code> | <code>number</code> | The number of cpu units used by the task. |
+| <code><a href="#shady-island.RunnableFargateTaskProps.property.ephemeralStorageGiB">ephemeralStorageGiB</a></code> | <code>number</code> | The amount (in GiB) of ephemeral storage to be allocated to the task. |
 | <code><a href="#shady-island.RunnableFargateTaskProps.property.memoryLimitMiB">memoryLimitMiB</a></code> | <code>number</code> | The amount (in MiB) of memory used by the task. |
 | <code><a href="#shady-island.RunnableFargateTaskProps.property.platformVersion">platformVersion</a></code> | <code>aws-cdk-lib.aws_ecs.FargatePlatformVersion</code> | The platform version on which to run your service. |
 | <code><a href="#shady-island.RunnableFargateTaskProps.property.runtimePlatform">runtimePlatform</a></code> | <code>aws-cdk-lib.aws_ecs.RuntimePlatform</code> | The runtime platform of the task definition. |
@@ -5787,6 +5802,23 @@ Valid values, which determines your range of valid values for the memory paramet
 16384 (16 vCPU) - Available memory values: Between 32GB and 120GB in 8GB increments
 
 This default is set in the underlying FargateTaskDefinition construct.
+
+---
+
+##### `ephemeralStorageGiB`<sup>Optional</sup> <a name="ephemeralStorageGiB" id="shady-island.RunnableFargateTaskProps.property.ephemeralStorageGiB"></a>
+
+```typescript
+public readonly ephemeralStorageGiB: number;
+```
+
+- *Type:* number
+- *Default:* Undefined, in which case, the task will receive 20GiB ephemeral storage.
+
+The amount (in GiB) of ephemeral storage to be allocated to the task.
+
+The minimum supported value is `21` GiB and the maximum supported value is `200` GiB.
+
+Only supported in Fargate platform version 1.4.0 or later.
 
 ---
 
