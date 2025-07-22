@@ -1,4 +1,4 @@
-import { IResource, RemovalPolicy } from "aws-cdk-lib";
+import { IResource, RemovalPolicy, ValidationError } from "aws-cdk-lib";
 import {
   BuildEnvironment,
   BuildEnvironmentVariable,
@@ -27,7 +27,7 @@ export interface CommonDockerProps {
   readonly description?: string;
 
   /**
-   * VPC network to place codebuild network interfaces.
+   * VPC network to place CodeBuild network interfaces.
    */
   readonly vpc?: IVpc;
 
@@ -43,8 +43,6 @@ export interface CommonDockerProps {
 
   /**
    * The removal policy for this project and its logs.
-   *
-   * @default - RemovalPolicy.DESTROY
    */
   readonly removalPolicy?: RemovalPolicy;
 
@@ -104,11 +102,7 @@ export class BaseDockerProject extends Construct implements IResource {
   ) {
     super(scope, id);
 
-    const {
-      repository,
-      removalPolicy = RemovalPolicy.DESTROY,
-      logRetention,
-    } = props;
+    const { repository, removalPolicy, logRetention } = props;
 
     this.buildSpec = props.buildSpec;
 
@@ -118,7 +112,10 @@ export class BaseDockerProject extends Construct implements IResource {
       if (
         /\b(windows|macos)\b/.test(props.buildEnvironment.buildImage.imageId)
       ) {
-        throw new Error("You must use a Linux-based build image");
+        throw new ValidationError(
+          "You must use a Linux-based build image",
+          this
+        );
       }
     }
 
@@ -444,6 +441,7 @@ export class LinuxDockerManifestProject extends BaseDockerProject {
       vpc: props.vpc,
       subnetSelection: props.subnetSelection,
       securityGroups: props.securityGroups,
+      removalPolicy: props.removalPolicy,
     });
   }
 }

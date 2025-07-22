@@ -771,7 +771,7 @@ const baseDockerProjectProps: automation.BaseDockerProjectProps = { ... }
 | <code><a href="#shady-island.automation.BaseDockerProjectProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | The removal policy for this project and its logs. |
 | <code><a href="#shady-island.automation.BaseDockerProjectProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | Security groups to associate with the project's network interfaces. |
 | <code><a href="#shady-island.automation.BaseDockerProjectProps.property.subnetSelection">subnetSelection</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | Where to place the network interfaces within the VPC. |
-| <code><a href="#shady-island.automation.BaseDockerProjectProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place codebuild network interfaces. |
+| <code><a href="#shady-island.automation.BaseDockerProjectProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place CodeBuild network interfaces. |
 | <code><a href="#shady-island.automation.BaseDockerProjectProps.property.buildEnvironment">buildEnvironment</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildEnvironment</code> | Build environment to use for the build. |
 | <code><a href="#shady-island.automation.BaseDockerProjectProps.property.buildSpec">buildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | Filename or contents of buildspec in JSON format. |
 
@@ -821,7 +821,6 @@ public readonly removalPolicy: RemovalPolicy;
 ```
 
 - *Type:* aws-cdk-lib.RemovalPolicy
-- *Default:* RemovalPolicy.DESTROY
 
 The removal policy for this project and its logs.
 
@@ -859,7 +858,7 @@ public readonly vpc: IVpc;
 
 - *Type:* aws-cdk-lib.aws_ec2.IVpc
 
-VPC network to place codebuild network interfaces.
+VPC network to place CodeBuild network interfaces.
 
 ---
 
@@ -909,7 +908,7 @@ const commonDockerProps: automation.CommonDockerProps = { ... }
 | <code><a href="#shady-island.automation.CommonDockerProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | The removal policy for this project and its logs. |
 | <code><a href="#shady-island.automation.CommonDockerProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | Security groups to associate with the project's network interfaces. |
 | <code><a href="#shady-island.automation.CommonDockerProps.property.subnetSelection">subnetSelection</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | Where to place the network interfaces within the VPC. |
-| <code><a href="#shady-island.automation.CommonDockerProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place codebuild network interfaces. |
+| <code><a href="#shady-island.automation.CommonDockerProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place CodeBuild network interfaces. |
 
 ---
 
@@ -957,7 +956,6 @@ public readonly removalPolicy: RemovalPolicy;
 ```
 
 - *Type:* aws-cdk-lib.RemovalPolicy
-- *Default:* RemovalPolicy.DESTROY
 
 The removal policy for this project and its logs.
 
@@ -995,7 +993,7 @@ public readonly vpc: IVpc;
 
 - *Type:* aws-cdk-lib.aws_ec2.IVpc
 
-VPC network to place codebuild network interfaces.
+VPC network to place CodeBuild network interfaces.
 
 ---
 
@@ -1121,7 +1119,7 @@ const linuxDockerBuildProjectProps: automation.LinuxDockerBuildProjectProps = { 
 | <code><a href="#shady-island.automation.LinuxDockerBuildProjectProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | The removal policy for this project and its logs. |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProjectProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | Security groups to associate with the project's network interfaces. |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProjectProps.property.subnetSelection">subnetSelection</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | Where to place the network interfaces within the VPC. |
-| <code><a href="#shady-island.automation.LinuxDockerBuildProjectProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place codebuild network interfaces. |
+| <code><a href="#shady-island.automation.LinuxDockerBuildProjectProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place CodeBuild network interfaces. |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProjectProps.property.buildDirectory">buildDirectory</a></code> | <code>string</code> | The build context directory. |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProjectProps.property.buildImage">buildImage</a></code> | <code>aws-cdk-lib.aws_codebuild.IBuildImage</code> | The CodeBuild build image to use. |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProjectProps.property.computeType">computeType</a></code> | <code>aws-cdk-lib.aws_codebuild.ComputeType</code> | The type of compute to use for this build. |
@@ -1176,7 +1174,6 @@ public readonly removalPolicy: RemovalPolicy;
 ```
 
 - *Type:* aws-cdk-lib.RemovalPolicy
-- *Default:* RemovalPolicy.DESTROY
 
 The removal policy for this project and its logs.
 
@@ -1214,7 +1211,7 @@ public readonly vpc: IVpc;
 
 - *Type:* aws-cdk-lib.aws_ec2.IVpc
 
-VPC network to place codebuild network interfaces.
+VPC network to place CodeBuild network interfaces.
 
 ---
 
@@ -1330,7 +1327,7 @@ const linuxDockerManifestProjectProps: automation.LinuxDockerManifestProjectProp
 | <code><a href="#shady-island.automation.LinuxDockerManifestProjectProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | The removal policy for this project and its logs. |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProjectProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | Security groups to associate with the project's network interfaces. |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProjectProps.property.subnetSelection">subnetSelection</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | Where to place the network interfaces within the VPC. |
-| <code><a href="#shady-island.automation.LinuxDockerManifestProjectProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place codebuild network interfaces. |
+| <code><a href="#shady-island.automation.LinuxDockerManifestProjectProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place CodeBuild network interfaces. |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProjectProps.property.tagVariableNames">tagVariableNames</a></code> | <code>string[]</code> | The names of environment variables that contain the image hashes to add. |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProjectProps.property.buildImage">buildImage</a></code> | <code>aws-cdk-lib.aws_codebuild.IBuildImage</code> | The CodeBuild build image to use. |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProjectProps.property.computeType">computeType</a></code> | <code>aws-cdk-lib.aws_codebuild.ComputeType</code> | The type of compute to use for this build. |
@@ -1381,7 +1378,6 @@ public readonly removalPolicy: RemovalPolicy;
 ```
 
 - *Type:* aws-cdk-lib.RemovalPolicy
-- *Default:* RemovalPolicy.DESTROY
 
 The removal policy for this project and its logs.
 
@@ -1419,7 +1415,7 @@ public readonly vpc: IVpc;
 
 - *Type:* aws-cdk-lib.aws_ec2.IVpc
 
-VPC network to place codebuild network interfaces.
+VPC network to place CodeBuild network interfaces.
 
 ---
 
