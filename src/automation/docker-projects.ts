@@ -104,10 +104,6 @@ export class BaseDockerProject extends Construct implements IResource {
 
     const { repository, removalPolicy, logRetention } = props;
 
-    this.buildSpec = props.buildSpec;
-
-    this.logGroup = new LogGroup(this, "Logs", { retention: logRetention });
-
     if (props.buildEnvironment.buildImage) {
       if (
         /\b(windows|macos)\b/.test(props.buildEnvironment.buildImage.imageId)
@@ -118,6 +114,10 @@ export class BaseDockerProject extends Construct implements IResource {
         );
       }
     }
+
+    this.buildSpec = props.buildSpec;
+
+    this.logGroup = new LogGroup(this, "Logs", { retention: logRetention });
 
     const repoEnv = repository.env;
     const projectVariables: Record<string, BuildEnvironmentVariable> = {
@@ -330,6 +330,7 @@ export class LinuxDockerBuildProject extends BaseDockerProject {
         computeType: props.computeType,
         privileged: true,
       },
+      logRetention: props.logRetention,
       vpc: props.vpc,
       subnetSelection: props.subnetSelection,
       securityGroups: props.securityGroups,
@@ -438,6 +439,7 @@ export class LinuxDockerManifestProject extends BaseDockerProject {
         computeType: props.computeType,
         privileged: true,
       },
+      logRetention: props.logRetention,
       vpc: props.vpc,
       subnetSelection: props.subnetSelection,
       securityGroups: props.securityGroups,
