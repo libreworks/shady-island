@@ -1,4 +1,4 @@
-import { App, Stack } from "aws-cdk-lib";
+import { App, CfnResource, RemovalPolicy, Stack } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import { LinuxBuildImage, WindowsBuildImage } from "aws-cdk-lib/aws-codebuild";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
@@ -33,6 +33,36 @@ describe("LinuxDockerManifestProject", () => {
     vpc = undefined;
     // @ts-ignore: TS2322
     repository = undefined;
+  });
+
+  describe("#applyRemovalPolicy", () => {
+    test("behaves as expected with no removal policy", () => {
+      const obj = new LinuxDockerManifestProject(stack, "Project", {
+        repository,
+        tagVariableNames: ["DOCKER_TAG_AMD64", "DOCKER_TAG_ARM64"],
+        vpc,
+      });
+      const cfnLogGroup = obj.logGroup.node.defaultChild as CfnResource;
+      const cfnProject = obj.project.node.defaultChild as CfnResource;
+
+      expect(cfnLogGroup.cfnOptions.deletionPolicy).toStrictEqual("Retain");
+      expect(cfnProject.cfnOptions.deletionPolicy).toBeUndefined();
+    });
+
+    test("behaves as expected", () => {
+      const removalPolicy = RemovalPolicy.DESTROY;
+      const obj = new LinuxDockerManifestProject(stack, "Project", {
+        repository,
+        tagVariableNames: ["DOCKER_TAG_AMD64", "DOCKER_TAG_ARM64"],
+        vpc,
+        removalPolicy,
+      });
+      const cfnLogGroup = obj.logGroup.node.defaultChild as CfnResource;
+      const cfnProject = obj.project.node.defaultChild as CfnResource;
+
+      expect(cfnLogGroup.cfnOptions.deletionPolicy).toStrictEqual("Delete");
+      expect(cfnProject.cfnOptions.deletionPolicy).toStrictEqual("Delete");
+    });
   });
 
   describe("#constructor", () => {
@@ -95,7 +125,7 @@ describe("LinuxDockerManifestProject", () => {
             buildImage: WindowsBuildImage.WIN_SERVER_CORE_2019_BASE_3_0,
           })
       ).toThrow({
-        name: "Error",
+        name: "ValidationError",
         message: "You must use a Linux-based build image",
       });
     });
