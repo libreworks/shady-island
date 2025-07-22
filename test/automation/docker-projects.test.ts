@@ -3,6 +3,7 @@ import { Template } from "aws-cdk-lib/assertions";
 import { LinuxBuildImage, WindowsBuildImage } from "aws-cdk-lib/aws-codebuild";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
 import { Repository } from "aws-cdk-lib/aws-ecr";
+import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import { parse as parseYaml } from "yaml";
 import {
   LinuxDockerBuildProject,
@@ -357,11 +358,12 @@ describe("LinuxDockerBuildProject", () => {
       new LinuxDockerBuildProject(stack, "Project", {
         repository,
         vpc,
+        logRetention: RetentionDays.TWO_MONTHS,
       });
       const template = Template.fromStack(stack);
 
       template.hasResourceProperties("AWS::Logs::LogGroup", {
-        RetentionInDays: 731,
+        RetentionInDays: 60,
       });
       template.hasResourceProperties("AWS::CodeBuild::Project", {
         Artifacts: { Type: "CODEPIPELINE" },
