@@ -9,6 +9,7 @@
     "build": "npx projen build",
     "bump": "npx projen bump",
     "bundle": "npx projen bundle",
+    "bundle:automation/function-code-updater": "npx projen bundle:automation/function-code-updater",
     "bundle:rds/triggers/mysql": "npx projen bundle:rds/triggers/mysql",
     "bundle:rds/triggers/pgsql": "npx projen bundle:rds/triggers/pgsql",
     "bundle:vpc/assign-on-launch.handler": "npx projen bundle:vpc/assign-on-launch.handler",
@@ -41,6 +42,7 @@
     "organization": true
   },
   "devDependencies": {
+    "@aws-sdk/client-lambda": "^3.865.0",
     "@aws-sdk/client-secrets-manager": "^3.864.0",
     "@libreworks/db-provision-pgsql": "^0.0.36",
     "@types/aws-lambda": "^8.10.152",

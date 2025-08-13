@@ -65,6 +65,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   devDeps: [
     "@types/aws-lambda",
     "@types/pg",
+    "@aws-sdk/client-lambda",
     "@aws-sdk/client-secrets-manager",
     "yaml",
     ...handlerLibs,
@@ -97,14 +98,19 @@ project.bundler.addBundle("src/vpc/assign-on-launch.handler.js", {
   watchTask: false,
 });
 const handlers = [
+  "./src/automation/function-code-updater.handler",
   "./src/rds/triggers/mysql.handler",
   "./src/rds/triggers/pgsql.handler",
 ];
 for (const handler of handlers) {
   project.bundler.addBundle(handler, {
-    target: "node20",
+    target: "node22",
     platform: "node",
-    externals: ["pg-native", "@aws-sdk/client-secrets-manager"],
+    externals: [
+      "pg-native",
+      "@aws-sdk/client-secrets-manager",
+      "@aws-sdk/client-lambda",
+    ],
     watchTask: false,
   });
 }

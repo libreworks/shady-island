@@ -331,6 +331,138 @@ The CodePipeline pipeline.
 ---
 
 
+### FunctionCodeUpdater <a name="FunctionCodeUpdater" id="shady-island.automation.FunctionCodeUpdater"></a>
+
+Automates deployments of Lambda function code.
+
+In order to guarantee the least amount of privilege to the principal sending
+new code revisions to S3 (e.g. a GitHub Action, a CodeBuild project), you can
+use this construct to call the `UpdateFunctionCode` action of the Lambda API
+any time a new revision is added to a bucket (which must support versioning).
+
+#### Initializers <a name="Initializers" id="shady-island.automation.FunctionCodeUpdater.Initializer"></a>
+
+```typescript
+import { automation } from 'shady-island'
+
+new automation.FunctionCodeUpdater(scope: Construct, id: string, props: FunctionCodeUpdaterProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.automation.FunctionCodeUpdater.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | - The scope in which to define this construct. |
+| <code><a href="#shady-island.automation.FunctionCodeUpdater.Initializer.parameter.id">id</a></code> | <code>string</code> | - The scoped construct ID. |
+| <code><a href="#shady-island.automation.FunctionCodeUpdater.Initializer.parameter.props">props</a></code> | <code><a href="#shady-island.automation.FunctionCodeUpdaterProps">FunctionCodeUpdaterProps</a></code> | - Initialization properties for this construct. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="shady-island.automation.FunctionCodeUpdater.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+The scope in which to define this construct.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="shady-island.automation.FunctionCodeUpdater.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+The scoped construct ID.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="shady-island.automation.FunctionCodeUpdater.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#shady-island.automation.FunctionCodeUpdaterProps">FunctionCodeUpdaterProps</a>
+
+Initialization properties for this construct.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.automation.FunctionCodeUpdater.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.automation.FunctionCodeUpdater.grantPutCode">grantPutCode</a></code> | Grants `s3:PutObject*` and `s3:AbortObject*` permissions for the S3 object key of the Lambda function code. |
+
+---
+
+##### `toString` <a name="toString" id="shady-island.automation.FunctionCodeUpdater.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `grantPutCode` <a name="grantPutCode" id="shady-island.automation.FunctionCodeUpdater.grantPutCode"></a>
+
+```typescript
+public grantPutCode(identity: IGrantable): Grant
+```
+
+Grants `s3:PutObject*` and `s3:AbortObject*` permissions for the S3 object key of the Lambda function code.
+
+If encryption is used, permission to use the key to encrypt uploaded files
+will also be granted to the same principal.
+
+###### `identity`<sup>Required</sup> <a name="identity" id="shady-island.automation.FunctionCodeUpdater.grantPutCode.parameter.identity"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+The principal.
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#shady-island.automation.FunctionCodeUpdater.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.automation.FunctionCodeUpdater.isConstruct"></a>
+
+```typescript
+import { automation } from 'shady-island'
+
+automation.FunctionCodeUpdater.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="shady-island.automation.FunctionCodeUpdater.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.automation.FunctionCodeUpdater.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="shady-island.automation.FunctionCodeUpdater.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### LinuxDockerBuildProject <a name="LinuxDockerBuildProject" id="shady-island.automation.LinuxDockerBuildProject"></a>
 
 Sets up a standardized Docker build project.
@@ -1094,6 +1226,64 @@ public readonly tag: string;
 - *Default:* "latest"
 
 The container image tag to observe for changes in the ECR repository.
+
+---
+
+### FunctionCodeUpdaterProps <a name="FunctionCodeUpdaterProps" id="shady-island.automation.FunctionCodeUpdaterProps"></a>
+
+Constructor properties for FunctionCodeUpdater.
+
+#### Initializer <a name="Initializer" id="shady-island.automation.FunctionCodeUpdaterProps.Initializer"></a>
+
+```typescript
+import { automation } from 'shady-island'
+
+const functionCodeUpdaterProps: automation.FunctionCodeUpdaterProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.automation.FunctionCodeUpdaterProps.property.bucket">bucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | The bucket to monitor for changes. |
+| <code><a href="#shady-island.automation.FunctionCodeUpdaterProps.property.objectKey">objectKey</a></code> | <code>string</code> | The object within the bucket to monitor (e.g. my-application/code.zip). |
+| <code><a href="#shady-island.automation.FunctionCodeUpdaterProps.property.target">target</a></code> | <code>aws-cdk-lib.aws_lambda.IFunction</code> | The Lambda function to update. |
+
+---
+
+##### `bucket`<sup>Required</sup> <a name="bucket" id="shady-island.automation.FunctionCodeUpdaterProps.property.bucket"></a>
+
+```typescript
+public readonly bucket: IBucket;
+```
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+The bucket to monitor for changes.
+
+---
+
+##### `objectKey`<sup>Required</sup> <a name="objectKey" id="shady-island.automation.FunctionCodeUpdaterProps.property.objectKey"></a>
+
+```typescript
+public readonly objectKey: string;
+```
+
+- *Type:* string
+
+The object within the bucket to monitor (e.g. my-application/code.zip).
+
+---
+
+##### `target`<sup>Required</sup> <a name="target" id="shady-island.automation.FunctionCodeUpdaterProps.property.target"></a>
+
+```typescript
+public readonly target: IFunction;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.IFunction
+
+The Lambda function to update.
 
 ---
 

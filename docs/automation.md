@@ -4,6 +4,8 @@ This section explains the constructs we created for automation and deployments.
 
 - Elastic Container Service (ECS)
   - `ContainerImagePipeline` – Deploy new ECR images to ECS using CodePipline
+- Lambda
+  - `FunctionCodeUpdater` – Calls `lambda:UpdateFunctionCode` when a new code version is uploaded to an S3 bucket
 
 ## Elastic Container Service (ECS)
 
@@ -76,4 +78,33 @@ new ContainerImagePipeline(stack, "Deploy", {
   container: "Express",
   tag: "latest",
 });
+```
+
+## Lambda
+
+This section explains the automation-related constructs for Lambda.
+
+### FunctionCodeUpdater
+
+The `FunctionCodeUpdater` construct exists to decouple uploading code and updating the function. By decoupling these operations, we can grant fewer permissions to the security principal responsible for uploading the code. For example, you have a GitHub Actions workflow that bundles your Lambda function code into a `.zip` file and uploads it to S3. By using this construct, the role assumed by GitHub Actions needs only the permissions for S3 and the only environment variables/secrets that GitHub Actions needs to know about are the name for the S3 bucket and the object key (e.g. `s3://example/application/code.zip`).
+
+This construct creates a Lambda function that receives notifications from S3. When a new version of the code archive is uploaded to the source S3 bucket, the Lambda function invokes [`lambda:UpdateFunctionCode`](https://docs.aws.amazon.com/lambda/latest/api/API_UpdateFunctionCode.html).
+
+```typescript
+import { Bucket } from "aws-cdk-lib/aws-s3";
+import { Function } from "aws-cdk-lib/aws-lambda";
+import { FunctionCodeUpdater } from "shady-island/lib/automation";
+
+declare const bucket: Bucket;
+declare const target: Function;
+declare const uploader: Role;
+
+const updater = new FunctionCodeUpdater(stack, "Deploy", {
+  bucket,
+  target,
+  objectKey: "my-application/code.zip",
+});
+
+// Grant necessary permissions to the Role assumed to upload the new code
+updater.grantPutCode(uploader);
 ```

@@ -50,10 +50,22 @@
           "spawn": "bundle:vpc/assign-on-launch.handler"
         },
         {
+          "spawn": "bundle:automation/function-code-updater"
+        },
+        {
           "spawn": "bundle:rds/triggers/mysql"
         },
         {
           "spawn": "bundle:rds/triggers/pgsql"
+        }
+      ]
+    },
+    "bundle:automation/function-code-updater": {
+      "name": "bundle:automation/function-code-updater",
+      "description": "Create a JavaScript bundle from ./src/automation/function-code-updater.handler",
+      "steps": [
+        {
+          "exec": "esbuild --bundle ./src/automation/function-code-updater.handler --target=\"node22\" --platform=\"node\" --outfile=\"assets/automation/function-code-updater/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-lambda"
         }
       ]
     },
@@ -62,7 +74,7 @@
       "description": "Create a JavaScript bundle from ./src/rds/triggers/mysql.handler",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/rds/triggers/mysql.handler --target=\"node20\" --platform=\"node\" --outfile=\"assets/rds/triggers/mysql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager"
+          "exec": "esbuild --bundle ./src/rds/triggers/mysql.handler --target=\"node22\" --platform=\"node\" --outfile=\"assets/rds/triggers/mysql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-lambda"
         }
       ]
     },
@@ -71,7 +83,7 @@
       "description": "Create a JavaScript bundle from ./src/rds/triggers/pgsql.handler",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/rds/triggers/pgsql.handler --target=\"node20\" --platform=\"node\" --outfile=\"assets/rds/triggers/pgsql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager"
+          "exec": "esbuild --bundle ./src/rds/triggers/pgsql.handler --target=\"node22\" --platform=\"node\" --outfile=\"assets/rds/triggers/pgsql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-lambda"
         }
       ]
     },
@@ -350,13 +362,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@aws-sdk/client-secrets-manager,@libreworks/db-provision-pgsql,@types/aws-lambda,@types/jest,@types/node,@types/pg,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,jsii-diff,jsii-pacmak,mysql2,pg,prettier,projen,ts-jest,ts-node,typescript,yaml"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@libreworks/db-provision-pgsql,@types/aws-lambda,@types/jest,@types/node,@types/pg,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,jsii-diff,jsii-pacmak,mysql2,pg,prettier,projen,ts-jest,ts-node,typescript,yaml"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @aws-sdk/client-secrets-manager @libreworks/db-provision-pgsql @types/aws-lambda @types/jest @types/node @types/pg @typescript-eslint/eslint-plugin @typescript-eslint/parser commit-and-tag-version esbuild eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii mysql2 pg prettier projen ts-jest ts-node typescript yaml aws-cdk-lib constructs"
+          "exec": "yarn upgrade @aws-sdk/client-lambda @aws-sdk/client-secrets-manager @libreworks/db-provision-pgsql @types/aws-lambda @types/jest @types/node @types/pg @typescript-eslint/eslint-plugin @typescript-eslint/parser commit-and-tag-version esbuild eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii mysql2 pg prettier projen ts-jest ts-node typescript yaml aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"
