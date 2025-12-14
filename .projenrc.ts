@@ -42,7 +42,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   cdkVersion: "2.177.0",
   majorVersion: 0,
-  jsiiVersion: "~5.8.0",
+  jsiiVersion: "~5.9.0",
 
   autoApproveOptions: {
     // Anyone with write access to this repository can have auto-approval.
@@ -55,6 +55,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
+  npmTrustedPublishing: true,
   publishToPypi: {
     distName: "shady-island",
     module: "shady_island",
