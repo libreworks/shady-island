@@ -82,7 +82,7 @@ Returns a string representation of this construct.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.AssignOnLaunch.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.AssignOnLaunch.isConstruct"></a>
 
 ```typescript
 import { AssignOnLaunch } from 'shady-island'
@@ -91,6 +91,20 @@ AssignOnLaunch.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.AssignOnLaunch.isConstruct.parameter.x"></a>
 
@@ -262,7 +276,7 @@ Declares a new database user with no permissions.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.BaseDatabase.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.BaseDatabase.isConstruct"></a>
 
 ```typescript
 import { BaseDatabase } from 'shady-island'
@@ -271,6 +285,20 @@ BaseDatabase.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.BaseDatabase.isConstruct.parameter.x"></a>
 
@@ -414,7 +442,7 @@ Returns a string representation of this construct.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.CidrContext.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.CidrContext.isConstruct"></a>
 
 ```typescript
 import { CidrContext } from 'shady-island'
@@ -423,6 +451,20 @@ CidrContext.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.CidrContext.isConstruct.parameter.x"></a>
 
@@ -554,7 +596,7 @@ calls will return the same assembly.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.ContextLoadingStage.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.ContextLoadingStage.isConstruct"></a>
 
 ```typescript
 import { ContextLoadingStage } from 'shady-island'
@@ -563,6 +605,20 @@ ContextLoadingStage.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.ContextLoadingStage.isConstruct.parameter.x"></a>
 
@@ -831,7 +887,7 @@ calls will return the same assembly.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.DeploymentTierStage.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.DeploymentTierStage.isConstruct"></a>
 
 ```typescript
 import { DeploymentTierStage } from 'shady-island'
@@ -840,6 +896,20 @@ DeploymentTierStage.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.DeploymentTierStage.isConstruct.parameter.x"></a>
 
@@ -1114,7 +1184,7 @@ Returns a string representation of this construct.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.EncryptedFileSystem.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.EncryptedFileSystem.isConstruct"></a>
 
 ```typescript
 import { EncryptedFileSystem } from 'shady-island'
@@ -1123,6 +1193,20 @@ EncryptedFileSystem.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.EncryptedFileSystem.isConstruct.parameter.x"></a>
 
@@ -1243,7 +1327,7 @@ Returns a string representation of this construct.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.EncryptedLogGroup.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.EncryptedLogGroup.isConstruct"></a>
 
 ```typescript
 import { EncryptedLogGroup } from 'shady-island'
@@ -1252,6 +1336,20 @@ EncryptedLogGroup.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.EncryptedLogGroup.isConstruct.parameter.x"></a>
 
@@ -1427,7 +1525,7 @@ Grants permission to invoke ecs:RunTask on this task's cluster.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.FargateTask.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.FargateTask.isConstruct"></a>
 
 ```typescript
 import { FargateTask } from 'shady-island'
@@ -1436,6 +1534,20 @@ FargateTask.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.FargateTask.isConstruct.parameter.x"></a>
 
@@ -1637,7 +1749,7 @@ Declares a new database user with no permissions.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.MysqlDatabase.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.MysqlDatabase.isConstruct"></a>
 
 ```typescript
 import { MysqlDatabase } from 'shady-island'
@@ -1646,6 +1758,20 @@ MysqlDatabase.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.MysqlDatabase.isConstruct.parameter.x"></a>
 
@@ -2106,7 +2232,7 @@ Declares a new database user with no permissions.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.PostgresqlDatabase.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.PostgresqlDatabase.isConstruct"></a>
 
 ```typescript
 import { PostgresqlDatabase } from 'shady-island'
@@ -2115,6 +2241,20 @@ PostgresqlDatabase.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.PostgresqlDatabase.isConstruct.parameter.x"></a>
 
@@ -2526,7 +2666,7 @@ Returns a string representation of this construct.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.RunnableFargateTask.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.RunnableFargateTask.isConstruct"></a>
 
 ```typescript
 import { RunnableFargateTask } from 'shady-island'
@@ -2535,6 +2675,20 @@ RunnableFargateTask.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.RunnableFargateTask.isConstruct.parameter.x"></a>
 
@@ -2761,7 +2915,7 @@ The `Stack` instances to import to this `Workload`.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="shady-island.Workload.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="shady-island.Workload.isConstruct"></a>
 
 ```typescript
 import { Workload } from 'shady-island'
@@ -2770,6 +2924,20 @@ Workload.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="shady-island.Workload.isConstruct.parameter.x"></a>
 
