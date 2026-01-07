@@ -7,6 +7,7 @@ export * from "./ecs-patterns";
 export * from "./efs";
 export * as networking from "./networking";
 export * from "./rds";
+export * as servers from "./servers";
 export * from "./vpc";
 export * from "./context";
 export * from "./stage";
