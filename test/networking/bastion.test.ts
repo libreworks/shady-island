@@ -8,6 +8,8 @@ import {
 } from "aws-cdk-lib/aws-ec2";
 import { FileSystem } from "aws-cdk-lib/aws-efs";
 import { Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
+import { HostedZone } from "aws-cdk-lib/aws-route53";
+import { Secret } from "aws-cdk-lib/aws-secretsmanager";
 import { UbuntuLinuxBastion } from "../../src/networking/bastion";
 
 describe("UbuntuLinuxBastion", () => {
@@ -87,12 +89,13 @@ describe("UbuntuLinuxBastion", () => {
         volumeSize,
         ubuntuVersion,
         enableIpv6: true,
+        installAwsCli: false,
         architecture: InstanceArchitecture.X86_64,
       });
 
       const template = Template.fromStack(stack);
 
-      console.log(JSON.stringify(template.toJSON(), undefined, 2));
+      // console.log(JSON.stringify(template.toJSON(), undefined, 2));
 
       template.hasResourceProperties("AWS::EC2::LaunchTemplate", {
         LaunchTemplateData: {
@@ -218,6 +221,66 @@ describe("UbuntuLinuxBastion", () => {
             "Fn::Base64": Match.stringLikeRegexp(
               "install iptables-persistent redis-tools"
             ),
+          },
+        },
+      });
+    });
+
+    test("synthesizes as expected with secrets", () => {
+      const secret = new Secret(stack, "Secret", { generateSecretString: {} });
+      new UbuntuLinuxBastion(stack, "Bastion", {
+        vpc,
+        secrets: { database: secret },
+      });
+
+      const template = Template.fromStack(stack);
+      console.log(JSON.stringify(template.toJSON(), undefined, 2));
+
+      template.hasResourceProperties("AWS::EC2::LaunchTemplate", {
+        LaunchTemplateData: {
+          UserData: {
+            "Fn::Base64": {
+              "Fn::Join": [
+                "",
+                Match.arrayWith([
+                  Match.stringLikeRegexp("iptables-persistent"),
+                ]),
+              ],
+            },
+          },
+        },
+      });
+    });
+
+    test("synthesizes as expected with custom domain options", () => {
+      const subdomain = "foobar";
+      const zoneName = "example.com";
+      const hostedZone = new HostedZone(stack, "HostedZone", { zoneName });
+      new UbuntuLinuxBastion(stack, "Bastion", {
+        vpc,
+        customDomain: {
+          subdomain,
+          hostedZone,
+        },
+      });
+
+      const template = Template.fromStack(stack);
+
+      template.hasResourceProperties("AWS::EC2::LaunchTemplate", {
+        LaunchTemplateData: {
+          UserData: {
+            "Fn::Base64": {
+              "Fn::Join": [
+                "",
+                Match.arrayWith([
+                  Match.stringLikeRegexp(
+                    "aws route53 change-resource-record-sets --hosted-zone-id"
+                  ),
+                  { Ref: "HostedZoneDB99F866" },
+                  Match.stringLikeRegexp(`"${subdomain}.${zoneName}"`),
+                ]),
+              ],
+            },
           },
         },
       });
