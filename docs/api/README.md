@@ -7,6 +7,7 @@ The following submodules are available:
 - [automation](./automation.md)
 - [configuration](./configuration.md)
 - [networking](./networking.md)
+- [servers](./servers.md)
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 

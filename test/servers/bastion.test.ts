@@ -10,7 +10,7 @@ import { FileSystem } from "aws-cdk-lib/aws-efs";
 import { Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 import { HostedZone } from "aws-cdk-lib/aws-route53";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
-import { UbuntuLinuxBastion } from "../../src/networking/bastion";
+import { UbuntuLinuxBastion } from "../../src/servers/bastion";
 
 describe("UbuntuLinuxBastion", () => {
   let app: App;
