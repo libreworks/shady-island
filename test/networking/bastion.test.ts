@@ -95,8 +95,6 @@ describe("UbuntuLinuxBastion", () => {
 
       const template = Template.fromStack(stack);
 
-      // console.log(JSON.stringify(template.toJSON(), undefined, 2));
-
       template.hasResourceProperties("AWS::EC2::LaunchTemplate", {
         LaunchTemplateData: {
           BlockDeviceMappings: [
@@ -234,7 +232,6 @@ describe("UbuntuLinuxBastion", () => {
       });
 
       const template = Template.fromStack(stack);
-      console.log(JSON.stringify(template.toJSON(), undefined, 2));
 
       template.hasResourceProperties("AWS::EC2::LaunchTemplate", {
         LaunchTemplateData: {

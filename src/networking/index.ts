@@ -1,4 +1,5 @@
 export * from "./address";
+export * from "./bastion";
 export * from "./domain";
 export * from "./elastic-ip";
 export * from "./network-interface";
