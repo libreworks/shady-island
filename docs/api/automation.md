@@ -53,6 +53,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.automation.BaseDockerProject.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.automation.BaseDockerProject.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.automation.BaseDockerProject.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 
 ---
@@ -64,6 +65,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.automation.BaseDockerProject.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.automation.BaseDockerProject.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="shady-island.automation.BaseDockerProject.applyRemovalPolicy"></a>
 
@@ -274,6 +296,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.automation.ContainerImagePipeline.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.automation.ContainerImagePipeline.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -284,6 +307,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.automation.ContainerImagePipeline.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.automation.ContainerImagePipeline.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -413,6 +457,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.automation.FunctionCodeUpdater.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.automation.FunctionCodeUpdater.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.automation.FunctionCodeUpdater.grantPutCode">grantPutCode</a></code> | Grants `s3:PutObject*` and `s3:AbortObject*` permissions for the S3 object key of the Lambda function code. |
 
 ---
@@ -424,6 +469,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.automation.FunctionCodeUpdater.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.automation.FunctionCodeUpdater.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `grantPutCode` <a name="grantPutCode" id="shady-island.automation.FunctionCodeUpdater.grantPutCode"></a>
 
@@ -561,6 +627,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProject.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.automation.LinuxDockerBuildProject.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProject.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 
 ---
@@ -572,6 +639,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.automation.LinuxDockerBuildProject.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.automation.LinuxDockerBuildProject.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="shady-island.automation.LinuxDockerBuildProject.applyRemovalPolicy"></a>
 
@@ -782,6 +870,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProject.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.automation.LinuxDockerManifestProject.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProject.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 
 ---
@@ -793,6 +882,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.automation.LinuxDockerManifestProject.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.automation.LinuxDockerManifestProject.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="shady-island.automation.LinuxDockerManifestProject.applyRemovalPolicy"></a>
 
