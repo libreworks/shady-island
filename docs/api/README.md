@@ -64,6 +64,7 @@ The constructor options.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.AssignOnLaunch.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.AssignOnLaunch.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -74,6 +75,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.AssignOnLaunch.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.AssignOnLaunch.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -213,6 +235,7 @@ The configuration properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.BaseDatabase.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.BaseDatabase.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.BaseDatabase.addUserAsOwner">addUserAsOwner</a></code> | Declares a new database user to be assigned ownership permissions. |
 | <code><a href="#shady-island.BaseDatabase.addUserAsReader">addUserAsReader</a></code> | Declares a new database user to be assigned read-only permissions. |
 | <code><a href="#shady-island.BaseDatabase.addUserAsUnprivileged">addUserAsUnprivileged</a></code> | Declares a new database user with no permissions. |
@@ -226,6 +249,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.BaseDatabase.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.BaseDatabase.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `addUserAsOwner` <a name="addUserAsOwner" id="shady-island.BaseDatabase.addUserAsOwner"></a>
 
@@ -424,6 +468,7 @@ The constructor options.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.CidrContext.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.CidrContext.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -434,6 +479,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.CidrContext.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.CidrContext.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -558,6 +624,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.ContextLoadingStage.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.ContextLoadingStage.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.ContextLoadingStage.synth">synth</a></code> | Synthesize this stage into a cloud assembly. |
 
 ---
@@ -569,6 +636,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.ContextLoadingStage.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.ContextLoadingStage.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `synth` <a name="synth" id="shady-island.ContextLoadingStage.synth"></a>
 
@@ -849,6 +937,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.DeploymentTierStage.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.DeploymentTierStage.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.DeploymentTierStage.synth">synth</a></code> | Synthesize this stage into a cloud assembly. |
 
 ---
@@ -860,6 +949,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.DeploymentTierStage.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.DeploymentTierStage.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `synth` <a name="synth" id="shady-island.DeploymentTierStage.synth"></a>
 
@@ -1166,6 +1276,7 @@ The configuration properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.EncryptedFileSystem.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.EncryptedFileSystem.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -1176,6 +1287,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.EncryptedFileSystem.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.EncryptedFileSystem.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -1309,6 +1441,7 @@ new EncryptedLogGroup(scope: Construct, id: string, props: EncryptedLogGroupProp
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.EncryptedLogGroup.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.EncryptedLogGroup.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -1319,6 +1452,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.EncryptedLogGroup.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.EncryptedLogGroup.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -1456,6 +1610,7 @@ new FargateTask(scope: Construct, id: string, props: FargateTaskProps)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.FargateTask.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.FargateTask.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.FargateTask.createRuleTarget">createRuleTarget</a></code> | Create a new EventBridge Rule Target that launches this ECS task. |
 | <code><a href="#shady-island.FargateTask.createStateMachineTask">createStateMachineTask</a></code> | Create a new Step Functions task that launches this ECS task. |
 | <code><a href="#shady-island.FargateTask.grantRun">grantRun</a></code> | Grants permission to invoke ecs:RunTask on this task's cluster. |
@@ -1469,6 +1624,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.FargateTask.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.FargateTask.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `createRuleTarget` <a name="createRuleTarget" id="shady-island.FargateTask.createRuleTarget"></a>
 
@@ -1680,6 +1856,7 @@ The configuration properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.MysqlDatabase.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.MysqlDatabase.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.MysqlDatabase.addUserAsOwner">addUserAsOwner</a></code> | Declares a new database user to be assigned ownership permissions. |
 | <code><a href="#shady-island.MysqlDatabase.addUserAsReader">addUserAsReader</a></code> | Declares a new database user to be assigned read-only permissions. |
 | <code><a href="#shady-island.MysqlDatabase.addUserAsUnprivileged">addUserAsUnprivileged</a></code> | Declares a new database user with no permissions. |
@@ -1693,6 +1870,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.MysqlDatabase.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.MysqlDatabase.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `addUserAsOwner` <a name="addUserAsOwner" id="shady-island.MysqlDatabase.addUserAsOwner"></a>
 
@@ -2163,6 +2361,7 @@ The configuration properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.PostgresqlDatabase.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.PostgresqlDatabase.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.PostgresqlDatabase.addUserAsOwner">addUserAsOwner</a></code> | Declares a new database user to be assigned ownership permissions. |
 | <code><a href="#shady-island.PostgresqlDatabase.addUserAsReader">addUserAsReader</a></code> | Declares a new database user to be assigned read-only permissions. |
 | <code><a href="#shady-island.PostgresqlDatabase.addUserAsUnprivileged">addUserAsUnprivileged</a></code> | Declares a new database user with no permissions. |
@@ -2176,6 +2375,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.PostgresqlDatabase.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.PostgresqlDatabase.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `addUserAsOwner` <a name="addUserAsOwner" id="shady-island.PostgresqlDatabase.addUserAsOwner"></a>
 
@@ -2648,6 +2868,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.RunnableFargateTask.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.RunnableFargateTask.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -2658,6 +2879,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.RunnableFargateTask.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.RunnableFargateTask.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -2809,6 +3051,7 @@ The constructor options.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.Workload.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.Workload.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.Workload.createStack">createStack</a></code> | Adds a stack to the Workload. |
 | <code><a href="#shady-island.Workload.import">import</a></code> | Forces a return value for `Workload.of` for one or more `Stack` objects. |
 
@@ -2821,6 +3064,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.Workload.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.Workload.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `createStack` <a name="createStack" id="shady-island.Workload.createStack"></a>
 

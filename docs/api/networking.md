@@ -48,6 +48,7 @@ dash `--`.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.networking.BaseDomain.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.BaseDomain.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -58,6 +59,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.networking.BaseDomain.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.networking.BaseDomain.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -205,6 +227,7 @@ new networking.CrossAccountDelegationDomain(scope: Construct, id: string, props:
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.networking.CrossAccountDelegationDomain.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomain.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -215,6 +238,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.networking.CrossAccountDelegationDomain.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.networking.CrossAccountDelegationDomain.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -362,6 +406,7 @@ new networking.DelegationDomain(scope: Construct, id: string, props: DelegationD
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.networking.DelegationDomain.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.DelegationDomain.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.networking.DelegationDomain.applyRemovalPolicy">applyRemovalPolicy</a></code> | *No description.* |
 
 ---
@@ -373,6 +418,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.networking.DelegationDomain.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.networking.DelegationDomain.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="shady-island.networking.DelegationDomain.applyRemovalPolicy"></a>
 
@@ -537,6 +603,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.networking.ElasticIp.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.ElasticIp.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.networking.ElasticIp.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#shady-island.networking.ElasticIp.grant">grant</a></code> | Grant the given identity custom permissions. |
 
@@ -549,6 +616,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.networking.ElasticIp.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.networking.ElasticIp.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="shady-island.networking.ElasticIp.applyRemovalPolicy"></a>
 
@@ -878,6 +966,7 @@ new networking.ExistingZoneDomain(scope: Construct, id: string, props: ExistingZ
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.networking.ExistingZoneDomain.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.ExistingZoneDomain.with">with</a></code> | Applies one or more mixins to this construct. |
 
 ---
 
@@ -888,6 +977,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.networking.ExistingZoneDomain.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.networking.ExistingZoneDomain.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -1075,6 +1185,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.networking.NetworkInterface.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.NetworkInterface.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.networking.NetworkInterface.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 
 ---
@@ -1086,6 +1197,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.networking.NetworkInterface.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.networking.NetworkInterface.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="shady-island.networking.NetworkInterface.applyRemovalPolicy"></a>
 
@@ -1384,6 +1516,7 @@ The configuration properties.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.networking.SecretHttpHeader.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.SecretHttpHeader.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.networking.SecretHttpHeader.createListenerCondition">createListenerCondition</a></code> | *No description.* |
 | <code><a href="#shady-island.networking.SecretHttpHeader.createOriginCustomHeaders">createOriginCustomHeaders</a></code> | *No description.* |
 
@@ -1396,6 +1529,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.networking.SecretHttpHeader.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.networking.SecretHttpHeader.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `createListenerCondition` <a name="createListenerCondition" id="shady-island.networking.SecretHttpHeader.createListenerCondition"></a>
 
@@ -1604,6 +1758,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.addSecurityGroup">addSecurityGroup</a></code> | Add the security group to the instance. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.createAutoScalingGroup">createAutoScalingGroup</a></code> | Creates an auto-scaling group for this launch template. |
@@ -1617,6 +1772,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.networking.SingletonLaunchTemplate.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.networking.SingletonLaunchTemplate.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="shady-island.networking.SingletonLaunchTemplate.applyRemovalPolicy"></a>
 
@@ -2060,6 +2236,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.networking.WebLoadBalancing.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.networking.WebLoadBalancing.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.networking.WebLoadBalancing.addTarget">addTarget</a></code> | Adds a target to the listener. |
 
 ---
@@ -2071,6 +2248,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.networking.WebLoadBalancing.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.networking.WebLoadBalancing.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `addTarget` <a name="addTarget" id="shady-island.networking.WebLoadBalancing.addTarget"></a>
 

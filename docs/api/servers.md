@@ -57,6 +57,7 @@ Initialization properties for this construct.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.servers.UbuntuLinuxBastion.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#shady-island.servers.UbuntuLinuxBastion.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#shady-island.servers.UbuntuLinuxBastion.allowSshAccessFrom">allowSshAccessFrom</a></code> | Allow SSH access from the given peer or peers. |
 
 ---
@@ -68,6 +69,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="shady-island.servers.UbuntuLinuxBastion.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="shady-island.servers.UbuntuLinuxBastion.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `allowSshAccessFrom` <a name="allowSshAccessFrom" id="shady-island.servers.UbuntuLinuxBastion.allowSshAccessFrom"></a>
 
