@@ -8,6 +8,7 @@ import {
   Login,
   Role,
   ServerClient,
+  // @ts-ignore
 } from "@libreworks/db-provision-pgsql";
 import type { Handler } from "aws-lambda";
 // eslint-disable-next-line import/no-extraneous-dependencies

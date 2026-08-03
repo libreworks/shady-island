@@ -3769,6 +3769,7 @@ const contextLoadingStageProps: ContextLoadingStageProps = { ... }
 | <code><a href="#shady-island.ContextLoadingStageProps.property.outdir">outdir</a></code> | <code>string</code> | The output directory into which to emit synthesized artifacts. |
 | <code><a href="#shady-island.ContextLoadingStageProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
 | <code><a href="#shady-island.ContextLoadingStageProps.property.policyValidationBeta1">policyValidationBeta1</a></code> | <code>aws-cdk-lib.IPolicyValidationPluginBeta1[]</code> | Validation plugins to run during synthesis. |
+| <code><a href="#shady-island.ContextLoadingStageProps.property.propertyInjectors">propertyInjectors</a></code> | <code>aws-cdk-lib.IPropertyInjector[]</code> | A list of IPropertyInjector attached to this Stage. |
 | <code><a href="#shady-island.ContextLoadingStageProps.property.stageName">stageName</a></code> | <code>string</code> | Name of this stage. |
 | <code><a href="#shady-island.ContextLoadingStageProps.property.contextFile">contextFile</a></code> | <code>string</code> | The filesystem path to a JSON file that contains context values to load. |
 
@@ -3843,6 +3844,20 @@ public readonly permissionsBoundary: PermissionsBoundary;
 
 Options for applying a permissions boundary to all IAM Roles and Users created within this Stage.
 
+Be aware that this feature uses Aspects, and the Aspects are applied at the
+Stack level with a priority of `MUTATING` (if the feature flag
+`@aws-cdk/core:aspectPrioritiesMutating` is set) or `DEFAULT` (if the flag
+is not set). This is relevant if you are both using your own Aspects to
+assign Permissions Boundaries, as well as specifying this property.  The
+Aspect added by this property will overwrite the Permissions Boundary
+assigned by your own Aspect if both: (a) your Aspect has a lower or equal
+priority to the automatic Aspect, and (b) your Aspect is applied *above*
+the Stack level.  If either of those conditions are not true, your own
+Aspect will win.
+
+We recommend assigning Permissions Boundaries only using the provided APIs,
+and not using custom Aspects.
+
 ---
 
 ##### `policyValidationBeta1`<sup>Optional</sup> <a name="policyValidationBeta1" id="shady-island.ContextLoadingStageProps.property.policyValidationBeta1"></a>
@@ -3858,6 +3873,19 @@ Validation plugins to run during synthesis.
 
 If any plugin reports any violation,
 synthesis will be interrupted and the report displayed to the user.
+
+---
+
+##### `propertyInjectors`<sup>Optional</sup> <a name="propertyInjectors" id="shady-island.ContextLoadingStageProps.property.propertyInjectors"></a>
+
+```typescript
+public readonly propertyInjectors: IPropertyInjector[];
+```
+
+- *Type:* aws-cdk-lib.IPropertyInjector[]
+- *Default:* no PropertyInjectors
+
+A list of IPropertyInjector attached to this Stage.
 
 ---
 
@@ -3909,6 +3937,7 @@ const deploymentTierStageProps: DeploymentTierStageProps = { ... }
 | <code><a href="#shady-island.DeploymentTierStageProps.property.outdir">outdir</a></code> | <code>string</code> | The output directory into which to emit synthesized artifacts. |
 | <code><a href="#shady-island.DeploymentTierStageProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
 | <code><a href="#shady-island.DeploymentTierStageProps.property.policyValidationBeta1">policyValidationBeta1</a></code> | <code>aws-cdk-lib.IPolicyValidationPluginBeta1[]</code> | Validation plugins to run during synthesis. |
+| <code><a href="#shady-island.DeploymentTierStageProps.property.propertyInjectors">propertyInjectors</a></code> | <code>aws-cdk-lib.IPropertyInjector[]</code> | A list of IPropertyInjector attached to this Stage. |
 | <code><a href="#shady-island.DeploymentTierStageProps.property.stageName">stageName</a></code> | <code>string</code> | Name of this stage. |
 | <code><a href="#shady-island.DeploymentTierStageProps.property.contextFile">contextFile</a></code> | <code>string</code> | The filesystem path to a JSON file that contains context values to load. |
 | <code><a href="#shady-island.DeploymentTierStageProps.property.tier">tier</a></code> | <code><a href="#shady-island.Tier">Tier</a></code> | The deployment tier. |
@@ -3985,6 +4014,20 @@ public readonly permissionsBoundary: PermissionsBoundary;
 
 Options for applying a permissions boundary to all IAM Roles and Users created within this Stage.
 
+Be aware that this feature uses Aspects, and the Aspects are applied at the
+Stack level with a priority of `MUTATING` (if the feature flag
+`@aws-cdk/core:aspectPrioritiesMutating` is set) or `DEFAULT` (if the flag
+is not set). This is relevant if you are both using your own Aspects to
+assign Permissions Boundaries, as well as specifying this property.  The
+Aspect added by this property will overwrite the Permissions Boundary
+assigned by your own Aspect if both: (a) your Aspect has a lower or equal
+priority to the automatic Aspect, and (b) your Aspect is applied *above*
+the Stack level.  If either of those conditions are not true, your own
+Aspect will win.
+
+We recommend assigning Permissions Boundaries only using the provided APIs,
+and not using custom Aspects.
+
 ---
 
 ##### `policyValidationBeta1`<sup>Optional</sup> <a name="policyValidationBeta1" id="shady-island.DeploymentTierStageProps.property.policyValidationBeta1"></a>
@@ -4000,6 +4043,19 @@ Validation plugins to run during synthesis.
 
 If any plugin reports any violation,
 synthesis will be interrupted and the report displayed to the user.
+
+---
+
+##### `propertyInjectors`<sup>Optional</sup> <a name="propertyInjectors" id="shady-island.DeploymentTierStageProps.property.propertyInjectors"></a>
+
+```typescript
+public readonly propertyInjectors: IPropertyInjector[];
+```
+
+- *Type:* aws-cdk-lib.IPropertyInjector[]
+- *Default:* no PropertyInjectors
+
+A list of IPropertyInjector attached to this Stage.
 
 ---
 
@@ -4080,7 +4136,7 @@ const encryptedFileSystemProps: EncryptedFileSystemProps = { ... }
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.encrypted">encrypted</a></code> | <code>boolean</code> | Defines if the data at rest in the file system is encrypted or not. |
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.fileSystemName">fileSystemName</a></code> | <code>string</code> | The file system's name. |
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.fileSystemPolicy">fileSystemPolicy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyDocument</code> | File system policy is an IAM resource policy used to control NFS access to an EFS file system. |
-| <code><a href="#shady-island.EncryptedFileSystemProps.property.kmsKey">kmsKey</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | The KMS key used for encryption. |
+| <code><a href="#shady-island.EncryptedFileSystemProps.property.kmsKey">kmsKey</a></code> | <code>aws-cdk-lib.interfaces.aws_kms.IKeyRef</code> | The KMS key used for encryption. |
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.lifecyclePolicy">lifecyclePolicy</a></code> | <code>aws-cdk-lib.aws_efs.LifecyclePolicy</code> | A policy used by EFS lifecycle management to transition files to the Infrequent Access (IA) storage class. |
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.oneZone">oneZone</a></code> | <code>boolean</code> | Whether this is a One Zone file system. |
 | <code><a href="#shady-island.EncryptedFileSystemProps.property.outOfInfrequentAccessPolicy">outOfInfrequentAccessPolicy</a></code> | <code>aws-cdk-lib.aws_efs.OutOfInfrequentAccessPolicy</code> | A policy used by EFS lifecycle management to transition files from Infrequent Access (IA) storage class to primary storage class. |
@@ -4178,10 +4234,10 @@ File system policy is an IAM resource policy used to control NFS access to an EF
 ##### `kmsKey`<sup>Optional</sup> <a name="kmsKey" id="shady-island.EncryptedFileSystemProps.property.kmsKey"></a>
 
 ```typescript
-public readonly kmsKey: IKey;
+public readonly kmsKey: IKeyRef;
 ```
 
-- *Type:* aws-cdk-lib.aws_kms.IKey
+- *Type:* aws-cdk-lib.interfaces.aws_kms.IKeyRef
 - *Default:* if 'encrypted' is true, the default key for EFS (/aws/elasticfilesystem) is used
 
 The KMS key used for encryption.
@@ -4651,7 +4707,10 @@ public readonly assignPublicIp: string;
 
 Whether the task's elastic network interface receives a public IP address.
 
-The default value is `ENABLED` .
+Consider the following when you set this value:
+
+- When you use `create-service` or `update-service` , the default is `DISABLED` .
+- When the service `deploymentController` is `ECS` , the value must be `DISABLED` .
 
 > [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-assignpublicip](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-assignpublicip)
 
@@ -6393,18 +6452,21 @@ const stateMachineTaskProps: StateMachineTaskProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#shady-island.StateMachineTaskProps.property.comment">comment</a></code> | <code>string</code> | An optional description for this state. |
+| <code><a href="#shady-island.StateMachineTaskProps.property.comment">comment</a></code> | <code>string</code> | A comment describing this state. |
+| <code><a href="#shady-island.StateMachineTaskProps.property.queryLanguage">queryLanguage</a></code> | <code>aws-cdk-lib.aws_stepfunctions.QueryLanguage</code> | The name of the query language used by the state. |
+| <code><a href="#shady-island.StateMachineTaskProps.property.stateName">stateName</a></code> | <code>string</code> | Optional name for this state. |
 | <code><a href="#shady-island.StateMachineTaskProps.property.credentials">credentials</a></code> | <code>aws-cdk-lib.aws_stepfunctions.Credentials</code> | Credentials for an IAM Role that the State Machine assumes for executing the task. |
 | <code><a href="#shady-island.StateMachineTaskProps.property.heartbeat">heartbeat</a></code> | <code>aws-cdk-lib.Duration</code> | Timeout for the heartbeat. |
 | <code><a href="#shady-island.StateMachineTaskProps.property.heartbeatTimeout">heartbeatTimeout</a></code> | <code>aws-cdk-lib.aws_stepfunctions.Timeout</code> | Timeout for the heartbeat. |
-| <code><a href="#shady-island.StateMachineTaskProps.property.inputPath">inputPath</a></code> | <code>string</code> | JSONPath expression to select part of the state to be the input to this state. |
 | <code><a href="#shady-island.StateMachineTaskProps.property.integrationPattern">integrationPattern</a></code> | <code>aws-cdk-lib.aws_stepfunctions.IntegrationPattern</code> | AWS Step Functions integrates with services directly in the Amazon States Language. |
-| <code><a href="#shady-island.StateMachineTaskProps.property.outputPath">outputPath</a></code> | <code>string</code> | JSONPath expression to select select a portion of the state output to pass to the next state. |
-| <code><a href="#shady-island.StateMachineTaskProps.property.resultPath">resultPath</a></code> | <code>string</code> | JSONPath expression to indicate where to inject the state's output. |
-| <code><a href="#shady-island.StateMachineTaskProps.property.resultSelector">resultSelector</a></code> | <code>{[ key: string ]: any}</code> | The JSON that will replace the state's raw result and become the effective result before ResultPath is applied. |
-| <code><a href="#shady-island.StateMachineTaskProps.property.stateName">stateName</a></code> | <code>string</code> | Optional name for this state. |
 | <code><a href="#shady-island.StateMachineTaskProps.property.taskTimeout">taskTimeout</a></code> | <code>aws-cdk-lib.aws_stepfunctions.Timeout</code> | Timeout for the task. |
 | <code><a href="#shady-island.StateMachineTaskProps.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | Timeout for the task. |
+| <code><a href="#shady-island.StateMachineTaskProps.property.assign">assign</a></code> | <code>{[ key: string ]: any}</code> | Workflow variables to store in this step. |
+| <code><a href="#shady-island.StateMachineTaskProps.property.inputPath">inputPath</a></code> | <code>string</code> | JSONPath expression to select part of the state to be the input to this state. |
+| <code><a href="#shady-island.StateMachineTaskProps.property.outputPath">outputPath</a></code> | <code>string</code> | JSONPath expression to select part of the state to be the output to this state. |
+| <code><a href="#shady-island.StateMachineTaskProps.property.outputs">outputs</a></code> | <code>any</code> | Used to specify and transform output from the state. |
+| <code><a href="#shady-island.StateMachineTaskProps.property.resultPath">resultPath</a></code> | <code>string</code> | JSONPath expression to indicate where to inject the state's output. |
+| <code><a href="#shady-island.StateMachineTaskProps.property.resultSelector">resultSelector</a></code> | <code>{[ key: string ]: any}</code> | The JSON that will replace the state's raw result and become the effective result before ResultPath is applied. |
 | <code><a href="#shady-island.StateMachineTaskProps.property.containerOverrides">containerOverrides</a></code> | <code>aws-cdk-lib.aws_stepfunctions_tasks.ContainerOverride[]</code> | Container setting overrides. |
 | <code><a href="#shady-island.StateMachineTaskProps.property.enableExecuteCommand">enableExecuteCommand</a></code> | <code>boolean</code> | Whether ECS Exec should be enabled. |
 | <code><a href="#shady-island.StateMachineTaskProps.property.propagatedTagSource">propagatedTagSource</a></code> | <code>aws-cdk-lib.aws_ecs.PropagatedTagSource</code> | Specifies whether to propagate the tags from the task definition to the task. |
@@ -6421,7 +6483,36 @@ public readonly comment: string;
 - *Type:* string
 - *Default:* No comment
 
-An optional description for this state.
+A comment describing this state.
+
+---
+
+##### `queryLanguage`<sup>Optional</sup> <a name="queryLanguage" id="shady-island.StateMachineTaskProps.property.queryLanguage"></a>
+
+```typescript
+public readonly queryLanguage: QueryLanguage;
+```
+
+- *Type:* aws-cdk-lib.aws_stepfunctions.QueryLanguage
+- *Default:* JSONPath
+
+The name of the query language used by the state.
+
+If the state does not contain a `queryLanguage` field,
+then it will use the query language specified in the top-level `queryLanguage` field.
+
+---
+
+##### `stateName`<sup>Optional</sup> <a name="stateName" id="shady-island.StateMachineTaskProps.property.stateName"></a>
+
+```typescript
+public readonly stateName: string;
+```
+
+- *Type:* string
+- *Default:* The construct ID will be used as state name
+
+Optional name for this state.
 
 ---
 
@@ -6473,22 +6564,6 @@ aws-stepfunctions-tasks extend this interface
 
 ---
 
-##### `inputPath`<sup>Optional</sup> <a name="inputPath" id="shady-island.StateMachineTaskProps.property.inputPath"></a>
-
-```typescript
-public readonly inputPath: string;
-```
-
-- *Type:* string
-- *Default:* The entire task input (JSON path '$')
-
-JSONPath expression to select part of the state to be the input to this state.
-
-May also be the special value JsonPath.DISCARD, which will cause the effective
-input to be the empty object {}.
-
----
-
 ##### `integrationPattern`<sup>Optional</sup> <a name="integrationPattern" id="shady-island.StateMachineTaskProps.property.integrationPattern"></a>
 
 ```typescript
@@ -6505,69 +6580,6 @@ You can control these AWS services using service integration patterns.
 Depending on the AWS Service, the Service Integration Pattern availability will vary.
 
 > [https://docs.aws.amazon.com/step-functions/latest/dg/connect-supported-services.html](https://docs.aws.amazon.com/step-functions/latest/dg/connect-supported-services.html)
-
----
-
-##### `outputPath`<sup>Optional</sup> <a name="outputPath" id="shady-island.StateMachineTaskProps.property.outputPath"></a>
-
-```typescript
-public readonly outputPath: string;
-```
-
-- *Type:* string
-- *Default:* The entire JSON node determined by the state input, the task result, and resultPath is passed to the next state (JSON path '$')
-
-JSONPath expression to select select a portion of the state output to pass to the next state.
-
-May also be the special value JsonPath.DISCARD, which will cause the effective
-output to be the empty object {}.
-
----
-
-##### `resultPath`<sup>Optional</sup> <a name="resultPath" id="shady-island.StateMachineTaskProps.property.resultPath"></a>
-
-```typescript
-public readonly resultPath: string;
-```
-
-- *Type:* string
-- *Default:* Replaces the entire input with the result (JSON path '$')
-
-JSONPath expression to indicate where to inject the state's output.
-
-May also be the special value JsonPath.DISCARD, which will cause the state's
-input to become its output.
-
----
-
-##### `resultSelector`<sup>Optional</sup> <a name="resultSelector" id="shady-island.StateMachineTaskProps.property.resultSelector"></a>
-
-```typescript
-public readonly resultSelector: {[ key: string ]: any};
-```
-
-- *Type:* {[ key: string ]: any}
-- *Default:* None
-
-The JSON that will replace the state's raw result and become the effective result before ResultPath is applied.
-
-You can use ResultSelector to create a payload with values that are static
-or selected from the state's raw result.
-
-> [https://docs.aws.amazon.com/step-functions/latest/dg/input-output-inputpath-params.html#input-output-resultselector](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-inputpath-params.html#input-output-resultselector)
-
----
-
-##### `stateName`<sup>Optional</sup> <a name="stateName" id="shady-island.StateMachineTaskProps.property.stateName"></a>
-
-```typescript
-public readonly stateName: string;
-```
-
-- *Type:* string
-- *Default:* The construct ID will be used as state name
-
-Optional name for this state.
 
 ---
 
@@ -6599,6 +6611,110 @@ public readonly timeout: Duration;
 - *Default:* None
 
 Timeout for the task.
+
+---
+
+##### `assign`<sup>Optional</sup> <a name="assign" id="shady-island.StateMachineTaskProps.property.assign"></a>
+
+```typescript
+public readonly assign: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* Not assign variables
+
+Workflow variables to store in this step.
+
+Using workflow variables, you can store data in a step and retrieve that data in future steps.
+
+> [https://docs.aws.amazon.com/step-functions/latest/dg/workflow-variables.html](https://docs.aws.amazon.com/step-functions/latest/dg/workflow-variables.html)
+
+---
+
+##### `inputPath`<sup>Optional</sup> <a name="inputPath" id="shady-island.StateMachineTaskProps.property.inputPath"></a>
+
+```typescript
+public readonly inputPath: string;
+```
+
+- *Type:* string
+- *Default:* $
+
+JSONPath expression to select part of the state to be the input to this state.
+
+May also be the special value JsonPath.DISCARD, which will cause the effective
+input to be the empty object {}.
+
+---
+
+##### `outputPath`<sup>Optional</sup> <a name="outputPath" id="shady-island.StateMachineTaskProps.property.outputPath"></a>
+
+```typescript
+public readonly outputPath: string;
+```
+
+- *Type:* string
+- *Default:* $
+
+JSONPath expression to select part of the state to be the output to this state.
+
+May also be the special value JsonPath.DISCARD, which will cause the effective
+output to be the empty object {}.
+
+---
+
+##### `outputs`<sup>Optional</sup> <a name="outputs" id="shady-island.StateMachineTaskProps.property.outputs"></a>
+
+```typescript
+public readonly outputs: any;
+```
+
+- *Type:* any
+- *Default:* $states.result or $states.errorOutput
+
+Used to specify and transform output from the state.
+
+When specified, the value overrides the state output default.
+The output field accepts any JSON value (object, array, string, number, boolean, null).
+Any string value, including those inside objects or arrays,
+will be evaluated as JSONata if surrounded by {% %} characters.
+Output also accepts a JSONata expression directly.
+
+> [https://docs.aws.amazon.com/step-functions/latest/dg/concepts-input-output-filtering.html](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-input-output-filtering.html)
+
+---
+
+##### `resultPath`<sup>Optional</sup> <a name="resultPath" id="shady-island.StateMachineTaskProps.property.resultPath"></a>
+
+```typescript
+public readonly resultPath: string;
+```
+
+- *Type:* string
+- *Default:* $
+
+JSONPath expression to indicate where to inject the state's output.
+
+May also be the special value JsonPath.DISCARD, which will cause the state's
+input to become its output.
+
+---
+
+##### `resultSelector`<sup>Optional</sup> <a name="resultSelector" id="shady-island.StateMachineTaskProps.property.resultSelector"></a>
+
+```typescript
+public readonly resultSelector: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+- *Default:* None
+
+The JSON that will replace the state's raw result and become the effective result before ResultPath is applied.
+
+You can use ResultSelector to create a payload with values that are static
+or selected from the state's raw result.
+
+> [https://docs.aws.amazon.com/step-functions/latest/dg/input-output-inputpath-params.html#input-output-resultselector](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-inputpath-params.html#input-output-resultselector)
 
 ---
 

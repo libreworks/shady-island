@@ -64,7 +64,7 @@ export class EncryptedFileSystem
       removalPolicy,
     });
 
-    this.key = key;
+    this.key = key as IKey;
     this.fileSystem = fileSystem;
   }
 }

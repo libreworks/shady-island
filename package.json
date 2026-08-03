@@ -6,35 +6,36 @@
     "url": "https://github.com:libreworks/shady-island.git"
   },
   "scripts": {
-    "build": "npx projen build",
-    "bump": "npx projen bump",
-    "bundle": "npx projen bundle",
-    "bundle:automation/function-code-updater": "npx projen bundle:automation/function-code-updater",
-    "bundle:rds/triggers/mysql": "npx projen bundle:rds/triggers/mysql",
-    "bundle:rds/triggers/pgsql": "npx projen bundle:rds/triggers/pgsql",
-    "bundle:vpc/assign-on-launch.handler": "npx projen bundle:vpc/assign-on-launch.handler",
-    "clobber": "npx projen clobber",
-    "compat": "npx projen compat",
-    "compile": "npx projen compile",
-    "default": "npx projen default",
-    "docgen": "npx projen docgen",
-    "eject": "npx projen eject",
-    "eslint": "npx projen eslint",
-    "package": "npx projen package",
-    "package-all": "npx projen package-all",
-    "package:js": "npx projen package:js",
-    "package:python": "npx projen package:python",
-    "post-compile": "npx projen post-compile",
-    "post-upgrade": "npx projen post-upgrade",
-    "pre-compile": "npx projen pre-compile",
-    "python-handlers": "npx projen python-handlers",
-    "release": "npx projen release",
-    "test": "npx projen test",
-    "test:watch": "npx projen test:watch",
-    "unbump": "npx projen unbump",
-    "upgrade": "npx projen upgrade",
-    "watch": "npx projen watch",
-    "projen": "npx projen"
+    "build": "projen build",
+    "bump": "projen bump",
+    "bump:releasable-commits": "projen bump:releasable-commits",
+    "bundle": "projen bundle",
+    "bundle:automation/function-code-updater": "projen bundle:automation/function-code-updater",
+    "bundle:rds/triggers/mysql": "projen bundle:rds/triggers/mysql",
+    "bundle:rds/triggers/pgsql": "projen bundle:rds/triggers/pgsql",
+    "bundle:vpc/assign-on-launch.handler": "projen bundle:vpc/assign-on-launch.handler",
+    "clobber": "projen clobber",
+    "compat": "projen compat",
+    "compile": "projen compile",
+    "default": "projen default",
+    "docgen": "projen docgen",
+    "eject": "projen eject",
+    "eslint": "projen eslint",
+    "package": "projen package",
+    "package-all": "projen package-all",
+    "package:js": "projen package:js",
+    "package:python": "projen package:python",
+    "post-compile": "projen post-compile",
+    "post-upgrade": "projen post-upgrade",
+    "pre-compile": "projen pre-compile",
+    "python-handlers": "projen python-handlers",
+    "release": "projen release",
+    "test": "projen test",
+    "test:watch": "projen test:watch",
+    "unbump": "projen unbump",
+    "upgrade": "projen upgrade",
+    "watch": "projen watch",
+    "projen": "projen"
   },
   "author": {
     "name": "LibreWorks Contributors",
@@ -42,50 +43,58 @@
     "organization": true
   },
   "devDependencies": {
-    "@aws-sdk/client-lambda": "^3.1014.0",
-    "@aws-sdk/client-secrets-manager": "^3.1014.0",
+    "@aws-sdk/client-lambda": "^3.1102.0",
+    "@aws-sdk/client-secrets-manager": "^3.1102.0",
     "@libreworks/db-provision-pgsql": "^0.0.36",
-    "@types/aws-lambda": "^8.10.161",
+    "@types/aws-lambda": "^8.10.162",
     "@types/jest": "^27",
-    "@types/node": "^18",
-    "@types/pg": "^8.20.0",
+    "@types/node": "^24",
+    "@types/pg": "^8.20.3",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
-    "aws-cdk-lib": "2.177.0",
+    "aws-cdk-lib": "2.224.0",
     "commit-and-tag-version": "^12",
     "constructs": "10.5.1",
-    "esbuild": "^0.27.4",
+    "esbuild": "^0.28.1",
     "eslint": "^9",
     "eslint-config-prettier": "^8.10.2",
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^4.2.5",
     "jest": "^29.7.0",
-    "jest-junit": "^16",
+    "jest-junit": "^17",
     "jsii": "~5.9.0",
-    "jsii-diff": "^1.127.0",
+    "jsii-diff": "^1.139.0",
     "jsii-docgen": "^10.5.0",
-    "jsii-pacmak": "^1.127.0",
+    "jsii-pacmak": "^1.139.0",
     "jsii-rosetta": "~5.9.0",
-    "mysql2": "^3.20.0",
-    "pg": "^8.20.0",
+    "mysql2": "^3.23.2",
+    "pg": "^8.22.0",
     "prettier": "^2.8.8",
-    "projen": "^0.99.21",
-    "ts-jest": "^29.4.6",
+    "projen": "^0.101.23",
+    "ts-jest": "^29.4.12",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
-    "yaml": "^2.8.3"
+    "typescript": "~5.9.0",
+    "yaml": "^2.9.0"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.177.0",
+    "aws-cdk-lib": "^2.224.0",
     "constructs": "^10.5.1"
   },
   "keywords": [
     "cdk"
   ],
+  "devEngines": {
+    "packageManager": {
+      "name": "yarn",
+      "version": "1.22.22",
+      "onFail": "ignore"
+    }
+  },
   "main": "lib/index.js",
   "license": "Apache-2.0",
   "homepage": "https://libreworks.github.io/shady-island/",
+  "stability": "stable",
   "publishConfig": {
     "access": "public"
   },
@@ -133,13 +142,12 @@
       "^.+\\.[t]sx?$": [
         "ts-jest",
         {
-          "tsconfig": "tsconfig.dev.json"
+          "tsconfig": "test/tsconfig.json"
         }
       ]
     }
   },
   "types": "lib/index.d.ts",
-  "stability": "stable",
   "jsii": {
     "outdir": "dist",
     "targets": {
@@ -148,10 +156,8 @@
         "module": "shady_island"
       }
     },
-    "tsc": {
-      "outDir": "lib",
-      "rootDir": "src"
-    }
+    "tsconfig": "tsconfig.json",
+    "validateTsconfig": "strict"
   },
   "awscdkio": {
     "announce": true
