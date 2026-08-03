@@ -76,8 +76,6 @@ describe("FunctionCodeUpdater", () => {
 
       const template = Template.fromStack(stack);
 
-      console.log(JSON.stringify(template.toJSON(), undefined, 2));
-
       template.hasResourceProperties("AWS::IAM::Policy", {
         PolicyDocument: Match.objectLike({
           Statement: Match.arrayWith([

@@ -832,7 +832,7 @@ The EIP ARN.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#shady-island.networking.ElasticIp.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#shady-island.networking.ElasticIp.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#shady-island.networking.ElasticIp.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#shady-island.networking.ElasticIp.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#shady-island.networking.ElasticIp.property.allocationId">allocationId</a></code> | <code>string</code> | The allocation ID of the Elastic IP address. |
 | <code><a href="#shady-island.networking.ElasticIp.property.elasticIpArn">elasticIpArn</a></code> | <code>string</code> | The ARN of the Elastic IP address. |
@@ -858,16 +858,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -1355,7 +1356,7 @@ The Network Interface attributes.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#shady-island.networking.NetworkInterface.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#shady-island.networking.NetworkInterface.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#shady-island.networking.NetworkInterface.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#shady-island.networking.NetworkInterface.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#shady-island.networking.NetworkInterface.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | The network connections associated with this resource. |
 | <code><a href="#shady-island.networking.NetworkInterface.property.ipv6Address">ipv6Address</a></code> | <code>string</code> | *No description.* |
@@ -1383,16 +1384,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -1965,12 +1967,13 @@ Import an existing LaunchTemplate.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | Allows specifying security group connections for the instance. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.defaultVersionNumber">defaultVersionNumber</a></code> | <code>string</code> | The default version for the launch template. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.grantPrincipal">grantPrincipal</a></code> | <code>aws-cdk-lib.aws_iam.IPrincipal</code> | Principal to grant permissions to. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.latestVersionNumber">latestVersionNumber</a></code> | <code>string</code> | The latest version of the launch template. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.launchTemplateRef">launchTemplateRef</a></code> | <code>aws-cdk-lib.interfaces.aws_ec2.LaunchTemplateReference</code> | A reference to a LaunchTemplate resource. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.versionNumber">versionNumber</a></code> | <code>string</code> | The version number of this launch template to use. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.imageId">imageId</a></code> | <code>string</code> | The AMI ID of the image to use. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | Type of instance to launch. |
@@ -2001,16 +2004,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -2071,6 +2075,18 @@ public readonly latestVersionNumber: string;
 - *Type:* string
 
 The latest version of the launch template.
+
+---
+
+##### `launchTemplateRef`<sup>Required</sup> <a name="launchTemplateRef" id="shady-island.networking.SingletonLaunchTemplate.property.launchTemplateRef"></a>
+
+```typescript
+public readonly launchTemplateRef: LaunchTemplateReference;
+```
+
+- *Type:* aws-cdk-lib.interfaces.aws_ec2.LaunchTemplateReference
+
+A reference to a LaunchTemplate resource.
 
 ---
 
@@ -2186,6 +2202,25 @@ The network interface used by this launch template.
 
 ---
 
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplate.property.PROPERTY_INJECTION_ID">PROPERTY_INJECTION_ID</a></code> | <code>string</code> | Uniquely identifies this class. |
+
+---
+
+##### `PROPERTY_INJECTION_ID`<sup>Required</sup> <a name="PROPERTY_INJECTION_ID" id="shady-island.networking.SingletonLaunchTemplate.property.PROPERTY_INJECTION_ID"></a>
+
+```typescript
+public readonly PROPERTY_INJECTION_ID: string;
+```
+
+- *Type:* string
+
+Uniquely identifies this class.
+
+---
 
 ### WebLoadBalancing <a name="WebLoadBalancing" id="shady-island.networking.WebLoadBalancing"></a>
 
@@ -2990,11 +3025,12 @@ const singletonLaunchTemplateProps: networking.SingletonLaunchTemplateProps = { 
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.launchTemplateName">launchTemplateName</a></code> | <code>string</code> | Name for this launch template. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.machineImage">machineImage</a></code> | <code>aws-cdk-lib.aws_ec2.IMachineImage</code> | The AMI that will be used by instances. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.nitroEnclaveEnabled">nitroEnclaveEnabled</a></code> | <code>boolean</code> | If this parameter is set to true, the instance is enabled for AWS Nitro Enclaves; |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.placementGroup">placementGroup</a></code> | <code>aws-cdk-lib.interfaces.aws_ec2.IPlacementGroupRef</code> | The placement group that you want to launch the instance into. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.requireImdsv2">requireImdsv2</a></code> | <code>boolean</code> | Whether IMDSv2 should be required on launched instances. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | An IAM role to associate with the instance profile that is used by instances. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.securityGroup">securityGroup</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup</code> | Security group to assign to instances created with the launch template. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.spotOptions">spotOptions</a></code> | <code>aws-cdk-lib.aws_ec2.LaunchTemplateSpotOptions</code> | If this property is defined, then the Launch Template's InstanceMarketOptions will be set to use Spot instances, and the options for the Spot instances will be as defined. |
-| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.userData">userData</a></code> | <code>aws-cdk-lib.aws_ec2.UserData</code> | The AMI that will be used by instances. |
+| <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.userData">userData</a></code> | <code>aws-cdk-lib.aws_ec2.UserData</code> | The user data to make available to the instance. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.versionDescription">versionDescription</a></code> | <code>string</code> | A description for the first version of the launch template. |
 | <code><a href="#shady-island.networking.SingletonLaunchTemplateProps.property.networkInterface">networkInterface</a></code> | <code><a href="#shady-island.networking.INetworkInterface">INetworkInterface</a></code> | The Elastic Network Interface to use. |
 
@@ -3302,6 +3338,19 @@ otherwise, it is not enabled for AWS Nitro Enclaves.
 
 ---
 
+##### `placementGroup`<sup>Optional</sup> <a name="placementGroup" id="shady-island.networking.SingletonLaunchTemplateProps.property.placementGroup"></a>
+
+```typescript
+public readonly placementGroup: IPlacementGroupRef;
+```
+
+- *Type:* aws-cdk-lib.interfaces.aws_ec2.IPlacementGroupRef
+- *Default:* no placement group will be used for this launch template.
+
+The placement group that you want to launch the instance into.
+
+---
+
 ##### `requireImdsv2`<sup>Optional</sup> <a name="requireImdsv2" id="shady-island.networking.SingletonLaunchTemplateProps.property.requireImdsv2"></a>
 
 ```typescript
@@ -3375,7 +3424,7 @@ public readonly userData: UserData;
 - *Type:* aws-cdk-lib.aws_ec2.UserData
 - *Default:* This Launch Template creates a UserData based on the type of provided machineImage; no UserData is created if a machineImage is not provided
 
-The AMI that will be used by instances.
+The user data to make available to the instance.
 
 ---
 
@@ -3428,11 +3477,13 @@ const targetOptions: networking.TargetOptions = { ... }
 | <code><a href="#shady-island.networking.TargetOptions.property.deregistrationDelay">deregistrationDelay</a></code> | <code>aws-cdk-lib.Duration</code> | The amount of time for Elastic Load Balancing to wait before deregistering a target. |
 | <code><a href="#shady-island.networking.TargetOptions.property.healthCheck">healthCheck</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.HealthCheck</code> | Health check configuration. |
 | <code><a href="#shady-island.networking.TargetOptions.property.ipAddressType">ipAddressType</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.TargetGroupIpAddressType</code> | The type of IP addresses of the targets registered with the target group. |
+| <code><a href="#shady-island.networking.TargetOptions.property.targetGroupHealth">targetGroupHealth</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.TargetGroupHealth</code> | Configuring target group health. |
 | <code><a href="#shady-island.networking.TargetOptions.property.targetGroupName">targetGroupName</a></code> | <code>string</code> | The name of the target group. |
 | <code><a href="#shady-island.networking.TargetOptions.property.targetType">targetType</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.TargetType</code> | The type of targets registered to this TargetGroup, either IP or Instance. |
 | <code><a href="#shady-island.networking.TargetOptions.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The virtual private cloud (VPC). |
 | <code><a href="#shady-island.networking.TargetOptions.property.enableAnomalyMitigation">enableAnomalyMitigation</a></code> | <code>boolean</code> | Indicates whether anomaly mitigation is enabled. |
 | <code><a href="#shady-island.networking.TargetOptions.property.loadBalancingAlgorithmType">loadBalancingAlgorithmType</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.TargetGroupLoadBalancingAlgorithmType</code> | The load balancing algorithm to select targets for routing requests. |
+| <code><a href="#shady-island.networking.TargetOptions.property.multiValueHeadersEnabled">multiValueHeadersEnabled</a></code> | <code>boolean</code> | Indicates whether the target group supports multi-value headers. |
 | <code><a href="#shady-island.networking.TargetOptions.property.port">port</a></code> | <code>number</code> | The port on which the target receives traffic. |
 | <code><a href="#shady-island.networking.TargetOptions.property.protocol">protocol</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationProtocol</code> | The protocol used for communication with the target. |
 | <code><a href="#shady-island.networking.TargetOptions.property.protocolVersion">protocolVersion</a></code> | <code>aws-cdk-lib.aws_elasticloadbalancingv2.ApplicationProtocolVersion</code> | The protocol version to use. |
@@ -3500,6 +3551,21 @@ public readonly ipAddressType: TargetGroupIpAddressType;
 - *Default:* undefined - ELB defaults to IPv4
 
 The type of IP addresses of the targets registered with the target group.
+
+---
+
+##### `targetGroupHealth`<sup>Optional</sup> <a name="targetGroupHealth" id="shady-island.networking.TargetOptions.property.targetGroupHealth"></a>
+
+```typescript
+public readonly targetGroupHealth: TargetGroupHealth;
+```
+
+- *Type:* aws-cdk-lib.aws_elasticloadbalancingv2.TargetGroupHealth
+- *Default:* use default configuration
+
+Configuring target group health.
+
+> [https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html#target-group-attributes](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html#target-group-attributes)
 
 ---
 
@@ -3579,6 +3645,26 @@ public readonly loadBalancingAlgorithmType: TargetGroupLoadBalancingAlgorithmTyp
 - *Default:* TargetGroupLoadBalancingAlgorithmType.ROUND_ROBIN
 
 The load balancing algorithm to select targets for routing requests.
+
+---
+
+##### `multiValueHeadersEnabled`<sup>Optional</sup> <a name="multiValueHeadersEnabled" id="shady-island.networking.TargetOptions.property.multiValueHeadersEnabled"></a>
+
+```typescript
+public readonly multiValueHeadersEnabled: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Indicates whether the target group supports multi-value headers.
+
+If the value is true, the request and response headers exchanged between
+the load balancer and the Lambda function include arrays of values or strings.
+
+Only applicable for Lambda targets.
+
+> [https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html#target-group-attributes](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html#target-group-attributes)
 
 ---
 
@@ -4383,7 +4469,7 @@ The IAM actions to allow.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#shady-island.networking.IElasticIp.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#shady-island.networking.IElasticIp.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#shady-island.networking.IElasticIp.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#shady-island.networking.IElasticIp.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#shady-island.networking.IElasticIp.property.allocationId">allocationId</a></code> | <code>string</code> | The allocation ID of the Elastic IP address. |
 | <code><a href="#shady-island.networking.IElasticIp.property.elasticIpArn">elasticIpArn</a></code> | <code>string</code> | The ARN of the Elastic IP address. |
@@ -4408,16 +4494,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 

@@ -1,5 +1,6 @@
 import { App, Stack } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
+import { StepFunctionInvokeAction } from "aws-cdk-lib/aws-codepipeline-actions";
 import { Vpc } from "aws-cdk-lib/aws-ec2";
 import { Repository } from "aws-cdk-lib/aws-ecr";
 import {
@@ -8,6 +9,7 @@ import {
   FargateTaskDefinition,
   ContainerImage,
 } from "aws-cdk-lib/aws-ecs";
+import { DefinitionBody, StateMachine } from "aws-cdk-lib/aws-stepfunctions";
 import { ContainerImagePipeline } from "../../src/automation/ecs-pipeline";
 
 describe("ContainerImagePipeline", () => {
@@ -34,6 +36,25 @@ describe("ContainerImagePipeline", () => {
     repository = undefined;
   });
 
+  test("throws exception with no targets", () => {
+    const taskDefinition = new FargateTaskDefinition(stack, "TaskDef", {});
+    const container = "Foo";
+    taskDefinition.addContainer(container, {
+      image: ContainerImage.fromRegistry("node:20"),
+    });
+
+    expect(() => {
+      new ContainerImagePipeline(stack, "Deploy", {
+        repository,
+        services: [],
+        container,
+      });
+    }).toThrow({
+      name: "Error",
+      message: "You must specify at least one target ECS service",
+    });
+  });
+
   test("synthesizes the template as expected", () => {
     const cluster = new Cluster(stack, "Cluster", {
       vpc,
@@ -52,16 +73,32 @@ describe("ContainerImagePipeline", () => {
       cluster,
       taskDefinition,
     });
+    const stateMachine = new StateMachine(stack, "StateMachine", {
+      definitionBody: DefinitionBody.fromString("{}"),
+    });
 
     new ContainerImagePipeline(stack, "Deploy", {
       repository,
       services: [service1, service2],
       container,
+      preDeployStage: {
+        stageName: "Migrate",
+        actions: [
+          new StepFunctionInvokeAction({
+            actionName: "Migrate",
+            stateMachine,
+          }),
+        ],
+      },
+      postDeployStage: {
+        stageName: "Verify",
+        actions: [
+          new StepFunctionInvokeAction({ actionName: "Verify", stateMachine }),
+        ],
+      },
     });
 
     const template = Template.fromStack(stack);
-
-    console.log(JSON.stringify(template.toJSON(), undefined, 2));
 
     template.hasResourceProperties("AWS::CodePipeline::Pipeline", {
       Stages: [
@@ -126,6 +163,30 @@ describe("ContainerImagePipeline", () => {
           Actions: [
             {
               ActionTypeId: {
+                Category: "Invoke",
+                Owner: "AWS",
+                Provider: "StepFunctions",
+                Version: "1",
+              },
+              Configuration: {
+                StateMachineArn: { Ref: "StateMachine2E01A3A5" },
+              },
+              Name: "Migrate",
+              RoleArn: {
+                "Fn::GetAtt": [
+                  "DeployPipelineMigrateCodePipelineActionRoleF888F6B4",
+                  "Arn",
+                ],
+              },
+              RunOrder: 1,
+            },
+          ],
+          Name: "Migrate",
+        },
+        {
+          Actions: [
+            {
+              ActionTypeId: {
                 Category: "Deploy",
                 Owner: "AWS",
                 Provider: "ECS",
@@ -176,6 +237,30 @@ describe("ContainerImagePipeline", () => {
             },
           ],
           Name: "Deploy",
+        },
+        {
+          Actions: [
+            {
+              ActionTypeId: {
+                Category: "Invoke",
+                Owner: "AWS",
+                Provider: "StepFunctions",
+                Version: "1",
+              },
+              Configuration: {
+                StateMachineArn: { Ref: "StateMachine2E01A3A5" },
+              },
+              Name: "Verify",
+              RoleArn: {
+                "Fn::GetAtt": [
+                  "DeployPipelineVerifyCodePipelineActionRoleA3DA4902",
+                  "Arn",
+                ],
+              },
+              RunOrder: 1,
+            },
+          ],
+          Name: "Verify",
         },
       ],
     });

@@ -155,7 +155,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#shady-island.automation.BaseDockerProject.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#shady-island.automation.BaseDockerProject.property.buildSpec">buildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | The CodeBuild build spec supplied. |
-| <code><a href="#shady-island.automation.BaseDockerProject.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#shady-island.automation.BaseDockerProject.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#shady-island.automation.BaseDockerProject.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | The log group. |
 | <code><a href="#shady-island.automation.BaseDockerProject.property.project">project</a></code> | <code>aws-cdk-lib.aws_codebuild.PipelineProject</code> | The CodeBuild project. |
 | <code><a href="#shady-island.automation.BaseDockerProject.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
@@ -192,16 +192,17 @@ The CodeBuild build spec supplied.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -729,7 +730,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProject.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProject.property.buildSpec">buildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | The CodeBuild build spec supplied. |
-| <code><a href="#shady-island.automation.LinuxDockerBuildProject.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#shady-island.automation.LinuxDockerBuildProject.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProject.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | The log group. |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProject.property.project">project</a></code> | <code>aws-cdk-lib.aws_codebuild.PipelineProject</code> | The CodeBuild project. |
 | <code><a href="#shady-island.automation.LinuxDockerBuildProject.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
@@ -766,16 +767,17 @@ The CodeBuild build spec supplied.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -972,7 +974,7 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProject.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProject.property.buildSpec">buildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | The CodeBuild build spec supplied. |
-| <code><a href="#shady-island.automation.LinuxDockerManifestProject.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#shady-island.automation.LinuxDockerManifestProject.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProject.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | The log group. |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProject.property.project">project</a></code> | <code>aws-cdk-lib.aws_codebuild.PipelineProject</code> | The CodeBuild project. |
 | <code><a href="#shady-island.automation.LinuxDockerManifestProject.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
@@ -1009,16 +1011,17 @@ The CodeBuild build spec supplied.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -1327,9 +1330,12 @@ const containerImagePipelineProps: automation.ContainerImagePipelineProps = { ..
 | --- | --- | --- |
 | <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.container">container</a></code> | <code>string</code> | The name of the container in the task definition to update. |
 | <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.repository">repository</a></code> | <code>aws-cdk-lib.aws_ecr.IRepository</code> | The ECR repository where images will be pushed. |
-| <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.service">service</a></code> | <code>aws-cdk-lib.aws_ecs.IBaseService</code> | The ECS service to update when an image is pushed to the ECR repository. |
 | <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.artifactBucket">artifactBucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | A custom bucket for artifacts. |
 | <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.pipelineType">pipelineType</a></code> | <code>aws-cdk-lib.aws_codepipeline.PipelineType</code> | The pipeline type (V1 or V2). |
+| <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.postDeployStage">postDeployStage</a></code> | <code>aws-cdk-lib.aws_codepipeline.StageProps</code> | A stage to run immediately after the deployment. |
+| <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.preDeployStage">preDeployStage</a></code> | <code>aws-cdk-lib.aws_codepipeline.StageProps</code> | A stage to run immediately before the deployment. |
+| <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.service">service</a></code> | <code>aws-cdk-lib.aws_ecs.IBaseService</code> | The ECS service to update when an image is pushed to the ECR repository. |
+| <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.services">services</a></code> | <code>aws-cdk-lib.aws_ecs.IBaseService[]</code> | The services receiving the deployment. |
 | <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.tag">tag</a></code> | <code>string</code> | The container image tag to observe for changes in the ECR repository. |
 
 ---
@@ -1358,18 +1364,6 @@ The ECR repository where images will be pushed.
 
 ---
 
-##### `service`<sup>Required</sup> <a name="service" id="shady-island.automation.ContainerImagePipelineProps.property.service"></a>
-
-```typescript
-public readonly service: IBaseService;
-```
-
-- *Type:* aws-cdk-lib.aws_ecs.IBaseService
-
-The ECS service to update when an image is pushed to the ECR repository.
-
----
-
 ##### `artifactBucket`<sup>Optional</sup> <a name="artifactBucket" id="shady-island.automation.ContainerImagePipelineProps.property.artifactBucket"></a>
 
 ```typescript
@@ -1393,6 +1387,94 @@ public readonly pipelineType: PipelineType;
 - *Default:* V1
 
 The pipeline type (V1 or V2).
+
+---
+
+##### `postDeployStage`<sup>Optional</sup> <a name="postDeployStage" id="shady-island.automation.ContainerImagePipelineProps.property.postDeployStage"></a>
+
+```typescript
+public readonly postDeployStage: StageProps;
+```
+
+- *Type:* aws-cdk-lib.aws_codepipeline.StageProps
+
+A stage to run immediately after the deployment.
+
+This allows you to introduce a finalization or verification step after the
+replacement ECS Task launched. For example: a success SNS message.
+
+This property is a more convenient syntax to:
+
+```typescript
+const migrateStage = pipeline.addStage({
+  stageName: "Validate",
+  placement: { rightAfter: pipeline.stage("Deploy") },
+});
+migrateStage.addAction(
+  new StepFunctionInvokeAction({
+    stateMachine: stateMachine,
+    actionName: "Validate",
+    runOrder: 1,
+  })
+);
+```
+
+---
+
+##### `preDeployStage`<sup>Optional</sup> <a name="preDeployStage" id="shady-island.automation.ContainerImagePipelineProps.property.preDeployStage"></a>
+
+```typescript
+public readonly preDeployStage: StageProps;
+```
+
+- *Type:* aws-cdk-lib.aws_codepipeline.StageProps
+
+A stage to run immediately before the deployment.
+
+This allows you to introduce an approval gate or prerequisite step before
+the replacement ECS Task launches. For example: a database schema change.
+
+This property is a more convenient syntax to:
+
+```typescript
+const migrateStage = pipeline.addStage({
+  stageName: "Migrate",
+  placement: { rightBefore: pipeline.stage("Deploy") },
+});
+migrateStage.addAction(
+  new StepFunctionInvokeAction({
+    stateMachine: stateMachine,
+    actionName: "Migrate",
+    runOrder: 1,
+  })
+);
+```
+
+---
+
+##### ~~`service`~~<sup>Optional</sup> <a name="service" id="shady-island.automation.ContainerImagePipelineProps.property.service"></a>
+
+- *Deprecated:* - Use services instead
+
+```typescript
+public readonly service: IBaseService;
+```
+
+- *Type:* aws-cdk-lib.aws_ecs.IBaseService
+
+The ECS service to update when an image is pushed to the ECR repository.
+
+---
+
+##### `services`<sup>Optional</sup> <a name="services" id="shady-island.automation.ContainerImagePipelineProps.property.services"></a>
+
+```typescript
+public readonly services: IBaseService[];
+```
+
+- *Type:* aws-cdk-lib.aws_ecs.IBaseService[]
+
+The services receiving the deployment.
 
 ---
 
