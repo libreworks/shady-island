@@ -65,7 +65,7 @@ export class FunctionCodeUpdater extends Construct {
     const updater = new Function(this, "Default", {
       description:
         "Calls lambda:UpdateFunctionCode when new versions appear in S3",
-      runtime: Runtime.NODEJS_22_X,
+      runtime: Runtime.NODEJS_24_X,
       code: Code.fromAsset(HANDLER_PATH),
       handler: "index.handler",
       environment: {

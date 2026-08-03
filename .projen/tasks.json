@@ -1,4 +1,8 @@
 {
+  "manifestVersion": 3,
+  "env": {
+    "PATH": "$(npx -c \"node --print process.env.PATH\")"
+  },
   "tasks": {
     "build": {
       "name": "build",
@@ -37,10 +41,32 @@
       },
       "steps": [
         {
-          "builtin": "release/bump-version"
+          "builtin": "release/resolve-latest-tag",
+          "outputEnv": "LATEST_TAG"
+        },
+        {
+          "spawn": "bump:releasable-commits",
+          "outputEnv": "RELEASABLE_COMMITS",
+          "condition": "git rev-parse --verify --quiet \"refs/tags/$LATEST_TAG\""
+        },
+        {
+          "builtin": "release/suggest-version-bump",
+          "outputEnv": "SUGGESTED_BUMP"
+        },
+        {
+          "builtin": "release/apply-version-bump"
         }
       ],
-      "condition": "git log --oneline -1 | grep -qv \"chore(release):\""
+      "condition": "git log --oneline -1 | grep -v \"chore(release):\" > /dev/null"
+    },
+    "bump:releasable-commits": {
+      "name": "bump:releasable-commits",
+      "description": "Print the releasable commits since the latest release",
+      "steps": [
+        {
+          "exec": "git log --oneline $LATEST_TAG..HEAD"
+        }
+      ]
     },
     "bundle": {
       "name": "bundle",
@@ -65,7 +91,7 @@
       "description": "Create a JavaScript bundle from ./src/automation/function-code-updater.handler",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/automation/function-code-updater.handler --target=\"node22\" --platform=\"node\" --outfile=\"assets/automation/function-code-updater/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-lambda"
+          "exec": "esbuild --bundle ./src/automation/function-code-updater.handler --target=\"node24\" --platform=\"node\" --outfile=\"assets/automation/function-code-updater/index.js\" --external:pg-native --external:@aws-sdk/client-lambda --external:@aws-sdk/client-secrets-manager"
         }
       ]
     },
@@ -74,7 +100,7 @@
       "description": "Create a JavaScript bundle from ./src/rds/triggers/mysql.handler",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/rds/triggers/mysql.handler --target=\"node22\" --platform=\"node\" --outfile=\"assets/rds/triggers/mysql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-lambda"
+          "exec": "esbuild --bundle ./src/rds/triggers/mysql.handler --target=\"node24\" --platform=\"node\" --outfile=\"assets/rds/triggers/mysql/index.js\" --external:pg-native --external:@aws-sdk/client-lambda --external:@aws-sdk/client-secrets-manager"
         }
       ]
     },
@@ -83,7 +109,7 @@
       "description": "Create a JavaScript bundle from ./src/rds/triggers/pgsql.handler",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/rds/triggers/pgsql.handler --target=\"node22\" --platform=\"node\" --outfile=\"assets/rds/triggers/pgsql/index.js\" --external:pg-native --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-lambda"
+          "exec": "esbuild --bundle ./src/rds/triggers/pgsql.handler --target=\"node24\" --platform=\"node\" --outfile=\"assets/rds/triggers/pgsql/index.js\" --external:pg-native --external:@aws-sdk/client-lambda --external:@aws-sdk/client-secrets-manager"
         }
       ]
     },
@@ -143,6 +169,9 @@
       "steps": [
         {
           "exec": "jsii --silence-warnings=reserved-word"
+        },
+        {
+          "spawn": "compat"
         }
       ]
     },
@@ -151,7 +180,12 @@
       "description": "Synthesize project files",
       "steps": [
         {
-          "exec": "ts-node --project tsconfig.dev.json .projenrc.ts"
+          "execArgs": [
+            "ts-node",
+            "--project",
+            "projenrc/tsconfig.json",
+            ".projenrc.ts"
+          ]
         }
       ]
     },
@@ -239,7 +273,12 @@
       "description": "Create js language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target js"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "js"
+          ]
         }
       ]
     },
@@ -248,7 +287,12 @@
       "description": "Create python language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target python"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "python"
+          ]
         }
       ]
     },
@@ -363,13 +407,58 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@18 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@libreworks/db-provision-pgsql,@types/aws-lambda,@types/jest,@types/node,@types/pg,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,jsii-diff,jsii-pacmak,mysql2,pg,prettier,projen,ts-jest,ts-node,typescript,yaml"
+          "execArgs": [
+            "npx",
+            "npm-check-updates@20",
+            "--upgrade",
+            "--target=minor",
+            "--peer",
+            "--no-deprecated",
+            "--dep=dev,prod,peer,optional",
+            "--filter=@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@libreworks/db-provision-pgsql,@types/aws-lambda,@types/jest,@types/node,@types/pg,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,jsii-diff,jsii-pacmak,mysql2,pg,prettier,projen,ts-jest,ts-node,typescript,yaml"
+          ]
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @aws-sdk/client-lambda @aws-sdk/client-secrets-manager @libreworks/db-provision-pgsql @types/aws-lambda @types/jest @types/node @types/pg @typescript-eslint/eslint-plugin @typescript-eslint/parser commit-and-tag-version esbuild eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii mysql2 pg prettier projen ts-jest ts-node typescript yaml aws-cdk-lib constructs"
+          "execArgs": [
+            "yarn",
+            "upgrade",
+            "@aws-sdk/client-lambda",
+            "@aws-sdk/client-secrets-manager",
+            "@libreworks/db-provision-pgsql",
+            "@types/aws-lambda",
+            "@types/jest",
+            "@types/node",
+            "@types/pg",
+            "@typescript-eslint/eslint-plugin",
+            "@typescript-eslint/parser",
+            "commit-and-tag-version",
+            "esbuild",
+            "eslint-config-prettier",
+            "eslint-import-resolver-typescript",
+            "eslint-plugin-import",
+            "eslint-plugin-prettier",
+            "eslint",
+            "jest",
+            "jest-junit",
+            "jsii-diff",
+            "jsii-docgen",
+            "jsii-pacmak",
+            "jsii-rosetta",
+            "jsii",
+            "mysql2",
+            "pg",
+            "prettier",
+            "projen",
+            "ts-jest",
+            "ts-node",
+            "typescript",
+            "yaml",
+            "aws-cdk-lib",
+            "constructs"
+          ]
         },
         {
           "exec": "npx projen"
@@ -388,9 +477,6 @@
         }
       ]
     }
-  },
-  "env": {
-    "PATH": "$(npx -c \"node --print process.env.PATH\")"
   },
   "//": "~~ Generated by projen. To modify, edit .projenrc.ts and run \"npx projen\"."
 }

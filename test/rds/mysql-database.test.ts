@@ -99,7 +99,7 @@ describe("MysqlDatabase", () => {
           },
         },
         Handler: "index.handler",
-        Runtime: "nodejs22.x",
+        Runtime: "nodejs24.x",
         Timeout: 120,
         VpcConfig: {
           SecurityGroupIds: [
@@ -179,7 +179,7 @@ describe("MysqlDatabase", () => {
           },
         },
         Handler: "index.handler",
-        Runtime: "nodejs22.x",
+        Runtime: "nodejs24.x",
         Timeout: 120,
         VpcConfig: {
           SecurityGroupIds: [
@@ -284,7 +284,7 @@ describe("MysqlDatabase", () => {
           },
         },
         Handler: "index.handler",
-        Runtime: "nodejs22.x",
+        Runtime: "nodejs24.x",
         Timeout: 120,
         VpcConfig: {
           SecurityGroupIds: [

@@ -1,10 +1,15 @@
 import { awscdk, github, javascript } from "projen";
 
+const awsSdkLibs = [
+  "@aws-sdk/client-lambda",
+  "@aws-sdk/client-secrets-manager",
+];
 const handlerLibs = ["@libreworks/db-provision-pgsql", "mysql2", "pg"];
 
 const project = new awscdk.AwsCdkConstructLibrary({
   name: "shady-island",
   projenrcTs: true,
+  packageManager: javascript.NodePackageManager.YARN_CLASSIC,
 
   description: "Utilities and constructs for the AWS CDK",
   author: "LibreWorks Contributors",
@@ -40,7 +45,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
-  cdkVersion: "2.177.0",
+  cdkVersion: "2.224.0",
   majorVersion: 0,
   jsiiVersion: "~5.9.0",
 
@@ -66,11 +71,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
   devDeps: [
     "@types/aws-lambda",
     "@types/pg",
-    "@aws-sdk/client-lambda",
-    "@aws-sdk/client-secrets-manager",
     "yaml",
+    ...awsSdkLibs,
     ...handlerLibs,
   ],
+
+  workflowNodeVersion: "24",
+  workflowPackageCache: true,
 });
 
 const docgenTask = project.tasks.tryFind("docgen");
@@ -89,7 +96,7 @@ const pythonHandlersTask = project.addTask("python-handlers", {
 });
 project.projectBuild.preCompileTask.spawn(pythonHandlersTask);
 
-project.package.file.addOverride("bundledDeps", handlerLibs);
+project.package.addField("bundledDeps", handlerLibs);
 
 // All of the AWS Lambda handlers.
 project.bundler.addBundle("src/vpc/assign-on-launch.handler.js", {
@@ -105,13 +112,9 @@ const handlers = [
 ];
 for (const handler of handlers) {
   project.bundler.addBundle(handler, {
-    target: "node22",
+    target: "node24",
     platform: "node",
-    externals: [
-      "pg-native",
-      "@aws-sdk/client-secrets-manager",
-      "@aws-sdk/client-lambda",
-    ],
+    externals: ["pg-native", ...awsSdkLibs],
     watchTask: false,
   });
 }

@@ -17,7 +17,7 @@ describe("FunctionCodeUpdater", () => {
     stack = new Stack(app, "Stack");
     bucket = new Bucket(stack, "Bucket");
     target = new Function(stack, "Target", {
-      runtime: Runtime.NODEJS_22_X,
+      runtime: Runtime.NODEJS_24_X,
       code: Code.fromInline(
         "module.exports = { handler: function() { console.log('hello world'); } };"
       ),
@@ -147,7 +147,7 @@ describe("FunctionCodeUpdater", () => {
           },
         },
         Handler: "index.handler",
-        Runtime: "nodejs22.x",
+        Runtime: "nodejs24.x",
         Timeout: 30,
       });
       template.hasResourceProperties("AWS::IAM::Policy", {
