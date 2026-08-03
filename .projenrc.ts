@@ -21,7 +21,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   bugsUrl: "https://github.com/libreworks/shady-island/issues",
 
   prettier: true,
-  compat: true,
   lambdaAutoDiscover: false,
   codeCov: true,
 
