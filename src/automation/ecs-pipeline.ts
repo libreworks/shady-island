@@ -1,6 +1,11 @@
 import * as path from "path";
 import { Duration } from "aws-cdk-lib";
-import { Artifact, Pipeline, PipelineType } from "aws-cdk-lib/aws-codepipeline";
+import {
+  Artifact,
+  Pipeline,
+  PipelineType,
+  StageProps,
+} from "aws-cdk-lib/aws-codepipeline";
 import {
   EcrSourceAction,
   EcsDeployAction,
@@ -32,8 +37,15 @@ export interface ContainerImagePipelineProps {
 
   /**
    * The ECS service to update when an image is pushed to the ECR repository.
+   *
+   * @deprecated - Use services instead
    */
-  readonly service: IBaseService;
+  readonly service?: IBaseService;
+
+  /**
+   * The services receiving the deployment.
+   */
+  readonly services?: IBaseService[];
 
   /**
    * The name of the container in the task definition to update.
@@ -60,6 +72,54 @@ export interface ContainerImagePipelineProps {
    * @default - A new bucket will be created
    */
   readonly artifactBucket?: IBucket;
+
+  /**
+   * A stage to run immediately before the deployment.
+   *
+   * This allows you to introduce an approval gate or prerequisite step before
+   * the replacement ECS Task launches. For example: a database schema change.
+   *
+   * This property is a more convenient syntax to:
+   *
+   * ```typescript
+   * const migrateStage = pipeline.addStage({
+   *   stageName: "Migrate",
+   *   placement: { rightBefore: pipeline.stage("Deploy") },
+   * });
+   * migrateStage.addAction(
+   *   new StepFunctionInvokeAction({
+   *     stateMachine: stateMachine,
+   *     actionName: "Migrate",
+   *     runOrder: 1,
+   *   })
+   * );
+   * ```
+   */
+  readonly preDeployStage?: StageProps;
+
+  /**
+   * A stage to run immediately after the deployment.
+   *
+   * This allows you to introduce a finalization or verification step after the
+   * replacement ECS Task launched. For example: a success SNS message.
+   *
+   * This property is a more convenient syntax to:
+   *
+   * ```typescript
+   * const migrateStage = pipeline.addStage({
+   *   stageName: "Validate",
+   *   placement: { rightAfter: pipeline.stage("Deploy") },
+   * });
+   * migrateStage.addAction(
+   *   new StepFunctionInvokeAction({
+   *     stateMachine: stateMachine,
+   *     actionName: "Validate",
+   *     runOrder: 1,
+   *   })
+   * );
+   * ```
+   */
+  readonly postDeployStage?: StageProps;
 }
 
 /**
@@ -91,6 +151,7 @@ export class ContainerImagePipeline extends Construct {
     super(scope, id);
     const {
       service,
+      services = [],
       container,
       repository,
       tag = "latest",
@@ -98,10 +159,19 @@ export class ContainerImagePipeline extends Construct {
       artifactBucket,
     } = props;
 
+    const targets: IBaseService[] = [];
+    if (service) {
+      targets.push(service);
+    }
+    targets.push(...services);
+    if (targets.length < 1) {
+      throw new Error("You must specify at least one target ECS service");
+    }
+
     const transformerFunction = new SingletonFunction(this, "Transformer", {
       uuid: "76208d72-6a58-47de-b611-75e2f58ad601",
       lambdaPurpose: "EcsJsonTransform",
-      runtime: Runtime.PYTHON_3_12,
+      runtime: Runtime.PYTHON_3_13,
       handler: "index.lambda_handler",
       description:
         "Transforms the imageDetail.json from ECR into imagedefinitions.json for ECS",
@@ -112,45 +182,70 @@ export class ContainerImagePipeline extends Construct {
     const sourceArtifact = new Artifact();
     const buildArtifact = new Artifact();
 
+    const deployStageActions: EcsDeployAction[] = [];
+    if (targets.length === 1) {
+      deployStageActions.push(
+        new EcsDeployAction({
+          actionName: "Update-ECS-Service",
+          input: buildArtifact,
+          service: targets[0],
+        })
+      );
+    } else {
+      for (const [index, svc] of targets.entries()) {
+        deployStageActions.push(
+          new EcsDeployAction({
+            actionName: `Update-ECS-Service-${index + 1}`,
+            input: buildArtifact,
+            service: svc,
+            runOrder: index + 1,
+          })
+        );
+      }
+    }
+
+    const stages: StageProps[] = [
+      {
+        stageName: "Source",
+        actions: [
+          new EcrSourceAction({
+            output: sourceArtifact,
+            actionName: "Receive-ECR-Notice",
+            imageTag: tag,
+            repository,
+          }),
+        ],
+      },
+      {
+        stageName: "Transform",
+        actions: [
+          new LambdaInvokeAction({
+            userParameters: { OutputContainerName: container },
+            actionName: "Produce-imagedefinitions.json",
+            lambda: transformerFunction,
+            inputs: [sourceArtifact],
+            outputs: [buildArtifact],
+          }),
+        ],
+      },
+    ];
+
+    if (props.preDeployStage) {
+      stages.push(props.preDeployStage);
+    }
+    stages.push({
+      stageName: "Deploy",
+      actions: deployStageActions,
+    });
+    if (props.postDeployStage) {
+      stages.push(props.postDeployStage);
+    }
+
     this.pipeline = new Pipeline(this, "Pipeline", {
       crossAccountKeys: false,
       pipelineType,
       artifactBucket,
-      stages: [
-        {
-          stageName: "Source",
-          actions: [
-            new EcrSourceAction({
-              output: sourceArtifact,
-              actionName: "Receive-ECR-Notice",
-              imageTag: tag,
-              repository,
-            }),
-          ],
-        },
-        {
-          stageName: "Transform",
-          actions: [
-            new LambdaInvokeAction({
-              userParameters: { OutputContainerName: container },
-              actionName: "Produce-imagedefinitions.json",
-              lambda: transformerFunction,
-              inputs: [sourceArtifact],
-              outputs: [buildArtifact],
-            }),
-          ],
-        },
-        {
-          stageName: "Deploy",
-          actions: [
-            new EcsDeployAction({
-              actionName: "Update-ECS-Service",
-              input: buildArtifact,
-              service: service,
-            }),
-          ],
-        },
-      ],
+      stages,
     });
   }
 }
