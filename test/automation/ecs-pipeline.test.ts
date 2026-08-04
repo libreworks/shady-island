@@ -233,7 +233,7 @@ describe("ContainerImagePipeline", () => {
                   "Arn",
                 ],
               },
-              RunOrder: 2,
+              RunOrder: 1,
             },
           ],
           Name: "Deploy",
@@ -261,6 +261,165 @@ describe("ContainerImagePipeline", () => {
             },
           ],
           Name: "Verify",
+        },
+      ],
+    });
+    template.hasResourceProperties("AWS::Lambda::Function", {
+      Role: {
+        "Fn::GetAtt": [
+          "EcsJsonTransform76208d726a5847deb61175e2f58ad601ServiceRoleA8D909D4",
+          "Arn",
+        ],
+      },
+      Description:
+        "Transforms the imageDetail.json from ECR into imagedefinitions.json for ECS",
+      Handler: "index.lambda_handler",
+      Runtime: "python3.13",
+      Timeout: 60,
+    });
+  });
+
+  test("synthesizes the template as expected with linear services", () => {
+    const cluster = new Cluster(stack, "Cluster", {
+      vpc,
+      enableFargateCapacityProviders: true,
+    });
+    const taskDefinition = new FargateTaskDefinition(stack, "TaskDef", {});
+    const container = "Foo";
+    taskDefinition.addContainer(container, {
+      image: ContainerImage.fromRegistry("node:20"),
+    });
+    const service1 = new FargateService(stack, "ServiceOne", {
+      cluster,
+      taskDefinition,
+    });
+    const service2 = new FargateService(stack, "ServiceTwo", {
+      cluster,
+      taskDefinition,
+    });
+
+    new ContainerImagePipeline(stack, "Deploy", {
+      repository,
+      services: [service1, service2],
+      parallel: false,
+      container,
+    });
+
+    const template = Template.fromStack(stack);
+
+    template.hasResourceProperties("AWS::CodePipeline::Pipeline", {
+      Stages: [
+        {
+          Actions: [
+            {
+              ActionTypeId: {
+                Category: "Source",
+                Owner: "AWS",
+                Provider: "ECR",
+                Version: "1",
+              },
+              Configuration: {
+                RepositoryName: { Ref: "Repo02AC86CF" },
+                ImageTag: "latest",
+              },
+              Name: "Receive-ECR-Notice",
+              OutputArtifacts: [{ Name: "Artifact_Source_Receive-ECR-Notice" }],
+              RoleArn: {
+                "Fn::GetAtt": [
+                  "DeployPipelineSourceReceiveECRNoticeCodePipelineActionRole1BE8D18F",
+                  "Arn",
+                ],
+              },
+              RunOrder: 1,
+            },
+          ],
+          Name: "Source",
+        },
+        {
+          Actions: [
+            {
+              ActionTypeId: {
+                Category: "Invoke",
+                Owner: "AWS",
+                Provider: "Lambda",
+                Version: "1",
+              },
+              Configuration: {
+                FunctionName: {
+                  Ref: "EcsJsonTransform76208d726a5847deb61175e2f58ad6019D3A8F4F",
+                },
+                UserParameters: `{"OutputContainerName":"${container}"}`,
+              },
+              InputArtifacts: [{ Name: "Artifact_Source_Receive-ECR-Notice" }],
+              Name: "Produce-imagedefinitions.json",
+              OutputArtifacts: [
+                { Name: "Artifact_Transform_Produce-imagedefinitionsjson" },
+              ],
+              RoleArn: {
+                "Fn::GetAtt": [
+                  "DeployPipelineTransformProduceimagedefinitionsjsonCodePipelineActionRoleF90EEABB",
+                  "Arn",
+                ],
+              },
+              RunOrder: 1,
+            },
+          ],
+          Name: "Transform",
+        },
+        {
+          Actions: [
+            {
+              ActionTypeId: {
+                Category: "Deploy",
+                Owner: "AWS",
+                Provider: "ECS",
+                Version: "1",
+              },
+              Configuration: {
+                ClusterName: { Ref: "ClusterEB0386A7" },
+                ServiceName: {
+                  "Fn::GetAtt": ["ServiceOneService5E70B011", "Name"],
+                },
+              },
+              InputArtifacts: [
+                { Name: "Artifact_Transform_Produce-imagedefinitionsjson" },
+              ],
+              Name: "Update-ECS-Service-1",
+              RoleArn: {
+                "Fn::GetAtt": [
+                  "DeployPipelineDeployUpdateECSService1CodePipelineActionRole8E7A6018",
+                  "Arn",
+                ],
+              },
+              RunOrder: 1,
+            },
+            {
+              ActionTypeId: {
+                Category: "Deploy",
+                Owner: "AWS",
+                Provider: "ECS",
+                Version: "1",
+              },
+              Configuration: {
+                ClusterName: { Ref: "ClusterEB0386A7" },
+                ServiceName: {
+                  "Fn::GetAtt": ["ServiceTwoServiceFE0914B5", "Name"],
+                },
+              },
+              InputArtifacts: [
+                { Name: "Artifact_Transform_Produce-imagedefinitionsjson" },
+              ],
+              Name: "Update-ECS-Service-2",
+              RoleArn: {
+                "Fn::GetAtt": [
+                  "DeployPipelineDeployUpdateECSService2CodePipelineActionRole5D2EAFFC",
+                  "Arn",
+                ],
+              },
+              RunOrder: 2,
+            },
+          ],
+          Name: "Deploy",
         },
       ],
     });

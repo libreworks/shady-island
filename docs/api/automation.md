@@ -1331,6 +1331,7 @@ const containerImagePipelineProps: automation.ContainerImagePipelineProps = { ..
 | <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.container">container</a></code> | <code>string</code> | The name of the container in the task definition to update. |
 | <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.repository">repository</a></code> | <code>aws-cdk-lib.aws_ecr.IRepository</code> | The ECR repository where images will be pushed. |
 | <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.artifactBucket">artifactBucket</a></code> | <code>aws-cdk-lib.aws_s3.IBucket</code> | A custom bucket for artifacts. |
+| <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.parallel">parallel</a></code> | <code>boolean</code> | Whether to deploy all services at the same time. |
 | <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.pipelineType">pipelineType</a></code> | <code>aws-cdk-lib.aws_codepipeline.PipelineType</code> | The pipeline type (V1 or V2). |
 | <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.postDeployStage">postDeployStage</a></code> | <code>aws-cdk-lib.aws_codepipeline.StageProps</code> | A stage to run immediately after the deployment. |
 | <code><a href="#shady-island.automation.ContainerImagePipelineProps.property.preDeployStage">preDeployStage</a></code> | <code>aws-cdk-lib.aws_codepipeline.StageProps</code> | A stage to run immediately before the deployment. |
@@ -1374,6 +1375,19 @@ public readonly artifactBucket: IBucket;
 - *Default:* A new bucket will be created
 
 A custom bucket for artifacts.
+
+---
+
+##### `parallel`<sup>Optional</sup> <a name="parallel" id="shady-island.automation.ContainerImagePipelineProps.property.parallel"></a>
+
+```typescript
+public readonly parallel: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Whether to deploy all services at the same time.
 
 ---
 
