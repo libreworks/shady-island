@@ -48,6 +48,13 @@ export interface ContainerImagePipelineProps {
   readonly services?: IBaseService[];
 
   /**
+   * Whether to deploy all services at the same time.
+   *
+   * @default - true
+   */
+  readonly parallel?: boolean;
+
+  /**
    * The name of the container in the task definition to update.
    */
   readonly container: string;
@@ -155,6 +162,7 @@ export class ContainerImagePipeline extends Construct {
       container,
       repository,
       tag = "latest",
+      parallel = true,
       pipelineType,
       artifactBucket,
     } = props;
@@ -198,7 +206,7 @@ export class ContainerImagePipeline extends Construct {
             actionName: `Update-ECS-Service-${index + 1}`,
             input: buildArtifact,
             service: svc,
-            runOrder: index + 1,
+            runOrder: parallel ? 1 : index + 1,
           })
         );
       }
