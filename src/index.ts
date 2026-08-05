@@ -5,6 +5,7 @@ export * from "./ec2";
 export * from "./ecs";
 export * from "./ecs-patterns";
 export * from "./efs";
+export * as fn from "./fn";
 export * as networking from "./networking";
 export * from "./rds";
 export * as servers from "./servers";

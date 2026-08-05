@@ -6,6 +6,7 @@ The following submodules are available:
 
 - [automation](./automation.md)
 - [configuration](./configuration.md)
+- [fn](./fn.md)
 - [networking](./networking.md)
 - [servers](./servers.md)
 
