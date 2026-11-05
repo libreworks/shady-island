@@ -2465,10 +2465,10 @@ const crossAccountDelegationDomainProps: networking.CrossAccountDelegationDomain
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.delegationRole">delegationRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The delegation role in the parent account. |
+| <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.parentHostedZoneName">parentHostedZoneName</a></code> | <code>string</code> | The hosted zone name in the parent account. |
 | <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.subdomain">subdomain</a></code> | <code>string</code> | The subdomain in the parent hosted zone. |
 | <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.assumeRoleRegion">assumeRoleRegion</a></code> | <code>string</code> | Region from which to obtain temporary credentials. |
 | <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.parentHostedZoneId">parentHostedZoneId</a></code> | <code>string</code> | The hosted zone id in the parent account. |
-| <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.parentHostedZoneName">parentHostedZoneName</a></code> | <code>string</code> | The hosted zone name in the parent account. |
 | <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.removalPolicy">removalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | The removal policy to apply. |
 | <code><a href="#shady-island.networking.CrossAccountDelegationDomainProps.property.ttl">ttl</a></code> | <code>aws-cdk-lib.Duration</code> | The resource record cache time to live (TTL). |
 
@@ -2483,6 +2483,18 @@ public readonly delegationRole: IRole;
 - *Type:* aws-cdk-lib.aws_iam.IRole
 
 The delegation role in the parent account.
+
+---
+
+##### `parentHostedZoneName`<sup>Required</sup> <a name="parentHostedZoneName" id="shady-island.networking.CrossAccountDelegationDomainProps.property.parentHostedZoneName"></a>
+
+```typescript
+public readonly parentHostedZoneName: string;
+```
+
+- *Type:* string
+
+The hosted zone name in the parent account.
 
 ---
 
@@ -2521,19 +2533,6 @@ public readonly parentHostedZoneId: string;
 - *Default:* hosted zone ID will be looked up based on the zone name
 
 The hosted zone id in the parent account.
-
----
-
-##### `parentHostedZoneName`<sup>Optional</sup> <a name="parentHostedZoneName" id="shady-island.networking.CrossAccountDelegationDomainProps.property.parentHostedZoneName"></a>
-
-```typescript
-public readonly parentHostedZoneName: string;
-```
-
-- *Type:* string
-- *Default:* no zone name
-
-The hosted zone name in the parent account.
 
 ---
 
@@ -2866,7 +2865,7 @@ public readonly elasticIp: IElasticIp;
 
 An Elastic IP Address to associate with this Network Interface.
 
-Provding an Elastic IP
+This construct handles the association between the ENI and the EIP.
 
 ---
 
@@ -4002,7 +4001,7 @@ public toString(): string
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#shady-island.networking.Address.anyIpv4">anyIpv4</a></code> | Creates an address that represents the entire IPv4 addressing space. |
-| <code><a href="#shady-island.networking.Address.anyIpv6">anyIpv6</a></code> | Creates an address that represents the entire IPv4 addressing space. |
+| <code><a href="#shady-island.networking.Address.anyIpv6">anyIpv6</a></code> | Creates an address that represents the entire IPv6 addressing space. |
 | <code><a href="#shady-island.networking.Address.ipv4">ipv4</a></code> | Creates an IPv4 network address (either a single address or a range). |
 | <code><a href="#shady-island.networking.Address.ipv6">ipv6</a></code> | Creates an IPv6 network address (either a single address or a range). |
 
@@ -4026,7 +4025,7 @@ import { networking } from 'shady-island'
 networking.Address.anyIpv6()
 ```
 
-Creates an address that represents the entire IPv4 addressing space.
+Creates an address that represents the entire IPv6 addressing space.
 
 ##### `ipv4` <a name="ipv4" id="shady-island.networking.Address.ipv4"></a>
 

@@ -217,9 +217,11 @@ export interface LinuxDockerBuildProjectProps extends CommonDockerProps {
  *
  * This project accepts the following optional environment variables:
  *
- * - IMAGE_LABELS: JSON-formatted object of container labels and their values.
- * - BUILD_ARGS: JSON-formatted object of build arguments and their values.
- * - IMAGE_TAG: Optional. The image tag (e.g. Git commit ID) (default: build
+ * - `IMAGE_LABELS`: JSON array of `KEY=value` strings for container labels and
+ *    their values.
+ * - `BUILD_ARGS`: JSON array of `KEY=value` strinsg for build arguments and
+ *    their values.
+ * - `IMAGE_TAG`: Optional. The image tag (e.g. Git commit ID) (default: build
  *   number).
  */
 export class LinuxDockerBuildProject extends BaseDockerProject {

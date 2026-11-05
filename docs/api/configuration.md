@@ -91,7 +91,6 @@ public readonly priority: number;
 ```
 
 - *Type:* number
-- *Default:* 10
 
 The priority for the script added by this add-on.
 
@@ -256,7 +255,6 @@ public readonly priority: number;
 ```
 
 - *Type:* number
-- *Default:* 10
 
 The priority for the script added by this add-on.
 
@@ -291,7 +289,6 @@ public readonly priority: number;
 ```
 
 - *Type:* number
-- *Default:* 10
 
 The priority for the script added by this add-on.
 

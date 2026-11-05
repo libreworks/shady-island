@@ -2,10 +2,105 @@
 
 This section explains the constructs we created for automation and deployments.
 
+- CodeBuild
+  - `LinuxDockerBuildProject` – Builds a Docker container image and pushes it to ECR
+  - `LinuxDockerManifestProject` – Pushes a multi-architecture Docker manifest to ECR
 - Elastic Container Service (ECS)
   - `ContainerImagePipeline` – Deploy new ECR images to ECS using CodePipline
 - Lambda
   - `FunctionCodeUpdater` – Calls `lambda:UpdateFunctionCode` when a new code version is uploaded to an S3 bucket
+
+## CodeBuild
+
+This section explains the automation-related constructs for CodeBuild.
+
+Each of these constructs creates a CodeBuild project (accessible as the `project` property) and a CloudWatch log group (accessible as the `logGroup` property) that keeps logs for three months by default. The project has permission to pull from and push to the ECR repository you provide. You can run the project in a VPC using the `vpc`, `subnetSelection`, and `securityGroups` properties.
+
+The projects are meant to be used in CodePipeline as a `CodeBuildAction`.
+
+### LinuxDockerBuildProject
+
+The `LinuxDockerBuildProject` construct creates a CodeBuild project that builds a Docker container image and pushes it to an ECR repository. The build:
+
+1. Logs in to ECR
+1. Builds the image, labeled with its creation time and tagged with `$IMAGE_TAG` (or the CodeBuild build number, if `IMAGE_TAG` is empty)
+1. Runs any test commands you provide
+1. Pushes the image tag to ECR
+1. Tags the image as `latest` and pushes that, too (unless `pushLatest` is `false`)
+
+```typescript
+import { Repository } from "aws-cdk-lib/aws-ecr";
+import { LinuxDockerBuildProject } from "shady-island/lib/automation";
+
+declare const repository: Repository;
+
+const build = new LinuxDockerBuildProject(stack, "Build", {
+  repository,
+  dockerfile: "docker/Dockerfile",
+  buildDirectory: "app",
+  enableCache: true,
+  testCommands: ['docker run --rm "$AWS_ECR_URL:$IMAGE_TAG" npm test'],
+});
+// build.project instanceof PipelineProject
+```
+
+If you set `enableCache` to `true`, the build pulls the `latest` image first and uses it as a layer cache.
+
+The project also accepts these optional environment variables, which you can set on the `CodeBuildAction`:
+
+- `IMAGE_TAG` – The image tag (e.g. the Git commit ID)
+- `BUILD_ARGS` – A JSON array of build arguments (e.g. `["NODE_ENV=production"]`)
+- `IMAGE_LABELS` – A JSON array of container labels (e.g. `["org.opencontainers.image.revision=abc123"]`)
+
+```typescript
+import { CodeBuildAction } from "aws-cdk-lib/aws-codepipeline-actions";
+
+declare const source: Artifact;
+
+new CodeBuildAction({
+  actionName: "Build",
+  project: build.project,
+  input: source,
+  environmentVariables: {
+    IMAGE_TAG: { value: "#{SourceVariables.CommitId}" },
+  },
+});
+```
+
+The default build image is CodeBuild's standard Linux image, which runs on x86-64. To build an image for ARM, supply an ARM build image (e.g. `LinuxArmBuildImage.AMAZON_LINUX_2_STANDARD_3_0`).
+
+### LinuxDockerManifestProject
+
+The `LinuxDockerManifestProject` construct creates a CodeBuild project that combines several images into one multi-architecture image. For example, if you build one image for x86-64 and another for ARM, you can push a manifest list so that `docker pull` chooses the correct image for each host.
+
+The `tagVariableNames` property lists the names of environment variables. Each one contains the tag of an image to include. The project pushes the manifest with the `latest` tag (or the value of `$LATEST_TAG`), plus `$MANIFEST_CUSTOM_TAG` if it's set.
+
+```typescript
+import { Repository } from "aws-cdk-lib/aws-ecr";
+import { CodeBuildAction } from "aws-cdk-lib/aws-codepipeline-actions";
+import { LinuxDockerManifestProject } from "shady-island/lib/automation";
+
+declare const repository: Repository;
+declare const source: Artifact;
+
+const manifest = new LinuxDockerManifestProject(stack, "Manifest", {
+  repository,
+  tagVariableNames: ["AMD64_TAG", "ARM64_TAG"],
+});
+
+new CodeBuildAction({
+  actionName: "Manifest",
+  project: manifest.project,
+  input: source,
+  environmentVariables: {
+    AMD64_TAG: { value: "#{SourceVariables.CommitId}-amd64" },
+    ARM64_TAG: { value: "#{SourceVariables.CommitId}-arm64" },
+    MANIFEST_CUSTOM_TAG: { value: "#{SourceVariables.CommitId}" },
+  },
+});
+```
+
+If you want to build your own Docker project with a custom build spec, you can extend the `BaseDockerProject` class.
 
 ## Elastic Container Service (ECS)
 
