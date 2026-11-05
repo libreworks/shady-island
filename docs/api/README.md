@@ -6678,7 +6678,7 @@ Used to specify and transform output from the state.
 When specified, the value overrides the state output default.
 The output field accepts any JSON value (object, array, string, number, boolean, null).
 Any string value, including those inside objects or arrays,
-will be evaluated as JSONata if surrounded by {% %} characters.
+will be evaluated as JSONata if surrounded by &#123;% %} characters.
 Output also accepts a JSONata expression directly.
 
 > [https://docs.aws.amazon.com/step-functions/latest/dg/concepts-input-output-filtering.html](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-input-output-filtering.html)

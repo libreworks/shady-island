@@ -84,6 +84,12 @@ if (docgenTask) {
   docgenTask.reset(
     "jsii-docgen .jsii -o docs/api/README.md --split-by-submodule"
   );
+
+  // Escape Liquid delimiters copied from upstream doc comments; GitHub Pages
+  // runs Jekyll, which fails on things like "{% %}".
+  docgenTask.exec(
+    "perl -pi -e 's/\\{%/&#123;%/g; s/\\{\\{/&#123;&#123;/g' docs/api/*.md"
+  );
 }
 
 const pythonHandlersTask = project.addTask("python-handlers", {
