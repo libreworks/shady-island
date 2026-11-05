@@ -108,8 +108,10 @@ const handler: Handler = async () => {
     console.log(`User created: ${login.username}`);
   }
 
-  const adminRole = new Role(`${databaseName}_${schemaName}_adm`);
-  const readerRole = new Role(`${databaseName}_${schemaName}_ro`);
+  // The schema is named after its owner unless a name was provided.
+  const resolvedSchemaName = schemaName || schemaOwnerSecret.username;
+  const adminRole = new Role(`${databaseName}_${resolvedSchemaName}_adm`);
+  const readerRole = new Role(`${databaseName}_${resolvedSchemaName}_ro`);
   // Here is the next network request:
   // Create roles for our admin users and read-only users.
   for (const role of [adminRole, readerRole]) {
@@ -139,6 +141,16 @@ const handler: Handler = async () => {
     console.log("Privileges granted");
   }
 
+  // Here are the next set of network requests:
+  // Role memberships need ADMIN OPTION on the role, which the admin user has
+  // because it created the roles. The schema owner doesn't.
+  const admins = ownerSecrets.map((secret) => loginMap.get(secret)!);
+  const readers = readerSecrets.map((secret) => loginMap.get(secret)!);
+  console.log(`About to grant membership in role: ${adminRole.name}`);
+  await serverClient.createMemberships(adminRole, admins);
+  console.log(`About to grant membership in role: ${readerRole.name}`);
+  await serverClient.createMemberships(readerRole, readers);
+
   console.log("About to close the connection");
   await client.end();
   console.log("Connection closed");
@@ -156,7 +168,7 @@ const handler: Handler = async () => {
   await schemaClient.connect();
 
   // Here is the next network request:
-  const schema = catalog.createSchema(schemaName || owner.username, owner);
+  const schema = catalog.createSchema(resolvedSchemaName, owner);
   console.log(
     `About to create schema: ${schema.name} (if it does not already exist)`
   );
@@ -166,15 +178,12 @@ const handler: Handler = async () => {
   await schemaClient.query(schema.changeOwner(owner).toSql());
   console.log(`Schema altered: ${schema.name}`);
 
-  const admins = ownerSecrets.map((secret) => loginMap.get(secret)!);
-  const readers = readerSecrets.map((secret) => loginMap.get(secret)!);
   // Here are the next set of network requests:
-  // Create the grants and default permissions for the owner secrets.
-  console.log(`About to create schema grants for admins`);
-  await databaseClient.createAdminGrants(schema, adminRole, admins);
-  // Create the grants and default permissions for the reader secrets.
-  console.log(`About to create schema grants for readers`);
-  await databaseClient.createReaderGrants(schema, readerRole, readers);
+  // Only the schema owner can grant schema privileges and default privileges.
+  console.log(`About to create schema grants for role: ${adminRole.name}`);
+  await databaseClient.createAdminGrants(schema, adminRole);
+  console.log(`About to create schema grants for role: ${readerRole.name}`);
+  await databaseClient.createReaderGrants(schema, readerRole);
 
   console.log("About to close the connection");
   await schemaClient.end();
