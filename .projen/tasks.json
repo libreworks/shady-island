@@ -253,6 +253,9 @@
       "steps": [
         {
           "exec": "jsii-docgen .jsii -o docs/api/README.md --split-by-submodule"
+        },
+        {
+          "exec": "perl -pi -e 's/\\{%/&#123;%/g; s/\\{\\{/&#123;&#123;/g' docs/api/*.md"
         }
       ]
     },
