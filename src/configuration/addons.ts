@@ -13,8 +13,6 @@ import { IStarterAddOn, Starter } from "./starter";
 export interface SinglePriorityProps {
   /**
    * The priority for the script added by this add-on.
-   *
-   * @default - 10
    */
   readonly priority?: number;
 }

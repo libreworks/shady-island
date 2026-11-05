@@ -54,10 +54,8 @@ export interface CrossAccountDelegationDomainProps {
 
   /**
    * The hosted zone name in the parent account.
-   *
-   * @default - no zone name
    */
-  readonly parentHostedZoneName?: string;
+  readonly parentHostedZoneName: string;
 
   /**
    * The hosted zone id in the parent account.

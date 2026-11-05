@@ -37,7 +37,7 @@
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
         "RELEASE_TAG_PREFIX": "",
-        "BUMP_PACKAGE": "commit-and-tag-version@^12"
+        "BUMP_PACKAGE": "commit-and-tag-version@^13"
       },
       "steps": [
         {
@@ -91,7 +91,18 @@
       "description": "Create a JavaScript bundle from ./src/automation/function-code-updater.handler",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/automation/function-code-updater.handler --target=\"node24\" --platform=\"node\" --outfile=\"assets/automation/function-code-updater/index.js\" --external:pg-native --external:@aws-sdk/client-lambda --external:@aws-sdk/client-secrets-manager"
+          "execArgs": [
+            "esbuild",
+            "--bundle",
+            "./src/automation/function-code-updater.handler",
+            "--target=node24",
+            "--platform=node",
+            "--outfile=assets/automation/function-code-updater/index.js",
+            "--packages=bundle",
+            "--external:pg-native",
+            "--external:@aws-sdk/client-lambda",
+            "--external:@aws-sdk/client-secrets-manager"
+          ]
         }
       ]
     },
@@ -100,7 +111,18 @@
       "description": "Create a JavaScript bundle from ./src/rds/triggers/mysql.handler",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/rds/triggers/mysql.handler --target=\"node24\" --platform=\"node\" --outfile=\"assets/rds/triggers/mysql/index.js\" --external:pg-native --external:@aws-sdk/client-lambda --external:@aws-sdk/client-secrets-manager"
+          "execArgs": [
+            "esbuild",
+            "--bundle",
+            "./src/rds/triggers/mysql.handler",
+            "--target=node24",
+            "--platform=node",
+            "--outfile=assets/rds/triggers/mysql/index.js",
+            "--packages=bundle",
+            "--external:pg-native",
+            "--external:@aws-sdk/client-lambda",
+            "--external:@aws-sdk/client-secrets-manager"
+          ]
         }
       ]
     },
@@ -109,7 +131,18 @@
       "description": "Create a JavaScript bundle from ./src/rds/triggers/pgsql.handler",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/rds/triggers/pgsql.handler --target=\"node24\" --platform=\"node\" --outfile=\"assets/rds/triggers/pgsql/index.js\" --external:pg-native --external:@aws-sdk/client-lambda --external:@aws-sdk/client-secrets-manager"
+          "execArgs": [
+            "esbuild",
+            "--bundle",
+            "./src/rds/triggers/pgsql.handler",
+            "--target=node24",
+            "--platform=node",
+            "--outfile=assets/rds/triggers/pgsql/index.js",
+            "--packages=bundle",
+            "--external:pg-native",
+            "--external:@aws-sdk/client-lambda",
+            "--external:@aws-sdk/client-secrets-manager"
+          ]
         }
       ]
     },
@@ -118,7 +151,16 @@
       "description": "Create a JavaScript bundle from src/vpc/assign-on-launch.handler.js",
       "steps": [
         {
-          "exec": "esbuild --bundle src/vpc/assign-on-launch.handler.js --target=\"node16\" --platform=\"node\" --outfile=\"assets/vpc/assign-on-launch.handler/index.js\" --external:aws-sdk"
+          "execArgs": [
+            "esbuild",
+            "--bundle",
+            "src/vpc/assign-on-launch.handler.js",
+            "--target=node16",
+            "--platform=node",
+            "--outfile=assets/vpc/assign-on-launch.handler/index.js",
+            "--packages=bundle",
+            "--external:aws-sdk"
+          ]
         }
       ]
     },
@@ -130,22 +172,35 @@
       },
       "steps": [
         {
-          "exec": "git checkout -b scratch",
+          "execArgs": [
+            "git",
+            "checkout",
+            "-b",
+            "scratch"
+          ],
           "name": "save current HEAD in \"scratch\" branch"
         },
         {
-          "exec": "git checkout $BRANCH"
+          "exec": "git checkout \"$BRANCH\""
         },
         {
-          "exec": "git fetch origin",
+          "execArgs": [
+            "git",
+            "fetch",
+            "origin"
+          ],
           "name": "fetch latest changes from origin"
         },
         {
-          "exec": "git reset --hard origin/$BRANCH",
+          "exec": "git reset --hard \"origin/$BRANCH\"",
           "name": "hard reset to origin commit"
         },
         {
-          "exec": "git clean -fdx",
+          "execArgs": [
+            "git",
+            "clean",
+            "-fdx"
+          ],
           "name": "clean all untracked files"
         },
         {
@@ -159,7 +214,13 @@
       "description": "Perform API compatibility check against latest version",
       "steps": [
         {
-          "exec": "jsii-diff npm:$(node -p \"require('./package.json').name\") -k --ignore-file .compatignore || (echo \"\nUNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .compatignore to skip.\n\" && exit 1)"
+          "execArgs": [
+            "jsii-diff",
+            "npm:shady-island",
+            "-k",
+            "--ignore-file",
+            ".compatignore"
+          ]
         }
       ]
     },
@@ -216,7 +277,19 @@
       },
       "steps": [
         {
-          "exec": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern $@ src test build-tools projenrc .projenrc.ts",
+          "execArgs": [
+            "eslint",
+            "--ext",
+            ".ts,.tsx",
+            "--fix",
+            "--no-error-on-unmatched-pattern",
+            "$@",
+            "src",
+            "test",
+            "build-tools",
+            "projenrc",
+            ".projenrc.ts"
+          ],
           "receiveArgs": true
         }
       ]
@@ -341,7 +414,11 @@
       },
       "steps": [
         {
-          "exec": "rm -fr dist"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "dist"
+          ]
         },
         {
           "spawn": "bump"
@@ -355,14 +432,19 @@
         {
           "exec": "git diff --ignore-space-at-eol --exit-code"
         }
-      ]
+      ],
+      "condition": "git log --oneline -1 | grep -v \"chore(release):\" > /dev/null"
     },
     "test": {
       "name": "test",
       "description": "Run tests",
       "steps": [
         {
-          "exec": "jest --passWithNoTests --updateSnapshot",
+          "execArgs": [
+            "jest",
+            "--passWithNoTests",
+            "--updateSnapshot"
+          ],
           "receiveArgs": true
         },
         {
@@ -375,7 +457,10 @@
       "description": "Run jest in watch mode",
       "steps": [
         {
-          "exec": "jest --watch"
+          "execArgs": [
+            "jest",
+            "--watch"
+          ]
         }
       ]
     },
@@ -388,7 +473,7 @@
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
         "RELEASE_TAG_PREFIX": "",
-        "BUMP_PACKAGE": "commit-and-tag-version@^12"
+        "BUMP_PACKAGE": "commit-and-tag-version@^13"
       },
       "steps": [
         {

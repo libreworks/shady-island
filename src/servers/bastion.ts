@@ -191,6 +191,11 @@ export class UbuntuLinuxBastion
   public readonly firewall: IFirewallRules;
 
   /**
+   * Whether IPv6 is enabled.
+   */
+  private readonly ipv6: boolean;
+
+  /**
    * A bastion host running Ubuntu GNU/Linux.
    *
    * @param scope - The scope in which to define this construct.
@@ -210,6 +215,8 @@ export class UbuntuLinuxBastion
       ubuntuVersion = "24.04",
       volumeSize = 10,
     } = props;
+
+    this.ipv6 = Boolean(enableIpv6);
 
     const role =
       props.role ??
@@ -377,7 +384,10 @@ export class UbuntuLinuxBastion
    * @param peer - The peer or peers to allow
    */
   public allowSshAccessFrom(...peer: IPeer[]): void {
-    this.firewall.inboundFromAnyIpv4(Port.SSH).inboundFromAnyIpv6(Port.SSH);
+    this.firewall.inboundFromAnyIpv4(Port.SSH);
+    if (this.ipv6) {
+      this.firewall.inboundFromAnyIpv6(Port.SSH);
+    }
     peer.forEach((p) => {
       this.autoScalingGroup.connections.allowFrom(p, Port.SSH, "SSH access");
     });

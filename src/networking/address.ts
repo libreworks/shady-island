@@ -38,9 +38,9 @@ export class Address {
   }
 
   /**
-   * Creates an address that represents the entire IPv4 addressing space.
+   * Creates an address that represents the entire IPv6 addressing space.
    *
-   * @returns The IPv4 network address
+   * @returns The IPv6 network address
    */
   public static anyIpv6() {
     return new Address(ANY_IPV6, 6);

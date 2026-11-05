@@ -11,9 +11,13 @@ For your reading pleasure.
 - [Core](core.md) – The main classes and constructs of this library
 - [Automation](automation.md) - Constructs dealing with automation and deployment
 - [CloudWatch](cloudwatch.md) – Constructs dealing with CloudWatch Metrics and Logs
+- [Configuration](configuration.md) – Classes dealing with EC2 instance startup configuration
 - [EC2](ec2.md) – Constructs dealing with EC2-related concepts
 - [EFS](efs.md) – Constructs dealing with EFS
+- [Lambda](fn.md) – Constructs dealing with Lambda functions
+- [Networking](networking.md) – Constructs dealing with IP addresses, network interfaces, domains, and load balancers
 - [RDS](rds.md) – Constructs dealing with RDS
+- [Servers](servers.md) – Constructs dealing with ready-to-use servers
 - [VPC](vpc.md) – Constructs dealing with VPC-related concepts
 
 ### API

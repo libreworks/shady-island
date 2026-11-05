@@ -266,7 +266,7 @@ export interface NetworkInterfaceProps {
   /**
    * An Elastic IP Address to associate with this Network Interface.
    *
-   * Provding an Elastic IP
+   * This construct handles the association between the ENI and the EIP.
    */
   readonly elasticIp?: IElasticIp;
 
@@ -337,7 +337,7 @@ export class NetworkInterface extends Resource implements INetworkInterface {
   public readonly ipv6Address: string;
 
   /**
-   * Creates a new Example.
+   * Creates a new NetworkInterface.
    *
    * @param scope - The scope in which to define this construct.
    * @param id - The scoped construct ID.
